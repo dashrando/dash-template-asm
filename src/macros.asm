@@ -32,3 +32,36 @@ pushpc
                 LDA.w #<id> : JMP.w HiddenItemSetup
 pullpc
 endmacro
+
+; Credits
+
+macro row1(index)
+    dw !draw, !row*<index>
+    dw !draw, !blank
+endmacro
+
+macro row2(index_a,index_b)
+    dw !draw, !row*<index_a>
+    dw !draw, !row*<index_b>
+    dw !draw, !blank
+endmacro
+
+macro blank_row()
+    dw !draw, !blank
+endmacro
+
+macro font1(str,color)
+    pushtable
+    table "data/<color>_single.tbl",rtl
+    dw "<str>"
+    pulltable
+endmacro
+
+macro font2(str,color)
+    pushtable
+    table "data/<color>_double_top.tbl"
+    dw "<str>"
+    table "data/<color>_double_bottom.tbl"
+    dw "<str>"
+    pulltable
+endmacro

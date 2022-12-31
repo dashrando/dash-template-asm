@@ -4,6 +4,7 @@
 ; Unless noted as long, these are either routines that return short or pointers
 ; to data.
 ;------------------------------------------------------------------------------
+WaitForNMI = $808338 ; long
 SaveToSRAM = $818000 ; long
 PlayRoomMusic = $82E118 ; long
 PLMDelete = $8486BC
@@ -19,6 +20,12 @@ QueueMusic = $848BDD
 DrawItemFrame1 = $84E04F
 DrawItemFrame2 = $84E067
 ShowMessage = $858080 ; long
-SpaceJumpEligible = $90A488
+HDMAObjectHandler = $8884B9 ; long
 MakeSamusJump = $9098BC ; long
-
+SpaceJumpEligible = $90A488
+HudSelectionHandler = $90B80D
+HudSelectionHandler_charge = $90B82D
+FireBeam = $90B887
+FireBeam_charge_equipped = $90B91C
+InitializeProjectile = $938000
+ProjectilePointers = $9383C1

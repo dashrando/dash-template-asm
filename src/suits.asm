@@ -1,15 +1,17 @@
 ; Original suits modifications by Smiley & MassHesteria
 
-HandlePeriodicDamage:
+; TODO: Fully separate & properly handle heat, acid, and lava damage.
+PeriodicDamageDivision:
         PHP : REP #$30
         LDA.w TimeFrozenFlag : BEQ +
                 JMP.w $EA3D
         +
         ; Check damage reduction items from most reduction to least
-        LDA.w VanillaItemsEquipped : AND.w #$0021 : CMP.w #$0021 : BEQ .both
+        LDA.w VanillaItemsEquipped : TAX
+                                     AND.w #$0021 : CMP.w #$0021 : BEQ .both
                                      BIT.w #$0001 : BNE .varia
-                                     BIT.w #$0020 : BNE .gravity
-        LDA.w DashItemsEquipped    : BIT.w #$0002 : BNE .heatshield
+        LDA.w DashItemsEquipped    : BIT.w #$0002 : BNE .varia ; Heat Shield (TODO)
+        TXA                        : BIT.w #$0020 : BNE .gravity
                 BRA .subtract_dmg ; No damage reduction
 
         .both ; Gravity and Varia stack for full 1/4th reduction
@@ -41,10 +43,6 @@ HandlePeriodicDamage:
         STA.w SamusPeriodicDamage
         BRA .subtract_dmg
 
-        .heatshield
-        ; TODO:
-        ; Efficiently (runs every frame) check area & branch or do arithmetic
-
         .subtract_dmg
         LDA.w SamusSubDamage : SEC : SBC.w SamusPeriodicSubDamage
         STA.w SamusSubDamage
@@ -56,3 +54,23 @@ HandlePeriodicDamage:
         STZ.w SamusPeriodicSubDamage : STZ.w SamusPeriodicDamage
         PLP
 RTS
+
+HeatDamage:
+        LDA.w VanillaItemsEquipped : BIT.w #$0001 : BNE .nodamage
+        LDA.w DashItemsEquipped : BIT #$0002 : BEQ .fulldamage
+                LDA.w RoomIndex : CMP.w #$002E : BCC .nodamage ; Separate UN and LN
+                        .halfdamage
+                        LDA.w SamusPeriodicSubDamage
+                        CLC : ADC.w #$2000
+                        STA.w SamusPeriodicSubDamage
+                        JML.l $8DE38B
+        .fulldamage
+        LDA.w SamusPeriodicSubDamage
+        CLC : ADC.w #$4000
+        STA.w SamusPeriodicSubDamage
+        JML.l $8DE38B
+        .nodamage
+JML $8DE3AB
+
+; z set - heat
+; z unset - no heat

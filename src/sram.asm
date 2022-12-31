@@ -17,6 +17,8 @@ VanillaItemsCollected = $7E09A4      ; x p o t - - j h  - - g - s m b v
                                      ; v = Varia   | b = Spring Ball | m = Morph Ball | s = Screw Attack
                                      ; g = Gravity | h = Hi-Jump     | j = Space Jump | t = Bombs
                                      ; o = Speed   | p = Grapple     | x = X-Ray
+BeamsEquipped = $7E09A6              ; Word-length bitfields used for beams
+BeamsCollected = $7E09A6             ; - - - c - - - -  - - - - p s i w
 CurrentHealth = $7E09C2              ; Current and max health (not counting reserves)
 MaxHealth = $7E09C4                  ;
 CurrentMissiles = $7E09C6            ; Current and max missiles.
@@ -27,8 +29,8 @@ CurrentPBs = $7E09CE                 ; Current and max power bombs.
 MaxPBs = $7E09D0                     ;
 DashItemsCollected = $7E09EC         ; Word-length bitfields used for new items, similar to the
 DashItemsEquipped = $7E09EE          ; vanilla item bitfields.
-                                     ; - - - - - - - s  - - - - - - h d
-                                     ; d = Double Jump | h = Heat Shield | s = Starter Charge
+                                     ; - - - - - - - -  - - - - - - h d
+                                     ; d = Double Jump | h = Heat Shield
 
 EventFlags = $7ED820                 ;
 BossFlagsVanilla = $7ED828           ; Boss bitflags indexed by area. 8 bytes.
@@ -40,5 +42,9 @@ ItemBitArray = $7ED870               ; Item location bit array. Bit set if item 
 DoorBitArray = $7ED8B0               ; Opened door bit array. Bit set if door opened.
                                      ; $7ED8B0-EF. $C6-EF Unused.
 
+
+NewSaveBuffer = $7FFA02              ; Unused portion of bank $7F allocated for save data. We may
+                                     ; not use all of this but it was the smaller compared to $7E's
+                                     ; free space.
 
 pullpc

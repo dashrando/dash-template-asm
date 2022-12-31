@@ -91,6 +91,7 @@ HiddenItemTable:
 ; New item PLMs
 ;        id,  label name   visible, chozo, hidden
 %ItemPLM($00, DoubleJump) ; $EFE0,  $F034, $F088
+%ItemPLM($01, HeatShield) ; $EFE4,  $F038, $F08C
 
 ; Graphics pointers for items (by item index)
 ; The first word is a pointer to a (vanilla) sprite. If we add new sprites
@@ -98,9 +99,10 @@ HiddenItemTable:
 ; The bytes here are related to the palette. Sprites are divided into four tiles
 ; and have dark frame palettes (left four) and light frame palettes (right four.) 
 ; Each half goes upper left to lower right.
+; TODO: Proper palette loading, new gfx (?)
 DashItemGraphics:
-dw $8400 : db $03, $03, $03, $03, $03, $03, $03, $03    ; $00 - Double Jump
-dw $0000 : db $00, $00, $00, $00, $00, $00, $00, $00    ; $01 - Unused
+dw $8600 : db $03, $03, $03, $03, $03, $03, $03, $03    ; $00 - Double Jump
+dw $8300 : db $03, $03, $03, $03, $03, $03, $03, $03    ; $01 - Heat Shield
 dw $0000 : db $00, $00, $00, $00, $00, $00, $00, $00    ; $02 - Unused
 dw $0000 : db $00, $00, $00, $00, $00, $00, $00, $00    ; $03 - Unused
 dw $0000 : db $00, $00, $00, $00, $00, $00, $00, $00    ; $04 - Unused
@@ -123,47 +125,29 @@ dw $0000 : db $00, $00, $00, $00, $00, $00, $00, $00    ; $23 - Unused
 dw $0000 : db $00, $00, $00, $00, $00, $00, $00, $00    ; $24 - Unused
 
 DashItemTable:
-; pickup,       qty,   msg,   type,  ext2,  ext3,  loop,  hloop
-dw NewItemSave, $0001, $001D, $0004, $0000, $0000, $0000, $0000  ; $00 - Double Jump
-dw $0000,       $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $01 - Unused
-dw $0000,       $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $02 - Unused
-dw $0000,       $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $03 - Unused
-dw $0000,       $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $04 - Unused
-dw $0000,       $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $05 - Unused
-dw $0000,       $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $06 - Unused
-dw $0000,       $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $07 - Unused
-dw $0000,       $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $08 - Unused
-dw $0000,       $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $09 - Unused
-dw $0000,       $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $0A - Unused
-dw $0000,       $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $0B - Unused
-dw $0000,       $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $0C - Unused
-dw $0000,       $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $0D - Unused
-dw $0000,       $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $0E - Unused
-dw $0000,       $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $0F - Unused
+;  pickup,   qty,   msg,   type,  ext2,  ext3,  loop,  hloop
+dw ItemSave, $0001, $001D, $0004, $0000, $0000, $0000, $0000  ; $00 - Double Jump
+dw ItemSave, $0002, $001E, $0004, $0000, $0000, $0000, $0000  ; $01 - Heat Shield
+dw $0000,    $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $02 - Unused
+dw $0000,    $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $03 - Unused
+dw $0000,    $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $04 - Unused
+dw $0000,    $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $05 - Unused
+dw $0000,    $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $06 - Unused
+dw $0000,    $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $07 - Unused
+dw $0000,    $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $08 - Unused
+dw $0000,    $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $09 - Unused
+dw $0000,    $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $0A - Unused
+dw $0000,    $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $0B - Unused
+dw $0000,    $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $0C - Unused
+dw $0000,    $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $0D - Unused
+dw $0000,    $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $0E - Unused
+dw $0000,    $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $0F - Unused
 
 dw $0000,       $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $10 - Unused
 dw $0000,       $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $11 - Unused
 dw $0000,       $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $12 - Unused
 dw $0000,       $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $13 - Unused
 dw $0000,       $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $14 - Unused
-
-DashMessageTable:
-dw $001D ; $00 - Double Jump
-dw $001D ; $01 -
-dw $001D ; $02 -
-dw $001D ; $02 -
-dw $001D ; $04 -
-dw $001D ; $05 -
-dw $001D ; $06 -
-dw $001D ; $07 -
-dw $001D ; $08 -
-dw $001D ; $09 -
-dw $001D ; $0A -
-dw $001D ; $0B -
-dw $001D ; $0C -
-dw $001D ; $0D -
-dw $001D ; $0E -
-dw $001D ; $0F -
 
 StartDrawLoop:
         PHY : PHX
@@ -211,26 +195,16 @@ HiddenItemSetup:
 JMP.w $EE8E
 
 ItemPickup:
-        PHY
+        PHY : PHX
         LDA.l ItemPLMBuffer,X
         ASL #4
         CLC : ADC.w #DashItemTable
         TAX : TAY : INY #2
         JSR.w ($0000,X)
-        ;JSR.w ReceiveItem
-        PLY
+        PLX : PLY
 RTS
 
-ReceiveItem:
-        PHX
-        ASL #4
-        CLC : ADC.w #DashItemTable
-        TAX : TAY : INY #2
-        JSR.w ($0000,X)
-        PLX
-RTS
-
-NewItemSave:
+ItemSave:
         LDA.w DashItemsCollected : ORA.w $0000,Y : STA.w DashItemsCollected
         LDA.w DashItemsEquipped : ORA.w $0000,Y : STA.w DashItemsEquipped
         LDA.w #$0168
@@ -239,5 +213,4 @@ NewItemSave:
         JSL.l ShowMessage
         INY #3
 RTS
-
 

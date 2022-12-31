@@ -6,29 +6,29 @@
 !EmptySmall = $8436
 
 dw !EmptySmall, !Small, double_jump
-dw !EmptySmall, !Small, reserved1
-dw !EmptySmall, !Small, reserved1
-dw !EmptySmall, !Small, reserved1
-dw !EmptySmall, !Small, reserved1
-dw !EmptySmall, !Small, reserved1
+dw !EmptySmall, !Small, heat_shield
+;dw !EmptySmall, !Small, reserved6
+;dw !EmptySmall, !Small, reserved6
+;dw !EmptySmall, !Small, reserved6
+;dw !EmptySmall, !Small, reserved6
 dw !EmptySmall, !Small, BtnArray
 
 table data/box.tbl,rtl
     ;   0                              31
 double_jump:
     dw "______    DOUBLE JUMP    _______"
-reserved1:
-    dw "______     RESERVED      _______"
-reserved2:
-    dw "______     RESERVED      _______"
-reserved3:
-    dw "______     RESERVED      _______"
-reserved4:
-    dw "______     RESERVED      _______"
-reserved5:
-    dw "______     RESERVED      _______"
-reserved6:
-    dw "______     RESERVED      _______"
+heat_shield:
+    dw "______    HEAT SHIELD    _______"
+; reserved2:
+;     dw "______     RESERVED      _______"
+; reserved3:
+;     dw "______     RESERVED      _______"
+; reserved4:
+;     dw "______     RESERVED      _______"
+; reserved5:
+;     dw "______     RESERVED      _______"
+; reserved6:
+;     dw "______     RESERVED      _______"
 
 cleartable
 

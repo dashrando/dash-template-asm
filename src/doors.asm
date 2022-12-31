@@ -16,11 +16,6 @@ WakeUpZebes:
 .exit
 RTS
 
-BTAnimalsDoor: ; Not sure what this is for
-        LDA.l EventFlags : BIT.w #$4000 : BEQ .exit
-        LDA.w #$0026 : STA.w GameState
-.exit
-RTS
 ;------------------------------------------------------------------------------
 ; Door ASM Pointers
 ;------------------------------------------------------------------------------
@@ -31,8 +26,5 @@ dw WakeUpZebes
 
 org $838C5C ; G4 Elevator
 dw PreOpenG4
-
-org $838BCC
-dw BTAnimalsDoor
 
 pullpc
