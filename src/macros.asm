@@ -33,6 +33,18 @@ pushpc
 pullpc
 endmacro
 
+macro MaridiaNoBoots(id)
+pushpc
+        org MaridiaBootsTable+(<id>*2) : dw $0000
+pullpc
+endmacro
+
+macro CrateriaNoBoots(id)
+pushpc
+        org CrateriaBootsTable+(<id>*2) : dw $0000
+pullpc
+endmacro
+
 ; Credits
 
 macro row1(index)

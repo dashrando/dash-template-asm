@@ -11,7 +11,7 @@ incsrc generalbugfixes.asm
 incsrc roomedits.asm
 ;incsrc newhud.asm
 
-org $DF8000 : fillbyte $00 : fill $7FFF ; Zero out the whole damb bank
+org $DF8000 : fillbyte $00 : fill $7FFF
 
 ;------------------------------------------------------------------------------
 ; The higher banks don't have access to mirrored work RAM so we prefer to put
@@ -51,6 +51,7 @@ warnpc $908000
 org $90F63A
 incsrc newitems.asm
 incsrc suits.asm
+print pc
 warnpc $918000
 
 org $93F620
@@ -62,6 +63,5 @@ incsrc tables.asm ; Keep this first
 incsrc credits/credits.asm
 warnpc $E08000
 
-incsrc debugmode.asm ; Commented out but can uncomment and insert whatever in
-                      ; debugmode.asm for testing
+incsrc debugmode.asm
 

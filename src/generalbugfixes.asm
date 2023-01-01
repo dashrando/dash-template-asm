@@ -10,7 +10,7 @@ LDX.w #$0001
 
 ; Fix Screw Attack selection in menu
 org $82B4C4
-CPX.w #$000A
+CPX.w #$000C
 
 ; Suit acquisition animation skip
 org $848717

@@ -7,10 +7,8 @@
 
 dw !EmptySmall, !Small, double_jump
 dw !EmptySmall, !Small, heat_shield
-;dw !EmptySmall, !Small, reserved6
-;dw !EmptySmall, !Small, reserved6
-;dw !EmptySmall, !Small, reserved6
-;dw !EmptySmall, !Small, reserved6
+dw !EmptySmall, !Small, aqua_boots
+;dw !EmptySmall, !Small, reserved
 dw !EmptySmall, !Small, BtnArray
 
 table data/box.tbl,rtl
@@ -19,15 +17,9 @@ double_jump:
     dw "______    DOUBLE JUMP    _______"
 heat_shield:
     dw "______    HEAT SHIELD    _______"
-; reserved2:
-;     dw "______     RESERVED      _______"
-; reserved3:
-;     dw "______     RESERVED      _______"
-; reserved4:
-;     dw "______     RESERVED      _______"
-; reserved5:
-;     dw "______     RESERVED      _______"
-; reserved6:
+aqua_boots:
+    dw "______     AQUA BOOTS    _______"
+; reserved:
 ;     dw "______     RESERVED      _______"
 
 cleartable

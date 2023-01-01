@@ -10,9 +10,8 @@
 FileSelectCode: ; TODO: document
 db $00, $01, $02, $03
 
-
-
-; We don't use this currently but we could
+; We don't use this currently but we could.
+; Keep this at the end for now.
 CustomPLMTable:
 ;   room, plm,   yyxx,  args
 dw $0000, $0000, $0000, $0000

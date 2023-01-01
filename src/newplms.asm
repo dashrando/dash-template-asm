@@ -92,6 +92,7 @@ HiddenItemTable:
 ;        id,  label name   visible, chozo, hidden
 %ItemPLM($00, DoubleJump) ; $EFE0,  $F034, $F088
 %ItemPLM($01, HeatShield) ; $EFE4,  $F038, $F08C
+%ItemPLM($02, AquaBoots)  ; $EFE8,  $F03C, $F090
 
 ; Graphics pointers for items (by item index)
 ; The first word is a pointer to a (vanilla) sprite. If we add new sprites
@@ -102,8 +103,8 @@ HiddenItemTable:
 ; TODO: Proper palette loading, new gfx (?)
 DashItemGraphics:
 dw $8600 : db $03, $03, $03, $03, $03, $03, $03, $03    ; $00 - Double Jump
-dw $8300 : db $03, $03, $03, $03, $03, $03, $03, $03    ; $01 - Heat Shield
-dw $0000 : db $00, $00, $00, $00, $00, $00, $00, $00    ; $02 - Unused
+dw $8300 : db $01, $01, $01, $01, $01, $01, $01, $01    ; $01 - Heat Shield
+dw $8400 : db $03, $03, $03, $03, $03, $03, $03, $03    ; $02 - Aqua Boots
 dw $0000 : db $00, $00, $00, $00, $00, $00, $00, $00    ; $03 - Unused
 dw $0000 : db $00, $00, $00, $00, $00, $00, $00, $00    ; $04 - Unused
 dw $0000 : db $00, $00, $00, $00, $00, $00, $00, $00    ; $05 - Unused
@@ -128,7 +129,7 @@ DashItemTable:
 ;  pickup,   qty,   msg,   type,  ext2,  ext3,  loop,  hloop
 dw ItemSave, $0001, $001D, $0004, $0000, $0000, $0000, $0000  ; $00 - Double Jump
 dw ItemSave, $0002, $001E, $0004, $0000, $0000, $0000, $0000  ; $01 - Heat Shield
-dw $0000,    $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $02 - Unused
+dw ItemSave, $0004, $001F, $0004, $0000, $0000, $0000, $0000  ; $02 - Aqua Boots
 dw $0000,    $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $03 - Unused
 dw $0000,    $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $04 - Unused
 dw $0000,    $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $05 - Unused

@@ -1,3 +1,6 @@
+; TODO: ALL addresses should be labels instead of defines. Value defines should first be
+; scoped to their module and then placed here only if used in multiple modules.
+
 ; Defines for the script and credits data
 !speed = $f770
 !set = $9a17

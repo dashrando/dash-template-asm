@@ -11,8 +11,8 @@ pushpc
 ; Frame Hooks
 ;--------------------------------------------------------------------------------
 org $82894B
-JSL.l FrameHook ; JSL $8884B9
-org $82897A     ; JSL $808338
+JSL.l FrameHook
+org $82897A
 JSL.l PostFrameHook
 
 ;--------------------------------------------------------------------------------
@@ -20,7 +20,6 @@ JSL.l PostFrameHook
 ;--------------------------------------------------------------------------------
 org $809590
 JSL.l NMIHook
-
 org $8095F7
 JSL.l PostNMIHook : NOP
 
@@ -59,18 +58,51 @@ JSL InitializeProjectileExpanded
 
 ; Suits
 org $90E74D
-JSR.w PeriodicDamageDivision ; Replace vanilla handling with our own.
+JSR.w PeriodicDamageDivision
 org $8DE379
 JML.l HeatDamage : NOP #2
 
 ; Double Jump
 org $90A46E
-JMP.w CheckEligibleJump : NOP #5
+JSR.w CheckEligibleJump
 org $90A4BF
 JSR.w CheckDoubleJump
 org $91F0A5
 JSR.w ClearJumpFlag
 
+; Aqua Boots
+org $908096
+JSR.w CheckWaterPhysics : NOP #3
+org $908198
+JSR.w CheckWaterPhysics : NOP #3
+org $90841D
+JSR.w CheckWaterPhysics : NOP #3
+org $909741
+JSR.w CheckWaterPhysics : NOP #3
+org $9098C2
+JSR.w CheckWaterPhysics : NOP #3
+org $90994F
+JSR.w CheckWaterPhysics : NOP #3
+org $9099DC
+JSR.w CheckWaterPhysics : NOP #3
+org $909A2F
+JSR.w CheckWaterPhysics : NOP #3
+org $909BD4
+JSR.w CheckWaterPhysics : NOP #3
+org $909C24
+JSR.w CheckWaterPhysics : NOP #3
+org $909C5B
+JSR.w CheckWaterPhysics : NOP #3
+org $90A439
+JSR.w CheckWaterPhysics : NOP #3
+org $91F68A
+JSL.l CheckWaterPhysicsLong : NOP #2
+org $91F6EB
+JSL.l CheckWaterPhysicsLong : NOP #2
+org $91FB0E
+JSL.l CheckWaterPhysicsLong : NOP #2
+org $9BC4BE
+JSL.l CheckWaterPhysicsLong : NOP #2
 ;------------------------------------------------------------------------------
 ; Credits
 ;------------------------------------------------------------------------------
