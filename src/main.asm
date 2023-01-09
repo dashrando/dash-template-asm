@@ -1,5 +1,11 @@
 lorom
 
+org $808000 ; Reserved
+dw $8001    ;
+
+org $80FFD8 ; SRAM size
+db $05      ;
+
 incsrc ram.asm
 incsrc sram.asm
 incsrc macros.asm
@@ -8,10 +14,10 @@ incsrc hooks.asm
 incsrc defines.asm
 
 incsrc generalbugfixes.asm
-incsrc roomedits.asm
 ;incsrc newhud.asm
 
-org $DF8000 : fillbyte $00 : fill $7FFF
+org $81EF1A : fillbyte $FF : fill $10E5 ; Sorry Genji
+org $DF8000 : fillbyte $FF : fill $7FFF
 
 ;------------------------------------------------------------------------------
 ; The higher banks don't have access to mirrored work RAM so we prefer to put
@@ -23,12 +29,20 @@ org $DF8000 : fillbyte $00 : fill $7FFF
 ;------------------------------------------------------------------------------
 org $80CD90
 incsrc init.asm
-incsrc save.asm
 incsrc framehook.asm
+incsrc stats/stats.asm
 warnpc $80FFC0 ; SNES ROM Header
 
+org $81EF1A
+incsrc save.asm
+incsrc fileselect/fileselect.asm
+warnpc $828000
+
 org $82F900
-incsrc fileselect.asm
+incsrc fileselect/gameoptions.asm
+incsrc subareas.asm
+incsrc roompatching.asm
+incsrc stats/stats_doors.asm
 warnpc $838000
 
 org $84EFE0
@@ -41,22 +55,27 @@ incsrc messageboxes.asm
 warnpc $868000
 
 org $8BF760
-incsrc credits/creditsscroll.asm
+incsrc credits/credits_scroll.asm
 warnpc $8C8000
 
-org $8FEA00
+org $8FE9A0
 incsrc doors.asm
 warnpc $908000
 
 org $90F63A
 incsrc newitems.asm
 incsrc suits.asm
-print pc
+incsrc stats/stats_weapons.asm
 warnpc $918000
 
 org $93F620
 incsrc startercharge.asm
 warnpc $948000
+
+org $CEB230
+incsrc roomedits.asm
+incsrc credits/credits_data.asm
+warnpc $CF8000
 
 org $DF8000
 incsrc tables.asm ; Keep this first

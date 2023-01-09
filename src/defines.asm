@@ -35,3 +35,20 @@
 !region_timer_tmp = $7fff06
 !region_tmp = $7fff08
 
+; End of List
+!EOL = $dead
+
+; Index values associated with each zone
+!Area_Crateria = #$00       ; includes Blue Brinstar
+!Area_GreenBrinstar = #$01  ; Brinstar
+!Area_UpperNorfair = #$02   ; Norfair
+!Area_WreckedShip = #$03
+!Area_EastMaridia = #$04    ; Maridia
+!Area_Tourian = #$05
+!Area_Ceres = #$06
+!Area_Debug = #$07
+!Area_RedBrinstar = #$08
+!Area_Kraid = #$09
+!Area_WestMaridia = #$0A
+!Area_LowerNorfair = #$0B
+!Area_Crocomire = #$0C

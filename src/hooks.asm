@@ -8,16 +8,18 @@ pushpc
 
 
 ;--------------------------------------------------------------------------------
+; Init
+;--------------------------------------------------------------------------------
+org $808490
+JMP.w InitRAM ; Jump because we're overwriting the stack
+
+;--------------------------------------------------------------------------------
 ; Frame Hooks
 ;--------------------------------------------------------------------------------
 org $82894B
 JSL.l FrameHook
 org $82897A
 JSL.l PostFrameHook
-
-;--------------------------------------------------------------------------------
-; NMI Hooks
-;--------------------------------------------------------------------------------
 org $809590
 JSL.l NMIHook
 org $8095F7
@@ -32,10 +34,17 @@ org $82EED9
 LDA.w #$001F ; Skip intro
 
 ;------------------------------------------------------------------------------
-; File Select Screen
+; File Select And Game Options Screens
 ;------------------------------------------------------------------------------
+; Draw game code
 org $82ECBB
 JSR.w DrawFileSelectHash
+
+;------------------------------------------------------------------------------
+; Decompression
+;------------------------------------------------------------------------------
+org $82EAA9
+JSR.w PostRoomDecompression
 
 ;------------------------------------------------------------------------------
 ; Injecting arbitrary PLMs.
@@ -103,25 +112,29 @@ org $91FB0E
 JSL.l CheckWaterPhysicsLong : NOP #2
 org $9BC4BE
 JSL.l CheckWaterPhysicsLong : NOP #2
+org $84B423
+JSL.l CheckWaterPhysicsLong : NOP #2
+org $84B4D1
+JSL.l CheckWaterPhysicsLong : NOP #2
 ;------------------------------------------------------------------------------
 ; Credits
 ;------------------------------------------------------------------------------
 
 ; Patch soft reset to retain value of RTA counter
-org $80844B
-jml patch_reset1
-org $808490
-jml patch_reset2
+;org $80844B
+;jml patch_reset1
+;org $808490
+;jml patch_reset2
 
 ; Patch loading and saving routines
-org $81807f
-jmp patch_save
-org $8180f7
-jmp patch_load
+;org $81807f
+;jmp patch_save
+;org $8180f7
+;jmp patch_load
 
 ; Hijack loading new game to reset stats
-org $828063
-jsl clear_values
+;org $828063
+;jsl clear_values
 
 ; Hijack the original credits code to read the script from bank $DF
 
@@ -136,8 +149,6 @@ jml patch3
 org $8b9a19
 jml patch4
 
-
-
 ; Hijack when samus is in the ship and ready to leave the planet
 org $a2ab13
 jsl game_end
@@ -145,5 +156,49 @@ jsl game_end
 ; Hijack after decompression of regular credits tilemaps
 org $8be0d1
 jsl copy
+
+;------------------------------------------------------------------------------
+; Subareas
+;------------------------------------------------------------------------------
+org $82DE86
+JSR DetermineSubArea
+
+;------------------------------------------------------------------------------
+; Stats
+;------------------------------------------------------------------------------
+org $809602
+JSR.w IncrementLagTimer
+
+org $82E309
+JMP.w DoorAdjustStart
+org $82E34C
+JMP.w DoorAdjustStop
+org $82E176
+JMP.w IncrementDoorTransitions
+org $90B9A1
+JSR.w IncrementChargedShots
+org $90CCDE
+JSR.w IncrementSpecialBeams
+org $90BEB7
+JMP.w IncrementMissiles
+org $90C107
+JSR.w IncrementBombs
+
+;------------------------------------------------------------------------------
+; Saves
+;------------------------------------------------------------------------------
+; Loading save after file selection, transition to game options screen.
+org $81A24A
+JSR.w LoadSaveExpanded : BRA FileSelect_Done
+
+org $818006
+JSL.l OnWriteSave : NOP
+
+org $819AEE
+JSR.w CopyExtendedBuffers
+org $819D1A
+JSR.w ClearExtendedSRAM
+
+
 
 pullpc

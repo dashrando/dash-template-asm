@@ -16,3 +16,46 @@ InitGameState:
                 .ret:   
                 LDA.w #$0000
 RTL
+
+InitRAM:
+        PEA $7E00
+        PLB : PLB
+        LDX #$1FFE
+        -
+        STZ $0000,X
+        STZ $2000,X
+        STZ $4000,X
+        STZ $6000,X
+        STZ $8000,X
+        STZ $A000,X
+        STZ $C000,X
+        STZ $E000,X
+        DEX #2
+        BPL -
+        
+        LDA.l BootTest+$00 : EOR.l BootTestInverse+$00 : CMP.w #$FFFF : BNE .coldboot
+        LDA.l BootTest+$02 : EOR.l BootTestInverse+$02 : CMP.w #$FFFF : BNE .coldboot
+        LDA.l CurrentSaveSlotSRAM : BEQ .coldboot
+                DEC
+                JSL.l WriteStats
+                BRA .done
+        .coldboot       
+        PEA $7F00
+        PLB : PLB
+        LDX #$1FFE
+        -
+        STZ $0000,X
+        STZ $2000,X
+        STZ $4000,X
+        STZ $6000,X
+        STZ $8000,X
+        STZ $A000,X
+        STZ $C000,X
+        STZ $E000,X
+        DEX #2
+        BPL -
+        LDA.w #$0001 : STA.l ColdBootFlag
+        .done
+        PHK : PLB
+JMP.w $84B1
+

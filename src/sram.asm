@@ -1,4 +1,5 @@
 pushpc
+org 0
 ;------------------------------------------------------------------------------
 ; SRAM Assignments & Labels
 ;------------------------------------------------------------------------------
@@ -11,14 +12,13 @@ pushpc
 ;------------------------------------------------------------------------------
 
 SaveSlotSelected = $7E0952           ;
-GameState = $7E0998                  ;
 VanillaItemsEquipped = $7E09A2       ; Word-length bitfields used for vanilla items.
 VanillaItemsCollected = $7E09A4      ; x p o t - - j h  - - g - s m b v
                                      ; v = Varia   | b = Spring Ball | m = Morph Ball | s = Screw Attack
                                      ; g = Gravity | h = Hi-Jump     | j = Space Jump | t = Bombs
                                      ; o = Speed   | p = Grapple     | x = X-Ray
 BeamsEquipped = $7E09A6              ; Word-length bitfields used for beams
-BeamsCollected = $7E09A6             ; - - - c - - - -  - - - - p s i w
+BeamsCollected = $7E09A8             ; - - - c - - - -  - - - - p s i w
 CurrentHealth = $7E09C2              ; Current and max health (not counting reserves)
 MaxHealth = $7E09C4                  ;
 CurrentMissiles = $7E09C6            ; Current and max missiles.
@@ -41,9 +41,65 @@ ItemBitArray = $7ED870               ; Item location bit array. Bit set if item 
 DoorBitArray = $7ED8B0               ; Opened door bit array. Bit set if door opened.
                                      ; $7ED8B0-EF. $C6-EF Unused.
 
+;------------------------------------------------------------------------------
+; Bank $7F
+;------------------------------------------------------------------------------
+; $7FFB00-$7FFCFF reserved for file save data.
+;------------------------------------------------------------------------------
 
-NewSaveBuffer = $7FFA02              ; Unused portion of bank $7F allocated for save data. We may
-                                     ; not use all of this but it was the smaller compared to $7E's
-                                     ; free space.
+;------------------------------------------------------------------------------
+; Stats Block
+;------------------------------------------------------------------------------
+base $7FFB00                         ;
+StatsBlock:                          ; $100 bytes. $7FFB00-$7FFBFF
+LoopFrames: skip 4                   ;
+NMIFrames: skip 4                    ;
+LagFrames: skip 4                    ;
+MenuFrames: skip 4                   ;
+DoorFrames: skip 4                   ;
+DoorAlignFrames: skip 2              ;
+DoorTransitions: skip 2              ;
+CrateriaFrames: skip 4               ; Frame counters for randomizer's new areas.
+WreckedShipFrames: skip 4            ;
+GreenBrinstarFrames: skip 4          ;
+RedBrinstarFrames: skip 4            ;
+KraidFrames: skip 4                  ;
+UpperNorfairFrames: skip 4           ;
+LowerNorfairFrames: skip 4           ;
+CrocomireFrames: skip 4              ;
+EastMaridiaFrames: skip 4            ;
+WestMaridiaFrames: skip 4            ;
+TourianFrames: skip 4                ;
+ChargedShots: skip 2                 ;
+SpecialBeams: skip 2                 ;
+MissilesFired: skip 2                ;
+SupersFired: skip 2                  ;
+PowerBombsLaid: skip 2               ;
+BombsLaid: skip 2                    ;
+GoalComplete: skip 2                 ;
+                                     ;
 
+;------------------------------------------------------------------------------
+; Extended Cartridge SRAM
+;------------------------------------------------------------------------------
+; We allocate $500 bytes per slot for general use, then slot-agnostic data we
+; may want to save (such as the most recent save slot played.)
+;------------------------------------------------------------------------------
+base $702000
+ExpandedSRAM:                        ;
+SlotOneExtendedSRAM:                 ;
+SlotOneStatsSRAM: skip $500          ; Stat block. $100 bytes.
+                                     ;
+SlotTwoExtendedSRAM:                 ;
+SlotTwoStatsSRAM: skip $500          ; Stat block. $100 bytes.
+                                     ;
+SlotThreeExtendedSRAM:               ;
+SlotThreeStatsSRAM: skip $500        ; Stat block. $100 bytes.
+                                     ;
+CurrentSaveSlotSRAM: skip 2          ; Same index as the game uses + 1. No previous game if zero.
+
+
+
+
+base off
 pullpc

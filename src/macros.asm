@@ -33,15 +33,9 @@ pushpc
 pullpc
 endmacro
 
-macro MaridiaNoBoots(id)
+macro DisableBoots(table, id)
 pushpc
-        org MaridiaBootsTable+(<id>*2) : dw $0000
-pullpc
-endmacro
-
-macro CrateriaNoBoots(id)
-pushpc
-        org CrateriaBootsTable+(<id>*2) : dw $0000
+        org <table>+(<id>*2) : dw $0000
 pullpc
 endmacro
 

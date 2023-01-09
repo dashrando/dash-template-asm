@@ -5,7 +5,15 @@
 ; to data.
 ;------------------------------------------------------------------------------
 WaitForNMI = $808338 ; long
+LoadMapMirror = $80858C ; long
 SaveToSRAM = $818000 ; long
+LoadSave = $818085 ; long
+LoadMap = $8182E4
+FileSelect_CursorSound = $81A2B2
+FileSelect_Done = $81A2B9
+NewSaveFile = $81B2CB
+LoadMenuTileMap = $81B3E2
+DrawFileSelectMissile = $82BA6E ; long
 PlayRoomMusic = $82E118 ; long
 PLMDelete = $8486BC
 PLMPreInstruction = $8486C1

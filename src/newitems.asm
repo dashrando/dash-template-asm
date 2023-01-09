@@ -9,7 +9,7 @@ pushpc ; Code below is placed in free space in the middle of banks $90 & $91,
 ;------------------------------------------------------------------------------
 org $9092EA
 CheckEligibleJump:
-        LDA.w VanillaItemsEquipped : BIT #$0200 : BNE .done ; What we wrote over
+        LDA.w VanillaItemsEquipped : BIT.w #$0200 : BNE .done ; What we wrote over
                 LDA.w DashItemsEquipped : AND.w #$0001 : BEQ .done
                         LDA.w #$0200
 .done
@@ -32,6 +32,23 @@ CheckDoubleJump:
         SEP #$02
 .done
 RTS
+
+CheckWaterPhysicsLong:
+        JSR.w CheckWaterPhysics
+RTL
+
+CheckWaterPhysics:
+        PHB : PHK : PLB
+        LDA.w VanillaItemsEquipped : BIT.w #$0020 : BNE .done ; What we wrote over
+        LDA.w DashItemsEquipped : AND.w #$0004 : BEQ .done
+                LDA.w AreaIndex : ASL : TAX
+                JSR.w (AquaTables,X)
+        .done
+        PLB          ; Restore original bank before making physics bit test
+        BIT.w #$0020 ; What we wrote over.
+RTS
+
+warnpc $90934F
 ;------------------------------------------------------------------------------
 org $9180BE
 ClearJumpFlag:
@@ -43,42 +60,22 @@ warnpc $91810A
 pullpc
 
 ;------------------------------------------------------------------------------
-CheckWaterPhysicsLong:
-        JSR.w CheckWaterPhysics
-RTL
 
-CheckWaterPhysics:
-        PHB : PHK : PLB
-        LDA.w VanillaItemsEquipped : BIT.w #$0020 : BNE .done ; What we wrote over
-        LDA.w DashItemsEquipped : AND.w #$0004 : BEQ .done
-                LDA.w AreaIndex : ASL : TAX
-                JSR.w (.areas,X)
-        .done
-        PLB          ; Restore original bank before making physics bit test
-        BIT.w #$0020 ; What we wrote over.
-RTS
-
-.areas
+AquaTables:
 dw CrateriaWater
-dw BrinstarWater
+dw OnlyWater
 dw NorfairWater
-dw WreckedShipWater
+dw OnlyWater
 dw MaridiaWater
 dw NoWater
 
 CrateriaWater:
         LDA.w RoomIndex : ASL : TAX
-        LDA.w CrateriaBootsTable,X
+        LDA.w CrateriaBoots,X
 RTS
-BrinstarWater:
-        LDA.w #$0020
-RTS
-WreckedShipWater:
-        LDA.w #$0020
-RTS 
 MaridiaWater:
         LDA.w RoomIndex : ASL : TAX
-        LDA.w MaridiaBootsTable,X
+        LDA.w MaridiaBoots,X
 RTS
 NorfairWater:
         LDA.w RoomIndex : CMP.w #$0013 : BEQ .water
@@ -87,30 +84,33 @@ NorfairWater:
         .water
         LDA.w #$0020
 RTS
+OnlyWater:
+        LDA.w #$0020
+RTS
 NoWater:
         LDA.w #$0000
 RTS
 
 ; Aqua Boots tables
-MaridiaBootsTable:         ; Table for determining Aqua Boots behavior
-fillword $0020 : fill 256  ; Initialize table with gravity behavior. Index never >= $80
-%MaridiaNoBoots($1D)       ; Overwrite individual rooms with non-gravity behavior
-%MaridiaNoBoots($1E)
-%MaridiaNoBoots($1F)
-%MaridiaNoBoots($20)
-%MaridiaNoBoots($21)
-%MaridiaNoBoots($23)
-%MaridiaNoBoots($28)
-%MaridiaNoBoots($2A)
-%MaridiaNoBoots($2B)
-%MaridiaNoBoots($31)
-%MaridiaNoBoots($32)
-%MaridiaNoBoots($37)
+MaridiaBoots:        ; Table for determining Aqua Boots behavior
+fillword $0020 : fill 256 ; Initialize table with gravity behavior. Index never >= $80
+%DisableBoots(MaridiaBoots, $1D)        ; Overwrite individual rooms with non-gravity behavior
+%DisableBoots(MaridiaBoots, $1E)
+%DisableBoots(MaridiaBoots, $1F)
+%DisableBoots(MaridiaBoots, $20)
+%DisableBoots(MaridiaBoots, $21)
+%DisableBoots(MaridiaBoots, $23)
+%DisableBoots(MaridiaBoots, $28)
+%DisableBoots(MaridiaBoots, $2A)
+%DisableBoots(MaridiaBoots, $2B)
+%DisableBoots(MaridiaBoots, $31)
+%DisableBoots(MaridiaBoots, $32)
+%DisableBoots(MaridiaBoots, $37)
 
-CrateriaBootsTable:
+CrateriaBoots:
 fillword $0020 : fill 256
-%CrateriaNoBoots($01)
-%CrateriaNoBoots($03)
-%CrateriaNoBoots($10)
-%CrateriaNoBoots($12)
-%CrateriaNoBoots($1D)
+%DisableBoots(CrateriaBoots, $01)
+%DisableBoots(CrateriaBoots, $03)
+%DisableBoots(CrateriaBoots, $10)
+%DisableBoots(CrateriaBoots, $12)
+%DisableBoots(CrateriaBoots, $1D)

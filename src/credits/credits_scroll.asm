@@ -1,15 +1,13 @@
 ; Bank $8B
 
 ; Load credits script data from bank $df instead of $8c
-set_scroll:
-    rep #$30
-    phb : pea.w $DF00 : plb : plb
-    lda $0000,y
-    sta !scroll_speed
-    iny
-    iny
-    plb
-    rts
+SetScroll:
+        REP #$30
+        PHB : PEA.w $DF00 : PLB : PLB
+        LDA $0000,Y
+        INY #2
+        PLB
+RTS
 
 scroll:
     inc $1995
