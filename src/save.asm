@@ -23,9 +23,9 @@ RTS
 
 SetBootTest:
         LDA.w #$5A5A : STA.l BootTest
-        LDA.w #$5A5A : STA.l BootTest+$02
+                       STA.l BootTest+$02
         LDA.w #$A5A5 : STA.l BootTestInverse
-        LDA.w #$A5A5 : STA.l BootTestInverse+$02
+                       STA.l BootTestInverse+$02
         LDA.w #$0000 : STA.l ColdBootFlag
 RTS
 
@@ -62,7 +62,12 @@ RTS
 
 ClearExtendedSRAM:
         PHX : PHY
-        LDA.w CopyClearSource : ASL : TAX
+        LDA.w CopyClearSource : TAX
+        INC : CMP.l CurrentSaveSlotSRAM : BNE +
+                LDA.w #$0000 : STA.l CurrentSaveSlotSRAM
+        +
+        TXA
+        ASL : TAX
         LDA.w StatsSRAMOffsets,X : TAX
         PEA $7000 : PLB : PLB
         LDY.w #$04FE ; $500 bytes allocated per slot
@@ -103,12 +108,12 @@ WriteStats:
         ASL : TAX
         PHK : PLB
         LDA.w StatsSRAMOffsets,X : STA.b $00
-        LDA.w #$0070 : STA.b $03
+        LDA.w #$0070 : STA.b $02
         LDY.w #$0000 ; Stats block $100 bytes
         LDX.w #$00FE
         PEA $7F00 : PLB : PLB
         -
-                 LDA.w StatsBlock,Y : STA.b [MultiplyResult],Y
+                 LDA.w StatsBlock,Y : STA.b [$00],Y
                  INY #2
                  DEX #2
         BPL -
@@ -119,13 +124,13 @@ LoadStats:
         PHA
         ASL : TAX
         PHK : PLB
-        LDA.w StatsSRAMOffsets,X : STA.b MultiplyResult
-        LDA.w #$0070 : STA.b MultiplyResult+$02 ; Scratch space
+        LDA.w StatsSRAMOffsets,X : STA.b $00
+        LDA.w #$0070 : STA.b $02
         LDY.w #$0000
         LDX.w #$00FE
         PEA $7F00 : PLB : PLB
         -
-                 LDA.b [MultiplyResult],Y : STA.w StatsBlock,Y
+                 LDA.b [$00],Y : STA.w StatsBlock,Y
                  INY #2
                  DEX #2
         BPL -
