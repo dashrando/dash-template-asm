@@ -1,98 +1,104 @@
-; TODO
-; --- max_ammo_display.ips (by personitis) ---
+;------------------------------------------------------------------------------
+; New HUD
+;------------------------------------------------------------------------------
+; Max ammo display by personitis.
+;------------------------------------------------------------------------------
 
-org $8099e1
-fillbyte $ea
-fill 21
+InitHUDAmmoExpanded:
+        .missiles
+        JSR.w HUDDrawThreeDigits
+        LDA.w MaxMissiles : LDX.w #$0014
+        JSR.w HUDDrawThreeDigits
+        RTS
+        .supers
+        JSR.w HUDDrawTwoDigits
+        LDA.w MaxSupers : LDX.w #$001C
+        JSR.w HUDDrawTwoDigits
+        RTS
+        .pbs
+        JSR.w HUDDrawTwoDigits
+        LDA.w MaxPBs : LDX.w #$0022
+        JSR.w HUDDrawTwoDigits
+RTS
 
-org $809ace
-db $ea,$ea,$ea,$ea,$ad,$cc,$09,$f0,$04,$ea,$ea,$ea,$ea,$ad
-db $d0,$09,$f0,$04,$ea,$ea,$ea,$ea
+NewHUDAmmo:
+        PHA : PHX : PHY 
+        LDA.w MaxMissiles
+        BEQ +
+                JSR.w .missiles
+        +
+        LDA.w MaxSupers
+        BEQ +
+                JSR.w .supers
+        +
+        LDA.w MaxPBs
+        BEQ +
+                JSR.w .pbs
+        +
+        PLY : PLX : PLA
+        LDA.w MaxMissiles
+RTS
 
-org $809b0d
-db $a0,$cd
+.missiles
+        JSR.w NewHUDDivision
+        LDA.w HUDItemIndex : CMP.w #$0001 : BEQ +
+                LDA.w #$1400 : STA.b $18 : BRA .writemissiles
+        +
+        LDA.w #$1000 : STA.b $18
+        .writemissiles
+        LDX.b $12 : LDA.w AmmoDigits,X : ORA.b $18 : STA.l $7EC61C
+        LDX.b $14 : LDA.w AmmoDigits,X : ORA.b $18 : STA.l $7EC61E
+        LDX.b $16 : LDA.w AmmoDigits,X : ORA.b $18 : STA.l $7EC620
+        LDA.w #$0049 : ORA.b $18 : STA.l $7EC65C
+        LDA.w #$004A : ORA.b $18 : STA.l $7EC65E
+        LDA.w #$004B : ORA.b $18 : STA.l $7EC660
+RTS
 
-org $809b1b
-db $ad,$cd
+.supers
+        JSR.w NewHUDDivision_by10
+        LDA.w HUDItemIndex : CMP.w #$0002 : BEQ +
+                LDA.w #$1400 : STA.b $18 : BRA .writesupers
+        +
+        LDA.w #$1000 : STA.b $18
+        .writesupers
+        LDX.b $14 : LDA.w AmmoDigits,X : ORA.b $18 : STA.l $7EC624
+        LDX.b $16 : LDA.w AmmoDigits,X : ORA.b $18 : STA.l $7EC626
+        LDA.w #$0034 : ORA.b $18 : STA.l $7EC664
+        LDA.w #$0035 : ORA.b $18 : STA.l $7EC666
+RTS
 
-org $809b29
-db $ba,$cd
+.pbs
+        JSR.w NewHUDDivision_by10
+        LDA.w HUDItemIndex : CMP.w #$0003 : BEQ +
+                LDA.w #$1400 : STA.b $18 : BRA .writepbs
+        +
+        LDA.w #$1000 : STA.b $18
+        .writepbs
+        LDX.b $14 : LDA.w AmmoDigits,X : ORA.b $18 : STA.l $7EC62A
+        LDX.b $16 : LDA.w AmmoDigits,X : ORA.b $18 : STA.l $7EC62C
+        LDA.w #$0036 : ORA.b $18 : STA.l $7EC66A
+        LDA.w #$0037 : ORA.b $18 : STA.l $7EC66C
+RTS
 
-org $809c00
-db $20,$c7,$cd
+; TODO: Optimize with a table or something
+NewHUDDivision:
+        STA.w $4204
+        SEP #$20
+        LDA.b #$64 : STA.w $4206
+        REP #$20
+        PHA : PLA : NOP
+        LDA.w $4214 : ASL : STA.b $12
+        LDA.w $4216
+        .by10
+        STA.w $4204
+        SEP #$20
+        LDA.b #$0A : STA.w $4206
+        REP #$20
+        PHA : PLA : NOP
+        LDA.w $4214 : ASL : STA.b $14
+        LDA.w $4216 : ASL : STA.b $16
+RTS
 
-org $80cda0
-db $20,$78,$9d,$ad,$c8,$09,$a2,$14,$00,$20,$78,$9d,$60,$20
-db $98,$9d,$ad,$cc,$09,$a2,$1c,$00,$20,$98,$9d,$60,$20,$98
-db $9d,$ad,$d0,$09,$a2,$22,$00,$20,$98,$9d,$60,$48,$da,$5a
-db $ad,$c8,$09,$f0,$03,$20,$e9,$cd,$ad,$cc,$09,$f0,$03,$20
-db $40,$ce,$ad,$d0,$09,$f0,$03,$20,$82,$ce,$7a,$fa,$68,$ad
-db $c8,$09,$60,$20,$c4,$ce,$ad,$d2,$09,$c9,$01,$00,$f0,$07
-db $a9,$00,$14,$85,$18,$80,$05,$a9,$00,$10,$85,$18,$a6,$12
-db $bf,$17,$cf,$80,$05,$18,$8f,$1c,$c6,$7e,$a6,$14,$bf,$17
-db $cf,$80,$05,$18,$8f,$1e,$c6,$7e,$a6,$16,$bf,$17,$cf,$80
-db $05,$18,$8f,$20,$c6,$7e,$a9,$49,$00,$05,$18,$8f,$5c,$c6
-db $7e,$a9,$4a,$00,$05,$18,$8f,$5e,$c6,$7e,$a9,$4b,$00,$05
-db $18,$8f,$60,$c6,$7e,$60,$20,$fa,$ce,$ad,$d2,$09,$c9,$02
-db $00,$f0,$07,$a9,$00,$14,$85,$18,$80,$05,$a9,$00,$10,$85
-db $18,$a6,$14,$bf,$17,$cf,$80,$05,$18,$8f,$24,$c6,$7e,$a6
-db $16,$bf,$17,$cf,$80,$05,$18,$8f,$26,$c6,$7e,$a9,$34,$00
-db $05,$18,$8f,$64,$c6,$7e,$a9,$35,$00,$05,$18,$8f,$66,$c6
-db $7e,$60,$20,$fa,$ce,$ad,$d2,$09,$c9,$03,$00,$f0,$07,$a9
-db $00,$14,$85,$18,$80,$05,$a9,$00,$10,$85,$18,$a6,$14,$bf
-db $17,$cf,$80,$05,$18,$8f,$2a,$c6,$7e,$a6,$16,$bf,$17,$cf
-db $80,$05,$18,$8f,$2c,$c6,$7e,$a9,$36,$00,$05,$18,$8f,$6a
-db $c6,$7e,$a9,$37,$00,$05,$18,$8f,$6c,$c6,$7e,$60,$8d,$04
-db $42,$e2,$20,$a9,$64,$8d,$06,$42,$48,$68,$48,$68,$c2,$20
-db $ad,$14,$42,$0a,$85,$12,$ad,$16,$42,$8d,$04,$42,$e2,$20
-db $a9,$0a,$8d,$06,$42,$48,$68,$48,$68,$c2,$20,$ad,$14,$42
-db $0a,$85,$14,$ad,$16,$42,$0a,$85,$16,$60,$8d,$04,$42,$e2
-db $20,$a9,$0a,$8d,$06,$42,$48,$68,$48,$68,$c2,$20,$ad,$14
-db $42,$0a,$85,$14,$ad,$16,$42,$0a,$85,$16,$60,$45,$00,$3c
-db $00,$3d,$00,$3e,$00,$3f,$00,$40,$00,$41,$00,$42,$00,$43
-db $00,$44,$00
+AmmoDigits:
+dw $0045, $003C, $003D, $003E, $003F, $0040, $0041, $0042, $0043, $0044
 
-org $858851
-db $0f,$28,$0f,$28,$0f,$28
-
-org $858891
-db $49,$30,$4a,$30,$4b,$30
-
-org $858951
-db $0f,$28,$0f,$28,$0f,$28
-
-org $858993
-db $34,$30,$35,$30
-
-org $858a4f
-db $0f,$28,$0f,$28
-
-org $858a8f
-db $36,$30,$37,$30
-
-org $9ab542
-db $9f,$7f,$b2,$7f,$ae,$73,$ae,$73,$b2,$7f,$9f,$7f,$ff,$80
-db $ff,$01,$f1,$fe,$fd,$2e,$2b,$f6,$fb,$26,$2d,$fe,$f1,$fe
-db $ff,$01,$ff,$80,$83,$7f,$86,$7f,$8f,$7a,$8e,$7b,$87,$7e
-db $83,$7f,$ff,$80,$ff,$01,$c1,$fe,$61,$fe,$f1,$5e,$71,$de
-db $e1,$7e,$c1,$fe,$ff,$01
-
-org $9ab5c0
-db $3c,$c3,$7c,$9b,$7c,$bb,$7c,$9b,$3c,$db,$3c,$db,$3c,$c3
-db $00,$ff,$fe,$01,$ff,$7c,$7f,$86,$ff,$3c,$ff,$60,$ff,$7e
-db $ff,$00,$00,$ff,$fe,$01,$ff,$7c,$ff,$06,$7f,$bc,$ff,$06
-db $ff,$7c,$fe,$01,$00,$ff,$3e,$c1,$7e,$9d,$fe,$2d,$ff,$4c
-db $ff,$7e,$ff,$0c,$1e,$e1,$00,$ff,$ff,$00,$ff,$7c,$fe,$61
-db $ff,$7c,$ff,$06,$ff,$7c,$fe,$01,$00,$ff,$7e,$81,$fe,$3d
-db $fe,$61,$ff,$7c,$ff,$66,$ff,$3c,$7e,$81,$00,$ff,$ff,$00
-db $ff,$7e,$ff,$06,$3f,$cc,$3e,$d9,$3c,$db,$3c,$c3,$00,$ff
-db $7e,$81,$ff,$3c,$ff,$66,$ff,$3c,$ff,$66,$ff,$3c,$7e,$81
-db $00,$ff,$7e,$81,$ff,$3c,$ff,$66,$ff,$3e,$7f,$86,$7f,$bc
-db $7e,$81,$00,$ff,$7e,$81,$ff,$3c,$ff,$66,$ff,$66,$ff,$66
-db $ff,$3c,$7e,$81,$00
-
-org $9ab691
-db $80,$80,$7f,$87,$7f,$89,$7e,$89,$7e,$87,$7f,$80,$7f,$ff
-db $80,$ff,$00,$e3,$ff,$1f,$fe,$ff,$21,$e1,$3f,$1e,$ff,$e3
-db $ff,$ff,$00,$ff,$01,$f9,$fe,$f1,$1e,$21,$fe,$e1,$3e,$11
-db $fe,$f9,$fe,$ff,$01

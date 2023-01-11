@@ -6,6 +6,10 @@
 ;------------------------------------------------------------------------------
 WaitForNMI = $808338 ; long
 LoadMapMirror = $80858C ; long
+HUDMissiles_bottomrow = $8099F6
+InitializeHUD = $809A79 ; long
+HUDDrawThreeDigits = $809D78
+HUDDrawTwoDigits = $809D98
 SaveToSRAM = $818000 ; long
 LoadSave = $818085 ; long
 LoadMap = $8182E4

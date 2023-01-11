@@ -3,7 +3,15 @@
 
 !Big = $825A
 !Small = $8289
+!EmptyBig = #$8441
 !EmptySmall = $8436
+!Shot = #$83C5
+!Dash = #$83CC
+!Jump = #$8756
+!ItemCancel = #$875D
+!ItemSelect = #$8764
+!AimDown = #$876B
+!AimUp = #$8773
 
 dw !EmptySmall, !Small, double_jump
 dw !EmptySmall, !Small, heat_shield
@@ -12,23 +20,23 @@ dw !EmptySmall, !Small, aqua_boots
 dw !EmptySmall, !Small, BtnArray
 
 table data/box.tbl,rtl
-    ;   0                              31
 double_jump:
-    dw "______    DOUBLE JUMP    _______"
+    dw "______    DOUBLE JUMP     ______"
 heat_shield:
-    dw "______    HEAT SHIELD    _______"
+    dw "______    HEAT SHIELD     ______"
 aqua_boots:
-    dw "______     AQUA BOOTS    _______"
+    dw "______     AQUA BOOTS     ______"
 ; reserved:
 ;     dw "______     RESERVED      _______"
 
 cleartable
 
 BtnArray:
-    dw $0000, $012A, $012A, $012C, $012C, $012C, $0000, $0000, $0000, $0000, $0000, $0000, $0120, $0000, $0000
-    dw $0000, $0000, $0000, $012A, $0000, $0000, $0000, $0000, $0000, $0000, $0000, $0000, $0000, $0000, $0000
+dw $0000, $012A, $012A, $012C, $012C, $012C, $0000, $0000, $0000, $0000, $0000, $0000, $0120, $0000, $0000
+dw $0000, $0000, $0000, $012A, $0000, $0000, $0000, $0000, $0000, $0000, $0000, $0000, $0000, $0000, $0000
 
-pushpc ; 1c1f fixes
+pushpc
+; 1c1f fixes
 org $858749
 fix_1c1f:
         LDA.b $CE : BEQ +     ; if $CE is set, it overrides the message box
@@ -52,4 +60,24 @@ org $8582E5
 org $858413
 	dw BtnArray
 
+; Max ammo tile changes
+org $858851
+db $0f,$28,$0f,$28,$0f,$28
+
+org $858891
+db $49,$30,$4a,$30,$4b,$30
+
+org $858951
+db $0f,$28,$0f,$28,$0f,$28
+
+org $858993
+db $34,$30,$35,$30
+
+org $858a4f
+db $0f,$28,$0f,$28
+
+org $858a8f
+db $36,$30,$37,$30
+
 pullpc
+

@@ -199,6 +199,28 @@ JSR.w CopyExtendedBuffers
 org $819D1A
 JSR.w ClearExtendedSRAM
 
+;------------------------------------------------------------------------------
+; New HUD
+;------------------------------------------------------------------------------
+org $8099E1
+BRA HUDMissiles_bottomrow
 
+; NOP out vanilla missile/super/pb tiles
+org $809ACE
+NOP #4
+org $809AD7
+NOP #4
+org $809AE0
+NOP #4
+
+; Max ammo display
+org $809b0d
+dw InitHUDAmmoExpanded_missiles
+org $809b1b
+dw InitHUDAmmoExpanded_supers
+org $809b29
+dw InitHUDAmmoExpanded_pbs
+org $809c00
+JSR.w NewHUDAmmo
 
 pullpc

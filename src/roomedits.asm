@@ -14,8 +14,8 @@ dw $A7B3,$0001,Room_FirstHeated_Patch_01
 dw $A253,$0001,Room_RedTower_Patch_01
 dw $D617,$0001,Room_PreBotwoon_Patch_01
 dw $A0D2,$0001,Room_Waterway_Patch_01
-dw $C98E,$0000,Room_WreckedShipReserve_Patch_01
-dw $C98E,$0001,Room_WreckedShipReserve_Patch_02
+dw $C98E,$0001,Room_WreckedShipReserve_Patch_01
+;dw $C98E,$0001,Room_WreckedShipReserve_Patch_02
 dw $D08A,$0001,Room_CrabTunnel_Patch_01
 dw $ffff
 }
@@ -248,17 +248,17 @@ db $ff,$00,$ff,$00
 db $ff,$00,$ff,$00
 db $ff,$00,$ff,$00
 db $ff,$00,$ff,$00
-dw $053F,$0001
+dw $053E,$0002
 db $FF,$00
-dw $32A0,$0001
+dw $32A0,$0002
 db $00,$00
 dw $ffff
 
 Room_WreckedShipReserve_Patch_01:
-dw $053F,$0001
-db $F1
-dw $32A0,$0001
-db $08
+dw $053F,$0002
+db $11,$F1
+dw $32A0,$0002
+db $08,$00
 dw $ffff
 
 Room_CrabTunnel_Patch_01:

@@ -17,7 +17,9 @@ org 0
 ;------------------------------------------------------------------------------
 ; $7E0000 - $7E1FFF. Not mirrored in bank $7F or banks >= $C0
 ;------------------------------------------------------------------------------
-MultiplyResult = $7E002A             ; 32-bit DP scratch space. Used by vanilla for multiplication result.
+MultiplierOne = $7E0026              ; 16-bit DP scratch space. Used by vanilla for multiplier
+MultiplierTwo = $7E0028              ; 16-bit DP scratch space. Used by vanilla for multiplier
+MultiplyResult = $7E002A             ; 32-bit DP scratch space. Used by vanilla for result.
 NMICounter = $7E05B8                 ;
 AreaMapFlag = $7E0789                ;
 GameState = $7E0998                  ;

@@ -14,7 +14,6 @@ incsrc hooks.asm
 incsrc defines.asm
 
 incsrc generalbugfixes.asm
-;incsrc newhud.asm
 
 org $81EF1A : fillbyte $FF : fill $10E5 ; Sorry Genji
 org $DF8000 : fillbyte $FF : fill $7FFF
@@ -31,6 +30,7 @@ org $80CD90
 incsrc init.asm
 incsrc framehook.asm
 incsrc stats/stats.asm
+incsrc newhud.asm
 warnpc $80FFC0 ; SNES ROM Header
 
 org $81EF1A
@@ -71,6 +71,13 @@ warnpc $918000
 org $93F620
 incsrc startercharge.asm
 warnpc $948000
+
+org $9AB542
+incbin ../data/supericon.bin
+org $9AB5C0
+incbin ../data/pbicon.bin
+org $9AB691
+incbin ../data/missileicon.bin
 
 org $CEB230
 incsrc roomedits.asm
