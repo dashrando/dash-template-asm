@@ -215,3 +215,44 @@ ItemSave:
         INY #3
 RTS
 
+; Routine called when a beam is collected.
+collect_beam: {
+        LDA.w $0000,Y : PHA : BIT.w #$1000 : BEQ +
+        LDA.l ChargeMode : AND.w #$000F : BEQ +
+        LDA.w BeamsCollected : BIT.w #$1000 : BEQ +
+        INC.w ChargeUpgrades
+   +
+        PLA
+RTS
+
+pushpc
+
+; Special Blocks
+org $84D409
+SpecialSpeedCollide:
+        LDA.w SpeedStepCounter : CMP.w #$03FF : BPL +
+                LDA.w SamusPose : CMP.w #$0081 : BEQ ++
+                                  CMP.w #$0082 : BEQ ++
+        +
+        JMP.w $CE83 ; Treat as bomb block
+        ++
+        LDA.w #$0000 : STA.w PLMIds,Y
+        SEC
+RTS
+
+SpecialSpeedProjectile:
+        LDX.w ProjectileIndex : LDA.w ProjectileType,X : AND.w #$0F00 : CMP #$0500 : BNE +
+                JMP.w $CF0C ; Break block
+        +
+        LDA.w #$0000 : STA.w PLMIds,Y
+RTS
+
+SpecialShotProjectile:
+        LDX.w ProjectileIndex : LDA.w ProjectileType,X : BIT.w #$0004 : BEQ +
+                JMP.w $CF0C ; Break block
+        +
+        LDA.w #$0000 : STA.w PLMIds,Y ;Else delete PLM
+RTS
+warnpc $84D490
+
+pullpc

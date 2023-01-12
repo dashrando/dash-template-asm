@@ -30,6 +30,7 @@ MaxPBs = $7E09D0                     ;
 DashItemsCollected = $7E09EC         ; Word-length bitfields used for new items, similar to the
 DashItemsEquipped = $7E09EE          ; vanilla item bitfields.
                                      ; - - - - - - - -  - - - - - q h d
+ChargeUpgrades = $7E0A00             ;
                                      ; d = Double Jump | h = Heat Shield | q = Aqua Boots
 EventFlags = $7ED820                 ;
 BossFlagsVanilla = $7ED828           ; Boss bitflags indexed by area. 8 bytes.

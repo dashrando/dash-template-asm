@@ -39,6 +39,36 @@ pushpc
 pullpc
 endmacro
 
+; Macros for encoding and decoding values from a beam damage table. This
+; version stores damage in 16 bits so no decode logic is needed. It could
+; be stored in 8 bits by dividing by 10 at encode and multiplying by 10
+; at decode.
+
+macro encode_dmg(value)
+   dw <value>
+endmacro
+
+macro decode_dmg()
+endmacro
+
+; Macro for defining a beam damage table.
+
+macro beam_dmg(n,i,s,w,is,iw,ws,iws,p,ip,wp,iwp)
+   %encode_dmg(<n>)   ; None (aka Power)
+   %encode_dmg(<w>)   ; Wave
+   %encode_dmg(<i>)   ; Ice
+   %encode_dmg(<iw>)  ; Ice + wave
+   %encode_dmg(<s>)   ; Spazer
+   %encode_dmg(<ws>)  ; Spazer + wave
+   %encode_dmg(<is>)  ; Spazer + ice
+   %encode_dmg(<iws>) ; Spazer + ice + wave
+   %encode_dmg(<p>)   ; Plasma
+   %encode_dmg(<wp>)  ; Plasma + wave
+   %encode_dmg(<ip>)  ; Plasma + ice
+   %encode_dmg(<iwp>) ; Plasma + ice + wave
+endmacro
+
+
 ; Credits
 
 macro row1(index)

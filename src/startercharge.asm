@@ -8,7 +8,7 @@ InitializeProjectileExpanded:
                 PHK : PLB
                 REP #$30
                 ; Lookup the uncharged damage value
-                LDA.w ProjectileTypes,X
+                LDA.w ProjectileType,X
                 AND.w #$000F
                 ASL
                 TAY

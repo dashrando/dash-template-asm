@@ -6,7 +6,6 @@ pushpc
 ; data writes or overwriting smaller bits of vanilla code can go here.
 ;------------------------------------------------------------------------------
 
-
 ;--------------------------------------------------------------------------------
 ; Init
 ;--------------------------------------------------------------------------------
@@ -47,12 +46,36 @@ org $82EAA9
 JSR.w PostRoomDecompression
 
 ;------------------------------------------------------------------------------
-; Injecting arbitrary PLMs.
+; PLMs
 ;------------------------------------------------------------------------------
 org $82E8D5
 JSL.l InjectPLMs
 org $82EB8B
 JSL.l InjectPLMs
+org $82EB7A
+JSR LoadRoomPLM
+
+; Special Blocks
+org $94936B : skip 2*!bts
+dw SpeedCollidePLM
+org $84D010 ; Unused PLM header
+SpeedCollidePLM:
+dw SpecialSpeedCollide, $CCE3
+
+org $94A012 : skip 2*!bts
+dw SpeedProjectilePLM
+org $84D00C ; Unused PLM header
+SpeedProjectilePLM:
+dw SpecialSpeedProjectile, $CCEA
+
+org $94936B : skip 2*!bts2
+dw $D040 ; Speedbooster tile (non-respawning)
+
+org $94A012 : skip 2*!bts2
+dw ShotProjectilePLM
+org $84D014 ;Overwrite unused PLM header
+ShotProjectilePLM:
+dw SpecialShotProjectile, $CBB7
 
 ;------------------------------------------------------------------------------
 ; New Items
@@ -116,6 +139,25 @@ org $84B423
 JSL.l CheckWaterPhysicsLong : NOP #2
 org $84B4D1
 JSL.l CheckWaterPhysicsLong : NOP #2
+
+;------------------------------------------------------------------------------
+; Beams
+;------------------------------------------------------------------------------
+; PLM called when a beam is collected
+org $8488B0
+JSR.w collect_beam
+; HUD Handler / timer
+org $90B81B
+JSR.w prepare_for_charge_check
+; Fire Charged Beam (called after projectile initialized)
+org $90B9E6
+JSR.w update_charge_damage
+; Fire Uncharged Beam (called after projectile initialized)
+org $90B8EC
+JSR.w update_uncharged_damage
+;Code that initialized the HUD called once(?)
+
+
 ;------------------------------------------------------------------------------
 ; Credits
 ;------------------------------------------------------------------------------
@@ -138,24 +180,24 @@ JSL.l CheckWaterPhysicsLong : NOP #2
 
 ; Hijack the original credits code to read the script from bank $DF
 
-org $8b9976
-jml scroll
-org $8b999b
-jml patch1
-org $8b99e5
-jml patch2
-org $8b9a08
-jml patch3
-org $8b9a19
-jml patch4
-
-; Hijack when samus is in the ship and ready to leave the planet
-org $a2ab13
-jsl game_end
-
-; Hijack after decompression of regular credits tilemaps
-org $8be0d1
-jsl copy
+; org $8b9976
+; jml scroll
+; org $8b999b
+; jml patch1
+; org $8b99e5
+; jml patch2
+; org $8b9a08
+; jml patch3
+; org $8b9a19
+; jml patch4
+; 
+; ; Hijack when samus is in the ship and ready to leave the planet
+; org $a2ab13
+; jsl game_end
+; 
+; ; Hijack after decompression of regular credits tilemaps
+; org $8be0d1
+; jsl copy
 
 ;------------------------------------------------------------------------------
 ; Subareas
@@ -222,5 +264,48 @@ org $809b29
 dw InitHUDAmmoExpanded_pbs
 org $809c00
 JSR.w NewHUDAmmo
+
+org $809ab1
+JSR.w setup_charge_hud
+;Code that handles drawing missile count
+org $809bfb
+JSR.w draw_charge_damage
+
+;------------------------------------------------------------------------------
+; Message Boxes
+;------------------------------------------------------------------------------
+org $85830C
+JSR.w load_message
+
+org $858243
+JSR.w fix_1c1f
+org $8582E5
+JSR.w fix_1c1f
+
+org $858413
+dw BtnArray
+
+; Max ammo tile changes
+org $858851
+db $0f,$28,$0f,$28,$0f,$28
+org $858891
+db $49,$30,$4a,$30,$4b,$30
+org $858951
+db $0f,$28,$0f,$28,$0f,$28
+org $858993
+db $34,$30,$35,$30
+org $858a4f
+db $0f,$28,$0f,$28
+org $858a8f
+db $36,$30,$37,$30
+
+;------------------------------------------------------------------------------
+; Enemies
+;------------------------------------------------------------------------------
+org $A08A8C
+JSR LoadEnemyData : NOP
+org $A08AE1
+JSR LoadEnemyData : NOP
+
 
 pullpc

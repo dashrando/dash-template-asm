@@ -16,16 +16,19 @@
 dw !EmptySmall, !Small, double_jump
 dw !EmptySmall, !Small, heat_shield
 dw !EmptySmall, !Small, aqua_boots
+dw !EmptySmall, !Small, charge_upgrade
 ;dw !EmptySmall, !Small, reserved
 dw !EmptySmall, !Small, BtnArray
 
 table data/box.tbl,rtl
 double_jump:
-    dw "______    DOUBLE JUMP     ______"
+dw "______    DOUBLE JUMP     ______"
 heat_shield:
-    dw "______    HEAT SHIELD     ______"
+dw "______    HEAT SHIELD     ______"
 aqua_boots:
-    dw "______     AQUA BOOTS     ______"
+dw "______     AQUA BOOTS     ______"
+charge_upgrade:
+dw "______  CHARGE UPGRADE   _______"
 ; reserved:
 ;     dw "______     RESERVED      _______"
 
@@ -35,13 +38,32 @@ BtnArray:
 dw $0000, $012A, $012A, $012C, $012C, $012C, $0000, $0000, $0000, $0000, $0000, $0000, $0120, $0000, $0000
 dw $0000, $0000, $0000, $012A, $0000, $0000, $0000, $0000, $0000, $0000, $0000, $0000, $0000, $0000, $0000
 
-pushpc
-; 1c1f fixes
-org $858749
+load_message: {
+
+   ; Jump to the end if not charge beam.
+   lda $00
+   cmp #$8f3f
+   bne +
+
+   ; Jump to the end if using vanilla charge mode.
+   LDA.l ChargeMode
+   and #$000F
+   beq +
+
+   ; Load the address of our custom message.
+   lda #charge_upgrade
+   sta $00
+
+   ; Call the hijacked code and return.
++  ldy #$0000
+   rts
+}
+
 fix_1c1f:
-        LDA.b $CE : BEQ +     ; if $CE is set, it overrides the message box
+; if $CE is set, it overrides the message box
+        LDA.b $CE : BEQ +
                 STA.w $1C1F
-                STZ.b $CE     ; Clear $CE
+                STZ.b $CE
         +
 	LDA.w $1C1F
 	CMP.w #$001D
@@ -50,34 +72,4 @@ fix_1c1f:
         +
 	ADC.w #$027F
 RTS
-
-org $858243
-	JSR.w fix_1c1f
-
-org $8582E5
-	JSR.w fix_1c1f
-
-org $858413
-	dw BtnArray
-
-; Max ammo tile changes
-org $858851
-db $0f,$28,$0f,$28,$0f,$28
-
-org $858891
-db $49,$30,$4a,$30,$4b,$30
-
-org $858951
-db $0f,$28,$0f,$28,$0f,$28
-
-org $858993
-db $34,$30,$35,$30
-
-org $858a4f
-db $0f,$28,$0f,$28
-
-org $858a8f
-db $36,$30,$37,$30
-
-pullpc
 

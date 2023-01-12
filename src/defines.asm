@@ -52,3 +52,7 @@
 !Area_WestMaridia = #$0A
 !Area_LowerNorfair = #$0B
 !Area_Crocomire = #$0C
+
+; Special Block
+!bts = $08 ;Maximum 0F
+!bts2 = $09 ;Maximum 0F

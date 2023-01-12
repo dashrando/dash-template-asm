@@ -71,3 +71,37 @@ HeatDamage:
         JML.l $8DE38B
         .nodamage
 JML $8DE3AB
+
+pushpc
+org $A3EECE
+MetroidDamage:
+        LDA.w SamusYPos : SEC : SBC.w #$0008 : STA.w BoundaryPosition
+        LDA.w #$C000 : STA.b $12
+        LDA.w VanillaItemsEquipped : BIT.w #$0001 : BNE +
+                LSR.b $12
+        +
+        BIT.w #$0020 : BNE +
+                LSR.b $12
+        +
+        LDA.l $7E7804,X : SEC : SBC.b $12 : STA.l $7E7804,X
+        BCS +
+        LDA.w #$0001
+        JSL.l ReceiveDamageSamus 
+        +
+RTS
+warnpc $A3EF07
+
+org $A0A45E
+EnemyDamageDivision:
+        STA.b $12
+        LDA.w VanillaItemsEquipped : BIT.w #$0001 : BEQ +
+                LSR.b $12
+        +
+        BIT.w #$0020 : BEQ +
+                LSR.b $12
+        +
+        LDA.b $12
+RTL
+warnpc $A0A477
+
+pullpc 

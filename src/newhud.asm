@@ -1,7 +1,7 @@
 ;------------------------------------------------------------------------------
 ; New HUD
 ;------------------------------------------------------------------------------
-; Max ammo display by personitis.
+; Max ammo display by personitis. Charge HUD by Masshesteria.
 ;------------------------------------------------------------------------------
 
 InitHUDAmmoExpanded:
@@ -89,6 +89,7 @@ NewHUDDivision:
         PHA : PLA : NOP
         LDA.w $4214 : ASL : STA.b $12
         LDA.w $4216
+        
         .by10
         STA.w $4204
         SEP #$20
@@ -102,3 +103,54 @@ RTS
 AmmoDigits:
 dw $0045, $003C, $003D, $003E, $003F, $0040, $0041, $0042, $0043, $0044
 
+setup_charge_hud:
+        LDA.l ChargeMode : CMP.w #$0101 : BCC +
+                LDA.w #$2C0F : LDX.w #0000
+                -
+                        STA.l $7EC68A,X ; Blank tiles
+                        INX #2
+                        CPX.w #$0008
+                BNE -
+                LDA.w #$FFFF : STA.w PreviousBeams
+        +
+        LDA.w VanillaItemsEquipped
+RTS
+
+; Routine that draws the charge damage on the HUD
+draw_charge_damage:
+        LDA.l ChargeMode : CMP.w #$0101 : BCC +
+                LDA.w ChargeUpgrades : XBA : ORA.w BeamsEquipped ; 000c-nnnn-0000-psiw
+                CMP.w PreviousBeams : BEQ +
+                        STA.w PreviousBeams
+                        LDA.w #custom_digits : STA.b $00
+                        JSL.l external_load_charge_damage
+                        CMP.w #0100 : BCS .draw_3
+                                .draw_2
+                                LDX.w #$0084
+                                JSR.w HUDDrawTwoDigits
+                                LDA.w #$2C0F : STA.l $7EC68A ; Blank tile
+                                BRA +
+                        .draw_3
+                        LDX.w #$0082
+                        JSR.w HUDDrawThreeDigits
+        +
+        LDA.w #$9DD3
+RTS
+
+; Define custom digits used on the charge HUD
+custom_digits: {
+        !palette = 2
+        !character = 9
+        !offset = 00 ; 0 for normal, 60 = color swap
+        !priority = $2000
+        !zero_digit #= (!priority)|(!character+!offset)|(!palette<<10)
+
+        ;print hex(!zero_digit)
+        dw !zero_digit
+        !i = 9
+        while !i > 0
+           ;print hex(!zero_digit-!i)
+           dw !zero_digit-!i
+           !i #= !i-1
+        endif
+}

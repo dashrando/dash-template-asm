@@ -10,10 +10,11 @@ incsrc ram.asm
 incsrc sram.asm
 incsrc macros.asm
 incsrc vanillalabels.asm
-incsrc hooks.asm
 incsrc defines.asm
+incsrc hooks.asm
 
 incsrc generalbugfixes.asm
+incsrc debugmode.asm
 
 org $81EF1A : fillbyte $FF : fill $10E5 ; Sorry Genji
 org $DF8000 : fillbyte $FF : fill $7FFF
@@ -43,6 +44,7 @@ incsrc fileselect/gameoptions.asm
 incsrc subareas.asm
 incsrc roompatching.asm
 incsrc stats/stats_doors.asm
+incsrc plmskip.asm
 warnpc $838000
 
 org $84EFE0
@@ -65,6 +67,7 @@ warnpc $908000
 org $90F63A
 incsrc newitems.asm
 incsrc suits.asm
+incsrc beams.asm
 incsrc stats/stats_weapons.asm
 warnpc $918000
 
@@ -79,6 +82,10 @@ incbin ../data/pbicon.bin
 org $9AB691
 incbin ../data/missileicon.bin
 
+org $A0F7D3
+incsrc enemies.asm
+warnpc $A18000
+
 org $CEB230
 incsrc roomedits.asm
 incsrc credits/credits_data.asm
@@ -88,6 +95,4 @@ org $DF8000
 incsrc tables.asm ; Keep this first
 incsrc credits/credits.asm
 warnpc $E08000
-
-incsrc debugmode.asm
 

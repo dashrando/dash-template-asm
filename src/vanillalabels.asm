@@ -39,5 +39,6 @@ HudSelectionHandler = $90B80D
 HudSelectionHandler_charge = $90B82D
 FireBeam = $90B887
 FireBeam_charge_equipped = $90B91C
+ReceiveDamageSamus = $91DF51
 InitializeProjectile = $938000
 ProjectilePointers = $9383C1
