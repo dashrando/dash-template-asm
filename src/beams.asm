@@ -5,22 +5,23 @@
 ; Setup pointers to damage tables. The first pointer is for an uncharged shot,
 ; second is a charged shot without charge being equipped (aka starter charge),
 ; and remaining pointers increment based on number of charge beams collected.
-BeamDamageTables:
+BeamDamagePointers:
 ; Vanilla
-db vanilla_1x, vanilla_3x, vanilla_3x, vanilla_3x
-db vanilla_3x, vanilla_3x, vanilla_3x, vanilla_3x
+dw vanilla_1x, vanilla_3x, vanilla_3x, vanilla_3x
+dw vanilla_3x, vanilla_3x, vanilla_3x, vanilla_3x
 ; Starter Charge (Legacy)
-db vanilla_1x, vanilla_1x, vanilla_3x, vanilla_3x
-db vanilla_3x, vanilla_3x, vanilla_3x, vanilla_3x
+dw vanilla_1x, vanilla_1x, vanilla_3x, vanilla_3x
+dw vanilla_3x, vanilla_3x, vanilla_3x, vanilla_3x
 ; Progressive
-db balance_1x, balance_1x, balance_2x, balance_3x
-db balance_4x, balance_5x, balance_5x, balance_5x
+dw balance_1x, balance_1x, balance_2x, balance_3x
+dw balance_4x, balance_5x, balance_5x, balance_5x
 ; Placeholder
-db balance_1x, balance_2x, balance_3x, balance_3x
-db balance_3x, balance_3x, balance_3x, balance_3x
+dw balance_1x, balance_2x, balance_3x, balance_3x
+dw balance_3x, balance_3x, balance_3x, balance_3x
 
 
 ; Beam damage tables
+BeamDamageTables:
 vanilla_1x: %beam_dmg( 20, 30, 40, 50, 60, 60, 70,100,150,200,250,300)
 vanilla_3x: %beam_dmg( 60, 90,120,150,180,180,210,300,450,600,750,900)
 
@@ -43,10 +44,11 @@ RTS
 ; Routine that loads the charge damage from another
 ; bank. Used when drawing on the HUD.
 external_load_charge_damage:
-        PHY
+        PHY : PHB
+        PEA.w BeamDamageTables>>8 : PLB : PLB
         LDY.w #0001
         JSR.w load_beam_damage
-        PLY
+        PLB : PLY
 RTL
 
 ; Routine that loads beam damage from our custom
@@ -55,18 +57,18 @@ RTL
 load_beam_damage:
         PHX
         LDA.l ChargeMode : AND.w #$0003
-        ASL #3 : TAX
+        ASL #4 : TAX
         CPY.w #$0000 : BEQ +
-                INX
+                INX #2
                 LDA.w BeamsEquipped : BIT.w #$1000 : BEQ +
-                        INX : STX.b $06
-                        LDA.w ChargeUpgrades : CLC : ADC.b $06
+                        INX : INX : STX.b $06
+                        LDA.w ChargeUpgrades : ASL : CLC : ADC.b $06
                         TAX
         +
-        LDA.l BeamDamageTables,X : AND.w #$00FF : STA.b $08 ; keep long
+        LDA.w BeamDamagePointers,X : STA.b $08
         LDA.w BeamsEquipped : AND.w #$00FF
-        ASL : CLC : ADC.b $08 : TAX
-        LDA.l BeamDamageTables,X
+        ASL : CLC : TAX
+        LDA.b ($08,X)
         PLX
 RTS
 

@@ -4,40 +4,45 @@
 ; Determines subareas within the major areas
 ;------------------------------------------------------------------------------
 
-DetermineSubArea: {
+DetermineSubArea:
+        STA.w AreaIndex ; What we wrote over
+        PHX
+        ASL : TAX
+        JMP.w (SubAreaHandlers,X)
 
-   ; Hijacked code (DO NOT MODIFY)
-   STA.w $079F
+SubAreaHandlers:
+dw .crateria
+dw .brinstar
+dw .norfair
+dw .wreckedship
+dw .maridia
+dw .tourian
 
-   ; Use the builtin area as the default
-   PHX
-   STA.l SubAreaIndex
-
-   ldx.w #0
-
-   .OuterLoop {
-      LDA.l SubAreaRooms,x
-      inx : inx
-
-      cmp.w #$dead
-      beq +
-      tay
-
-      .InnerLoop {
-         LDA.l SubAreaRooms,x
-         inx : inx
-
-         cmp.w #$dead
-         beq .OuterLoop
-
-         cmp.w $079b
-         bne .InnerLoop
-         tya
-         sta.l SubAreaIndex
-      }
-   }
-
-+  PLX
-   RTS
-}
-
+.crateria
+        LDA.w RoomIndex : TAX
+        LDA.l CrateriaRooms_sub_areas,X
+        BRA .done
+.brinstar
+        LDA.w RoomIndex : TAX
+        LDA.l BrinstarRooms_sub_areas,X
+        BRA .done
+.norfair
+        LDA.w RoomIndex : TAX
+        LDA.l NorfairRooms_sub_areas,X
+        BRA .done
+.wreckedship
+        LDA.w RoomIndex : TAX
+        LDA.l WreckedShipRooms_sub_areas,X
+        BRA .done
+.maridia
+        LDA.w RoomIndex : TAX
+        LDA.l MaridiaRooms_sub_areas,X
+        BRA .done
+.tourian
+        LDA.w RoomIndex : TAX
+        LDA.l TourianRooms_sub_areas,X
+        BRA .done
+.done
+        AND.w #$00FF : STA.l SubAreaIndex
+        PLX
+RTS

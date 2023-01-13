@@ -1,9 +1,7 @@
 ;------------------------------------------------------------------------------
 ; New Item PLMS
 ;------------------------------------------------------------------------------
-; Organized for 21 new items, the vanilla item number. Chosen because it's more
-; than we will need but allows for identical arithmetic when determining an
-; item's visibility
+; Organized for 21 new items. Chozo and hidden offsets identical to vanilla items.
 ;------------------------------------------------------------------------------
 ; Bank 84
 ; Borrowed from total
@@ -215,13 +213,16 @@ ItemSave:
         INY #3
 RTS
 
+NoopPLM: ; If we need a PLM instruction pointer that does nothing
+RTS
+
 ; Routine called when a beam is collected.
-collect_beam: {
+collect_beam:
         LDA.w $0000,Y : PHA : BIT.w #$1000 : BEQ +
-        LDA.l ChargeMode : AND.w #$000F : BEQ +
-        LDA.w BeamsCollected : BIT.w #$1000 : BEQ +
-        INC.w ChargeUpgrades
-   +
+                LDA.l ChargeMode : AND.w #$000F : BEQ +
+                    LDA.w BeamsCollected : BIT.w #$1000 : BEQ +
+                            INC.w ChargeUpgrades
+        +
         PLA
 RTS
 

@@ -33,39 +33,39 @@ pushpc
 pullpc
 endmacro
 
-macro DisableBoots(table, id)
+macro AreaRoomTable(area, num_rooms)
+<area>Rooms:
+        .sub_areas : fillbyte $00 : fill <num_rooms>+1
+        .room_flags : fillbyte $00 : fill <num_rooms>+1
+        .room_patches : fillword NoPatch : fill (<num_rooms>*2)+2
+endmacro
+
+macro RoomEntry(area, id, sub_area, flags, patch)
 pushpc
-        org <table>+(<id>*2) : dw $0000
+        org <area>Rooms_sub_areas+<id>
+        db <sub_area>
+        org <area>Rooms_room_flags+<id>
+        db <flags>
+        org <area>Rooms_room_patches+(<id>*2)
+        dw <patch>
 pullpc
-endmacro
-
-; Macros for encoding and decoding values from a beam damage table. This
-; version stores damage in 16 bits so no decode logic is needed. It could
-; be stored in 8 bits by dividing by 10 at encode and multiplying by 10
-; at decode.
-
-macro encode_dmg(value)
-   dw <value>
-endmacro
-
-macro decode_dmg()
 endmacro
 
 ; Macro for defining a beam damage table.
 
 macro beam_dmg(n,i,s,w,is,iw,ws,iws,p,ip,wp,iwp)
-   %encode_dmg(<n>)   ; None (aka Power)
-   %encode_dmg(<w>)   ; Wave
-   %encode_dmg(<i>)   ; Ice
-   %encode_dmg(<iw>)  ; Ice + wave
-   %encode_dmg(<s>)   ; Spazer
-   %encode_dmg(<ws>)  ; Spazer + wave
-   %encode_dmg(<is>)  ; Spazer + ice
-   %encode_dmg(<iws>) ; Spazer + ice + wave
-   %encode_dmg(<p>)   ; Plasma
-   %encode_dmg(<wp>)  ; Plasma + wave
-   %encode_dmg(<ip>)  ; Plasma + ice
-   %encode_dmg(<iwp>) ; Plasma + ice + wave
+   dw <n>   ; None (aka Power)
+   dw <w>   ; Wave
+   dw <i>   ; Ice
+   dw <iw>  ; Ice + wave
+   dw <s>   ; Spazer
+   dw <ws>  ; Spazer + wave
+   dw <is>  ; Spazer + ice
+   dw <iws> ; Spazer + ice + wave
+   dw <p>   ; Plasma
+   dw <wp>  ; Plasma + wave
+   dw <ip>  ; Plasma + ice
+   dw <iwp> ; Plasma + ice + wave
 endmacro
 
 

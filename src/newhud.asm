@@ -126,12 +126,12 @@ draw_charge_damage:
                         JSL.l external_load_charge_damage
                         CMP.w #0100 : BCS .draw_3
                                 .draw_2
-                                LDX.w #$0084
+                                LDX.w #$00B0
                                 JSR.w HUDDrawTwoDigits
-                                LDA.w #$2C0F : STA.l $7EC68A ; Blank tile
+                                LDA.w #$2C0F : STA.l $7EC6B0 ; Blank tile
                                 BRA +
                         .draw_3
-                        LDX.w #$0082
+                        LDX.w #$00AE
                         JSR.w HUDDrawThreeDigits
         +
         LDA.w #$9DD3
@@ -139,7 +139,7 @@ RTS
 
 ; Define custom digits used on the charge HUD
 custom_digits: {
-        !palette = 2
+        !palette = 3
         !character = 9
         !offset = 00 ; 0 for normal, 60 = color swap
         !priority = $2000

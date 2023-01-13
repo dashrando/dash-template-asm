@@ -48,12 +48,12 @@ JSR.w PostRoomDecompression
 ;------------------------------------------------------------------------------
 ; PLMs
 ;------------------------------------------------------------------------------
-org $82E8D5
-JSL.l InjectPLMs
-org $82EB8B
-JSL.l InjectPLMs
-org $82EB7A
-JSR LoadRoomPLM
+;org $82E8D5
+;JSL.l InjectPLMs
+;org $82EB8B
+;JSL.l InjectPLMs
+;org $82EB7A
+;JSR LoadRoomPLM
 
 ; Special Blocks
 org $94936B : skip 2*!bts

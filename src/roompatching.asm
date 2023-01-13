@@ -5,40 +5,48 @@
 ;------------------------------------------------------------------------------
 
 PostRoomDecompression: 
+        LDA.l AreaIndex : ASL : TAX
+        JSR.w (PatchOffsets,X)
+        JSR.w PatchRoom 
+        LDA.w $0000
+RTS
 
-   ; initialize our counter
-   ldx.w #0
+PatchOffsets:
+dw .crateria
+dw .brinstar
+dw .norfair
+dw .wreckedship
+dw .maridia
+dw .tourian
 
-   ; If not more patches, jump to the end
--  LDA.l Room_Patches,x
-   cmp.w #$ffff
-   beq .ret
-
-   ; Increment the counter
-   inx #6
-
-   ; Keep looping if the patch is not for the current room
-   CMP.l RoomPointer
-   bne -
-
-   ; Check to see if the patch is enabled
-   LDA.l Room_Patches-4,x
-   beq -
-
-   ; Set the patch to run after decompression
-   LDA.l Room_Patches-2,x
-   JSR PatchRoom 
-
-.ret:
-
-   LDA $0000
-   RTS
+.crateria
+        LDA.l RoomIndex : ASL : TAX
+        LDA.l CrateriaRooms_room_patches,X
+        RTS
+.brinstar
+        LDA.l RoomIndex : ASL : TAX
+        LDA.l BrinstarRooms_room_patches,X
+        RTS
+.norfair
+        LDA.l RoomIndex : ASL : TAX
+        LDA.l NorfairRooms_room_patches,X
+        RTS
+.wreckedship
+        LDA.l RoomIndex : ASL : TAX
+        LDA.l WreckedShipRooms_room_patches,X
+        RTS
+.maridia
+        LDA.l RoomIndex : ASL : TAX
+        LDA.l MaridiaRooms_room_patches,X
+        RTS
+.tourian
+        LDA.l RoomIndex : ASL : TAX
+        LDA.l TourianRooms_room_patches,X
+        RTS
 
 PatchRoom:
-
 php
 tax
-
 ; Loop for processing patch hunks
 .loop: {
 

@@ -1,15 +1,45 @@
 LoadEnemyData:
         PHX
-        LDX.w #0000
-        -
-        LDA.l Disable_Room_Enemies,X : CMP.w #$FFFF : BEQ .ret
-                INX #4 : CMP.w RoomPointer : BNE -
-                        LDA.l Disable_Room_Enemies-2,X : BEQ -
-                                PLX
-                                LDA.w #$FFFF
-                                RTS
-
-        .ret:
+        LDA.l AreaIndex : ASL : TAX
+        JSR.w (EnemiesDisabled,X) : BNE +
+                PLX
+                LDA.l $A10000,X
+                RTS
+        +
         PLX
-        LDA.l $A10000,X
+        LDA.w #$FFFF
+RTS
+
+
+EnemiesDisabled:
+dw .crateria
+dw .brinstar
+dw .norfair
+dw .wreckedship
+dw .maridia
+dw .tourian
+
+.crateria
+        LDA.l RoomIndex : TAX
+        LDA.l CrateriaRooms_room_flags,X : BIT.w #$001
+        RTS
+.brinstar
+        LDA.l RoomIndex : TAX
+        LDA.l BrinstarRooms_room_flags,X : BIT.w #$0001
+        RTS
+.norfair
+        LDA.l RoomIndex : TAX
+        LDA.l NorfairRooms_room_flags,X : BIT.w #$0001
+        RTS
+.wreckedship
+        LDA.l RoomIndex : TAX
+        LDA.l WreckedShipRooms_room_flags,X : BIT.w #$0001
+        RTS
+.maridia
+        LDA.l RoomIndex : TAX
+        LDA.l MaridiaRooms_room_flags, X : BIT.w #$0001
+        RTS
+.tourian
+        LDA.l RoomIndex : TAX
+        LDA.l TourianRooms_room_flags, X : BIT.w #$0001
         RTS

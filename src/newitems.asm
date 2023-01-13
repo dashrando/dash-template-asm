@@ -42,7 +42,7 @@ CheckWaterPhysics:
         LDA.w VanillaItemsEquipped : BIT.w #$0020 : BNE .done ; What we wrote over
         LDA.w DashItemsEquipped : AND.w #$0004 : BEQ .done
                 LDA.w AreaIndex : ASL : TAX
-                JSR.w (AquaTables,X)
+                JSR.w (AquaHandlers,X)
         .done
         PLB          ; Restore original bank before making physics bit test
         BIT.w #$0020 ; What we wrote over.
@@ -61,56 +61,33 @@ pullpc
 
 ;------------------------------------------------------------------------------
 
-AquaTables:
-dw CrateriaWater
-dw OnlyWater
-dw NorfairWater
-dw OnlyWater
-dw MaridiaWater
-dw NoWater
+AquaHandlers:
+dw .crateria
+dw .onlywater
+dw .norfair
+dw .onlywater
+dw .maridia
+dw .nowater
 
-CrateriaWater:
-        LDA.w RoomIndex : ASL : TAX
-        LDA.w CrateriaBoots,X
+.crateria
+        LDA.w RoomIndex : TAX
+        LDA.l CrateriaRooms_room_flags,X
+        AND.w #$0020
 RTS
-MaridiaWater:
-        LDA.w RoomIndex : ASL : TAX
-        LDA.w MaridiaBoots,X
+.maridia:
+        LDA.w RoomIndex : TAX
+        LDA.l MaridiaRooms_room_flags,X
+        AND.w #$0020
 RTS
-NorfairWater:
-        LDA.w RoomIndex : CMP.w #$0013 : BEQ .water
-                          CMP.w #$0016 : BEQ .water
-                LDA.w #$0000 : RTS
-        .water
+.norfair:
+        LDA.w RoomIndex : TAX
+        LDA.l NorfairRooms_room_flags,X
+        AND.w #$0020
+RTS
+.onlywater:
         LDA.w #$0020
 RTS
-OnlyWater:
-        LDA.w #$0020
-RTS
-NoWater:
+.nowater:
         LDA.w #$0000
 RTS
 
-; Aqua Boots tables
-MaridiaBoots:        ; Table for determining Aqua Boots behavior
-fillword $0020 : fill 256 ; Initialize table with gravity behavior. Index never >= $80
-%DisableBoots(MaridiaBoots, $1D)        ; Overwrite individual rooms with non-gravity behavior
-%DisableBoots(MaridiaBoots, $1E)
-%DisableBoots(MaridiaBoots, $1F)
-%DisableBoots(MaridiaBoots, $20)
-%DisableBoots(MaridiaBoots, $21)
-%DisableBoots(MaridiaBoots, $23)
-%DisableBoots(MaridiaBoots, $28)
-%DisableBoots(MaridiaBoots, $2A)
-%DisableBoots(MaridiaBoots, $2B)
-%DisableBoots(MaridiaBoots, $31)
-%DisableBoots(MaridiaBoots, $32)
-%DisableBoots(MaridiaBoots, $37)
-
-CrateriaBoots:
-fillword $0020 : fill 256
-%DisableBoots(CrateriaBoots, $01)
-%DisableBoots(CrateriaBoots, $03)
-%DisableBoots(CrateriaBoots, $10)
-%DisableBoots(CrateriaBoots, $12)
-%DisableBoots(CrateriaBoots, $1D)

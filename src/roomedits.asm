@@ -2,34 +2,13 @@
 ; Room Edits
 ;------------------------------------------------------------------------------
 
-Room_Patches: {
-dw $d646,$0001,Room_PreShaktool_Patch_01
-dw $d2aa,$0001,Room_Plasma_Patch_01
-dw $95ff,$0001,Room_Moat_Patch_01
-dw $A408,$0001,Room_PreSpazer_Patch_01
-dw $9CB3,$0001,Room_Dachora_Patch_01
-dw $9BC8,$0001,Room_Early_Supers_Patch_01
-dw $AA41,$0001,Room_PreHiJump_Patch_01
-dw $A7B3,$0001,Room_FirstHeated_Patch_01
-dw $A253,$0001,Room_RedTower_Patch_01
-dw $D617,$0001,Room_PreBotwoon_Patch_01
-dw $A0D2,$0001,Room_Waterway_Patch_01
-dw $C98E,$0001,Room_WreckedShipReserve_Patch_01
-;dw $C98E,$0001,Room_WreckedShipReserve_Patch_02
-dw $D08A,$0001,Room_CrabTunnel_Patch_01
-dw $ffff
-}
-
 Disable_Room_PLMs: {
 dw $D340,$0001,$C571
 dw $ffff
 }
 
-Disable_Room_Enemies: {
-dw $D2AA,$0001
-dw $ffff
-}
 
+Room_Patches:
 Room_PreShaktool_Patch_01:
 dw $0ccc,$000c
 db $ff,$00,$ff,$00,$ff,$00,$ff,$00,$ff,$00,$ff,$00
@@ -249,13 +228,13 @@ db $ff,$00,$ff,$00
 db $ff,$00,$ff,$00
 db $ff,$00,$ff,$00
 dw $053E,$0002
-db $FF,$00
+db $ff,$00
 dw $32A0,$0002
 db $00,$00
 dw $ffff
 
 Room_WreckedShipReserve_Patch_01:
-dw $053F,$0002
+dw $053E,$0002
 db $11,$F1
 dw $32A0,$0002
 db $08,$00
@@ -268,4 +247,61 @@ dw $09cf,$0002
 db $87,$87
 dw $ffff
 
+Room_Shaktool_Patch_01:
+dw $02A2, $48
+dw $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF
+dw $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF
+dw $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF
+dw $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF
+dw $00FF, $00FF, $00FF, $00FF
+dw $0322, $48
+dw $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF
+dw $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF
+dw $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF
+dw $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF
+dw $00FF, $00FF, $00FF, $00FF
+dw $03A2, $48
+dw $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF
+dw $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF
+dw $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF
+dw $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF
+dw $00FF, $00FF, $00FF, $00FF
+dw $0422, $48
+dw $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF
+dw $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF
+dw $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF
+dw $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF
+dw $00FF, $00FF, $00FF, $00FF
+dw $04A2, $48
+dw $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF
+dw $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF
+dw $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF
+dw $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF
+dw $00FF, $00FF, $00FF, $00FF
+dw $0522, $48
+dw $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF
+dw $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF
+dw $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF
+dw $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF
+dw $00FF, $00FF, $00FF, $00FF
+
+NoPatch:
+dw $ffff
+
+;------------------------------------------------------------------------------
+; Disable Room PLMS
+;------------------------------------------------------------------------------
+; We can disable PLMs for a room by writing the terminating sequence ($0000)
+; in the first PLM entry for that room. There is a no-op PLM instruction in
+; bank $84 that simply returns as well for removing individual PLMs.
+;------------------------------------------------------------------------------
+pushpc
+
+org $8FC571 ; Plasma Spark
+dw $0000
+
+org $8FC553 ; Plasma Beam
+dw $C8A8    ; Blue door facing right
+
+pullpc
 
