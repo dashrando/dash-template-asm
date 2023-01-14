@@ -277,6 +277,7 @@ dw $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF
 dw $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF
 dw $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF
 dw $00FF, $00FF, $00FF, $00FF
+dw $FFFF
 
 pushpc ; Put no-op room patch at the end of the bank
 org (bank(Room_Patches)<<16)+$FFFE
