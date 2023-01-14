@@ -92,7 +92,7 @@ warnpc $A18000
 org $CEB230
 incsrc roomedits.asm
 incsrc credits/credits_data.asm
-warnpc $CF8000
+warnpc $CEFFFE
 
 org $DF8000
 incsrc tables.asm ; Keep this first

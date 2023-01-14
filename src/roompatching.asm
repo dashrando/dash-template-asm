@@ -51,7 +51,7 @@ tax
 .loop: {
 
    ; If no hunks left, jump to the end
-   lda.l Room_Patches&$FF0000,x
+   lda.l bank(Room_Patches)<<16,x
    cmp.w #$ffff
    beq .ret
 
@@ -60,7 +60,7 @@ tax
 
    ; Load the number bytes to write
    inx #2
-   lda.l Room_Patches&$FF0000,x
+   lda.l bank(Room_Patches)<<16,x
    inx #2
 
    ; Check the first bit of the length (0 = copy, 1 = repeat)
@@ -84,7 +84,7 @@ tax
 
       ; Copy the specified number of bytes two at a time
       pha
-      lda.l Room_Patches&$FF0000,x
+      lda.l bank(Room_Patches)<<16,x
       sta $0000,y
       pla
 
@@ -100,7 +100,7 @@ tax
       pha
 
       ; Load the byte that will be repeated
-      lda.l Room_Patches&$FF0000,x
+      lda.l bank(Room_Patches)<<16,x
 
       plx
 
