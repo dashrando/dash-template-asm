@@ -52,8 +52,6 @@ JSR.w PostRoomDecompression
 ;JSL.l InjectPLMs
 ;org $82EB8B
 ;JSL.l InjectPLMs
-;org $82EB7A
-;JSR LoadRoomPLM
 
 ; Special Blocks
 org $94936B : skip 2*!bts
@@ -247,7 +245,7 @@ JSR.w ClearExtendedSRAM
 org $8099E1
 BRA HUDMissiles_bottomrow
 
-; NOP out vanilla missile/super/pb tiles
+; NOP out vanilla missile/super/pb tile initialization
 org $809ACE
 NOP #4
 org $809AD7
@@ -298,14 +296,5 @@ org $858a4f
 db $0f,$28,$0f,$28
 org $858a8f
 db $36,$30,$37,$30
-
-;------------------------------------------------------------------------------
-; Enemies
-;------------------------------------------------------------------------------
-org $A08A8C
-JSR LoadEnemyData : NOP
-org $A08AE1
-JSR LoadEnemyData : NOP
-
 
 pullpc

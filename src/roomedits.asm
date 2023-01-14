@@ -288,23 +288,4 @@ dw $00FF, $00FF, $00FF, $00FF
 NoPatch:
 dw $ffff
 
-;------------------------------------------------------------------------------
-; Disable Room PLMS
-;------------------------------------------------------------------------------
-; We can disable PLMs for a room by writing the terminating sequence ($0000)
-; in the first PLM entry for that room. There is a no-op PLM instruction in
-; bank $84 that simply returns as well for removing individual PLMs.
-;------------------------------------------------------------------------------
-pushpc
-
-org $8FC571 ; Plasma Spark
-dw $0000
-
-org $8FC553 ; Plasma Beam
-dw $C8A8    ; Blue door facing right
-
-org $8FC773 ; Halfie Shaft
-skip 38 : dw $C8A8  ; Open Plasma door
-
-pullpc
 

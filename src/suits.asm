@@ -73,7 +73,8 @@ HeatDamage:
 JML $8DE3AB
 
 pushpc
-org $A3EECE
+
+org $A3EECE ; Unused code
 MetroidDamage:
         LDA.w SamusYPos : SEC : SBC.w #$0008 : STA.w BoundaryPosition
         LDA.w #$C000 : STA.b $12
@@ -91,7 +92,7 @@ MetroidDamage:
 RTS
 warnpc $A3EF07
 
-org $A0A45E
+org $A0A45E ; Unused code
 EnemyDamageDivision:
         STA.b $12
         LDA.w VanillaItemsEquipped : BIT.w #$0001 : BEQ +

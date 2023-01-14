@@ -40,6 +40,7 @@ macro AreaRoomTable(area, num_rooms)
         .room_patches : fillword NoPatch : fill (<num_rooms>*2)+2
 endmacro
 
+; Inserts specific entry into an AreaRoomTable
 macro RoomEntry(area, id, sub_area, flags, patch)
 pushpc
         org <area>Rooms_sub_areas+<id>
@@ -52,7 +53,6 @@ pullpc
 endmacro
 
 ; Macro for defining a beam damage table.
-
 macro beam_dmg(n,i,s,w,is,iw,ws,iws,p,ip,wp,iwp)
    dw <n>   ; None (aka Power)
    dw <w>   ; Wave
@@ -70,7 +70,6 @@ endmacro
 
 
 ; Credits
-
 macro row1(index)
     dw !draw, !row*<index>
     dw !draw, !blank

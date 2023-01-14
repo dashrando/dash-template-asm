@@ -44,7 +44,6 @@ incsrc fileselect/gameoptions.asm
 incsrc subareas.asm
 incsrc roompatching.asm
 incsrc stats/stats_doors.asm
-;incsrc plmskip.asm
 warnpc $838000
 
 org $84EFE0
