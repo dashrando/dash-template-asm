@@ -228,7 +228,7 @@ RTS
 
 pushpc
 
-; Special Blocks
+; Special Blocks (original by Smiley)
 org $84D409
 SpecialSpeedCollide:
         LDA.w SpeedStepCounter : CMP.w #$03FF : BPL +
@@ -249,6 +249,7 @@ SpecialSpeedProjectile:
 RTS
 
 SpecialShotProjectile:
+        ; Check for Spazer
         LDX.w ProjectileIndex : LDA.w ProjectileType,X : BIT.w #$0004 : BEQ +
                 JMP.w $CF0C ; Break block
         +
