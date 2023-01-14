@@ -26,7 +26,7 @@ dw "______    DOUBLE JUMP     ______"
 heat_shield:
 dw "______    HEAT SHIELD     ______"
 aqua_boots:
-dw "______     AQUA BOOTS     ______"
+dw "______   PRESSURE VALVE   ______"
 charge_upgrade:
 dw "______  CHARGE UPGRADE   _______"
 ; reserved:

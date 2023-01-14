@@ -10,7 +10,7 @@ pushpc ; Code below is placed in free space in the middle of banks $90 & $91,
 org $9092EA
 CheckEligibleJump:
         LDA.w VanillaItemsEquipped : BIT.w #$0200 : BNE .done ; What we wrote over
-                LDA.w DashItemsEquipped : AND.w #$0001 : BEQ .done
+                LDA.w DashItemsEquipped : AND.w #$0200 : BEQ .done
                         LDA.w #$0200
 .done
 RTS
@@ -40,7 +40,7 @@ RTL
 CheckWaterPhysics:
         PHB : PHK : PLB
         LDA.w VanillaItemsEquipped : BIT.w #$0020 : BNE .done ; What we wrote over
-        LDA.w DashItemsEquipped : AND.w #$0004 : BEQ .done
+        LDA.w DashItemsEquipped : AND.w #$0020 : BEQ .done
                 LDA.w AreaIndex : ASL : TAX
                 JSR.w (AquaHandlers,X)
         .done

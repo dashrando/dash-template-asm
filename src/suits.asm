@@ -10,7 +10,7 @@ PeriodicDamageDivision:
         LDA.w VanillaItemsEquipped : TAX
                                      AND.w #$0021 : CMP.w #$0021 : BEQ .both
                                      BIT.w #$0001 : BNE .varia
-        LDA.w DashItemsEquipped    : BIT.w #$0002 : BNE .varia
+        LDA.w DashItemsEquipped    : BIT.w #$0001 : BNE .varia
         TXA                        : BIT.w #$0020 : BNE .gravity
                 BRA .subtract_dmg ; No damage reduction
 
@@ -57,7 +57,7 @@ RTS
 
 HeatDamage:
         LDA.w VanillaItemsEquipped : BIT.w #$0001 : BNE .nodamage
-        LDA.w DashItemsEquipped : BIT #$0002 : BEQ .fulldamage
+        LDA.w DashItemsEquipped : BIT #$0001 : BEQ .fulldamage
                 LDA.l SubAreaIndex : CMP.w !Area_LowerNorfair : BNE .nodamage
                         .halfdamage
                         LDA.w SamusPeriodicSubDamage
