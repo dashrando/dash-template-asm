@@ -45,6 +45,7 @@ warnpc $828000
 
 org $82F900
 incsrc fileselect/gameoptions.asm
+incsrc menu.asm
 incsrc subareas.asm
 incsrc roompatching.asm
 incsrc stats/stats_doors.asm

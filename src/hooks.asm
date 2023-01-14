@@ -157,6 +157,40 @@ org $90B8EC
 JSR.w update_uncharged_damage
 ;Code that initialized the HUD called once(?)
 
+;------------------------------------------------------------------------------
+; Menu
+;------------------------------------------------------------------------------
+org $82A1EF
+JSR IsMenuItemCollected
+org $82A240
+JSR IsMenuItemCollected
+org $82A20F
+JSR IsMenuItemEquipped
+org $82A260
+JSR IsMenuItemEquipped
+org $82A288
+JSR SelectMenuTiles
+org $82AC43
+JSR LoadMenuTiles : NOP #2
+org $82B5A6
+JMP.w HandleMenuItemToggle
+
+; Menu cursor movement
+org $82B4BA
+LDA.w #$C056 : JSR CheckEquipmentBitmask
+org $82B4E9
+LDA.w #$C056 : JSR CheckEquipmentBitmask
+org $82B514
+LDA.w #$C062 : JSR CheckEquipmentBitmask
+org $82B542
+LDA.w #$C062 : JSR CheckEquipmentBitmask
+
+; Menu bug fixes (avoid processing Varia twice)
+org $82A1BB
+CPY #$000A
+org $82A1D6
+CPY #$000A
+
 
 ;------------------------------------------------------------------------------
 ; Credits
