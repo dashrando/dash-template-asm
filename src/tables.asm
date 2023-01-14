@@ -18,7 +18,7 @@ ShaktoolFinished:
 db $01
 
 SpaceJumpPhysics:
-db $00              ; $00 = Vanilla | $01 = Water with gravity physics everywhere
+db $01            ; $00 = Vanilla | $01 = Water with gravity physics everywhere
 
 
 

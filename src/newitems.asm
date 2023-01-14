@@ -49,6 +49,15 @@ CheckWaterPhysics:
 RTS
 
 warnpc $90934F
+
+;------------------------------------------------------------------------------
+org $90A607
+CheckJumpPhysics:
+        LDA.l SpaceJumpPhysics : BNE .done
+                LDA.w LiquidPhysicsType
+        .done
+RTS
+warnpc $90A61C
 ;------------------------------------------------------------------------------
 org $9180BE
 ClearJumpFlag:
