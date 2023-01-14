@@ -16,8 +16,8 @@
 %AreaRoomTable(Tourian, $12)
 
 ;------------------------------------------------------------------------------
-; room_flags: - - a - - - - e
-; e = Disable Enemies | a = Enable Aqua Boots
+; room_flags: - - a - - - - -
+; a = Enable Aqua Boots
 ;------------------------------------------------------------------------------
 
 ; Crateria
@@ -215,7 +215,7 @@
 %RoomEntry(Maridia, $04,  !Area_WestMaridia,  $20,  NoPatch) ; Main Street
 %RoomEntry(Maridia, $05,  !Area_WestMaridia,  $20,  NoPatch) ; Fish Tank
 %RoomEntry(Maridia, $06,  !Area_WestMaridia,  $20,  NoPatch) ; Mama Turtle
-%RoomEntry(Maridia, $07,  !Area_WestMaridia,  $20,  Room_CrabTunnel_Patch_01) ; Crab Tunnel
+%RoomEntry(Maridia, $07,  !Area_WestMaridia,  $20,  NoPatch) ; Crab Tunnel
 %RoomEntry(Maridia, $08,  !Area_WestMaridia,  $20,  NoPatch) ; Everest
 %RoomEntry(Maridia, $09,  !Area_WestMaridia,  $20,  NoPatch) ; Lonely Fish
 %RoomEntry(Maridia, $0A,  !Area_WestMaridia,  $20,  NoPatch) ; Watering Hole

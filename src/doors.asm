@@ -37,5 +37,8 @@ dw $0000    ; Make all doors blue
 org $8FC773         ; Halfie Shaft
 skip 38 : dw $C8A8  ; Make plasma door blue
 
+org $8FC48B ; Crab Shaft
+dw $C826    ; Open gate
+
 pullpc
 

@@ -240,13 +240,6 @@ dw $32A0,$0002
 db $08,$00
 dw $ffff
 
-Room_CrabTunnel_Patch_01:
-dw $039c,$0004
-db $81,$19,$81,$19
-dw $09cf,$0002
-db $87,$87
-dw $ffff
-
 Room_Shaktool_Patch_01:
 dw $02A2, $48
 dw $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF, $00FF

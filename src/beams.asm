@@ -8,13 +8,13 @@
 BeamDamagePointers:
 ; Vanilla
 dw vanilla_1x, vanilla_3x, vanilla_3x, vanilla_3x
-dw vanilla_3x, vanilla_3x, vanilla_3x, vanilla_3x ; 10
+dw vanilla_3x, vanilla_3x, vanilla_3x, vanilla_3x
 ; Starter Charge (Legacy)
 dw vanilla_1x, vanilla_1x, vanilla_3x, vanilla_3x
-dw vanilla_3x, vanilla_3x, vanilla_3x, vanilla_3x ; 20
+dw vanilla_3x, vanilla_3x, vanilla_3x, vanilla_3x
 ; Progressive
 dw balance_1x, balance_1x, balance_2x, balance_3x
-dw balance_4x, balance_5x, balance_5x, balance_5x ; 30
+dw balance_4x, balance_5x, balance_5x, balance_5x
 ; Placeholder
 dw balance_1x, balance_2x, balance_3x, balance_3x
 dw balance_3x, balance_3x, balance_3x, balance_3x
@@ -83,10 +83,10 @@ RTS
 
 ; Routine that updates damage for an uncharged shot
 update_uncharged_damage:
-   LDY.w #0000
-   JSR.w load_beam_damage
-   STA.w ProjectileDamage,X
-   JSR.w prepare_for_charge_check
+        LDY.w #0000
+        JSR.w load_beam_damage
+        STA.w ProjectileDamage,X
+        JSR.w prepare_for_charge_check
 RTS
 
 
