@@ -8,13 +8,13 @@
 BeamDamagePointers:
 ; Vanilla
 dw vanilla_1x, vanilla_3x, vanilla_3x, vanilla_3x
-dw vanilla_3x, vanilla_3x, vanilla_3x, vanilla_3x
+dw vanilla_3x, vanilla_3x, vanilla_3x, vanilla_3x ; 10
 ; Starter Charge (Legacy)
 dw vanilla_1x, vanilla_1x, vanilla_3x, vanilla_3x
-dw vanilla_3x, vanilla_3x, vanilla_3x, vanilla_3x
+dw vanilla_3x, vanilla_3x, vanilla_3x, vanilla_3x ; 20
 ; Progressive
 dw balance_1x, balance_1x, balance_2x, balance_3x
-dw balance_4x, balance_5x, balance_5x, balance_5x
+dw balance_4x, balance_5x, balance_5x, balance_5x ; 30
 ; Placeholder
 dw balance_1x, balance_2x, balance_3x, balance_3x
 dw balance_3x, balance_3x, balance_3x, balance_3x
@@ -61,14 +61,14 @@ load_beam_damage:
         CPY.w #$0000 : BEQ +
                 INX #2
                 LDA.w BeamsEquipped : BIT.w #$1000 : BEQ +
-                        INX : INX : STX.b $06
+                        INX #2 : STX.b $06
                         LDA.w ChargeUpgrades : ASL : CLC : ADC.b $06
                         TAX
         +
         LDA.w BeamDamagePointers,X : STA.b $08
         LDA.w BeamsEquipped : AND.w #$00FF
-        ASL : CLC : TAX
-        LDA.b ($08,X)
+        ASL : TAY
+        LDA.b ($08),Y
         PLX
 RTS
 

@@ -303,5 +303,8 @@ dw $0000
 org $8FC553 ; Plasma Beam
 dw $C8A8    ; Blue door facing right
 
+org $8FC773 ; Halfie Shaft
+skip 38 : dw $C8A8  ; Open Plasma door
+
 pullpc
 
