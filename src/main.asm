@@ -16,9 +16,6 @@ incsrc defines.asm
 incsrc hooks.asm
 
 incsrc generalbugfixes.asm
-if !DEBUG = 1
-    incsrc debugmode.asm
-endif
 
 org $81EF1A : fillbyte $FF : fill $10E5 ; Sorry Genji
 org $DF8000 : fillbyte $FF : fill $7FFF
