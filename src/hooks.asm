@@ -299,11 +299,11 @@ dw InitHUDAmmoExpanded_pbs
 org $809c00
 JSR.w NewHUDAmmo
 
+; Charge damage display
 org $809ab1
-JSR.w setup_charge_hud
-;Code that handles drawing missile count
+JSR.w InitHUDCharge
 org $809bfb
-JSR.w draw_charge_damage
+JSR.w NewHUDCharge
 
 ;------------------------------------------------------------------------------
 ; Message Boxes

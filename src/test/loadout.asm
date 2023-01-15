@@ -16,13 +16,6 @@
 !PlasmaBeam = $0008
 !ChargeBeam = $1000
 
-!Addr_NumMissiles = $09c6
-!Addr_MaxMissiles = $09c8
-!Addr_NumSupers = $09ca
-!Addr_MaxSupers = $09cc
-!Addr_NumPBs = $09ce
-!Addr_MaxPBs = $09d0
-
 macro add_items(...)
    !items #= 0
    !i #= 0

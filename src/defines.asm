@@ -16,13 +16,6 @@
 !softreset = $7fffe6
 !scroll_speed = $7fffe8
 
-!DoorTransitions = $0002
-!ChargeShots = $0014
-!SpecialBeamAttacks = $0015
-!SuperMissiles = $0016
-!Missiles = $0017
-!PowerBombs = $0018
-
 ; RTA Timer (timer 1 is frames, and timer 2 is number of times frames rolled over)
 !timer1 = $05b8
 !timer2 = $05ba
@@ -34,9 +27,6 @@
 !add_time_tmp = $7fff04
 !region_timer_tmp = $7fff06
 !region_tmp = $7fff08
-
-; End of List
-!EOL = $dead
 
 ; Index values associated with each zone
 !Area_Crateria = #$00       ; includes Blue Brinstar

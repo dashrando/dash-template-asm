@@ -52,6 +52,23 @@ pushpc
 pullpc
 endmacro
 
+; Define numbers 0-9 using specified palette
+macro DefineCustomDigits(palette,colorSwap)
+        !offset = 0;
+        if <colorSwap> == 1
+                !offset = 60
+        endif
+        !priority = $2000
+        !zero_digit #= (!priority)|(9+!offset)|(<palette><<10)
+
+        dw !zero_digit
+        !i = 9
+        while !i > 0
+                dw !zero_digit-!i
+                !i #= !i-1
+        endif
+endmacro
+
 ; Macro for defining a beam damage table.
 macro beam_dmg(n,i,s,w,is,iw,ws,iws,p,ip,wp,iwp)
    dw <n>   ; None (aka Power)
