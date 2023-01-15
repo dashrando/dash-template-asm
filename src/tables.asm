@@ -14,9 +14,6 @@ ChargeMode:
 db $02  ; 0 = vanilla, 1 = starter, 2 = balance
 db $01  ; 0 = no hud, 1 = charge damage on HUD
 
-ShaktoolFinished:
-db $01
-
 SpaceJumpPhysics:
 db $01            ; $00 = Vanilla | $01 = Water with gravity physics everywhere
 

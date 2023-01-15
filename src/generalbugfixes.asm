@@ -12,6 +12,12 @@ LDX.w #$0001
 org $82B4C4
 CPX.w #$000C
 
+; Menu bug fixes (avoid processing Varia twice)
+org $82A1BB
+CPY #$000A
+org $82A1D6
+CPY #$000A
+
 ; Suit acquisition animation skip
 org $848717
 NOP #4

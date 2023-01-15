@@ -78,14 +78,6 @@ dw SpecialShotProjectile, $CBB7
 ;------------------------------------------------------------------------------
 ; New Items
 ;------------------------------------------------------------------------------
-; Starter Charge
-org $90B821
-BRA HudSelectionHandler_charge
-org $90B8F2
-BRA FireBeam_charge_equipped
-org $90B9E2
-JSL InitializeProjectileExpanded
-
 ; Suits
 org $90E74D
 JSR.w PeriodicDamageDivision
@@ -145,51 +137,44 @@ JSL.l CheckWaterPhysicsLong : NOP #2
 ;------------------------------------------------------------------------------
 ; PLM called when a beam is collected
 org $8488B0
-JSR.w collect_beam
+JSR.w CollectBeam
 ; HUD Handler / timer
 org $90B81B
-JSR.w prepare_for_charge_check
+JSR.w PrepareForChargeCheck
 ; Fire Charged Beam (called after projectile initialized)
 org $90B9E6
-JSR.w update_charge_damage
+JSR.w UpdateChargeDamage
 ; Fire Uncharged Beam (called after projectile initialized)
 org $90B8EC
-JSR.w update_uncharged_damage
-;Code that initialized the HUD called once(?)
+JSR.w UpdateUnchargedDamage
 
 ;------------------------------------------------------------------------------
 ; Menu
 ;------------------------------------------------------------------------------
 org $82A1EF
-JSR IsMenuItemCollected
+JSR.w IsMenuItemCollected
 org $82A240
-JSR IsMenuItemCollected
+JSR.w IsMenuItemCollected
 org $82A20F
-JSR IsMenuItemEquipped
+JSR.w IsMenuItemEquipped
 org $82A260
-JSR IsMenuItemEquipped
+JSR.w IsMenuItemEquipped
 org $82A288
-JSR SelectMenuTiles
+JSR.w SelectMenuTiles
 org $82AC43
-JSR LoadMenuTiles : NOP #2
+JSR.w LoadMenuTiles : NOP #2
 org $82B5A6
 JMP.w HandleMenuItemToggle
 
 ; Menu cursor movement
 org $82B4BA
-LDA.w #$C056 : JSR CheckEquipmentBitmask
+LDA.w #$C056 : JSR.w CheckEquipmentBitmask
 org $82B4E9
-LDA.w #$C056 : JSR CheckEquipmentBitmask
+LDA.w #$C056 : JSR.w CheckEquipmentBitmask
 org $82B514
-LDA.w #$C062 : JSR CheckEquipmentBitmask
+LDA.w #$C062 : JSR.w CheckEquipmentBitmask
 org $82B542
-LDA.w #$C062 : JSR CheckEquipmentBitmask
-
-; Menu bug fixes (avoid processing Varia twice)
-org $82A1BB
-CPY #$000A
-org $82A1D6
-CPY #$000A
+LDA.w #$C062 : JSR.w CheckEquipmentBitmask
 
 
 ;------------------------------------------------------------------------------

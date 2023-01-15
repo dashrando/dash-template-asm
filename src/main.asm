@@ -73,7 +73,6 @@ incsrc stats/stats_weapons.asm
 warnpc $918000
 
 org $93F620
-incsrc startercharge.asm
 warnpc $948000
 
 org $9AB542

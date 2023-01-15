@@ -33,7 +33,7 @@ balance_5x: %beam_dmg(100,150,200,250,250,300,450,500,500,500,500,500)
 
 ; Routine that loads either the equipped beams or $1000 based on the charge
 ; mode because the next instructions checks to see if charge is equipped.
-prepare_for_charge_check:
+PrepareForChargeCheck:
         LDA.l ChargeMode : AND.w #$000F : BEQ +
                 LDA.w #$1000
                 RTS
@@ -43,18 +43,18 @@ RTS
 
 ; Routine that loads the charge damage from another
 ; bank. Used when drawing on the HUD.
-external_load_charge_damage:
+ExternalLoadChargeDamage:
         PHY : PHB
         PEA.w BeamDamageTables>>8 : PLB : PLB
         LDY.w #0001
-        JSR.w load_beam_damage
+        JSR.w LoadBeamDamage
         PLB : PLY
 RTL
 
 ; Routine that loads beam damage from our custom
 ; tables where the value in Y indicates charged
 ; or not. [0 = uncharged, 1 = charged]
-load_beam_damage:
+LoadBeamDamage:
         PHX
         LDA.l ChargeMode : AND.w #$0003
         ASL #4 : TAX
@@ -73,20 +73,20 @@ load_beam_damage:
 RTS
 
 ; Routine that updates damage for a charged shot
-update_charge_damage: 
+UpdateChargeDamage: 
         LDY.w #0001
-        JSR.w load_beam_damage
+        JSR.w LoadBeamDamage
         STA.w ProjectileDamage,X
         LDA.w ProjectileType,X
 RTS
 
 
 ; Routine that updates damage for an uncharged shot
-update_uncharged_damage:
+UpdateUnchargedDamage:
         LDY.w #0000
-        JSR.w load_beam_damage
+        JSR.w LoadBeamDamage
         STA.w ProjectileDamage,X
-        JSR.w prepare_for_charge_check
+        JSR.w PrepareForChargeCheck
 RTS
 
 

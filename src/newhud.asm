@@ -117,7 +117,7 @@ NewHUDCharge:
                 CMP.w PreviousBeams : BEQ +
                         STA.w PreviousBeams
                         LDA.w #HUDHealthDigits : STA.b $00
-                        JSL.l external_load_charge_damage
+                        JSL.l ExternalLoadChargeDamage
                         CMP.w #0100 : BCS .draw_3
                                 .draw_2
                                 LDX.w #$00B0

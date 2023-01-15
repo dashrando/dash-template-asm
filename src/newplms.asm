@@ -217,7 +217,7 @@ NoopPLM: ; If we need a PLM instruction pointer that does nothing
 RTS
 
 ; Routine called when a beam is collected.
-collect_beam:
+CollectBeam:
         LDA.w $0000,Y : PHA : BIT.w #$1000 : BEQ +
                 LDA.l ChargeMode : AND.w #$000F : BEQ +
                     LDA.w BeamsCollected : BIT.w #$1000 : BEQ +
