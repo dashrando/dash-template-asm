@@ -44,11 +44,10 @@ RTS
 ; Routine that loads the charge damage from another
 ; bank. Used when drawing on the HUD.
 ExternalLoadChargeDamage:
-        PHY : PHB
-        PEA.w BeamDamageTables>>8 : PLB : PLB
+        PHY
         LDY.w #0001
         JSR.w LoadBeamDamage
-        PLB : PLY
+        PLY
 RTL
 
 ; Routine that loads beam damage from our custom
@@ -56,6 +55,7 @@ RTL
 ; or not. [0 = uncharged, 1 = charged]
 LoadBeamDamage:
         PHX
+        LDA.w #bank(BeamDamageTables) : STA.b $08
         LDA.l ChargeMode : AND.w #$0003
         ASL #4 : TAX
         CPY.w #$0000 : BEQ +
@@ -65,10 +65,10 @@ LoadBeamDamage:
                         LDA.w ChargeUpgrades : ASL : CLC : ADC.b $06
                         TAX
         +
-        LDA.w BeamDamagePointers,X : STA.b $08
+        LDA.l BeamDamagePointers,X : STA.b $06
         LDA.w BeamsEquipped : AND.w #$00FF
         ASL : TAY
-        LDA.b ($08),Y
+        LDA.b [$06],Y
         PLX
 RTS
 
