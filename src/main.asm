@@ -16,9 +16,6 @@ incsrc defines.asm
 incsrc hooks.asm
 
 incsrc generalbugfixes.asm
-if !DEBUG = 1
-    incsrc debugmode.asm
-endif
 
 org $81EF1A : fillbyte $FF : fill $10E5 ; Sorry Genji
 org $DF8000 : fillbyte $FF : fill $7FFF
@@ -93,7 +90,7 @@ warnpc $A18000
 org $CEB230
 incsrc roomedits.asm
 incsrc credits/credits_data.asm
-warnpc $CF8000
+warnpc $CEFFFE
 
 org $DF8000
 incsrc tables.asm ; Keep this first

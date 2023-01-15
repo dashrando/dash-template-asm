@@ -1,4 +1,4 @@
-src/debugmode.asm
+/src/debugmode.asm
 **/*.swp
 **/*.sfc
 **/*.srm
