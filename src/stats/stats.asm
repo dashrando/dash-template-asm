@@ -51,7 +51,7 @@ IncrementLagTimer:
 RTS
 
 IncrementAreaTimers:
-        LDA.l SubAreaIndex : ASL : TAX
+        LDA.w SubAreaIndex : ASL : TAX
         LDA.w #$007F : STA.b $2E+$02
         LDA.w AreaTimers,X : STA.w $2E
 

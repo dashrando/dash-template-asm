@@ -43,6 +43,6 @@ dw .tourian
         LDA.l TourianRooms_sub_areas,X
         BRA .done
 .done
-        AND.w #$00FF : STA.l SubAreaIndex
+        AND.w #$00FF : STA.w SubAreaIndex
         PLX
 RTS

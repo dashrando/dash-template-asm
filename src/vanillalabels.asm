@@ -34,6 +34,7 @@ DrawItemFrame1 = $84E04F
 DrawItemFrame2 = $84E067
 ShowMessage = $858080 ; long
 HDMAObjectHandler = $8884B9 ; long
+AnimateSamusLavaAcid = $90824C
 MakeSamusJump = $9098BC ; long
 SpaceJumpEligible = $90A488
 HudSelectionHandler = $90B80D

@@ -79,8 +79,12 @@ dw SpecialShotProjectile, $CBB7
 ; New Items
 ;------------------------------------------------------------------------------
 ; Suits
-org $90E74D
-JSR.w PeriodicDamageDivision
+;org $90E74D
+JSR.w ApplyPeriodicDamage
+org $90817F
+JMP.w LavaDamage
+org $908239
+JMP.w AcidDamage
 org $8DE379
 JML.l HeatDamage : NOP #2
 
