@@ -3,6 +3,10 @@
 HandleMenuItemToggle: {
    PHY
 
+   ; Not toggling suits/boots
+   CPY.w #VanillaItemsEquipped
+   BNE .toggle
+
    ; Jump to toggle logic if a collected vanilla item is selected
    LDA.w $0000,x
    BIT.w VanillaItemsCollected
@@ -27,9 +31,9 @@ HandleMenuItemToggle: {
 .unequip:
    LDA.w $0000,x
    EOR.w #$FFFF
-   STA.w $12
+   STA.b $12
    LDA.w $0000,y
-   AND.w $12
+   AND.b $12
    STA.w $0000,y
 
    PLY
