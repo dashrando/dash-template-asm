@@ -52,7 +52,7 @@
 %RoomEntry(Crateria, $1E,  !Area_Crateria,    $00,  NoPatch) ; 230 Missiles Tunnel
 %RoomEntry(Crateria, $1F,  !Area_Crateria,    $00,  NoPatch) ; 230 Missiles
 %RoomEntry(Crateria, $30,  !Area_Tourian,     $00,  NoPatch) ; Tourian Hallway
-%RoomEntry(Crateria, $33,  !Area_Tourian,     $00,  NoPatch) ; Tourian Elevator Top
+%RoomEntry(Crateria, $33,  !Area_Tourian,     $20,  NoPatch) ; Tourian Elevator Top
 
 ; Brinstar
 ;          Area      index  sub_areas      room_flags  room_patches
