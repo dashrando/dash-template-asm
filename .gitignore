@@ -1,7 +1,7 @@
 /src/debugmode.asm
+/build/dash_working.bps
 **/*.swp
 **/*.sfc
 **/*.srm
 **/*.sym
 **/*.bp
-**/*.bps

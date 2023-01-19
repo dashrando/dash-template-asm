@@ -21,7 +21,7 @@ HeatDamage:
         LDA.w DashItemsEquipped : BIT #$0001 : BNE .heatshield
         TXA : BIT.w #$0020 : BEQ .fulldamage
                         LDA.w #$3000 : STA.w PeriodicDamage
-                        JML.l $8DE94
+                        JML.l $8DE394
                 .heatshield
                 LDA.w SubAreaIndex : CMP.w !Area_LowerNorfair : BNE .nodamage
                         .halfdamage

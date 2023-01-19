@@ -87,10 +87,10 @@ HiddenItemTable:
         dw PLMGoto, .loop2
 
 ; New item PLMs
-;        id,  label name   visible, chozo, hidden
-%ItemPLM($00, DoubleJump) ; $EFE0,  $F034, $F088
-%ItemPLM($01, HeatShield) ; $EFE4,  $F038, $F08C
-%ItemPLM($02, AquaBoots)  ; $EFE8,  $F03C, $F090
+;        id,  label name      visible, chozo, hidden
+%ItemPLM($00, DoubleJump)    ; $EFE0,  $F034, $F088
+%ItemPLM($01, HeatShield)    ; $EFE4,  $F038, $F08C
+%ItemPLM($02, PressureValve) ; $EFE8,  $F03C, $F090
 
 ; Graphics pointers for items (by item index)
 ; The first word is a pointer to a (vanilla) sprite. If we add new sprites
@@ -100,28 +100,28 @@ HiddenItemTable:
 ; Each half goes upper left to lower right.
 ; TODO: Proper palette loading, new gfx (?)
 DashItemGraphics:
-dw $8600 : db $03, $03, $03, $03, $03, $03, $03, $03    ; $00 - Double Jump
-dw $8300 : db $01, $01, $01, $01, $01, $01, $01, $01    ; $01 - Heat Shield
-dw $8400 : db $03, $03, $03, $03, $03, $03, $03, $03    ; $02 - Pressure Valve
-dw $0000 : db $00, $00, $00, $00, $00, $00, $00, $00    ; $03 - Unused
-dw $0000 : db $00, $00, $00, $00, $00, $00, $00, $00    ; $04 - Unused
-dw $0000 : db $00, $00, $00, $00, $00, $00, $00, $00    ; $05 - Unused
-dw $0000 : db $00, $00, $00, $00, $00, $00, $00, $00    ; $06 - Unused
-dw $0000 : db $00, $00, $00, $00, $00, $00, $00, $00    ; $07 - Unused
-dw $0000 : db $00, $00, $00, $00, $00, $00, $00, $00    ; $08 - Unused
-dw $0000 : db $00, $00, $00, $00, $00, $00, $00, $00    ; $09 - Unused
-dw $0000 : db $00, $00, $00, $00, $00, $00, $00, $00    ; $0A - Unused
-dw $0000 : db $00, $00, $00, $00, $00, $00, $00, $00    ; $0B - Unused
-dw $0000 : db $00, $00, $00, $00, $00, $00, $00, $00    ; $0C - Unused
-dw $0000 : db $00, $00, $00, $00, $00, $00, $00, $00    ; $0D - Unused
-dw $0000 : db $00, $00, $00, $00, $00, $00, $00, $00    ; $0E - Unused
-dw $0000 : db $00, $00, $00, $00, $00, $00, $00, $00    ; $0F - Unused
+dw DoubleJumpTiles    : db $00, $00, $00, $00, $00, $00, $00, $00    ; $00 - Double Jump
+dw HeatShieldTiles    : db $00, $00, $00, $00, $00, $00, $00, $00    ; $01 - Heat Shield
+dw PressureValveTiles : db $00, $00, $00, $00, $00, $00, $00, $00    ; $02 - Pressure Valve
+dw $0000              : db $00, $00, $00, $00, $00, $00, $00, $00    ; $03 - Unused
+dw $0000              : db $00, $00, $00, $00, $00, $00, $00, $00    ; $04 - Unused
+dw $0000              : db $00, $00, $00, $00, $00, $00, $00, $00    ; $05 - Unused
+dw $0000              : db $00, $00, $00, $00, $00, $00, $00, $00    ; $06 - Unused
+dw $0000              : db $00, $00, $00, $00, $00, $00, $00, $00    ; $07 - Unused
+dw $0000              : db $00, $00, $00, $00, $00, $00, $00, $00    ; $08 - Unused
+dw $0000              : db $00, $00, $00, $00, $00, $00, $00, $00    ; $09 - Unused
+dw $0000              : db $00, $00, $00, $00, $00, $00, $00, $00    ; $0A - Unused
+dw $0000              : db $00, $00, $00, $00, $00, $00, $00, $00    ; $0B - Unused
+dw $0000              : db $00, $00, $00, $00, $00, $00, $00, $00    ; $0C - Unused
+dw $0000              : db $00, $00, $00, $00, $00, $00, $00, $00    ; $0D - Unused
+dw $0000              : db $00, $00, $00, $00, $00, $00, $00, $00    ; $0E - Unused
+dw $0000              : db $00, $00, $00, $00, $00, $00, $00, $00    ; $0F - Unused
 
-dw $0000 : db $00, $00, $00, $00, $00, $00, $00, $00    ; $20 - Unused
-dw $0000 : db $00, $00, $00, $00, $00, $00, $00, $00    ; $21 - Unused
-dw $0000 : db $00, $00, $00, $00, $00, $00, $00, $00    ; $22 - Unused
-dw $0000 : db $00, $00, $00, $00, $00, $00, $00, $00    ; $23 - Unused
-dw $0000 : db $00, $00, $00, $00, $00, $00, $00, $00    ; $24 - Unused
+dw $0000              : db $00, $00, $00, $00, $00, $00, $00, $00    ; $20 - Unused
+dw $0000              : db $00, $00, $00, $00, $00, $00, $00, $00    ; $21 - Unused
+dw $0000              : db $00, $00, $00, $00, $00, $00, $00, $00    ; $22 - Unused
+dw $0000              : db $00, $00, $00, $00, $00, $00, $00, $00    ; $23 - Unused
+dw $0000              : db $00, $00, $00, $00, $00, $00, $00, $00    ; $24 - Unused
 
 DashItemTable:
 ;  pickup,   qty,   msg,   type,  ext2,  ext3,  loop,  hloop
@@ -173,8 +173,18 @@ LoadCustomGraphics:
         ASL #2 : CLC : ADC.b MultiplyResult ; Multiply by 10
         ADC.w #DashItemGraphics : TAY ; Add it to the graphics table and transfer into Y
         LDA.w $0000,Y
+        INC.b $87
         JSR.w $8764  ; Jump to original PLM graphics loading routine
         PLX : PLY
+RTS
+
+SetItemGraphicsBank:
+        LDA.b $87 : BNE +
+                LDA.w #$0089
+                RTS
+        +
+        LDA.w #ItemTiles>>16
+        STZ.b $87
 RTS
 
 VisibleItemSetup:

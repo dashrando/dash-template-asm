@@ -78,10 +78,13 @@ dw SpecialShotProjectile, $CBB7
 ;------------------------------------------------------------------------------
 ; New Items
 ;------------------------------------------------------------------------------
+org $848794
+JSR.w SetItemGraphicsBank
+
 ; Suits
-;org $90E74D
+org $90E74D
 JSR.w ApplyPeriodicDamage
-org $90817F
+org $9081F7
 JMP.w LavaDamage
 org $908239
 JMP.w AcidDamage
