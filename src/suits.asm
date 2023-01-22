@@ -68,10 +68,10 @@ org $A3EECE ; Unused code
 MetroidDamage:
         LDA.w SamusYPos : SEC : SBC.w #$0008 : STA.w BoundaryPosition
         LDA.w #$C000 : STA.b $12
-        LDA.w VanillaItemsEquipped : BIT.w #$0001 : BNE +
+        LDA.w VanillaItemsEquipped : BIT.w #$0001 : BEQ +
                 LSR.b $12
         +
-        BIT.w #$0020 : BNE +
+        BIT.w #$0020 : BEQ +
                 LSR.b $12
         +
         LDA.l $7E7804,X : SEC : SBC.b $12 : STA.l $7E7804,X
