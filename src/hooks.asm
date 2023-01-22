@@ -93,7 +93,7 @@ JML.l HeatDamage : NOP #2
 
 ; Double Jump
 org $90A46E
-JSR.w CheckEligibleJump
+JSR.w CheckEligibleJump : NOP #3
 org $90A490
 JSR.w CheckJumpPhysics
 org $90A4BF

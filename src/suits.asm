@@ -18,7 +18,9 @@ RTS
 
 HeatDamage:
         LDA.w VanillaItemsEquipped : TAX : BIT.w #$0001 : BNE .nodamage
+        LDA.w VanillaItemsCollected : BIT.w #$0001 : BNE .gravity
         LDA.w DashItemsEquipped : BIT #$0001 : BNE .heatshield
+        .gravity
         TXA : BIT.w #$0020 : BEQ .fulldamage
                         LDA.w #$3000 : STA.w PeriodicDamage
                         JML.l $8DE394
