@@ -18,7 +18,8 @@ InitializeForTesting: {
 
         ; Add equipment and beams
         %add_items(!MorphingBall,!Bombs)
-        %add_beams(!ChargeBeam)
+        %add_beams(!ChargeBeam,!PlasmaBeam,!WaveBeam,!IceBeam,!SpazerBeam)
+        %unequip_beams(!SpazerBeam)
 
         ; Add some ammo
         LDA.w #5
