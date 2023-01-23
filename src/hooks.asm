@@ -81,7 +81,7 @@ dw SpecialShotProjectile, $CBB7
 org $8485C8
 JSR.w DetermineItemGraphicsBank
 org $848794
-JSR.w SetItemGraphicsBank
+LDA.b $87 : NOP
 
 ; Suits
 org $90E74D

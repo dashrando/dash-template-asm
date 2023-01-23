@@ -180,21 +180,11 @@ RTS
 DetermineItemGraphicsBank:
         LDA.w PLMIds,X : BEQ .exit ; What we wrote over
         CMP.w #$EFE0 : BCS +
-                SEC
+                LDA.w #$0089 : STA.b $87
                 RTS
         +
-        INC.b $87
-        SEC
+        LDA.w #ItemTiles>>16 : STA.b $87
         .exit
-RTS
-
-SetItemGraphicsBank:
-        LDA.b $87 : BNE +
-                LDA.w #$0089
-                RTS
-        +
-        LDA.w #ItemTiles>>16
-        STZ.b $87
 RTS
 
 VisibleItemSetup:
