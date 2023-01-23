@@ -62,6 +62,20 @@ AcidDamage:
         LDA.w PeriodicDamage+$02       : ADC.w #$0001 : STA.w PeriodicDamage+$02
 JMP.w AnimateSamusLavaAcid
 
+SpikeDamage:
+        LDA.w VanillaItemsEquipped : AND.w #$0021 : BEQ .full
+                                     CMP.w #$0021 : BEQ .1_4
+                LDA.w PeriodicDamage : CLC : ADC.w #$001E
+                BRA .done
+                .1_4
+                LDA.w PeriodicDamage : CLC : ADC.w #$000F
+                BRA .done
+        .full
+        LDA.w PeriodicDamage+$02 : CLC : ADC.w #$003C
+        .done
+        STA.w PeriodicDamage+$02
+RTL
+
 pushpc
 
 org $A3EECE ; Unused code

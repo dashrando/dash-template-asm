@@ -90,6 +90,8 @@ org $908239
 JMP.w AcidDamage
 org $8DE379
 JML.l HeatDamage : NOP #2
+org $948EAF
+JSL.l SpikeDamage : NOP #2
 
 ; Double Jump
 org $90A46E
