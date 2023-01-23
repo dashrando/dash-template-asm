@@ -28,6 +28,7 @@
 %RoomEntry(Crateria, $03,  !Area_Crateria,    $00,  NoPatch) ; Landing Site PBs
 %RoomEntry(Crateria, $04,  !Area_Crateria,    $00,  NoPatch) ; Parlor Save
 %RoomEntry(Crateria, $05,  !Area_WreckedShip, $20,  NoPatch) ; Wrecked Ship Front
+%RoomEntry(Crateria, $06,  !Area_WreckedShip, $20,  NoPatch) ; Pre-Bowling Pancake Room
 %RoomEntry(Crateria, $07,  !Area_Crateria,    $00,  NoPatch) ; Right Side Junction
 %RoomEntry(Crateria, $08,  !Area_EastMaridia, $00,  NoPatch) ; Maridia Elevator Top
 %RoomEntry(Crateria, $09,  !Area_WreckedShip, $20,  NoPatch) ; Wrecked Ship Back Exit
@@ -38,6 +39,7 @@
 %RoomEntry(Crateria, $0E,  !Area_Crateria,    $20,  Room_Moat_Patch_01) ; Moat
 %RoomEntry(Crateria, $0F,  !Area_Crateria,    $00,  NoPatch) ; Red Brinstar Elevator
 %RoomEntry(Crateria, $10,  !Area_Crateria,    $00,  NoPatch) ; Gauntlet E-Tank
+%RoomEntry(Crateria, $11,  !Area_WreckedShip, $00,  NoPatch) ; Lonely Crab
 %RoomEntry(Crateria, $12,  !Area_Crateria,    $00,  NoPatch) ; Climb
 %RoomEntry(Crateria, $13,  !Area_Crateria,    $00,  NoPatch) ; Old Tourian
 %RoomEntry(Crateria, $14,  !Area_Crateria,    $00,  NoPatch) ; Blue Brinstar Elevator
@@ -204,7 +206,6 @@
 %RoomEntry(WreckedShip, $0D,  !Area_WreckedShip,  $00,  NoPatch) ; Wrecked Ship Right Supers
 %RoomEntry(WreckedShip, $0E,  !Area_WreckedShip,  $00,  NoPatch) ; Gravity Suit
 %RoomEntry(WreckedShip, $0F,  !Area_WreckedShip,  $00,  NoPatch) ; Wrecked Ship Save
-%RoomEntry(WreckedShip, $11,  !Area_WreckedShip,  $00,  NoPatch) ; Lonely Crab
 
 ; Maridia
 ;          Area    index     sub_areas      room_flags  room_patches

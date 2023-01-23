@@ -9,7 +9,7 @@ org $DF8000 ; PC 0x2F8000
 FileSelectCode:
 db $00, $01, $02, $03
 
-org $DF80004 ; PC 0x2F8004
+org $DF8004 ; PC 0x2F8004
 ChargeMode:
 db $02  ; 0 = vanilla, 1 = starter, 2 = balance
 db $01  ; 0 = no hud, 1 = charge damage on HUD
