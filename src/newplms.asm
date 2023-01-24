@@ -178,13 +178,11 @@ LoadCustomGraphics:
 RTS
 
 DetermineItemGraphicsBank:
-        LDA.w PLMIds,X : BEQ .exit ; What we wrote over
-        CMP.w #$EFE0 : BCS +
-                LDA.w #$0089 : STA.b $87
+        CPY.w #DashItemGraphics : BCS +
+                LDA.w #$0089
                 RTS
         +
-        LDA.w #ItemTiles>>16 : STA.b $87
-        .exit
+        LDA.w #ItemTiles>>16
 RTS
 
 VisibleItemSetup:
