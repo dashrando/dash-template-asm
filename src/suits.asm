@@ -22,15 +22,15 @@ HeatDamage:
                        BIT.w DashItemsEquipped : BNE .heatshield
         .gravity
         LDA.w #$0020 : BIT.w VanillaItemsEquipped : BEQ .fulldamage
-                        LDA.w #$3000 : STA.w PeriodicDamage
-                        JML.l $8DE394
+                        LDA.w #$3000 : BRA .applydamage
                 .heatshield
                 LDA.w SubAreaIndex : CMP.w !Area_LowerNorfair : BNE .nodamage
                         .halfdamage
-                        LDA.w #$2000 : STA.w PeriodicDamage
-                        JML.l $8DE394
+                        LDA.w #$2000 : BRA .applydamage
         .fulldamage
-        LDA.w #$4000 : STA.w PeriodicDamage
+        LDA.w #$4000
+        .applydamage
+        CLC : ADC.w PeriodicDamage : STA.w PeriodicDamage
         JML.l $8DE394
         .nodamage
 JML $8DE3AB
