@@ -17,11 +17,11 @@ ApplyPeriodicDamage:
 RTS
 
 HeatDamage:
-        LDA.w VanillaItemsEquipped : TAX : BIT.w #$0001 : BNE .nodamage
-        LDA.w VanillaItemsCollected : BIT.w #$0001 : BNE .gravity
-        LDA.w DashItemsEquipped : BIT #$0001 : BNE .heatshield
+        LDA.w #$0001 : BIT.w VanillaItemsEquipped : BNE .nodamage
+                       BIT.w VanillaItemsCollected : BNE .gravity
+                       BIT.w DashItemsEquipped : BNE .heatshield
         .gravity
-        TXA : BIT.w #$0020 : BEQ .fulldamage
+        LDA.w #$0020 : BIT.w VanillaItemsEquipped : BEQ .fulldamage
                         LDA.w #$3000 : STA.w PeriodicDamage
                         JML.l $8DE394
                 .heatshield
