@@ -13,8 +13,7 @@
 !last_saveslot = $7fffe0
 !timer_backup1 = $7fffe2
 !timer_backup2 = $7fffe4
-!softreset = $7fffe6
-!scroll_speed = $7fffe8
+
 
 ; RTA Timer (timer 1 is frames, and timer 2 is number of times frames rolled over)
 !timer1 = $05b8

@@ -47,38 +47,42 @@ DoorBitArray = $7ED8B0               ; Opened door bit array. Bit set if door op
 ;------------------------------------------------------------------------------
 ; $7FFB00-$7FFCFF reserved for file save data.
 ;------------------------------------------------------------------------------
-
 ;------------------------------------------------------------------------------
 ; Stats Block
 ;------------------------------------------------------------------------------
 base $7FFB00                         ;
 StatsBlock:                          ; $100 bytes. $7FFB00-$7FFBFF
-LoopFrames: skip 4                   ;
 NMIFrames: skip 4                    ;
 LagFrames: skip 4                    ;
 MenuFrames: skip 4                   ;
 DoorFrames: skip 4                   ;
-DoorAlignFrames: skip 2              ;
+DoorAlignFrames: skip 4              ;
 DoorTransitions: skip 2              ;
 CrateriaFrames: skip 4               ; Frame counters for randomizer's new areas.
 WreckedShipFrames: skip 4            ;
+BrinstarFrames: ; DEBUG
 GreenBrinstarFrames: skip 4          ;
 RedBrinstarFrames: skip 4            ;
 KraidFrames: skip 4                  ;
+NorfairFrames: ; DEBUG
 UpperNorfairFrames: skip 4           ;
 LowerNorfairFrames: skip 4           ;
 CrocomireFrames: skip 4              ;
+MaridiaFrames: ; DEBUG
 EastMaridiaFrames: skip 4            ;
 WestMaridiaFrames: skip 4            ;
 TourianFrames: skip 4                ;
 ChargedShots: skip 2                 ;
-SpecialBeams: skip 2                 ;
+SpecialBeamsFired: skip 2            ;
 MissilesFired: skip 2                ;
 SupersFired: skip 2                  ;
 PowerBombsLaid: skip 2               ;
 BombsLaid: skip 2                    ;
 GoalComplete: skip 2                 ;
                                      ;
+base off
+
+CreditsScrollSpeed = $7FFFE8
 
 ;------------------------------------------------------------------------------
 ; Extended Cartridge SRAM

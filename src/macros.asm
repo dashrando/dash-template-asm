@@ -85,6 +85,13 @@ macro beam_dmg(n,i,s,w,is,iw,ws,iws,p,ip,wp,iwp)
    dw <iwp> ; Plasma + ice + wave
 endmacro
 
+macro StatEntry(i, ram, row, type)
+pushpc
+        org StatsTables_ram+(<i>*2) : dw <ram>
+        org StatsTables_row+(<i>*2) : dw <row>
+        org StatsTables_type+<i> : db <type>
+pullpc
+endmacro
 
 ; Credits
 macro row1(index)

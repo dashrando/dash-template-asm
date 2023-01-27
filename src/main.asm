@@ -57,6 +57,10 @@ org $859643
 incsrc messageboxes.asm
 warnpc $868000
 
+org $87C964
+incsrc credits/credits_data.asm
+warnpc $888000
+
 org $8BF760
 incsrc credits/credits_scroll.asm
 warnpc $8C8000
@@ -90,15 +94,18 @@ org $A0F7D3
 incsrc enemies.asm
 warnpc $A18000
 
+org $A2F498
+incsrc credits/credits.asm
+incsrc stats/game_end.asm
+warnpc $A38000
+
 org $CEB230
 incsrc roomedits.asm
-incsrc credits/credits_data.asm
 warnpc $CEFFFE
 
 org $DF8000
 incsrc tables.asm ; Keep this first
 incsrc roomtables.asm
-incsrc credits/credits.asm
 warnpc $E08000
 
 if !DEBUG = 1

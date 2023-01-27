@@ -7,7 +7,8 @@ LoadSaveExpanded:
         TXA : INC : CMP.l CurrentSaveSlotSRAM : BEQ +
                 .loadstats
                 TXA : STA.l CurrentSaveSlotSRAM
-                JSR.w LoadStats
+                JSL.l LoadStats
+                PHK : PLB
         +
         JSR.w SetBootTest
         
@@ -36,7 +37,7 @@ OnWriteSave:
 RTL
 
 ClearExtendedBuffers:
-        PEA $7E00 : PLB : PLB
+        PEA.w $7E00 : PLB : PLB
         STZ.w $09EC : STZ.w $09EE ; Reclaimed section of mirrored WRAM buffer
         STZ.w $09F0 : STZ.w $09F2
         STZ.w $09F4 : STZ.w $09F6
@@ -44,7 +45,7 @@ ClearExtendedBuffers:
         STZ.w $09FC : STZ.w $09FE
         STZ.w $0A00
         
-        PEA $7F00 : PLB : PLB
+        PEA.w StatsBlock>>8 : PLB : PLB
         LDX.w #$003E
         -
                 STZ.w $FB00,X ; Stats block
@@ -97,11 +98,6 @@ CopyExtendedBuffers:
         JSR.w LoadMenuTileMap ; What we wrote over
 RTS
 
-StatsSRAMOffsets:
-dw SlotOneStatsSRAM
-dw SlotTwoStatsSRAM
-dw SlotThreeStatsSRAM
-
 WriteStats:
 ; In: A - Save index
         PHA
@@ -111,7 +107,7 @@ WriteStats:
         LDA.w #$0070 : STA.b $02
         LDY.w #$0000 ; Stats block $100 bytes
         LDX.w #$00FE
-        PEA $7F00 : PLB : PLB
+        PEA.w StatsBlock>>8 : PLB : PLB
         -
                  LDA.w StatsBlock,Y : STA.b [$00],Y
                  INY #2
@@ -128,13 +124,16 @@ LoadStats:
         LDA.w #$0070 : STA.b $02
         LDY.w #$0000
         LDX.w #$00FE
-        PEA $7F00 : PLB : PLB
+        PEA.w StatsBlock>>8 : PLB : PLB
         -
                  LDA.b [$00],Y : STA.w StatsBlock,Y
                  INY #2
                  DEX #2
         BPL -
         PLA
-        PHK : PLB
-RTS
+RTL
 
+StatsSRAMOffsets:
+dw SlotOneStatsSRAM
+dw SlotTwoStatsSRAM
+dw SlotThreeStatsSRAM

@@ -3,7 +3,7 @@
 ; Load credits script data from bank $df instead of $8c
 SetScroll:
         REP #$30
-        PHB : PEA.w $DF00 : PLB : PLB
+        PHB : PEA.w script>>8 : PLB : PLB
         LDA $0000,Y
         INY #2
         PLB
@@ -12,7 +12,7 @@ RTS
 scroll:
     inc $1995
     lda $1995
-    cmp !scroll_speed
+    cmp CreditsScrollSpeed
     beq +
     lda $1997
     jml $8b9989

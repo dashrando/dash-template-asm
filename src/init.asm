@@ -24,17 +24,17 @@ InitRAM:
         PLB : PLB
         LDX #$1FFE
         -
-        STZ $0000,X
-        STZ $2000,X
-        STZ $4000,X
-        STZ $6000,X
-        STZ $8000,X
-        STZ $A000,X
-        STZ $C000,X
-        STZ $E000,X
-        DEX #2
+                STZ $0000,X
+                STZ $2000,X
+                STZ $4000,X
+                STZ $6000,X
+                STZ $8000,X
+                STZ $A000,X
+                STZ $C000,X
+                STZ $E000,X
+                DEX #2
         BPL -
-        
+        LDA.w #$FFFF : STA.w SubAreaIndex
         LDA.l BootTest+$00 : EOR.l BootTestInverse+$00 : CMP.w #$FFFF : BNE .coldboot
         LDA.l BootTest+$02 : EOR.l BootTestInverse+$02 : CMP.w #$FFFF : BNE .coldboot
         LDA.l CurrentSaveSlotSRAM : BEQ .coldboot
@@ -46,15 +46,15 @@ InitRAM:
         PLB : PLB
         LDX #$1FFE
         -
-        STZ $0000,X
-        STZ $2000,X
-        STZ $4000,X
-        STZ $6000,X
-        STZ $8000,X
-        STZ $A000,X
-        STZ $C000,X
-        STZ $E000,X
-        DEX #2
+                STZ $0000,X
+                STZ $2000,X
+                STZ $4000,X
+                STZ $6000,X
+                STZ $8000,X
+                STZ $A000,X
+                STZ $C000,X
+                STZ $E000,X
+                DEX #2
         BPL -
         LDA.w #$0001 : STA.l ColdBootFlag
         .done

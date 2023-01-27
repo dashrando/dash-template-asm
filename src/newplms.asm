@@ -150,7 +150,7 @@ dw $0000,    $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $14 - Unused
 
 StartDrawLoop:
         PHY : PHX
-        LDA.l ItemPLMBuffer,X ; Load item id
+        LDA.l PLMIds,X ; Load item id
         ASL #4
         CLC : ADC.w #$000C : TAX
         LDA.w DashItemTable,X
@@ -159,7 +159,7 @@ RTS
 
 StartHiddenDrawLoop:
         PHY : PHX
-        LDA.l ItemPLMBuffer,X ; Load item id
+        LDA.l PLMIds,X ; Load item id
         ASL #4
         CLC : ADC.w #$000E : TAX
         LDA.l DashItemTable,X
@@ -168,7 +168,7 @@ RTS
 
 LoadCustomGraphics:
         PHY : PHX
-        LDA.l ItemPLMBuffer,X
+        LDA.l PLMIds,X
         ASL : STA.b MultiplyResult
         ASL #2 : CLC : ADC.b MultiplyResult ; Multiply by 10
         ADC.w #DashItemGraphics : TAY ; Add it to the graphics table and transfer into Y
@@ -188,7 +188,7 @@ SetItemGraphicsBank:
 RTS
 
 VisibleItemSetup:
-        TYX : STA.l ItemPLMBuffer,X
+        TYX
         ASL : STA.b MultiplyResult
         ASL #2 : CLC : ADC.b MultiplyResult ; Multiply by 10
         TAX
@@ -196,7 +196,7 @@ VisibleItemSetup:
 JMP.w $EE64
 
 HiddenItemSetup:
-        TYX : STA.l ItemPLMBuffer,X
+        TYX
         ASL : STA.b MultiplyResult
         ASL #2 : CLC : ADC.b MultiplyResult ; Multiply by 10
         TAX
@@ -205,7 +205,7 @@ JMP.w $EE8E
 
 ItemPickup:
         PHY : PHX
-        LDA.l ItemPLMBuffer,X
+        LDA.l PLMIds,X
         ASL #4
         CLC : ADC.w #DashItemTable
         TAX : TAY : INY #2

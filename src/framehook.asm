@@ -2,7 +2,6 @@
 
 FrameHook:
         ; Beginning of main game loop
-        JSR.w IncrementTimers
         JSL.l HDMAObjectHandler ; What we wrote over
 RTL
 
@@ -18,6 +17,6 @@ RTL
 
 PostNMIHook:
         ; End of NMI
-        JSR.w IncrementTimersNMI
+        JSR.w HandleTimersNMI
         REP #$30 : INC.w NMICounter
 RTL

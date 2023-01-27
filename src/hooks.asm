@@ -188,42 +188,29 @@ LDA.w #$C062 : JSR.w CheckEquipmentBitmask
 ; Credits
 ;------------------------------------------------------------------------------
 
-; Patch soft reset to retain value of RTA counter
-;org $80844B
-;jml patch_reset1
-;org $808490
-;jml patch_reset2
-
-; Patch loading and saving routines
-;org $81807f
-;jmp patch_save
-;org $8180f7
-;jmp patch_load
-
-; Hijack loading new game to reset stats
-;org $828063
-;jsl clear_values
 
 ; Hijack the original credits code to read the script from bank $DF
 
-; org $8b9976
-; jml scroll
-; org $8b999b
-; jml patch1
-; org $8b99e5
-; jml patch2
-; org $8b9a08
-; jml patch3
-; org $8b9a19
-; jml patch4
+;org $8b9976
+;jml scroll
+;org $8b999b
+;jml patch1
+;org $8b99e5
+;jml patch2
+;org $8b9a08
+;jml patch3
+;org $8b9a19
+;jml patch4
+
+org $8b9971
+PEA.w script>>8
+org $8BF6FC
+dw script
+
 ; 
-; ; Hijack when samus is in the ship and ready to leave the planet
-; org $a2ab13
-; jsl game_end
-; 
-; ; Hijack after decompression of regular credits tilemaps
-; org $8be0d1
-; jsl copy
+; Hijack after decompression of regular credits tilemaps
+org $8be0d1
+JSL.l CopyCreditsTileMap
 
 ;------------------------------------------------------------------------------
 ; Subareas
@@ -251,6 +238,9 @@ org $90BEB7
 JMP.w IncrementMissiles
 org $90C107
 JSR.w IncrementBombs
+
+org $A2AB13
+JSL.l OnCompleteGoal
 
 ;------------------------------------------------------------------------------
 ; Saves
