@@ -3,7 +3,7 @@
 ; Load credits script data from bank $df instead of $8c
 SetScroll:
         REP #$30
-        PHB : PEA.w script>>8 : PLB : PLB
+        PHB : PEA.w CreditsScript>>8 : PLB : PLB
         LDA $0000,Y
         INY #2
         PLB

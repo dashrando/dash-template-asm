@@ -1,4 +1,4 @@
-credits:
+CreditsTileData:
     ; Single line characters:
     ;   ABCDEFGHIJKLMNOPQRSTUVWXYZ.,':!
     ; Double line characters:
@@ -37,33 +37,40 @@ credits:
     %font1("      METROID CONSTRUCTION      ", "yellow")  ; 175
     %font2("     METROIDCONSTRUCTION.COM    ", "white")   ; 176 + 177
     %font1("  SUPER METROID SRL COMMUNITY   ", "yellow")  ; 178
-    %font2("    DISCORD INVITE : 6RYJM4M    ", "white")   ; 179 + 180
+    %font2("                                ", "white")   ; 179 + 180
     %font2("      DASHRANDO.GITHUB.IO       ", "white")   ; 181 + 182
     %font1("      GAMEPLAY STATISTICS       ", "purple")  ; 183
     %font1("             DOORS              ", "orange")  ; 184
     %font2(" DOOR TRANSITIONS               ", "white")   ; 185 + 186
     %font2(" TIME IN DOORS      00'00'00^00 ", "white")   ; 187 + 188
-    %font2(" TIME ALIGNING DOORS   00'00^00 ", "white")   ; 189 + 190
+    %font2(" ALIGNING DOORS     00'00'00^00 ", "white")   ; 189 + 190
     %font1("         TIME SPENT IN          ", "blue")    ; 191
     %font2(" CRATERIA           00'00'00^00 ", "white")   ; 192 + 193
-    %font2(" BRINSTAR           00'00'00^00 ", "white")   ; 194 + 195
-    %font2(" NORFAIR            00'00'00^00 ", "white")   ; 196 + 197
+    %font2(" GREEN BRINSTAR     00'00'00^00 ", "white")   ; 194 + 195
+    %font2(" RED BRINSTAR       00'00'00^00 ", "white")   ; 196 + 197
     %font2(" WRECKED SHIP       00'00'00^00 ", "white")   ; 198 + 199
-    %font2(" MARIDIA            00'00'00^00 ", "white")   ; 200 + 201
-    %font2(" TOURIAN            00'00'00^00 ", "white")   ; 202 + 203
-    %font1("      SHOTS AND AMMO FIRED      ", "green")   ; 204
-    %font2(" CHARGED SHOTS                  ", "white")   ; 205 + 206
-    %font2(" SPECIAL BEAM ATTACKS           ", "white")   ; 207 + 208
-    %font2(" MISSILES                       ", "white")   ; 209 + 210
-    %font2(" SUPER MISSILES                 ", "white")   ; 211 + 212
-    %font2(" POWER BOMBS                    ", "white")   ; 213 + 214
-    %font2(" BOMBS                          ", "white")   ; 215 + 216
-    %font2(" FINAL TIME         00'00'00^00 ", "white")   ; 217 + 218
-    %font2("       THANKS FOR PLAYING       ", "green")   ; 219 + 220
-    dw $dead                              ; End of credits tilemap
+    %font2(" KRAID'S LAIR       00'00'00^00 ", "white")   ; 200 + 201
+    %font2(" UPPER NORFAIR      00'00'00^00 ", "white")   ; 202 + 203
+    %font2(" LOWER NORFAIR      00'00'00^00 ", "white")   ; 204 + 205
+    %font2(" CROCOMIRE          00'00'00^00 ", "white")   ; 206 + 207
+    %font2(" EAST MARIDIA       00'00'00^00 ", "white")   ; 208 + 209
+    %font2(" WEST MARIDIA       00'00'00^00 ", "white")   ; 210 + 211
+    %font2(" TOURIAN            00'00'00^00 ", "white")   ; 212 + 213
+    %font1("      SHOTS AND AMMO FIRED      ", "green")   ; 214
+    %font2(" CHARGED SHOTS                  ", "white")   ; 215 + 216
+    %font2(" SPECIAL BEAM ATTACKS           ", "white")   ; 217 + 218
+    %font2(" MISSILES                       ", "white")   ; 219 + 220
+    %font2(" SUPER MISSILES                 ", "white")   ; 221 + 222
+    %font2(" POWER BOMBS                    ", "white")   ; 223 + 224
+    %font2(" BOMBS                          ", "white")   ; 225 + 226
+    %font2(" MENU TIME          00'00'00^00 ", "white")   ; 227 + 228
+    %font2(" LAG TIME           00'00'00^00 ", "white")   ; 229 + 230
+    %font2(" FINAL TIME         00'00'00^00 ", "white")   ; 231 + 232
+    %font2("       THANKS FOR PLAYING       ", "green")   ; 233 + 234
+    dw $dead                                              ; End of credits tilemap
 
 ; Placeholder label for item locations inserted by the randomizer
-itemlocations:
+CreditsItemLocations:
     %font1("      MAJOR ITEM LOCATIONS      ", "pink") ; 640
     %font1("MORPH BALL                      ", "yellow")
     %font1("................................", "orange")
@@ -105,7 +112,7 @@ CreditsNumbersBottom:
     dw $0070, $0071, $0072, $0073, $0074, $0075, $0076, $0077, $0078, $0079, $007a, $007b, $007c, $007d, $007e, $007f
 
 
-script:
+CreditsScript:
     dw !set, $0002 : -
     dw !draw, !blank
     dw !delay, -
@@ -242,7 +249,8 @@ script:
     %row2(176,177) ; MetroidConstruction.com
     %blank_row()
     %row1(178)     ; SRL
-    %row2(179,180) ; SRL Discord Invite
+    %blank_row()
+    ;%row2(179,180) ; SRL Discord Invite
     %blank_row()
     %row1(164)     ; Play this randomizer at
     %row2(181,182) ; dashrando.github.io
@@ -260,19 +268,24 @@ script:
     %blank_row()
     %row1(191)     ; --- Time spent in ---
     %row2(192,193) ; Crateria
-    %row2(194,195) ; Brinstar
-    %row2(196,197) ; Norfair
+    %row2(194,195) ; Green Brinstar
+    %row2(196,197) ; Red Brinstar
     %row2(198,199) ; Wrecked Ship
-    %row2(200,201) ; Maridia
-    %row2(202,203) ; Tourian
+    %row2(200,201) ; Kraid's Lair
+    %row2(202,203) ; Upper Norfair
+    %row2(204,205) ; Lower Norfair
+    %row2(206,207) ; Crocomire
+    %row2(208,209) ; East Maridia
+    %row2(210,211) ; West Maridia
+    %row2(212,213) ; Tourian
     %blank_row()
-    %row1(204)     ; --- Shots and Ammo Fired ---
-    %row2(205,206) ; Charged Shots
-    %row2(207,208) ; Special Beam Attacks
-    %row2(209,210) ; Missiles
-    %row2(211,212) ; Supers
-    %row2(213,214) ; PBs
-    %row2(215,216) ; Bombs
+    %row1(214)     ; --- Shots and Ammo Fired ---
+    %row2(215,216) ; Charged Shots
+    %row2(217,218) ; Special Beam Attacks
+    %row2(219,220) ; Missiles
+    %row2(221,222) ; Supers
+    %row2(223,224) ; PBs
+    %row2(225,226) ; Bombs
 
     ; Draw item locations
     %blank_row()
@@ -298,9 +311,11 @@ script:
     %blank_row() : %blank_row() : %blank_row()
     %blank_row() : %blank_row()
 
-    %row2(217,218) ; Final time
+    %row2(227,228) ; Menu time
+    %row2(229,230) ; Lag time
+    %row2(231,232) ; Final time
     %blank_row()
-    %row2(219,220) ; Thanks for playing
+    %row2(233,234) ; Thanks for playing
 
     %blank_row() : %blank_row() : %blank_row()
     %blank_row() : %blank_row() : %blank_row()

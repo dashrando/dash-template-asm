@@ -189,25 +189,10 @@ LDA.w #$C062 : JSR.w CheckEquipmentBitmask
 ;------------------------------------------------------------------------------
 ; Credits
 ;------------------------------------------------------------------------------
-
-
-; Hijack the original credits code to read the script from bank $DF
-
-;org $8b9976
-;jml scroll
-;org $8b999b
-;jml patch1
-;org $8b99e5
-;jml patch2
-;org $8b9a08
-;jml patch3
-;org $8b9a19
-;jml patch4
-
 org $8b9971
-PEA.w script>>8
+PEA.w CreditsScript>>8
 org $8BF6FC
-dw script
+dw CreditsScript
 
 ; 
 ; Hijack after decompression of regular credits tilemaps

@@ -10,10 +10,9 @@ IncrementSpecialBeams:
         LDA.l GoalComplete : BNE .skip
         TYA
         CMP.w CurrentPBs : BEQ .skip
-                TAY
                 LDA.l SpecialBeamsFired : INC : STA.l SpecialBeamsFired
-                TYA
         .skip
+        TYA
         STA.w CurrentPBs
 RTS
 

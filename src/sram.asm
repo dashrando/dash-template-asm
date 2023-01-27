@@ -60,15 +60,12 @@ DoorAlignFrames: skip 4              ;
 DoorTransitions: skip 2              ;
 CrateriaFrames: skip 4               ; Frame counters for randomizer's new areas.
 WreckedShipFrames: skip 4            ;
-BrinstarFrames: ; DEBUG
 GreenBrinstarFrames: skip 4          ;
 RedBrinstarFrames: skip 4            ;
 KraidFrames: skip 4                  ;
-NorfairFrames: ; DEBUG
 UpperNorfairFrames: skip 4           ;
 LowerNorfairFrames: skip 4           ;
 CrocomireFrames: skip 4              ;
-MaridiaFrames: ; DEBUG
 EastMaridiaFrames: skip 4            ;
 WestMaridiaFrames: skip 4            ;
 TourianFrames: skip 4                ;
