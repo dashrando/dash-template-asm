@@ -168,7 +168,7 @@ RTS
 
 LoadCustomGraphics:
         PHY : PHX
-        LDA.l PLMIds,X
+        LDA.l ItemPLMBuffer,X
         ASL : STA.b MultiplyResult
         ASL #2 : CLC : ADC.b MultiplyResult ; Multiply by 10
         ADC.w #DashItemGraphics : TAY ; Add it to the graphics table and transfer into Y
@@ -186,7 +186,7 @@ DetermineItemGraphicsBank:
 RTS
 
 VisibleItemSetup:
-        TYX
+        TYX : STA.l ItemPLMBuffer,X
         ASL : STA.b MultiplyResult
         ASL #2 : CLC : ADC.b MultiplyResult ; Multiply by 10
         TAX
@@ -194,7 +194,7 @@ VisibleItemSetup:
 JMP.w $EE64
 
 HiddenItemSetup:
-        TYX
+        TYX : STA.l ItemPLMBuffer,X
         ASL : STA.b MultiplyResult
         ASL #2 : CLC : ADC.b MultiplyResult ; Multiply by 10
         TAX
@@ -203,7 +203,7 @@ JMP.w $EE8E
 
 ItemPickup:
         PHY : PHX
-        LDA.l PLMIds,X
+        LDA.l ItemPLMBuffer,X
         ASL #4
         CLC : ADC.w #DashItemTable
         TAX : TAY : INY #2

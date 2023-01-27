@@ -64,11 +64,8 @@ PLMIds = $7E1C37                     ;
 ;------------------------------------------------------------------------------
 ; Unmirrored WRAM
 ;------------------------------------------------------------------------------
-; $7EFB00 - $7EFCFF reserved for save data
-;------------------------------------------------------------------------------
 EnemyRam = $7E8000                   ; $07FF bytes.
-BigRAMBuffer = $7EF4A0               ; Unused to end of bank.
-;StatsLoaded = $7EF4A2                ; Flags whether stats for the current game have been loaded.
+ItemPLMBuffer = $7EF4A0              ; $1F bytes.
 
 ;------------------------------------------------------------------------------
 ; Bank $7F
