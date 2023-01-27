@@ -17,18 +17,20 @@ ApplyPeriodicDamage:
 RTS
 
 HeatDamage:
-        LDA.w VanillaItemsEquipped : TAX : BIT.w #$0001 : BNE .nodamage
-        LDA.w DashItemsEquipped : BIT #$0001 : BNE .heatshield
-        TXA : BIT.w #$0020 : BEQ .fulldamage
-                        LDA.w #$3000 : STA.w PeriodicDamage
-                        JML.l $8DE394
+        LDA.w #$0001 : BIT.w VanillaItemsEquipped : BNE .nodamage
+                       BIT.w VanillaItemsCollected : BNE .gravity
+                       BIT.w DashItemsEquipped : BNE .heatshield
+        .gravity
+        LDA.w #$0020 : BIT.w VanillaItemsEquipped : BEQ .fulldamage
+                        LDA.w #$3000 : BRA .applydamage
                 .heatshield
                 LDA.w SubAreaIndex : CMP.w !Area_LowerNorfair : BNE .nodamage
                         .halfdamage
-                        LDA.w #$2000 : STA.w PeriodicDamage
-                        JML.l $8DE394
+                        LDA.w #$2000 : BRA .applydamage
         .fulldamage
-        LDA.w #$4000 : STA.w PeriodicDamage
+        LDA.w #$4000
+        .applydamage
+        CLC : ADC.w PeriodicDamage : STA.w PeriodicDamage
         JML.l $8DE394
         .nodamage
 JML $8DE3AB
@@ -60,16 +62,30 @@ AcidDamage:
         LDA.w PeriodicDamage+$02       : ADC.w #$0001 : STA.w PeriodicDamage+$02
 JMP.w AnimateSamusLavaAcid
 
+SpikeDamage:
+        LDA.w VanillaItemsEquipped : AND.w #$0021 : BEQ .full
+                                     CMP.w #$0021 : BEQ .1_4
+                LDA.w PeriodicDamage : CLC : ADC.w #$001E
+                BRA .done
+                .1_4
+                LDA.w PeriodicDamage : CLC : ADC.w #$000F
+                BRA .done
+        .full
+        LDA.w PeriodicDamage+$02 : CLC : ADC.w #$003C
+        .done
+        STA.w PeriodicDamage+$02
+RTL
+
 pushpc
 
 org $A3EECE ; Unused code
 MetroidDamage:
         LDA.w SamusYPos : SEC : SBC.w #$0008 : STA.w BoundaryPosition
         LDA.w #$C000 : STA.b $12
-        LDA.w VanillaItemsEquipped : BIT.w #$0001 : BNE +
+        LDA.w VanillaItemsEquipped : BIT.w #$0001 : BEQ +
                 LSR.b $12
         +
-        BIT.w #$0020 : BNE +
+        BIT.w #$0020 : BEQ +
                 LSR.b $12
         +
         LDA.l $7E7804,X : SEC : SBC.b $12 : STA.l $7E7804,X

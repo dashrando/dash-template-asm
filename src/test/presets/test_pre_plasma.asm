@@ -23,8 +23,8 @@ InitializeForTesting: {
 
         ; Equip some power bombs
         lda.w #10
-        sta !Addr_NumPBs
-        sta !Addr_MaxPBs
+        sta CurrentPBs
+        sta MaxPBs
 
         RTL
 }

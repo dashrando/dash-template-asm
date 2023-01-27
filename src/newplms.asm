@@ -173,18 +173,16 @@ LoadCustomGraphics:
         ASL #2 : CLC : ADC.b MultiplyResult ; Multiply by 10
         ADC.w #DashItemGraphics : TAY ; Add it to the graphics table and transfer into Y
         LDA.w $0000,Y
-        INC.b $87
         JSR.w $8764  ; Jump to original PLM graphics loading routine
         PLX : PLY
 RTS
 
-SetItemGraphicsBank:
-        LDA.b $87 : BNE +
+DetermineItemGraphicsBank:
+        CPY.w #DashItemGraphics : BCS +
                 LDA.w #$0089
                 RTS
         +
         LDA.w #ItemTiles>>16
-        STZ.b $87
 RTS
 
 VisibleItemSetup:

@@ -4,8 +4,8 @@ incsrc ../buttons.asm
 incsrc ../quickmet.asm
 incsrc ../loadout.asm
 
-; Start in Big Pink next to Charge Missiles
-%quickmet(!big_pink_bottom)
+; Start in Speed Booster room
+%quickmet(!speed_room)
 
 ; Disable creating a save file
 org InitGameState_save
@@ -17,7 +17,7 @@ InitializeForTesting: {
         %setup_controller()
 
         ; Add equipment and beams
-        %add_items(!MorphingBall,!Bombs,!SpaceJump)
+        %add_items(!MorphingBall,!Bombs)
         %add_beams(!ChargeBeam,!PlasmaBeam,!WaveBeam,!IceBeam,!SpazerBeam)
         %unequip_beams(!SpazerBeam)
 
@@ -31,11 +31,19 @@ InitializeForTesting: {
         ; Make sure Zebes is awake
         LDA.l EventFlags : ORA.w #$0001 : STA.l EventFlags
 
-        ; Place Dash items for collecting
+        ; Equip all DASH items
+        LDA.w DashItemsCollected : ORA #$0221 : STA.w DashItemsCollected
+        LDA.w DashItemsEquipped : ORA #$0221 : STA.w DashItemsEquipped
+
+        ; Fix the music
         pushpc
-        org $8F860E : dw $EFE0  ; Double Jump at Charge Missiles
-        org $8F8608 : dw $EFE4  ; Heat Shield at Big Pink Missiles
-        org $8F8614 : dw $F03C  ; Aqua Boots at Charge Beam
+        org $8FAD2C
+        dw $0515
+        pullpc
+
+        ; Place items
+        pushpc
+        org $8F8C82 : dw $EF07  ; Varia Suit at Speed Booster
         pullpc
 
         RTL

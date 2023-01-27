@@ -79,7 +79,7 @@ dw SpecialShotProjectile, $CBB7
 ; New Items
 ;------------------------------------------------------------------------------
 org $848794
-JSR.w SetItemGraphicsBank
+JSR.w DetermineItemGraphicsBank
 
 ; Suits
 org $90E74D
@@ -90,10 +90,12 @@ org $908239
 JMP.w AcidDamage
 org $8DE379
 JML.l HeatDamage : NOP #2
+org $948EAF
+JSL.l SpikeDamage : NOP #2
 
 ; Double Jump
 org $90A46E
-JSR.w CheckEligibleJump
+JSR.w CheckEligibleJump : NOP #3
 org $90A490
 JSR.w CheckJumpPhysics
 org $90A4BF
