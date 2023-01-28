@@ -50,7 +50,7 @@ warnpc $909347
 ;------------------------------------------------------------------------------
 org $90A607
 CheckJumpPhysics:
-        LDA.l SpaceJumpPhysics : BNE .done
+        LDA.l SpaceJumpPhysics : BIT.w #$0001 : BNE .done
                 LDA.w LiquidPhysicsType
         .done
 RTS
