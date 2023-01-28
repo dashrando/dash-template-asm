@@ -58,7 +58,7 @@ incsrc messageboxes.asm
 warnpc $868000
 
 org $87C964
-incsrc credits/credits_data.asm
+incsrc credits/credits_script.asm
 warnpc $888000
 
 org $8BF760
@@ -107,6 +107,7 @@ warnpc $CEFFFE
 org $DF8000
 incsrc tables.asm ; Keep this first
 incsrc roomtables.asm
+incsrc credits/credits_data.asm
 warnpc $E08000
 
 if !DEBUG = 1
