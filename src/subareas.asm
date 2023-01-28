@@ -4,9 +4,15 @@
 ; Determines subareas within the major areas
 ;------------------------------------------------------------------------------
 
+OnRoomLoad:
+        PHX
+        JSR.w DetermineSubArea ; Keep first
+        JSR.w SetRoomFlagsEntry
+        PLX
+RTS
+
 DetermineSubArea:
         STA.w AreaIndex ; What we wrote over
-        PHX
         ASL : TAX
         JMP.w (SubAreaHandlers,X)
 
@@ -44,5 +50,4 @@ dw .tourian
         BRA .done
 .done
         AND.w #$00FF : STA.w SubAreaIndex
-        PLX
 RTS

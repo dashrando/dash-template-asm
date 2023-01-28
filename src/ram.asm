@@ -21,6 +21,8 @@ MultiplierOne = $7E0026              ; 16-bit DP scratch space. Used by vanilla 
 MultiplierTwo = $7E0028              ; 16-bit DP scratch space. Used by vanilla for multiplier
 MultiplyResult = $7E002A             ; 32-bit DP scratch space. Used by vanilla for result.
 SubAreaIndex = $7E0336               ;
+RoomFlags = $7E0338                  ; Used to flag gravity suit physics on room entry, unpause,
+                                     ; and relevant item pickups.
 NMICounter = $7E05B8                 ;
 AreaMapFlag = $7E0789                ;
 GameState = $7E0998                  ;

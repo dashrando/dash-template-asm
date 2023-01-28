@@ -71,6 +71,21 @@ CheckGravityPaletteOrPressureValve:
 RTS
 warnpc $91810A
 ;------------------------------------------------------------------------------
+org $82E675
+SetRoomFlagsEntry:
+        JSL.l CheckWaterPhysicsLong : BNE .gravity
+                LDA.w #$0000 : STA.w RoomFlags
+                RTS
+        .gravity
+        LDA.w #$0020 : STA.w RoomFlags
+RTS
+
+SetRoomFlagsUnpause:
+        JSR.w ClearSamusBeamTiles
+        JSR.w SetRoomFlagsEntry
+RTS
+warnpc $82E6A1
+;------------------------------------------------------------------------------
 pullpc
 
 CheckEligibleJump:

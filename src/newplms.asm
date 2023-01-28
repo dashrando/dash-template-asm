@@ -124,29 +124,29 @@ dw $0000              : db $00, $00, $00, $00, $00, $00, $00, $00    ; $23 - Unu
 dw $0000              : db $00, $00, $00, $00, $00, $00, $00, $00    ; $24 - Unused
 
 DashItemTable:
-;  pickup,   qty,   msg,   type,  ext2,  ext3,  loop,  hloop
-dw ItemSave, $0200, $001D, $0004, $0000, $0000, $0000, $0000  ; $00 - Double Jump
-dw ItemSave, $0001, $001E, $0004, $0000, $0000, $0000, $0000  ; $01 - Heat Shield
-dw ItemSave, $0020, $001F, $0004, $0000, $0000, $0000, $0000  ; $02 - Pressure Valve
-dw $0000,    $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $03 - Unused
-dw $0000,    $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $04 - Unused
-dw $0000,    $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $05 - Unused
-dw $0000,    $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $06 - Unused
-dw $0000,    $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $07 - Unused
-dw $0000,    $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $08 - Unused
-dw $0000,    $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $09 - Unused
-dw $0000,    $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $0A - Unused
-dw $0000,    $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $0B - Unused
-dw $0000,    $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $0C - Unused
-dw $0000,    $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $0D - Unused
-dw $0000,    $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $0E - Unused
-dw $0000,    $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $0F - Unused
+;  pickup,              qty,   msg,   type,  ext2,  ext3,  loop,  hloop
+dw DoubleJumpPickup,    $0200, $001D, $0004, $0000, $0000, $0000, $0000  ; $00 - Double Jump
+dw HeatShieldPickup,    $0001, $001E, $0004, $0000, $0000, $0000, $0000  ; $01 - Heat Shield
+dw PressureValvePickup, $0020, $001F, $0004, $0000, $0000, $0000, $0000  ; $02 - Pressure Valve
+dw $0000,               $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $03 - Unused
+dw $0000,               $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $04 - Unused
+dw $0000,               $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $05 - Unused
+dw $0000,               $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $06 - Unused
+dw $0000,               $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $07 - Unused
+dw $0000,               $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $08 - Unused
+dw $0000,               $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $09 - Unused
+dw $0000,               $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $0A - Unused
+dw $0000,               $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $0B - Unused
+dw $0000,               $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $0C - Unused
+dw $0000,               $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $0D - Unused
+dw $0000,               $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $0E - Unused
+dw $0000,               $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $0F - Unused
 
-dw $0000,    $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $10 - Unused
-dw $0000,    $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $11 - Unused
-dw $0000,    $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $12 - Unused
-dw $0000,    $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $13 - Unused
-dw $0000,    $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $14 - Unused
+dw $0000,               $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $10 - Unused
+dw $0000,               $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $11 - Unused
+dw $0000,               $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $12 - Unused
+dw $0000,               $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $13 - Unused
+dw $0000,               $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $14 - Unused
 
 StartDrawLoop:
         PHY : PHX
@@ -211,9 +211,27 @@ ItemPickup:
         PLX : PLY
 RTS
 
+PressureValvePickup:
+        LDA.w VanillaItemsCollected : BIT.w #$0020 : BNE ItemSave_collect
+        JSL.l CheckWaterPhysicsLong : BNE .gravityphysics
+                LDA.w #$0000 : STA.w RoomFlags
+                BRA ItemSave
+        .gravityphysics
+        LDA.w #$0020 : STA.w RoomFlags
+        BRA ItemSave
+
+HeatShieldPickup:
+        LDA.w VanillaItemsCollected : BIT.w #$0001 : BNE ItemSave_collect
+        BRA ItemSave
+
+DoubleJumpPickup:
+        LDA.w VanillaItemsCollected : BIT.w #$0200 : BNE ItemSave_collect
+        BRA ItemSave
+
 ItemSave:
-        LDA.w DashItemsCollected : ORA.w $0000,Y : STA.w DashItemsCollected
         LDA.w DashItemsEquipped : ORA.w $0000,Y : STA.w DashItemsEquipped
+        .collect
+        LDA.w DashItemsCollected : ORA.w $0000,Y : STA.w DashItemsCollected
         LDA.w #$0168
         JSL.l PlayRoomMusic
         LDA.w $0002,Y : AND.w #$00FF : TAX
@@ -222,6 +240,18 @@ ItemSave:
 RTS
 
 NoopPLM: ; If we need a PLM instruction pointer that does nothing
+RTS
+
+VanillaEquipmentPickup:
+        PHA
+        STA.w VanillaItemsEquipped ; What we wrote over
+        EOR.w #$FFFF : AND.w DashItemsEquipped : STA.w DashItemsEquipped ; Unequip overlapping DASH items
+        PLA
+        BIT.w #$0020 : BNE +
+                LDA.w #$0000 : STA.w RoomFlags
+                RTS
+        +
+        LDA.w #$0020 : STA.w RoomFlags
 RTS
 
 ; Routine called when a beam is collected.

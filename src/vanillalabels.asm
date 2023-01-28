@@ -18,6 +18,7 @@ FileSelect_CursorSound = $81A2B2
 FileSelect_Done = $81A2B9
 NewSaveFile = $81B2CB
 LoadMenuTileMap = $81B3E2
+ClearSamusBeamTiles = $82A2BE
 DrawFileSelectMissile = $82BA6E ; long
 PlayRoomMusic = $82E118 ; long
 PLMDelete = $8486BC

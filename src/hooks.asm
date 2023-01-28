@@ -80,6 +80,8 @@ dw SpecialShotProjectile, $CBB7
 ;------------------------------------------------------------------------------
 org $848794
 JSR.w DetermineItemGraphicsBank
+org $8488F9
+JSR.w VanillaEquipmentPickup
 
 ; Suits
 org $90E74D
@@ -104,44 +106,47 @@ org $91F0A5
 JSR.w ClearJumpFlag
 
 ; Pressure Valve
+org $82936A
+JSR.w SetRoomFlagsUnpause
+org $84B423
+LDA.w RoomFlags
+org $84B4D1
+LDA.w RoomFlags
 org $908096
-JSR.w CheckWaterPhysics : NOP #3
+LDA.w RoomFlags : BIT.w #$0020
 org $908198
-JSR.w CheckWaterPhysics : NOP #3
+LDA.w RoomFlags
 org $90841D
-JSR.w CheckWaterPhysics : NOP #3
+LDA.w RoomFlags
 org $909741
-JSR.w CheckWaterPhysics : NOP #3
+LDA.w RoomFlags
 org $9098C2
-JSR.w CheckWaterPhysics : NOP #3
+LDA.w RoomFlags
 org $90994F
-JSR.w CheckWaterPhysics : NOP #3
+LDA.w RoomFlags
 org $9099DC
-JSR.w CheckWaterPhysics : NOP #3
+LDA.w RoomFlags
 org $909A2F
-JSR.w CheckWaterPhysics : NOP #3
+LDA.w RoomFlags
 org $909BD4
-JSR.w CheckWaterPhysics : NOP #3
+LDA.w RoomFlags
 org $909C24
-JSR.w CheckWaterPhysics : NOP #3
+LDA.w RoomFlags
 org $909C5B
-JSR.w CheckWaterPhysics : NOP #3
+LDA.w RoomFlags
 org $90A439
-JSR.w CheckWaterPhysics : NOP #3
+LDA.w RoomFlags : BIT.w #$0020
 org $91D9B5
 JSR.w CheckGravityPaletteOrPressureValve
 org $91F68A
-JSL.l CheckWaterPhysicsLong : NOP #2
+LDA.w RoomFlags
 org $91F6EB
-JSL.l CheckWaterPhysicsLong : NOP #2
+LDA.w RoomFlags
 org $91FB0E
-JSL.l CheckWaterPhysicsLong : NOP #2
+LDA.w RoomFlags
 org $9BC4BE
-JSL.l CheckWaterPhysicsLong : NOP #2
-org $84B423
-JSL.l CheckWaterPhysicsLong : NOP #2
-org $84B4D1
-JSL.l CheckWaterPhysicsLong : NOP #2
+LDA.w RoomFlags : BIT.w #$0020
+
 
 ;------------------------------------------------------------------------------
 ; Beams
@@ -208,7 +213,7 @@ JSR.w CountDashItems
 ; Subareas
 ;------------------------------------------------------------------------------
 org $82DE86
-JSR DetermineSubArea
+JSR OnRoomLoad
 
 ;------------------------------------------------------------------------------
 ; Stats
