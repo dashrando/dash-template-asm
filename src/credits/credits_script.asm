@@ -192,13 +192,16 @@ CreditsScript:
     %row2(665,666) ; Spring Ball
     %row2(667,668) ; X-ray
     %row2(669,670) ; Grapple
-    %row1(671) ; Charge Item Text
-    %row1(672) ; Charge Upgrade Location
-    %row1(673) ; Charge Upgrade Location
-    %row1(674) ; Charge Upgrade Location
-    %row1(675) ; Charge Upgrade Location
-    %row1(676) ; Charge Upgrade Location
-    %row1(677) ; Charge Upgrade Location
+    %row2(671,672) ; Heat Shield
+    %row2(673,674) ; Pressure Valve
+    %row2(675,676) ; Double Jump
+    %row1(677) ; Charge Item Text
+    %row1(678) ; Charge Upgrade Location
+    %row1(679) ; Charge Upgrade Location
+    %row1(680) ; Charge Upgrade Location
+    %row1(681) ; Charge Upgrade Location
+    %row1(682) ; Charge Upgrade Location
+    %row1(683) ; Charge Upgrade Location
 
     %blank_row() : %blank_row() : %blank_row()
     %blank_row() : %blank_row()

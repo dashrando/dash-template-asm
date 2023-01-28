@@ -51,13 +51,19 @@ CreditsItemLocations:
     %font1("................................", "orange") ; 668 ; 0x2F8707
     %font1("GRAPPLING BEAM                  ", "yellow") ; 669
     %font1("................................", "orange") ; 670 ; 0x2F8787
-    %font1("CHARGE UPGRADES                 ", "yellow") ; 671
+    %font1("HEAT SHIELD                     ", "yellow") ; 671
     %font1("................................", "orange") ; 672 ; 0x2F8807
-    %font1("................................", "orange") ; 673 ; 0x2F8847
+    %font1("PRESSURE VALVE                  ", "yellow") ; 673
     %font1("................................", "orange") ; 674 ; 0x2F8887
-    %font1("................................", "orange") ; 675 ; 0x2F88C7
+    %font1("DOUBLE JUMP                     ", "yellow") ; 675
     %font1("................................", "orange") ; 676 ; 0x2F8907
-    %font1("                                ", "orange") ; 677 ; 0x2F8947
+    %font1("CHARGE UPGRADES                 ", "yellow") ; 677
+    %font1("................................", "orange") ; 678 ; 0x2F8987
+    %font1("................................", "orange") ; 679 ; 0x2F89C7
+    %font1("................................", "orange") ; 680 ; 0x2F8A07
+    %font1("................................", "orange") ; 681 ; 0x2F8A47
+    %font1("................................", "orange") ; 682 ; 0x2F8A87
+    %font1("                                ", "orange") ; 683 ; 0x2F8AC7
     dd 0
 
-org $DF898B ; 0x2F898B
+org $DF8B0B ; 0x2F8B0B
