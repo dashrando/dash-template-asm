@@ -189,15 +189,18 @@ LDA.w #$C062 : JSR.w CheckEquipmentBitmask
 ;------------------------------------------------------------------------------
 ; Credits
 ;------------------------------------------------------------------------------
-org $8b9971
+org $8B9971
 PEA.w CreditsScript>>8
 org $8BF6FC
 dw CreditsScript
 
-; 
 ; Hijack after decompression of regular credits tilemaps
-org $8be0d1
+org $8BE0D1
 JSL.l CopyCreditsTileMap
+
+; Add DASH items to final collection rate
+org $8BE65B
+JSR.w CountDashItems
 
 ;------------------------------------------------------------------------------
 ; Subareas

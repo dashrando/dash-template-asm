@@ -63,6 +63,7 @@ warnpc $888000
 
 org $8BF760
 incsrc credits/credits_scroll.asm
+incsrc credits/itempercentage.asm
 warnpc $8C8000
 
 org $8EE600
