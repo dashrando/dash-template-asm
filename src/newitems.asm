@@ -64,6 +64,11 @@ ClearJumpFlag:
         STZ.w DoubleJumpFlag
         LDA.w $079F ; What we wrote over
 RTS
+CheckGravityPaletteOrPressureValve:
+        BIT.w #$0004 : BNE .done ; What we wrote over
+                LDA.w DashItemsEquipped : BIT.w #$0020
+        .done
+RTS
 warnpc $91810A
 ;------------------------------------------------------------------------------
 pullpc

@@ -103,7 +103,7 @@ JSR.w CheckDoubleJump
 org $91F0A5
 JSR.w ClearJumpFlag
 
-; Aqua Boots
+; Pressure Valve
 org $908096
 JSR.w CheckWaterPhysics : NOP #3
 org $908198
@@ -128,6 +128,8 @@ org $909C5B
 JSR.w CheckWaterPhysics : NOP #3
 org $90A439
 JSR.w CheckWaterPhysics : NOP #3
+org $91D9B5
+JSR.w CheckGravityPaletteOrPressureValve
 org $91F68A
 JSL.l CheckWaterPhysicsLong : NOP #2
 org $91F6EB
