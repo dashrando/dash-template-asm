@@ -10,8 +10,9 @@ IncrementLagTimer:
         LDA.l GoalComplete : BNE .skip
                 LDA.w GameState : TAX
                 LDA.w TimerHandlers_lag,X : AND.w #$00FF : BEQ .skip
-                        LDA.l LagFrames : INC : STA.l LagFrames
-                        LDA.l LagFrames+$02 : ADC.w #$0000 : STA.l LagFrames
+                        LDA.l LagFrames : INC : STA.l LagFrames : BNE +
+                                LDA.l LagFrames+$02 : INC : STA.l LagFrames
+                        +
         .skip
         LDX.w $05BA ; What we wrote over
 RTS
@@ -20,21 +21,24 @@ TimersNMI:
         LDA.w SubAreaIndex : CMP.w #$FFFF : BEQ +
                 JSR.w IncrementAreaTimers
         +
-        LDA.l NMIFrames : INC : STA.l NMIFrames
-        LDA.l NMIFrames+$02 : ADC.w #$0000 : STA.l NMIFrames+$02
+        LDA.l NMIFrames : INC : STA.l NMIFrames : BNE +
+                LDA.l NMIFrames+$02 : INC : STA.l NMIFrames+$02
+        +
 NoTimer:
 RTS
 
 DoorTimersNMI:
         LDA.w SubAreaIndex
         JSR.w IncrementAreaTimers
-        LDA.l NMIFrames : INC : STA.l NMIFrames
-        LDA.l NMIFrames+$02 : ADC.w #$0000 : STA.l NMIFrames+$02
-        LDA.l DoorFrames : INC : STA.l DoorFrames
-        LDA.l DoorFrames+$02 : ADC.w #$0000 : STA.l DoorFrames+$02
+        LDA.l NMIFrames : INC : STA.l NMIFrames : BNE +
+                LDA.l NMIFrames+$02 : INC : STA.l NMIFrames+$02
+        +
+        LDA.l DoorFrames : INC : STA.l DoorFrames : BNE +
+                LDA.l DoorFrames+$02 : INC : STA.l DoorFrames+$02
+        +
         LDA.w DoorAdjustFlag : BEQ +
-                LDA.l DoorAlignFrames : INC : STA.l DoorAlignFrames
-                LDA.l DoorAlignFrames+$02 : ADC.w #$0000 : STA.l DoorAlignFrames+$02
+                LDA.l DoorAlignFrames : INC : STA.l DoorAlignFrames : BNE +
+                        LDA.l DoorAlignFrames+$02 : INC : STA.l DoorAlignFrames+$02
         +
 RTS
 
@@ -42,10 +46,12 @@ MenuTimersNMI:
         LDA.w SubAreaIndex : CMP.w #$FFFF : BEQ +
                 JSR.w IncrementAreaTimers
         +
-        LDA.l NMIFrames : INC : STA.l NMIFrames
-        LDA.l NMIFrames+$02 : ADC.w #$0000 : STA.l NMIFrames+$02
-        LDA.l MenuFrames : INC : STA.l MenuFrames
-        LDA.l MenuFrames+$02 : ADC.w #$0000 : STA.l MenuFrames+$02
+        LDA.l NMIFrames : INC : STA.l NMIFrames : BNE +
+                LDA.l NMIFrames+$02 : INC : STA.l NMIFrames+$02
+        +
+        LDA.l MenuFrames : INC : STA.l MenuFrames : BNE +
+                LDA.l MenuFrames+$02 : INC : STA.l MenuFrames+$02
+        +
 RTS
 
 TimerHandlers:
