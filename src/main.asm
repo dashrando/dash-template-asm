@@ -1,6 +1,7 @@
 lorom
 
 !DEBUG ?= 0
+!STD ?= 0
 
 org $808000 ; Reserved
 dw $8001    ;
@@ -110,7 +111,7 @@ incsrc roomtables.asm
 incsrc credits/credits_data.asm
 warnpc $E08000
 
-if !DEBUG = 1
+if !DEBUG == 1
     incsrc debugmode.asm
 endif
 

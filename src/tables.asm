@@ -11,8 +11,13 @@ db $00, $01, $02, $03
 
 org $DF8004 ; 0x2F8004
 ChargeMode:
-db $02  ; 0 = vanilla, 1 = starter, 2 = balance
-db $01  ; 0 = no hud, 1 = charge damage on HUD
+if !STD == 1
+    db $01  ; 0 = vanilla, 1 = starter, 2 = balance
+    db $00  ; 0 = no hud, 1 = charge damage on HUD
+else
+    db $02  ; 0 = vanilla, 1 = starter, 2 = balance
+    db $01  ; 0 = no hud, 1 = charge damage on HUD
+endif
 
 org $DF8006 ; 0x2F8006
 SpaceJumpPhysics:

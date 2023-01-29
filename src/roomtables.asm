@@ -7,6 +7,18 @@
 ;
 ;------------------------------------------------------------------------------
 
+if !STD == 1
+   !WS_Reserve_Patch = Room_WreckedShipReserve_Patch_01
+   !Plasma_Patch = NoPatch
+   !Pants_Room_Patch = NoPatch
+   !Shaktool_Patch = NoPatch
+else
+   !WS_Reserve_Patch = Room_WreckedShipReserve_Patch_02
+   !Plasma_Patch = Room_Plasma_Patch_01
+   !Pants_Room_Patch = Room_PreShaktool_Patch_01
+   !Shaktool_Patch = Room_Shaktool_Patch_01
+endif
+
 ; Creates column-major table named <area>Rooms:
 %AreaRoomTable(Crateria, $33)
 %AreaRoomTable(Brinstar, $37)
@@ -190,7 +202,7 @@
 
 ; Wrecked Ship
 ;          Area       index     sub_areas      room_flags  room_patches
-%RoomEntry(WreckedShip, $00,  !Area_WreckedShip,  $00,  Room_WreckedShipReserve_Patch_02) ; Wrecked Ship Reserve
+%RoomEntry(WreckedShip, $00,  !Area_WreckedShip,  $00,  !WS_Reserve_Patch) ; Wrecked Ship Reserve
 %RoomEntry(WreckedShip, $01,  !Area_WreckedShip,  $00,  NoPatch) ; Front Conveyor Belt
 %RoomEntry(WreckedShip, $02,  !Area_WreckedShip,  $00,  NoPatch) ; Attic
 %RoomEntry(WreckedShip, $03,  !Area_WreckedShip,  $00,  NoPatch) ; Attic Missiles
@@ -226,7 +238,7 @@
 %RoomEntry(Maridia, $0E,  !Area_WestMaridia,  $20,  NoPatch) ; Broken Tube
 %RoomEntry(Maridia, $0F,  !Area_WestMaridia,  $20,  NoPatch) ; Crab Room
 %RoomEntry(Maridia, $10,  !Area_EastMaridia,  $00,  NoPatch) ; Plasma Tunnel
-%RoomEntry(Maridia, $11,  !Area_EastMaridia,  $01,  Room_Plasma_Patch_01) ; Plasma Beam
+%RoomEntry(Maridia, $11,  !Area_EastMaridia,  $01,  !Plasma_Patch) ; Plasma Beam
 %RoomEntry(Maridia, $12,  !Area_EastMaridia,  $20,  NoPatch) ; Thread Needle
 %RoomEntry(Maridia, $13,  !Area_EastMaridia,  $20,  NoPatch) ; Maridia Elevator Bottom
 %RoomEntry(Maridia, $14,  !Area_EastMaridia,  $20,  NoPatch) ; Plasma Spark
@@ -245,8 +257,8 @@
 %RoomEntry(Maridia, $21,  !Area_EastMaridia,  $00,  NoPatch) ; Aqueduct
 %RoomEntry(Maridia, $22,  !Area_EastMaridia,  $20,  NoPatch) ; Butterfly
 %RoomEntry(Maridia, $23,  !Area_EastMaridia,  $00,  Room_PreBotwoon_Patch_01) ; Pre Botwoon
-%RoomEntry(Maridia, $24,  !Area_EastMaridia,  $20,  Room_PreShaktool_Patch_01) ; Pants Room 1
-%RoomEntry(Maridia, $25,  !Area_EastMaridia,  $20,  Room_PreShaktool_Patch_01) ; Pants Room 2
+%RoomEntry(Maridia, $24,  !Area_EastMaridia,  $20,  !Pants_Room_Patch) ; Pants Room 1
+%RoomEntry(Maridia, $25,  !Area_EastMaridia,  $20,  !Pants_Room_Patch) ; Pants Room 2
 %RoomEntry(Maridia, $26,  !Area_EastMaridia,  $20,  NoPatch) ; Spring Ball
 %RoomEntry(Maridia, $27,  !Area_EastMaridia,  $00,  NoPatch) ; Aqueduct East Landing
 %RoomEntry(Maridia, $28,  !Area_EastMaridia,  $00,  NoPatch) ; Coliseum
@@ -257,7 +269,7 @@
 %RoomEntry(Maridia, $2D,  !Area_EastMaridia,  $00,  NoPatch) ; Halfie Shaft Missile Refill
 %RoomEntry(Maridia, $2E,  !Area_EastMaridia,  $20,  NoPatch) ; Bug Quicksand
 %RoomEntry(Maridia, $2F,  !Area_EastMaridia,  $00,  NoPatch) ; Botwoon E-Tank Quicksand
-%RoomEntry(Maridia, $30,  !Area_EastMaridia,  $20,  Room_Shaktool_Patch_01) ; Shaktool
+%RoomEntry(Maridia, $30,  !Area_EastMaridia,  $20,  !Shaktool_Patch) ; Shaktool
 %RoomEntry(Maridia, $31,  !Area_EastMaridia,  $00,  NoPatch) ; Halfie Shaft
 %RoomEntry(Maridia, $32,  !Area_EastMaridia,  $00,  NoPatch) ; Botwoon
 %RoomEntry(Maridia, $33,  !Area_EastMaridia,  $00,  NoPatch) ; Space Jump

@@ -22,7 +22,11 @@ HeatDamage:
         LDA.w #$0020 : BIT.w VanillaItemsEquipped : BNE .gravity
                 BRA .fulldamage
         .gravity
+if !STD == 0
         LDA.w #$3000 : BRA .applydamage
+else
+        LDA.w #$2000 : BRA .applydamage
+endif
         .heatshield
         LDA.w SubAreaIndex : CMP.w !Area_LowerNorfair : BNE .nodamage
                 .halfdamage
