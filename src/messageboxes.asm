@@ -22,11 +22,11 @@ dw !EmptySmall, !Small, BtnArray
 
 table data/box.tbl,rtl
 double_jump:
-dw "______    DOUBLE JUMP     ______"
+dw "______    DOUBLE JUMP    _______"
 heat_shield:
-dw "______    HEAT SHIELD     ______"
+dw "______    HEAT SHIELD    _______"
 aqua_boots:
-dw "______   PRESSURE VALVE   ______"
+dw "______   PRESSURE VALVE  _______"
 charge_upgrade:
 dw "______  CHARGE UPGRADE   _______"
 ; reserved:
