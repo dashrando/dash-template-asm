@@ -238,8 +238,8 @@
 %RoomEntry(Maridia, $1A,  !Area_EastMaridia,  $20,  NoPatch) ; Sand Hall West
 %RoomEntry(Maridia, $1B,  !Area_EastMaridia,  $20,  NoPatch) ; Big Tube Bottom
 %RoomEntry(Maridia, $1C,  !Area_EastMaridia,  $20,  NoPatch) ; Sand Hall East
-%RoomEntry(Maridia, $1D,  !Area_EastMaridia,  $20,  NoPatch) ; Left Sand Pit
-%RoomEntry(Maridia, $1E,  !Area_EastMaridia,  $20,  NoPatch) ; Right Sand Pit
+%RoomEntry(Maridia, $1D,  !Area_EastMaridia,  $00,  NoPatch) ; Left Sand Pit
+%RoomEntry(Maridia, $1E,  !Area_EastMaridia,  $00,  NoPatch) ; Right Sand Pit
 %RoomEntry(Maridia, $1F,  !Area_EastMaridia,  $00,  NoPatch) ; Aqueduct Quicksand Left
 %RoomEntry(Maridia, $20,  !Area_EastMaridia,  $00,  NoPatch) ; Aqueduct Quicksand Right
 %RoomEntry(Maridia, $21,  !Area_EastMaridia,  $00,  NoPatch) ; Aqueduct
