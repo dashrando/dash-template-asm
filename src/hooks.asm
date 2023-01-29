@@ -29,8 +29,7 @@ JSL.l PostNMIHook : NOP
 ;------------------------------------------------------------------------------
 org $828067
 JSL.l InitGameState
-org $82EED9
-LDA.w #$001F ; Skip intro
+org $82EED9 : LDA.w #$001F ; Skip intro
 
 ;------------------------------------------------------------------------------
 ; File Select And Game Options Screens
@@ -108,45 +107,28 @@ JSR.w ClearJumpFlag
 ; Pressure Valve
 org $82936A
 JSR.w SetRoomFlagsUnpause
-org $84B423
-LDA.w RoomFlags
-org $84B4D1
-LDA.w RoomFlags
-org $908096
-LDA.w RoomFlags : BIT.w #$0020
-org $908198
-LDA.w RoomFlags
-org $90841D
-LDA.w RoomFlags
-org $909741
-LDA.w RoomFlags
-org $9098C2
-LDA.w RoomFlags
-org $90994F
-LDA.w RoomFlags
-org $9099DC
-LDA.w RoomFlags
-org $909A2F
-LDA.w RoomFlags
-org $909BD4
-LDA.w RoomFlags
-org $909C24
-LDA.w RoomFlags
-org $909C5B
-LDA.w RoomFlags
-org $90A439
-LDA.w RoomFlags : BIT.w #$0020
 org $91D9B5
 JSR.w CheckGravityPaletteOrPressureValve
-org $91F68A
-LDA.w RoomFlags
-org $91F6EB
-LDA.w RoomFlags
-org $91FB0E
-LDA.w RoomFlags
-org $9BC4BE
-LDA.w RoomFlags : BIT.w #$0020
 
+; Replace gravity suit checks with check for our room flag
+org $84B423 : LDA.w RoomFlags
+org $84B4D1 : LDA.w RoomFlags
+org $908096 : LDA.w RoomFlags : BIT.w #$0020
+org $908198 : LDA.w RoomFlags
+org $90841D : LDA.w RoomFlags
+org $909741 : LDA.w RoomFlags
+org $9098C2 : LDA.w RoomFlags
+org $90994F : LDA.w RoomFlags
+org $9099DC : LDA.w RoomFlags
+org $909A2F : LDA.w RoomFlags
+org $909BD4 : LDA.w RoomFlags
+org $909C24 : LDA.w RoomFlags
+org $909C5B : LDA.w RoomFlags
+org $90A439 : LDA.w RoomFlags : BIT.w #$0020
+org $91F68A : LDA.w RoomFlags
+org $91F6EB : LDA.w RoomFlags
+org $91FB0E : LDA.w RoomFlags
+org $9BC4BE : LDA.w RoomFlags : BIT.w #$0020
 
 ;------------------------------------------------------------------------------
 ; Beams
