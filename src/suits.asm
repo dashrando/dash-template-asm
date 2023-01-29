@@ -18,15 +18,15 @@ RTS
 
 HeatDamage:
         LDA.w #$0001 : BIT.w VanillaItemsEquipped : BNE .nodamage
-                       BIT.w VanillaItemsCollected : BNE .gravity
-                       BIT.w DashItemsEquipped : BNE .heatshield
+                       BIT.w DashItemsEquipped : BNE .nodamage
+        LDA.w #$0020 : BIT.w VanillaItemsEquipped : BNE .gravity
+                BRA .fulldamage
         .gravity
-        LDA.w #$0020 : BIT.w VanillaItemsEquipped : BEQ .fulldamage
-                        LDA.w #$3000 : BRA .applydamage
-                .heatshield
-                LDA.w SubAreaIndex : CMP.w !Area_LowerNorfair : BNE .nodamage
-                        .halfdamage
-                        LDA.w #$2000 : BRA .applydamage
+        LDA.w #$3000 : BRA .applydamage
+        .heatshield
+        LDA.w SubAreaIndex : CMP.w !Area_LowerNorfair : BNE .nodamage
+                .halfdamage
+                LDA.w #$2000 : BRA .applydamage
         .fulldamage
         LDA.w #$4000
         .applydamage
@@ -65,15 +65,14 @@ JMP.w AnimateSamusLavaAcid
 SpikeDamage:
         LDA.w VanillaItemsEquipped : AND.w #$0021 : BEQ .full
                                      CMP.w #$0021 : BEQ .1_4
-                LDA.w PeriodicDamage : CLC : ADC.w #$001E
+                LDA.w PeriodicDamage+$02 : CLC : ADC.w #$001E
                 BRA .done
                 .1_4
-                LDA.w PeriodicDamage : CLC : ADC.w #$000F
+                LDA.w PeriodicDamage+$02 : CLC : ADC.w #$000F
                 BRA .done
         .full
         LDA.w PeriodicDamage+$02 : CLC : ADC.w #$003C
         .done
-        STA.w PeriodicDamage+$02
 RTL
 
 pushpc
