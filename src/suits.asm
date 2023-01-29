@@ -31,6 +31,7 @@ HeatDamage:
         LDA.w #$4000
         .applydamage
         CLC : ADC.w PeriodicDamage : STA.w PeriodicDamage
+        LDA.w PeriodicDamage+$02 : ADC.w #$0000 : STA.w PeriodicDamage+$02
         JML.l $8DE394
         .nodamage
 JML $8DE3AB
