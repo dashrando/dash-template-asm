@@ -18,7 +18,7 @@ RTS
 
 HeatDamage:
         LDA.w #$0001 : BIT.w VanillaItemsEquipped : BNE .nodamage
-                       BIT.w DashItemsEquipped : BNE .nodamage
+                       BIT.w DashItemsEquipped : BNE .heatshield
         LDA.w #$0020 : BIT.w VanillaItemsEquipped : BNE .gravity
                 BRA .fulldamage
         .gravity
