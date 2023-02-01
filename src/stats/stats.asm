@@ -7,7 +7,8 @@ HandleTimersNMI:
         RTS
 
 IncrementLagTimer:
-        LDA.l GoalComplete : BNE .skip
+        LDA.l GoalComplete   : BNE .skip
+        LDA.w MessageBoxFlag : BNE .skip
                 LDA.w GameState : TAX
                 LDA.w TimerHandlers_lag,X : AND.w #$00FF : BEQ .skip
                         LDA.l LagFrames : INC : STA.l LagFrames : BNE +

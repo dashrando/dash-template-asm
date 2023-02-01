@@ -73,3 +73,12 @@ fix_1c1f:
 	ADC.w #$027F
 RTS
 
+SetMessageBoxFlag:
+        STA.w $1C1F ; What we wrote over
+        INC.w MessageBoxFlag
+RTS
+
+UnsetMessageBoxFlag:
+        JSR.w $80FA ; What we wrote over
+        STZ.w MessageBoxFlag
+RTS

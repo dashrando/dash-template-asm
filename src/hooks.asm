@@ -180,6 +180,8 @@ LDA.w #$C062 : JSR.w CheckEquipmentBitmask
 ;------------------------------------------------------------------------------
 org $8B9971
 PEA.w CreditsScript>>8
+org $8B9976
+JML.l ScrollCredits
 org $8BF6FC
 dw CreditsScript
 
@@ -276,6 +278,11 @@ org $858243
 JSR.w fix_1c1f
 org $8582E5
 JSR.w fix_1c1f
+
+org $858086
+JSR.w SetMessageBoxFlag
+org $8580B7
+JSR.w UnsetMessageBoxFlag
 
 org $858413
 dw BtnArray

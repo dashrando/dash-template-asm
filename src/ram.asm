@@ -23,6 +23,7 @@ MultiplyResult = $7E002A             ; 32-bit DP scratch space. Used by vanilla 
 SubAreaIndex = $7E0336               ;
 RoomFlags = $7E0338                  ; Used to flag gravity suit physics on room entry, unpause,
                                      ; and relevant item pickups.
+MessageBoxFlag = $7E033A             ; $00 = No message box | $01 = Message box on screen
 NMICounter = $7E05B8                 ;
 AreaMapFlag = $7E0789                ;
 GameState = $7E0998                  ;
