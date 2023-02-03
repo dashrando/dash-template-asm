@@ -94,89 +94,80 @@ CreditsScript:
 
     ; Custom item randomizer credits text
 
+    dw SetScroll, $0002
     %row1(128)     ; # Randomizer staff #
-    %blank_row()
-    %row1(163)     ; --- Game balance ---
-    %row2(165,166) ; kipp
-    %blank_row()
-    %row1(129)     ; --- Rando code ---
+    %row2(158,159) ; kipp
+    %row2(151,152) ; masshesteria
+    %row2(222,223) ; cassidymoen
+    %row2(224,225) ; papaschmo
+
+    %blank_row() : %blank_row()
+    %row1(140)     ; --- additional programming ---
+    %row2(136,137) ; andreww leodox
+    %row2(138,139) ; personitis smiley
     %row2(130,131) ; total
+
+    %blank_row() : %blank_row()
+    %row1(155)     ; --- Logo design ---
+    %row2(153,154) ; minimemys
+
+    %blank_row() : %blank_row()
+    %row1(141)     ; # Special thanks to #
+    %row1(228)     ; --- Original Randomizer ---
     %row2(132,133) ; dessyreqt
-    %blank_row()
-    %row1(141)     ; --- ROM patches ---
-    %row2(137,138) ; andreww
-    %row2(146,147) ; leodox
-    %row2(139,140) ; personitis
-    %row2(142,143) ; smiley
-    %row2(130,131) ; total
-    %blank_row()
-    %row1(162)     ; --- Logo design ---
-    %row2(160,161) ; minimemys
-    %blank_row()
-    %row1(157)     ; --- Technical Support ---
-    %row2(158,159) ; masshesteria
-    %blank_row()
-    %row1(148)     ; # Special thanks to #
-    %row1(154)     ; --- Testers ---
-    %row2(137,138) ; andreww
-    %row2(155,156) ; fbs
-    %row2(171,172) ; maniacal
-    %row2(173,174) ; osse
-    %row2(135,136) ; rumble
-    %row2(144,145) ; sloaters
-    %row2(167,168) ; tracie
-    %row2(169,170) ; zeb
-    %blank_row()
-    %row1(149)     ; --- Disassembly ---
-    %row2(150,151) ; pjboy
-    %row2(152,153) ; kejardon
-    %blank_row()
-    %row1(175)     ; Metroid construction
-    %row2(176,177) ; MetroidConstruction.com
-    %blank_row()
-    %row1(178)     ; SRL
-    %blank_row()
-    ;%row2(179,180) ; SRL Discord Invite
-    %blank_row()
-    %row1(164)     ; Play this randomizer at
-    %row2(181,182) ; dashrando.github.io
+    %blank_row() : %blank_row()
+    %row1(147)     ; --- Testers ---
+    %row2(148,149) ; fbs maniacal
+    %row2(162,163) ; osse sloaters
+    %row2(134,135) ; rumble zeb
+    %row2(160,161) ; tracie
+    %blank_row() : %blank_row()
+    %row1(142)     ; --- Disassembly ---
+    %row2(143,144) ; pjboy kejardon
+    %blank_row() : %blank_row()
+    %row1(164)     ; Metroid construction
+    %row2(165,166) ; MetroidConstruction.com
+    %blank_row() : %blank_row()
+    %row1(167)     ; SRL
+    %blank_row() : %blank_row()
+    %blank_row() : %blank_row()
+    %row1(157)     ; Play this randomizer at
+    %row2(168,169) ; dashrando.github.io
 
-    %blank_row()
-    %row1(183)  ; # Game play stats #
-    %blank_row()
-    %row1(184)  ; --- Doors ---
-
-    ; Set scroll speed to 3 frames per pixel
-    dw SetScroll, $0003
-    %row2(185,186) ; Door transitions
-    %row2(187,188) ; Time in doors
-    %row2(189,190) ; Time aligning doors
-    %blank_row()
-    %row1(191)     ; --- Time spent in ---
-    %row2(192,193) ; Crateria
-    %row2(194,195) ; Green Brinstar
-    %row2(196,197) ; Red Brinstar
-    %row2(198,199) ; Wrecked Ship
-    %row2(200,201) ; Kraid's Lair
-    %row2(202,203) ; Upper Norfair
-    %row2(204,205) ; Lower Norfair
-    %row2(206,207) ; Crocomire
-    %row2(208,209) ; East Maridia
-    %row2(210,211) ; West Maridia
-    %row2(212,213) ; Tourian
-    %blank_row()
-    %row1(214)     ; --- Shots and Ammo Fired ---
-    %row2(215,216) ; Charged Shots
-    %row2(217,218) ; Special Beam Attacks
-    %row2(219,220) ; Missiles
-    %row2(221,222) ; Supers
-    %row2(223,224) ; PBs
-    %row2(225,226) ; Bombs
+    %blank_row() : %blank_row()
+    %blank_row() : %blank_row()
+    %row1(170)  ; # Game play stats #
+    %row1(171)  ; --- Doors ---
+    %row2(172,173) ; Door transitions
+    %row2(174,175) ; Time in doors
+    %row2(176,177) ; Time aligning doors
+    %blank_row() : %blank_row()
+    %row1(178)     ; --- Time spent in ---
+    %row2(179,180) ; Crateria
+    %row2(181,182) ; Green Brinstar
+    %row2(183,184) ; Red Brinstar
+    %row2(185,186) ; Wrecked Ship
+    %row2(187,188) ; Kraid's Lair
+    %row2(189,190) ; Upper Norfair
+    %row2(191,192) ; Lower Norfair
+    %row2(193,194) ; Crocomire
+    %row2(195,196) ; East Maridia
+    %row2(197,198) ; West Maridia
+    %row2(199,200) ; Tourian
+    %blank_row() : %blank_row()
+    %row1(201)     ; --- Shots and Ammo Fired ---
+    %row2(202,203) ; Charged Shots
+    %row2(204,205) ; Special Beam Attacks
+    %row2(206,207) ; Missiles
+    %row2(208,209) ; Supers
+    %row2(210,211) ; PBs
+    %row2(212,213) ; Bombs
 
     ; Draw item locations
-    %blank_row()
+    %blank_row() : %blank_row()
     %row1(640)     ; --- Major item locations ---
     %blank_row()
+    dw SetScroll, $0003
     %row2(641,642) ; Morph
     %row2(643,644) ; Bombs
     %row2(645,646) ; Ice
@@ -195,8 +186,7 @@ CreditsScript:
     %row2(671,672) ; Heat Shield
     %row2(673,674) ; Pressure Valve
     %row2(675,676) ; Double Jump
-    %row1(677) ; Charge Item Text
-    %row1(678) ; Charge Upgrade Location
+    %row2(677, 678); Charge
     %row1(679) ; Charge Upgrade Location
     %row1(680) ; Charge Upgrade Location
     %row1(681) ; Charge Upgrade Location
@@ -204,20 +194,19 @@ CreditsScript:
     %row1(683) ; Charge Upgrade Location
 
     %blank_row() : %blank_row() : %blank_row()
-    %blank_row() : %blank_row()
-
-    %row2(227,228) ; Menu time
-    %row2(229,230) ; Lag time
-    %row2(231,232) ; Final time
     %blank_row()
-    %row2(233,234) ; Thanks for playing
+
+    %row2(214,215) ; Menu time
+    %row2(216,217) ; Lag time
+    %row2(218,219) ; Final time
+    %blank_row()
+    %row2(220,221) ; Thanks for playing
 
     %blank_row() : %blank_row() : %blank_row()
     %blank_row() : %blank_row() : %blank_row()
     %blank_row() : %blank_row()
 
-    ; Set scroll speed to 4 frames per pixel
-    dw SetScroll, $0004
+    dw SetScroll, $0003
 
     ; Scroll all text off and end credits
     dw !set, $0017 : -
