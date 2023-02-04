@@ -246,12 +246,14 @@ VanillaEquipmentPickup:
         PHA
         STA.w VanillaItemsEquipped ; What we wrote over
         EOR.w #$FFFF : AND.w DashItemsEquipped : STA.w DashItemsEquipped ; Unequip overlapping DASH items
-        PLA
-        BIT.w #$0020 : BNE +
+        LDA.w #$0020 : BIT.w VanillaItemsEquipped : BNE +
+                       BIT.w DashItemsEquipped : BNE +
                 LDA.w #$0000 : STA.w RoomFlags
+                PLA
                 RTS
         +
         LDA.w #$0020 : STA.w RoomFlags
+        PLA
 RTS
 
 ; Routine called when a beam is collected.
