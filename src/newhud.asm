@@ -113,7 +113,7 @@ RTS
 ; Routine that draws the charge damage on the HUD
 NewHUDCharge:
         LDA.l ChargeMode : CMP.w #$0101 : BCC +
-                LDA.w ChargeUpgrades : XBA : ORA.w BeamsEquipped ; 000c-nnnn-0000-psiw
+                LDA.w BeamUpgrades : XBA : ORA.w BeamsEquipped ; 000c-nnnn-0000-psiw
                 CMP.w PreviousBeams : BEQ +
                         STA.w PreviousBeams
                         LDA.w #HUDHealthDigits : STA.b $00

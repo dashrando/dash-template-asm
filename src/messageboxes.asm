@@ -28,7 +28,7 @@ dw "______    HEAT SHIELD    _______"
 aqua_boots:
 dw "______   PRESSURE VALVE  _______"
 charge_upgrade:
-dw "______  CHARGE UPGRADE   _______"
+dw "______    BEAM UPGRADE   _______"
 ; reserved:
 ;     dw "______     RESERVED      _______"
 

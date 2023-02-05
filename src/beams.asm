@@ -62,7 +62,7 @@ LoadBeamDamage:
                 INX #2
                 LDA.w BeamsEquipped : BIT.w #$1000 : BEQ +
                         INX #2 : STX.b $06
-                        LDA.w ChargeUpgrades : ASL : CLC : ADC.b $06
+                        LDA.w BeamUpgrades : ASL : CLC : ADC.b $06
                         TAX
         +
         LDA.l BeamDamagePointers,X : STA.b $06

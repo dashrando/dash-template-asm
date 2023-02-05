@@ -133,9 +133,6 @@ org $91D9B2 : LDA.w RoomFlags : BIT.w #$0020
 ;------------------------------------------------------------------------------
 ; Beams
 ;------------------------------------------------------------------------------
-; PLM called when a beam is collected
-org $8488B0
-JSR.w CollectBeam
 ; HUD Handler / timer
 org $90B81B
 JSR.w PrepareForChargeCheck
