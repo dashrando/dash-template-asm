@@ -258,16 +258,14 @@ VanillaEquipmentPickup:
         PLA
 RTS
 
-; Routine called when a beam is collected.
-CollectBeam:
-        LDA.w $0000,Y : PHA : PHA
-        BIT.w #$1000 : BEQ +
-                LDA.l ChargeMode : AND.w #$000F : BEQ +
-                    LDA.w BeamsCollected : BIT.w #$1000 : BEQ +
-                            INC.w BeamUpgrades
+BeamUpgradePickup:
+        LDA.l ChargeMode : AND.w #$000F : BEQ +
+            LDA.w BeamsCollected : BIT.w #$1000 : BEQ +
+                    INC.w BeamUpgrades
         +
-        PLA : ORA.w BeamsCollected : STA.w BeamsCollected
-        PLA : ORA.w BeamsEquipped  : STA.w BeamsEquipped
+CollectBeam:
+        LDA.w $0000,Y : ORA.w BeamsCollected : STA.w BeamsCollected
+        LDA.w $0000,Y : ORA.w BeamsEquipped  : STA.w BeamsEquipped
         LDA.w #$0168
         JSL.l PlayRoomMusic
         LDA.w $0002,Y : AND.w #$00FF : TAX
