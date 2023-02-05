@@ -100,6 +100,7 @@ CreditsScript:
     %row2(151,152) ; masshesteria
     %row2(222,223) ; cassidymoen
     %row2(224,225) ; papaschmo
+    %row2(226,227) ; papaschmo
 
     %blank_row() : %blank_row()
     %row1(140)     ; --- additional programming ---
@@ -193,8 +194,7 @@ CreditsScript:
     %row1(682) ; Charge Upgrade Location
     %row1(683) ; Charge Upgrade Location
 
-    %blank_row() : %blank_row() : %blank_row()
-    %blank_row()
+    %blank_row() : %blank_row()
 
     %row2(214,215) ; Menu time
     %row2(216,217) ; Lag time
@@ -204,7 +204,7 @@ CreditsScript:
 
     %blank_row() : %blank_row() : %blank_row()
     %blank_row() : %blank_row() : %blank_row()
-    %blank_row() : %blank_row()
+    %blank_row() :` %blank_row()
 
     dw SetScroll, $0003
 
