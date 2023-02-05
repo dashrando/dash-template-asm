@@ -107,8 +107,6 @@ JSR.w ClearJumpFlag
 ; Pressure Valve
 org $82936A
 JSR.w SetRoomFlagsUnpause
-org $91D9B5
-JSR.w CheckGravityPaletteOrPressureValve
 
 ; Replace gravity suit checks with check for our room flag
 org $84B423 : LDA.w RoomFlags
@@ -129,6 +127,8 @@ org $91F68A : LDA.w RoomFlags
 org $91F6EB : LDA.w RoomFlags
 org $91FB0E : LDA.w RoomFlags
 org $9BC4BE : LDA.w RoomFlags : BIT.w #$0020
+; Screw Attack and Speed palette fix
+org $91D9B2 : LDA.w RoomFlags : BIT.w #$0020
 
 ;------------------------------------------------------------------------------
 ; Beams
