@@ -97,7 +97,7 @@ incsrc enemies.asm
 warnpc $A18000
 
 org $A2F498
-incsrc credits/credits.asm
+incsrc credits/credits_stats.asm
 incsrc stats/game_end.asm
 warnpc $A38000
 

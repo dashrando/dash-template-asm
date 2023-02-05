@@ -94,12 +94,10 @@ HiddenItemTable:
 %ItemPLM($03, BeamUpgrade)   ; $EFEC,  $F040, $F094
 
 ; Graphics pointers for items (by item index)
-; The first word is a pointer to a (vanilla) sprite. If we add new sprites
-; we'll have to write some new code for indexing the new gfx.
-; The bytes here are related to the palette. Sprites are divided into four tiles
-; and have dark frame palettes (left four) and light frame palettes (right four.) 
-; Each half goes upper left to lower right.
-; TODO: Proper palette loading, new gfx (?)
+; The first word is a pointer to 4bpp sprite data located at ItemTiles.
+; The bytes are palette indices for each 8x8 tile of the dark tile (first four)
+; and the light tile (last four.) Each tile is ordered upper left, upper right,
+; lower left, lower right.
 DashItemGraphics:
 dw DoubleJumpTiles    : db $00, $00, $00, $00, $00, $00, $00, $00    ; $00 - Double Jump
 dw HeatShieldTiles    : db $00, $00, $00, $00, $00, $00, $00, $00    ; $01 - Heat Shield
@@ -129,7 +127,7 @@ DashItemTable:
 dw DoubleJumpPickup,    $0200, $001D, $0004, $0000, $0000, $0000, $0000  ; $00 - Double Jump
 dw HeatShieldPickup,    $0001, $001E, $0004, $0000, $0000, $0000, $0000  ; $01 - Heat Shield
 dw PressureValvePickup, $0020, $001F, $0004, $0000, $0000, $0000, $0000  ; $02 - Pressure Valve
-dw CollectBeam,         $1000, $0020, $0001, $0000, $0000, $0000, $0000  ; $03 - Beam Upgrade
+dw BeamUpgradePickup,   $1000, $0020, $0001, $0000, $0000, $0000, $0000  ; $03 - Beam Upgrade
 dw $0000,               $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $04 - Unused
 dw $0000,               $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $05 - Unused
 dw $0000,               $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $06 - Unused

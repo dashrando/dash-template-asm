@@ -4,7 +4,6 @@
 ; Column-major room tables organized first by vanilla area index then room index.
 ; Each vanilla area has three fields: sub_areas (byte), room_flags (byte), and
 ; room_patches (word.) 
-;
 ;------------------------------------------------------------------------------
 
 if !STD == 1

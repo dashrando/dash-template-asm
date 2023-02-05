@@ -1,3 +1,11 @@
+;------------------------------------------------------------------------------
+; Credits Stats
+;------------------------------------------------------------------------------
+; Routines for converting our game stats into HH:MM:SS format and placing them
+; into the credits tile map in RAM.
+;
+; Bank $A2
+;------------------------------------------------------------------------------
 
 StatsPrepFinal:
         PHY : PHP

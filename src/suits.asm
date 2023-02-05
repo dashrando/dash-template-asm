@@ -1,3 +1,10 @@
+;------------------------------------------------------------------------------
+; Suits
+;------------------------------------------------------------------------------
+; Code related to suit changes and new DASH suit items. Some code related to the
+; DASH suits may also be found in newitems.asm and newplms.asm.
+;------------------------------------------------------------------------------
+
 ; Original suits modifications by Smiley & MassHesteria
 
 ApplyPeriodicDamage:

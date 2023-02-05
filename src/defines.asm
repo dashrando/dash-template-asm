@@ -19,7 +19,6 @@
 !bts2 = $09 ;Maximum 0F
 
 ; Script and credits data
-!speed = $f770
 !set = $9a17
 !delay = $9a0d
 !draw = $0000

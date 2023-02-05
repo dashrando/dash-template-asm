@@ -16,8 +16,7 @@
 dw !EmptySmall, !Small, double_jump
 dw !EmptySmall, !Small, heat_shield
 dw !EmptySmall, !Small, aqua_boots
-dw !EmptySmall, !Small, charge_upgrade
-;dw !EmptySmall, !Small, reserved
+dw !EmptySmall, !Small, beam_upgrade
 dw !EmptySmall, !Small, BtnArray
 
 table data/box.tbl,rtl
@@ -27,37 +26,14 @@ heat_shield:
 dw "______    HEAT SHIELD    _______"
 aqua_boots:
 dw "______   PRESSURE VALVE  _______"
-charge_upgrade:
+beam_upgrade:
 dw "______    BEAM UPGRADE   _______"
-; reserved:
-;     dw "______     RESERVED      _______"
 
 cleartable
 
 BtnArray:
 dw $0000, $012A, $012A, $012C, $012C, $012C, $0000, $0000, $0000, $0000, $0000, $0000, $0120, $0000, $0000
 dw $0000, $0000, $0000, $012A, $0000, $0000, $0000, $0000, $0000, $0000, $0000, $0000, $0000, $0000, $0000
-
-load_message: {
-
-   ; Jump to the end if not charge beam.
-   lda $00
-   cmp #$8f3f
-   bne +
-
-   ; Jump to the end if using vanilla charge mode.
-   LDA.l ChargeMode
-   and #$000F
-   beq +
-
-   ; Load the address of our custom message.
-   lda #charge_upgrade
-   sta $00
-
-   ; Call the hijacked code and return.
-+  ldy #$0000
-   rts
-}
 
 fix_1c1f:
 ; if $CE is set, it overrides the message box

@@ -1,6 +1,11 @@
+;------------------------------------------------------------------------------
+; Credits Scroll
+;------------------------------------------------------------------------------
+; Our set scroll command for the credits and a routine to handle processing it.
+;
 ; Bank $8B
+;------------------------------------------------------------------------------
 
-; Load credits script data from bank $df instead of $8c
 SetScroll:
         REP #$30
         PHB

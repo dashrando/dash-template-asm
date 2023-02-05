@@ -1,3 +1,12 @@
+;------------------------------------------------------------------------------
+; Credits script
+;------------------------------------------------------------------------------
+; The credits engine reads from this sequentially. Everything here is either a
+; command, eg for setting the scroll speed, or a pointer to a row in the credits
+; tile map that gets loaded after the Zebes escape cutscene.
+;------------------------------------------------------------------------------
+
+
 CreditsScript:
     dw !set, $0002 : -
     dw !draw, !blank
