@@ -29,11 +29,16 @@ dw PreOpenG4
 ;------------------------------------------------------------------------------
 ; Door Edits
 ;------------------------------------------------------------------------------
-org $8FC571 ; Plasma Spark
-dw $0000    ; Make all doors blue
+if !STD == 0
+    org $8FC571 ; Plasma Spark
+    dw $0000    ; Make all doors blue
 
-org $8FC773         ; Halfie Shaft
-skip 38 : dw $C8A8  ; Make plasma door blue
+    org $8FC773         ; Halfie Shaft
+    skip 38 : dw $C8A8  ; Make plasma door blue
+
+    org $8FC611 ; Back door to Draygon
+    dw $0000    ; Make door blue
+endif
 
 pullpc
 
