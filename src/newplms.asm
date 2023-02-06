@@ -99,9 +99,9 @@ HiddenItemTable:
 ; and the light tile (last four.) Each tile is ordered upper left, upper right,
 ; lower left, lower right.
 DashItemGraphics:
-dw DoubleJumpTiles    : db $00, $00, $00, $00, $00, $00, $00, $00    ; $00 - Double Jump
+dw DoubleJumpTiles    : db $02, $02, $02, $02, $02, $02, $02, $02    ; $00 - Double Jump
 dw HeatShieldTiles    : db $00, $00, $00, $00, $00, $00, $00, $00    ; $01 - Heat Shield
-dw PressureValveTiles : db $00, $00, $00, $00, $00, $00, $00, $00    ; $02 - Pressure Valve
+dw PressureValveTiles : db $03, $03, $03, $03, $03, $03, $03, $03    ; $02 - Pressure Valve
 dw BeamUpgradeTiles   : db $00, $00, $00, $00, $00, $00, $00, $00    ; $03 - Beam Upgrade
 dw $0000              : db $00, $00, $00, $00, $00, $00, $00, $00    ; $04 - Unused
 dw $0000              : db $00, $00, $00, $00, $00, $00, $00, $00    ; $05 - Unused
