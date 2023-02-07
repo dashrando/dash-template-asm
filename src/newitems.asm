@@ -59,12 +59,12 @@ CheckWaterPhysicsLong:
 RTL
 warnpc $90A61C
 ;------------------------------------------------------------------------------
-org $9180BE
+org $91A7F6
 ClearJumpFlag:
         STZ.w DoubleJumpFlag
         LDA.w $079F ; What we wrote over
 RTS
-warnpc $91810A
+warnpc $91A834
 ;------------------------------------------------------------------------------
 org $82E675
 SetRoomFlagsEntry:
