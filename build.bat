@@ -22,10 +22,6 @@ if exist %ROOT_NAME%.smp.sym del /Q %ROOT_NAME%.smp.sym
 if exist %ROOT_NAME%.sym del /Q %ROOT_NAME%.sym
 if exist %ROOT_NAME%.srm del /Q %ROOT_NAME%.srm
 
-bin\windows\asar.exe -Dpos=1155 build\dd.asm build/tiles1.bin
-bin\windows\flips.exe -a --exact data/heatshield.bps build/tiles1.bin data/heatshield.bin
-rm build/tiles1.bin
-
 copy %VANILLA% %ROM%
 bin\windows\asar.exe --symbols=wla src\main.asm %ROM%
 bin\windows\flips.exe --create --bps %VANILLA% %ROM% %PATCH%
@@ -34,5 +30,4 @@ copy %VANILLA% %STD_ROM%
 bin\windows\asar.exe --symbols=wla -DSTD=1 src\main.asm %STD_ROM%
 bin\windows\flips.exe --create --bps %VANILLA% %STD_ROM% %STD_PATCH%
 
-del /Q data\heatshield.bin
 pause
