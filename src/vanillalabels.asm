@@ -6,6 +6,8 @@
 ;------------------------------------------------------------------------------
 WaitForNMI = $808338 ; long
 LoadMapMirror = $80858C ; long
+QueueMusicTrack = $808FC1 ; long
+QueueSoundLibraryOne = $809049
 HUDMissiles_bottomrow = $8099F6
 InitializeHUD = $809A79 ; long
 HUDDrawThreeDigits = $809D78

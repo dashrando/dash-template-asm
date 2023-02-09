@@ -25,13 +25,19 @@ RoomFlags = $7E0338                  ; Used to flag gravity suit physics on room
                                      ; and relevant item pickups.
 MessageBoxFlag = $7E033A             ; $00 = No message box | $01 = Message box on screen
 NMICounter = $7E05B8                 ;
+MusicQueue = $7E0619                 ; Word-length music queue entries. $0F bytes
+MusicQueueTimers = $7E0629           ; Word-length queue timers. $0F bytes
+MusicQueueWrite = $7E0639            ; Index of next available position to write. Word length
+MusicQueueRead = $7E063B             ; Read position when processing queue. Word length
+MusicToPlay = $7E063D                ; Music entry processed when timer hits 0.
+MusicTimer = $7E063F                 ;
 AreaMapFlag = $7E0789                ;
-GameState = $7E0998                  ;
 RoomPointer = $7E079B                ;
 RoomIndex = $7E079D                  ;
 AreaIndex = $7E079F                  ;
 FileSelectCursor = $7E0952           ;
 SaveSlotPresence = $7E0954           ;
+GameState = $7E0998                  ;
 DoorTransitionPtr = $7E099C          ;
 HUDItemIndex = $7E09D2               ;
 DoubleJumpFlag = $7E0A14             ; Zeroed when Samus lands. Unused(?) debug value.

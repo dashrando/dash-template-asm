@@ -58,3 +58,11 @@ UnsetMessageBoxFlag:
         JSR.w $80FA ; What we wrote over
         STZ.w MessageBoxFlag
 RTS
+
+MessageBoxTimer:
+        LDA.l NoFanfare : BNE +
+                LDX.w #$0168
+                RTS
+        +
+        LDX.w #$000A
+RTS

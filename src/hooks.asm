@@ -265,6 +265,20 @@ JSR.w InitHUDCharge
 org $809bfb
 JSR.w NewHUDCharge
 
+; Max ammo tile changes
+org $858851
+db $0F,$28,$0F,$28,$0F,$28
+org $858891
+db $49,$30,$4A,$30,$4B,$30
+org $858951
+db $0F,$28,$0F,$28,$0F,$28
+org $858993
+db $34,$30,$35,$30
+org $858A4F
+db $0F,$28,$0F,$28
+org $858a8f
+db $36,$30,$37,$30
+
 ;------------------------------------------------------------------------------
 ; Message Boxes
 ;------------------------------------------------------------------------------
@@ -281,18 +295,27 @@ JSR.w UnsetMessageBoxFlag
 org $858413
 dw BtnArray
 
-; Max ammo tile changes
-org $858851
-db $0f,$28,$0f,$28,$0f,$28
-org $858891
-db $49,$30,$4a,$30,$4b,$30
-org $858951
-db $0f,$28,$0f,$28,$0f,$28
-org $858993
-db $34,$30,$35,$30
-org $858a4f
-db $0f,$28,$0f,$28
-org $858a8f
-db $36,$30,$37,$30
+org $858490
+JSR.w MessageBoxTimer
+org $8488DE
+JSR.w HandleRoomMusicPickup : NOP #4
+org $848905
+JSR.w HandleRoomMusicPickup : NOP #4
+org $848930
+JSR.w HandleRoomMusicPickup : NOP #4
+org $848957
+JSR.w HandleRoomMusicPickup : NOP #4
+org $848975
+JSR.w HandleRoomMusicPickup : NOP #4
+org $848998
+JSR.w HandleRoomMusicPickup : NOP #4
+org $8489C1
+JSR.w HandleRoomMusicPickup : NOP #4
+org $8489EA
+JSR.w HandleRoomMusicPickup : NOP #4
+org $848A13
+JSR.w HandleRoomMusicPickup : NOP #4
+org $8488DE
+JSR.w HandleRoomMusicPickup : NOP #4
 
 pullpc

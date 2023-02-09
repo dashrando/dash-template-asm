@@ -37,7 +37,7 @@ VisibleItemTable:
         dw PLMGoto, .loop
         .trigger
         dw SetRoomItem
-        dw QueueMusic : db $02
+        dw ItemSound : db $02
         dw ItemPickup
         .end
         dw PLMGoto, $DFA9
@@ -57,7 +57,7 @@ ChozoItemTable:
         dw PLMGoto, .loop
         .trigger
         dw SetRoomItem
-        dw QueueMusic : db $02
+        dw ItemSound : db $02
         dw ItemPickup
         .end
         dw $0001, $A2B5
@@ -232,8 +232,10 @@ CollectEquipment:
         LDA.w DashItemsEquipped : ORA.w $0000,Y : STA.w DashItemsEquipped
         .collect
         LDA.w DashItemsCollected : ORA.w $0000,Y : STA.w DashItemsCollected
-        LDA.w #$0168
-        JSL.l PlayRoomMusic
+        LDA.l NoFanfare : BNE +
+                LDA.w #$0168
+                JSL.l PlayRoomMusic
+        +
         LDA.w $0002,Y : AND.w #$00FF : TAX
         JSL.l ShowMessage
         INY #3
@@ -264,15 +266,16 @@ BeamUpgradePickup:
 CollectBeam:
         LDA.w $0000,Y : ORA.w BeamsCollected : STA.w BeamsCollected
         LDA.w $0000,Y : ORA.w BeamsEquipped  : STA.w BeamsEquipped
-        LDA.w #$0168
-        JSL.l PlayRoomMusic
+        LDA.l NoFanfare : BNE +
+                LDA.w #$0168
+                JSL.l PlayRoomMusic
+        +
         LDA.w $0002,Y : AND.w #$00FF : TAX
         JSL.l ShowMessage
         INY #3
 RTS
 
 pushpc
-
 ; Special Blocks (original by Smiley)
 org $84D409
 SpecialSpeedCollide:
