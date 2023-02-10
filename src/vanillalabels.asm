@@ -37,6 +37,7 @@ DrawItemFrame1 = $84E04F
 DrawItemFrame2 = $84E067
 ShowMessage = $858080 ; long
 HDMAObjectHandler = $8884B9 ; long
+ChargeBeamTiles = $898B00
 ClearBGObjects = $8B95CE ; long
 AnimateSamusLavaAcid = $90824C
 MakeSamusJump = $9098BC ; long

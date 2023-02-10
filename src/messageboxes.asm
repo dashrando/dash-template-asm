@@ -27,7 +27,7 @@ dw "______    HEAT SHIELD    _______"
 aqua_boots:
 dw "______   PRESSURE VALVE  _______"
 beam_upgrade:
-dw "______    BEAM UPGRADE   _______"
+dw "______   CHARGE UPGRADE  _______"
 
 cleartable
 
