@@ -77,8 +77,6 @@ dw SpecialShotProjectile, $CBB7
 ;------------------------------------------------------------------------------
 ; New Items
 ;------------------------------------------------------------------------------
-org $848794
-JSR.w DetermineItemGraphicsBank
 org $8488F9
 JSR.w VanillaEquipmentPickup
 

@@ -63,14 +63,14 @@ org $87C964
 incsrc credits/credits_script.asm
 warnpc $888000
 
+org $89AEFD
+incsrc itemtiles.asm
+warnpc $8A8000
+
 org $8BF760
 incsrc credits/credits_scroll.asm
 incsrc credits/itempercentage.asm
 warnpc $8C8000
-
-org $8EE600
-incsrc itemtiles.asm
-warnpc $8F8000
 
 org $8FE9A0
 incsrc doors.asm

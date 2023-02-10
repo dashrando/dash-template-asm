@@ -99,11 +99,10 @@ HiddenItemTable:
 ; and the light tile (last four.) Each tile is ordered upper left, upper right,
 ; lower left, lower right.
 DashItemGraphics:
-dw ChargeBeamTiles    : db $00, $00, $00, $00, $00, $00, $00, $00    ; $00 - Beam Upgrade
-NewItemGraphics: ; Non-vanilla tiles
+dw DoubleJumpTiles    : db $02, $02, $02, $02, $02, $02, $02, $02    ; $00 - Double Jump
 dw HeatShieldTiles    : db $01, $01, $01, $01, $01, $01, $01, $01    ; $01 - Heat Shield
 dw PressureValveTiles : db $03, $03, $03, $03, $03, $03, $03, $03    ; $02 - Pressure Valve
-dw DoubleJumpTiles    : db $02, $02, $02, $02, $02, $02, $02, $02    ; $03 - Double Jump
+dw ChargeBeamTiles    : db $00, $00, $00, $00, $00, $00, $00, $00    ; $03 - Beam Upgrade
 dw $0000              : db $00, $00, $00, $00, $00, $00, $00, $00    ; $04 - Unused
 dw $0000              : db $00, $00, $00, $00, $00, $00, $00, $00    ; $05 - Unused
 dw $0000              : db $00, $00, $00, $00, $00, $00, $00, $00    ; $06 - Unused
@@ -125,10 +124,10 @@ dw $0000              : db $00, $00, $00, $00, $00, $00, $00, $00    ; $24 - Unu
 
 DashItemTable:
 ;  pickup,              qty,   msg,   type,  ext2,  ext3,  loop,  hloop
-dw BeamUpgradePickup,   $1000, $0020, $0001, $0000, $0000, $0000, $0000  ; $00 - Beam Upgrade
+dw DoubleJumpPickup,    $0200, $001D, $0004, $0000, $0000, $0000, $0000  ; $00 - Double Jump
 dw HeatShieldPickup,    $0001, $001E, $0004, $0000, $0000, $0000, $0000  ; $01 - Heat Shield
 dw PressureValvePickup, $0020, $001F, $0004, $0000, $0000, $0000, $0000  ; $02 - Pressure Valve
-dw DoubleJumpPickup,    $0200, $001D, $0004, $0000, $0000, $0000, $0000  ; $03 - Double Jump
+dw BeamUpgradePickup,   $1000, $0020, $0001, $0000, $0000, $0000, $0000  ; $03 - BeamUpgrade
 dw $0000,               $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $04 - Unused
 dw $0000,               $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $05 - Unused
 dw $0000,               $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $06 - Unused
@@ -175,14 +174,6 @@ LoadCustomGraphics:
         LDA.w $0000,Y
         JSR.w $8764  ; Jump to original PLM graphics loading routine
         PLX : PLY
-RTS
-
-DetermineItemGraphicsBank:
-        CPY.w #NewItemGraphics : BCS +
-                LDA.w #$0089
-                RTS
-        +
-        LDA.w #ItemTiles>>16
 RTS
 
 VisibleItemSetup:
