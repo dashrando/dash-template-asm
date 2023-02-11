@@ -62,11 +62,7 @@ CreditsItemLocations:
     %font1("................................", "orange") ; 674 ; 0x2F8887
     %font1("DOUBLE JUMP                     ", "yellow") ; 675
     %font1("................................", "orange") ; 676 ; 0x2F8907
-    if !STD == 0
-        %font1("CHARGE UPGRADES                 ", "yellow") ; 677
-    else
-        %font1("CHARGE BEAM                     ", "yellow") ; 677
-    endif
+    %font1("CHARGE UPGRADES                 ", "yellow") ; 677
     %font1("................................", "orange") ; 678 ; 0x2F8987
     %font1("                                ", "orange") ; 679 ; 0x2F89C7
     %font1("                                ", "orange") ; 680 ; 0x2F8A07
