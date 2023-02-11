@@ -284,10 +284,12 @@ dw $FFFF
 ;------------------------------------------------------------------------------
 ; Smaller, non-patch room changes
 ;------------------------------------------------------------------------------
-pushpc
-org $8FC48B ; Crab Shaft
-dw $C826    ; Open gate
-pullpc
+if !STD == 1
+    pushpc
+    org $8FC48B ; Crab Shaft
+    dw $C826    ; Open gate
+    pullpc
+endif
 
 pushpc ; Put no-op room patch at the end of the bank
 org (bank(Room_Patches)<<16)+$FFFE
