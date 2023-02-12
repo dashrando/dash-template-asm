@@ -69,8 +69,6 @@ dw $0eb3,$0006
 db $1b,$00,$00,$00,$00,$5b
 dw $0ed3,$0006
 db $1c,$00,$00,$00,$00,$5c
-dw $1e02,$0001
-db $00
 dw $ffff
 
 Room_Moat_Patch_01:
@@ -105,14 +103,10 @@ db $00
 dw $ffff
 
 Room_FirstHeated_Patch_01:
-dw $0154,$0002
-db $06,$81
 dw $03ac,$0002
 db $ff,$00
 dw $040c,$0006
 db $06,$81,$ff,$00,$ff,$00
-dw $052f,$0001
-db $04
 dw $0dd7,$0001
 db $00
 dw $0e09,$0001
