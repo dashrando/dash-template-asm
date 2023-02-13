@@ -39,7 +39,7 @@ org $82ECBB
 JSR.w DrawFileSelectHash
 
 org $82EEEB
-JSR.w OnStartGame
+JSR.w OnLoadGame
 
 ;------------------------------------------------------------------------------
 ; Decompression
