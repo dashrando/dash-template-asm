@@ -38,6 +38,9 @@ org $82EED9 : LDA.w #$001F ; Skip intro
 org $82ECBB
 JSR.w DrawFileSelectHash
 
+org $82EEEB
+JSR.w SetFileMarker
+
 ;------------------------------------------------------------------------------
 ; Decompression
 ;------------------------------------------------------------------------------

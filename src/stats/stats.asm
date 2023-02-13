@@ -4,6 +4,7 @@
 ; General handling of timers and counters.
 ;------------------------------------------------------------------------------
 HandleTimersNMI:
+        LDA.l FreshFileMarker : BEQ .skip
         LDA.l GoalComplete : BNE .skip
                 LDA.w GameState : ASL : TAX
                 JMP.w  (TimerHandlers_nmi,X)
@@ -11,6 +12,7 @@ HandleTimersNMI:
         RTS
 
 IncrementLagTimer:
+        LDA.l FreshFileMarker : BEQ .skip
         LDA.l GoalComplete   : BNE .skip
         LDA.w MessageBoxFlag : BNE .skip
                 LDA.w GameState : TAX

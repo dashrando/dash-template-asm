@@ -118,3 +118,8 @@ WordTable:
 
 InfoStr:
     db "TOURNAMENT SEED!"
+
+SetFileMarker: ; Set file marker on pressing START GAME
+        LDA.w #$0001 : STA.l FreshFileMarker
+        STZ.w ScreenFadeCounter ; What we wrote over
+RTS

@@ -77,6 +77,7 @@ SupersFired: skip 2                  ;
 PowerBombsLaid: skip 2               ;
 BombsLaid: skip 2                    ;
 GoalComplete: skip 2                 ;
+FreshFileMarker: skip 2              ; $00 = File not active | $01 = Have started game
                                      ;
 base off
 
