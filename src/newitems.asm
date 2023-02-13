@@ -28,7 +28,7 @@ RTS
 
 CheckWaterPhysics:
         LDA.w #$0020
-        BIT.w VanillaItemsEquipped : BEQ + ; What we wrote over
+        BIT.w VanillaItemsEquipped : BEQ +
                 RTS
         +
         BIT.w VanillaItemsCollected : BEQ +
@@ -42,7 +42,7 @@ CheckWaterPhysics:
         LDA.w AreaIndex : ASL : TAX
         JSR.w (AquaHandlers,X)
         PLB          ; Restore original bank before making physics bit test
-        BIT.w #$0020 ; What we wrote over.
+        BIT.w #$0020
 RTS
 
 warnpc $909347
@@ -67,17 +67,17 @@ RTS
 warnpc $91A834
 ;------------------------------------------------------------------------------
 org $82E675
-SetRoomFlagsEntry:
+SetRoomFlags:
         JSL.l CheckWaterPhysicsLong : BNE .gravity
                 LDA.w #$0000 : STA.w RoomFlags
-                RTS
+                RTL
         .gravity
         LDA.w #$0020 : STA.w RoomFlags
-RTS
+RTL
 
 SetRoomFlagsUnpause:
         JSR.w ClearSamusBeamTiles
-        JSR.w SetRoomFlagsEntry
+        JSL.l SetRoomFlags
 RTS
 warnpc $82E6A1
 ;------------------------------------------------------------------------------

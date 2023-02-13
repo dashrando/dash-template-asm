@@ -7,7 +7,7 @@
 OnRoomLoad:
         PHX
         JSR.w DetermineSubArea ; Keep first
-        JSR.w SetRoomFlagsEntry
+        JSL.l SetRoomFlags
         PLX
 RTS
 

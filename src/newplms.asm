@@ -237,17 +237,11 @@ NoopPLM: ; If we need a PLM instruction pointer that does nothing
 RTS
 
 VanillaEquipmentPickup:
-        PHA
+        PHA : PHX
         STA.w VanillaItemsEquipped ; What we wrote over
         EOR.w #$FFFF : AND.w DashItemsEquipped : STA.w DashItemsEquipped ; Unequip overlapping DASH items
-        LDA.w #$0020 : BIT.w VanillaItemsEquipped : BNE +
-                       BIT.w DashItemsEquipped : BNE +
-                LDA.w #$0000 : STA.w RoomFlags
-                PLA
-                RTS
-        +
-        LDA.w #$0020 : STA.w RoomFlags
-        PLA
+        JSL.l SetRoomFlags
+        PLX : PLA
 RTS
 
 BeamUpgradePickup:
