@@ -70,8 +70,8 @@ AcidDamage:
                 LDA.w PeriodicDamage+$02       : ADC.w #$0000 : STA.w PeriodicDamage+$02
                 JMP.w AnimateSamusLavaAcid
         .3_4
-        LDA.w PeriodicDamage     : CLC : ADC.w #$2000 : STA.w PeriodicDamage
-        LDA.w PeriodicDamage+$02       : ADC.w #$0001 : STA.w PeriodicDamage+$02
+        LDA.w PeriodicDamage     : CLC : ADC.w #$6000 : STA.w PeriodicDamage
+        LDA.w PeriodicDamage+$02       : ADC.w #$0000 : STA.w PeriodicDamage+$02
 JMP.w AnimateSamusLavaAcid
 
 SpikeDamage:
