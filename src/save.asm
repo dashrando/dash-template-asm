@@ -12,7 +12,8 @@ LoadSaveExpanded:
         LDA.l ColdBootFlag : BNE .loadstats
         TXA : INC : CMP.l CurrentSaveSlotSRAM : BEQ +
                 .loadstats
-                TXA : STA.l CurrentSaveSlotSRAM
+                TXA : INC : STA.l CurrentSaveSlotSRAM
+                DEC
                 JSL.l LoadStats
                 PHK : PLB
         +

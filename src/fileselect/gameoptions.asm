@@ -119,7 +119,9 @@ WordTable:
 InfoStr:
     db "TOURNAMENT SEED!"
 
-SetFileMarker: ; Set file marker on pressing START GAME
-        LDA.w #$0001 : STA.l FreshFileMarker
+OnLoadGame: ; Pressing "START GAME"
+        LDA.l GoalComplete : BNE .skip
+                LDA.w #$0001 : STA.l FreshFileMarker
+        .skip
         STZ.w ScreenFadeCounter ; What we wrote over
 RTS
