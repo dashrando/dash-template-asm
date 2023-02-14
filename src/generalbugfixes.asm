@@ -98,3 +98,7 @@ db $03
 ; Disable GT Code
 org $AAC91C
 BRA $3F
+
+; Remove space jump requirement for LN chozo
+org $84D195
+NOP #2
