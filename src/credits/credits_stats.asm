@@ -54,7 +54,7 @@ DrawFullTime:
         LDA.w #$003C  : STA.l $7E0012
         LDA.w #$FFFF  : STA.l $7E001A
         PLB
-        JSR.w Div32
+        JSL.l Div32
         INY #6
         LDA.b $16
         JSR.w DrawTwo
@@ -70,7 +70,6 @@ DrawTime:
         PHY : PHX : PHB
         DEY #6
         PHK : PLB
-        ;PEA.w StatsBlock>>8 : PLB : PLB
         STA.w $4204
         LDA.w #$FFFF : STA.b $1A
         LDA.w #$003C : STA.w $4206
@@ -176,7 +175,7 @@ Div32:
         STA.b $14 : STA.b $16
 .end
         PLB : PLP : PLX : PLY
-RTS
+RTL
 
 StatsTables:
         .ram  : fillword $0000 : fill ($17*2)+2 ; Size of pointer

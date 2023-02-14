@@ -191,6 +191,26 @@ JSL.l CopyCreditsTileMap
 org $8BE65B
 JSR.w CountDashItems
 
+; Post-credits Samus
+org $8BE00A
+LDA.w RTASeconds : CMP.w #$0A8B
+org $8BE1E0
+LDA.w RTASeconds : CMP.w #$0A8B : skip 2 : CMP.w #$0E10
+org $8BE276
+LDA.w RTASeconds : CMP.w #$0A8B
+org $8BE2E4
+LDA.w RTASeconds : CMP.w #$0A8B : skip 2 : CMP.w #$0E10
+org $8BE325
+LDA.w RTASeconds : CMP.w #$0A8B
+org $8BE36C
+LDA.w RTASeconds : CMP.w #$0A8B : skip 2 : CMP.w #$0E10
+org $8BF555
+LDA.w RTASeconds : CMP.w #$0E10
+org $8BF597
+LDA.w RTASeconds : CMP.w #$0E10
+org $8BF5BA
+LDA.w RTASeconds : CMP.w #$0E10
+
 ;------------------------------------------------------------------------------
 ; Subareas
 ;------------------------------------------------------------------------------

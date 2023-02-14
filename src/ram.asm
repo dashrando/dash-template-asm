@@ -60,6 +60,7 @@ SamusYPos = $7E0AFA                  ; Samus Y position
 SamusYSubPos = $7E0AFC               ; Samus Y subposition
 SamusXRadius = $7E0AFE               ; Samus X radius
 SamusYRadius = $7E0B00               ; Samus Y radius
+RTASeconds = $7E0B08                 ; RTA timer in seconds. Written during pre-credits stats prep.
 SpeedStepCounter = $7E0B3E           ; Animation counter for speed booster
 SpeedCounter = $7E0B3F               ;
 ProjectileType = $7E0C18             ; 10 bytes.
