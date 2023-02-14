@@ -273,8 +273,8 @@ endif
 %RoomEntry(Maridia, $32,  !Area_EastMaridia,  $00,  NoPatch) ; Botwoon
 %RoomEntry(Maridia, $33,  !Area_EastMaridia,  $00,  NoPatch) ; Space Jump
 %RoomEntry(Maridia, $34,  !Area_EastMaridia,  $00,  NoPatch) ; Coliseum Save
-%RoomEntry(Maridia, $35,  !Area_EastMaridia,  $20,  NoPatch) ; Cactus Alley West
-%RoomEntry(Maridia, $36,  !Area_EastMaridia,  $20,  NoPatch) ; Cactus Alley East
+%RoomEntry(Maridia, $35,  !Area_EastMaridia,  $00,  NoPatch) ; Cactus Alley West
+%RoomEntry(Maridia, $36,  !Area_EastMaridia,  $00,  NoPatch) ; Cactus Alley East
 %RoomEntry(Maridia, $37,  !Area_EastMaridia,  $00,  NoPatch) ; Draygon
 
 ; Tourian
