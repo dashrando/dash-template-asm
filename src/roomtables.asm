@@ -92,7 +92,7 @@ endif
 %RoomEntry(Brinstar, $15,  !Area_GreenBrinstar, $00,  NoPatch) ; Dachora Refill
 %RoomEntry(Brinstar, $16,  !Area_GreenBrinstar, $00,  NoPatch) ; Big Pink Supers Hallway
 %RoomEntry(Brinstar, $17,  !Area_GreenBrinstar, $20,  Room_Waterway_Patch_01) ; Waterway
-%RoomEntry(Brinstar, $18,  !Area_GreenBrinstar, $20,  NoPatch) ; Blue Brinstar Missiles
+%RoomEntry(Brinstar, $18,  !Area_Crateria,      $20,  NoPatch) ; Blue Brinstar Missiles
 %RoomEntry(Brinstar, $1B,  !Area_GreenBrinstar, $00,  NoPatch) ; Big Pink Save
 %RoomEntry(Brinstar, $1C,  !Area_Crateria,      $20,  NoPatch) ; Blue Brinstar Spike Bridge
 %RoomEntry(Brinstar, $1D,  !Area_Crateria,      $00,  NoPatch) ; Billy Mays
