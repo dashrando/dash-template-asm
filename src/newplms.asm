@@ -233,9 +233,6 @@ CollectEquipment:
         INY #3
 RTS
 
-NoopPLM: ; If we need a PLM instruction pointer that does nothing
-RTS
-
 VanillaEquipmentPickup:
         PHA : PHX
         STA.w VanillaItemsEquipped ; What we wrote over
