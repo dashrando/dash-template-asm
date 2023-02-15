@@ -27,13 +27,13 @@ InitializeForTesting: {
         LDA.w #10
         STA.w CurrentMissiles : STA.w MaxMissiles
 
-        ; Equip DASH items
-        LDA.w #$0221
-        STA.w DashItemsEquipped : STA.w DashItemsCollected
+        ; Equip DASH items (Fix me)
+        ;LDA.w #$0221
+        ;STA.w DashItemsEquipped : STA.w DashItemsCollected
 
-        ; Equip charge beam and an upgrade
-        LDA.w #$1100
-        STA.w BeamsEquipped : STA.w BeamsCollected
+        ; Equip charge beam and an upgrade (Fix me)
+        ;LDA.w #$1100
+        ;STA.w BeamsEquipped : STA.w BeamsCollected
 
         RTL
 }

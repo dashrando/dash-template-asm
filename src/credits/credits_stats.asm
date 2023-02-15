@@ -208,23 +208,93 @@ StatsTables:
 
 CopyCreditsTileMap:
         PHA : PHX : PHB
+        PHB : PEA.w $DF00 : PLB : PLB
         LDX.w #$0000
         -
-                LDA.l CreditsTileData,X : CMP.w #$DEAD : BEQ +
+                LDA.w CreditsTileData,X : CMP.w #$DEAD : BEQ +
                         STA.l $7F2000,X
                         INX #2
                         BRA -
         +
+        LDA.w #$007F ; Fill the spoiler with blank tiles
         LDX.w #$0000
         -
-                LDA.l CreditsItemLocations,X : BEQ +
+                CPX #$0B40 : BEQ +
                         STA.l $7FA000,X
                         INX #2
                         BRA -
         +
+        LDX.w #$0000
+        LDY.w #$0000
+        .start_loop
+                LDA.w CreditsItems,Y : BEQ .skip
+                        CMP.w #$DEAD : BEQ .end_loop
+                                PHY
+                                JSR CopyItemName
+                                JSR CopyItemLocation
+                                PLY
+                        .skip
+                        INY #2
+                        BRA .start_loop
+        .end_loop
+        PLB
         LDA.w #$0002 : STA.l CreditsScrollSpeed
         JSL.l StatsPrepFinal
         PLB : PLX : PLA
         JSL.l ClearBGObjects
 RTL
 
+; A = item index, X = position in credits
+CopyItemName:
+        CPY.w #40 : BCS .end
+
+        PHA : PHX
+
+        ; Compute the offset
+        TYA : PHA : ASL #4 : SEC : SBC $01,S
+        CLC : ADC.w #CreditsItemNames : STA $01,S
+        LDY.w #$0000
+        -
+                CPY #$001E : BEQ +
+                LDA ($01,S),Y
+                INX #2 ; Increment X first intentionally
+                STA.l $7FA000,X
+                INY #2
+                BRA -
+        +
+
+        ; Pull the original X into A
+        PLA : PLA
+
+        ; The final X value should be X + 64
+        CLC : ADC.w #$0040 : TAX
+
+        ; Restore the item index in A
+        PLA
+        .end
+RTS
+
+; A = item index, X = position in credits
+CopyItemLocation:
+        PHX
+
+        ; A = location index
+        AND.w #$007F : DEC
+        ASL #2 : PHA : ASL #4 : SEC : SBC $01,S
+        CLC : ADC.w #CreditsLocationNames : STA $01,S
+        LDY.w #$0000
+        -
+                CPY #$003C : BEQ +
+                LDA ($01,S),Y
+                INX #2
+                STA.l $7FA000,X
+                INY #2
+                BRA -
+        +
+        ; Pull the original X into A
+        PLA : PLA
+
+        ; The final X value should be X + 64
+        CLC : ADC.w #$0040 : TAX
+        .end
+RTS

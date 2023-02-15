@@ -68,6 +68,7 @@ CreditsTileData:
     %font2("           PAPASCHMO            ", "white")   ; 224 + 225
     %font2("             TGDERP             ", "white")   ; 226 + 227
     %font1("      ORIGINAL RANDOMIZER       ", "yellow")  ; 228
+    %font1("      MAJOR ITEM LOCATIONS      ", "pink")    ; 229
     dw $dead                                              ; End of credits tilemap
 
 CreditsNumbersTop:
@@ -75,3 +76,129 @@ CreditsNumbersTop:
 CreditsNumbersBottom:
     dw $0070, $0071, $0072, $0073, $0074, $0075, $0076, $0077, $0078, $0079, $007a, $007b, $007c, $007d, $007e, $007f
 
+CreditsItemNames:
+    pushtable
+    table "data/yellow_single.tbl",rtl
+    dw "MORPH BALL     "
+    dw "BOMBS          "
+    dw "ICE BEAM       "
+    dw "WAVE BEAM      "
+    dw "SPAZER         "
+    dw "PLASMA BEAM    "
+    dw "VARIA SUIT     "
+    dw "GRAVITY SUIT   "
+    dw "HIJUMP BOOTS   "
+    dw "SPACE JUMP     "
+    dw "SPEED BOOSTER  "
+    dw "SCREW ATTACK   "
+    dw "SPRING BALL    "
+    dw "XRAY SCOPE     "
+    dw "GRAPPLING BEAM "
+    dw "HEAT SHIELD    "
+    dw "PRESSURE VALVE "
+    dw "DOUBLE JUMP    "
+    dw "CHARGE BEAM    "
+    dw "CHARGE UPGRADES"
+    pulltable
+
+CreditsLocationNames:
+    %font1(".....POWER BOMBS, LANDING SITE", "orange")
+    %font1("........MISSILES, OCEAN BOTTOM", "orange")
+    %font1(".................MISSILES, SKY", "orange")
+    %font1("........MISSILES, OCEAN MIDDLE", "orange")
+    %font1("................MISSILES, MOAT", "orange")
+    %font1(".........ENERGY TANK, GAUNTLET", "orange")
+    %font1("........MISSILES, MOTHER BRAIN", "orange")
+    %font1(".........................BOMBS", "orange")
+    %font1(".......ENERGY TANK, TERMINATOR", "orange")
+    %font1("......MISSILES, GAUNTLET RIGHT", "orange")
+    %font1(".......MISSILES, GAUNTLET LEFT", "orange")
+    %font1(".................SUPERS, CLIMB", "orange")
+    %font1("..............MISSILES, PARLOR", "orange")
+    %font1(".........POWER BOMBS, ETECOONS", "orange")
+    %font1("...........SUPERS, SPORE SPAWN", "orange")
+    %font1("........MISSILES, EARLY BRIDGE", "orange")
+    %font1("..........SUPERS, EARLY BRIDGE", "orange")
+    %font1("........RESERVE TANK, BRINSTAR", "orange")
+    %font1("......MISSILES, BRIN RESERVE B", "orange")
+    %font1("......MISSILES, BRIN RESERVE A", "orange")
+    %font1("............MISSILES, BIG PINK", "orange")
+    %font1("..............MISSILES, CHARGE", "orange")
+    %font1("...................CHARGE BEAM", "orange")
+    %font1("..POWER BOMBS, MISN IMPOSSIBLE", "orange")
+    %font1("...........MISSILES, BRIN TUBE", "orange")
+    %font1(".................MORPHING BALL", "orange")
+    %font1("............POWER BOMBS, MORPH", "orange")
+    %font1("................MISSILES, BETA", "orange")
+    %font1(".....ENERGY TANK, BRIN CEILING", "orange")
+    %font1(".........ENERGY TANK, ETECOONS", "orange")
+    %font1("..............SUPERS, ETECOONS", "orange")
+    %font1(".........ENERGY TANK, WATERWAY", "orange")
+    %font1("...............MISSILES, ALPHA", "orange")
+    %font1("........ENERGY TANK, WAVE GATE", "orange")
+    %font1("........MISSILES, BILLY MAYS A", "orange")
+    %font1("........MISSILES, BILLY MAYS B", "orange")
+    %font1("....................XRAY SCOPE", "orange")
+    %font1(".............POWER BOMBS, BETA", "orange")
+    %font1("............POWER BOMBS, ALPHA", "orange")
+    %font1("...........MISSILES, ALPHA PBS", "orange")
+    %font1("........................SPAZER", "orange")
+    %font1("............ENERGY TANK, KRAID", "orange")
+    %font1("...............MISSILES, KRAID", "orange")
+    %font1("....................VARIA SUIT", "orange")
+    %font1("...........MISSILES, CATHEDRAL", "orange")
+    %font1("......................ICE BEAM", "orange")
+    %font1(".......MISSILES, CRUMBLE SHAFT", "orange")
+    %font1("........ENERGY TANK, CROCOMIRE", "orange")
+    %font1("..................HIJUMP BOOTS", "orange")
+    %font1(".........MISSILES, CROC ESCAPE", "orange")
+    %font1(".................MISSILES, HJB", "orange")
+    %font1("..............ENERGY TANK, HJB", "orange")
+    %font1("........POWER BOMBS, CROCOMIRE", "orange")
+    %font1("..............MISSILES, COSINE", "orange")
+    %font1(".......MISSILES, INDIANA JONES", "orange")
+    %font1("..................GRAPPLE BEAM", "orange")
+    %font1(".........RESERVE TANK, NORFAIR", "orange")
+    %font1("...MISSILES, NORFAIR RESERVE B", "orange")
+    %font1("...MISSILES, NORFAIR RESERVE A", "orange")
+    %font1(".....MISSILES, BUBBLE MOUNTAIN", "orange")
+    %font1("...............MISSILES, SPEED", "orange")
+    %font1(".................SPEED BOOSTER", "orange")
+    %font1("................MISSILES, WAVE", "orange")
+    %font1(".....................WAVE BEAM", "orange")
+    %font1("..................MISSILES, GT", "orange")
+    %font1("....................SUPERS, GT", "orange")
+    %font1("........MISSILES, MICKEY MOUSE", "orange")
+    %font1("................MISSILES, MAZE", "orange")
+    %font1(".............POWER BOMBS, MAZE", "orange")
+    %font1("............POWER BOMBS, SHAME", "orange")
+    %font1("....MISSILES, THREE MUSKATEERS", "orange")
+    %font1("...........ENERGY TANK, RIDLEY", "orange")
+    %font1("..................SCREW ATTACK", "orange")
+    %font1("........ENERGY TANK, FIREFLEAS", "orange")
+    %font1("..............MISSILES, SPOOKY", "orange")
+    %font1("....RESERVE TANK, WRECKED SHIP", "orange")
+    %font1(".............MISSILES, BOWLING", "orange")
+    %font1("...............MISSILES, ATTIC", "orange")
+    %font1(".....ENERGY TANK, WRECKED SHIP", "orange")
+    %font1("...............SUPERS, WS LEFT", "orange")
+    %font1("..............SUPERS, WS RIGHT", "orange")
+    %font1("..................GRAVITY SUIT", "orange")
+    %font1("..........MISSILES, MAINSTREET", "orange")
+    %font1("..................SUPERS, CRAB", "orange")
+    %font1("......ENERGY TANK, MAMA TURTLE", "orange")
+    %font1(".........MISSILES, MAMA TURTLE", "orange")
+    %font1(".........SUPERS, WATERING HOLE", "orange")
+    %font1(".......MISSILES, WATERING HOLE", "orange")
+    %font1("...............MISSILES, BEACH", "orange")
+    %font1("...................PLASMA BEAM", "orange")
+    %font1(".......MISSILES, SAND PIT LEFT", "orange")
+    %font1(".........RESERVE TANK, MARIDIA", "orange")
+    %font1("......MISSILES, SAND PIT RIGHT", "orange")
+    %font1("...POWER BOMBS, SAND PIT RIGHT", "orange")
+    %font1("............MISSILES, AQUEDUCT", "orange")
+    %font1("..............SUPERS, AQUEDUCT", "orange")
+    %font1("...................SPRING BALL", "orange")
+    %font1("............MISSILES, PRECIOUS", "orange")
+    %font1("..........ENERGY TANK, BOTWOON", "orange")
+    %font1("....................SPACE JUMP", "orange")

@@ -109,7 +109,7 @@ CreditsScript:
     %row2(151,152) ; masshesteria
     %row2(222,223) ; cassidymoen
     %row2(224,225) ; papaschmo
-    %row2(226,227) ; papaschmo
+    %row2(226,227) ; tgderp
 
     %blank_row() : %blank_row()
     %row1(140)     ; --- additional programming ---
@@ -175,33 +175,33 @@ CreditsScript:
 
     ; Draw item locations
     %blank_row() : %blank_row()
-    %row1(640)     ; --- Major item locations ---
+    %row1(229)     ; --- Major item locations ---
     %blank_row()
     dw SetScroll, $0003
-    %row2(641,642) ; Morph
-    %row2(643,644) ; Bombs
-    %row2(645,646) ; Ice
-    %row2(647,648) ; Wave
-    %row2(649,650) ; Spazer
-    %row2(651,652) ; Plasma
-    %row2(653,654) ; Varia
-    %row2(655,656) ; Gravity
-    %row2(657,658) ; HJB
-    %row2(659,660) ; Space Jump
-    %row2(661,662) ; Speed
-    %row2(663,664) ; Screw Attack
-    %row2(665,666) ; Spring Ball
-    %row2(667,668) ; X-ray
-    %row2(669,670) ; Grapple
-    %row2(671,672) ; Heat Shield
-    %row2(673,674) ; Pressure Valve
-    %row2(675,676) ; Double Jump
-    %row2(677, 678); Charge
+    %row2(640,641) ; Morph
+    %row2(642,643) ; Bombs
+    %row2(644,645) ; Ice
+    %row2(646,647) ; Wave
+    %row2(648,649) ; Spazer
+    %row2(650,651) ; Plasma
+    %row2(652,653) ; Varia
+    %row2(654,655) ; Gravity
+    %row2(656,657) ; HJB
+    %row2(658,659) ; Space Jump
+    %row2(660,661) ; Speed
+    %row2(662,663) ; Screw Attack
+    %row2(664,665) ; Spring Ball
+    %row2(666,667) ; X-ray
+    %row2(668,669) ; Grapple
+    %row2(670,671) ; Heat Shield
+    %row2(672,673) ; Pressure Valve
+    %row2(674,675) ; Double Jump
+    %row2(676,677) ; Charge
+    %row1(678) ; Charge Upgrade Location
     %row1(679) ; Charge Upgrade Location
     %row1(680) ; Charge Upgrade Location
     %row1(681) ; Charge Upgrade Location
     %row1(682) ; Charge Upgrade Location
-    %row1(683) ; Charge Upgrade Location
 
     %blank_row() : %blank_row()
 

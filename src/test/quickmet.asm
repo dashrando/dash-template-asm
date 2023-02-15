@@ -119,8 +119,8 @@ LDA #!samusX_start : STA !samusX
 LDA #!samusY_start : STA !samusY
 
 ; Make sure Samus has some health
-LDA.w #102 : STA $7e09C2
-LDA.w #199 : STA $7e09C4
+LDA.w #402 : STA $7e09C2
+LDA.w #599 : STA $7e09C4
 
 ; Call our custom code to initialize the game state
 JSL.l InitGameState_main
