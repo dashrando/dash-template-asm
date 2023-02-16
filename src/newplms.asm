@@ -258,7 +258,29 @@ CollectBeam:
         INY #3
 RTS
 
+BrokenTurretBlock: ; Damage reduction for Draygon turrets
+        LDA.w VanillaItemsEquipped : AND.w #$0021 : CMP.w #$0021 : BEQ .3_4
+                                     BIT.w #$0020 : BNE .half
+                                     BIT.w #$0001 : BNE .half
+                .full
+                LDA.w PeriodicDamage     : CLC : ADC.w #$0000 : STA.w PeriodicDamage
+                LDA.w PeriodicDamage+$02       : ADC.w #$0001 : STA.w PeriodicDamage+$02
+                SEP #$41
+                RTS
+                .half
+                LDA.w PeriodicDamage     : CLC : ADC.w #$8000 : STA.w PeriodicDamage
+                LDA.w PeriodicDamage+$02       : ADC.w #$0000 : STA.w PeriodicDamage+$02
+                SEP #$41
+                RTS
+        .3_4
+        LDA.w PeriodicDamage     : CLC : ADC.w #$4000 : STA.w PeriodicDamage
+        LDA.w PeriodicDamage+$02       : ADC.w #$0000 : STA.w PeriodicDamage+$02
+        SEP #$41
+RTS
+
 pushpc
+org $84D0E8
+dw BrokenTurretBlock ; Replace Draygon grapple turret block instruction
 ; Special Blocks (original by Smiley)
 org $84D409
 SpecialSpeedCollide:

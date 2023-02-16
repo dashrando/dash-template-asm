@@ -87,6 +87,20 @@ SpikeDamage:
         .done
 RTL
 
+SmallSpikeDamage:
+        LDA.w VanillaItemsEquipped : AND.w #$0021 : BEQ .full
+                                     CMP.w #$0021 : BEQ .1_4
+                LDA.w PeriodicDamage+$02 : CLC : ADC.w #$0008
+                BRA .done
+                .1_4
+                LDA.w PeriodicDamage+$02 : CLC : ADC.w #$0004
+                BRA .done
+        .full
+        LDA.w PeriodicDamage+$02 : CLC : ADC.w #$0010
+        .done
+RTL
+
+
 pushpc
 
 org $A3EECE ; Unused code
