@@ -37,7 +37,7 @@ if !STD == 0
     skip 38 : dw NoopPLM : dw $0000, $0000  ; Plasma door blue
 
     org $8FC611 ; Back door to Draygon
-    dw NoopPLM : dw $0000, $0000  ; Make door blue
+    dw $0000    ; Make door blue
 endif
 
 pullpc
