@@ -6,8 +6,7 @@ CountDashItems:
                 +
                 DEX #2
         BPL -
-        LDA.w BeamsCollected : AND.w #$0f00 : XBA ; load charge upgrades
-        CLC : ADC.b $12 : STA.b $12
+        LDA.w BeamUpgrades : CLC : ADC.b $12 : STA.b $12
         LDX.w #$0014 ; What we wrote over
 RTS
 

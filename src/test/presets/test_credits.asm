@@ -1,6 +1,7 @@
 pushpc
 
 incsrc ../buttons.asm
+incsrc ../loadout.asm
 
 ; Disable creating a save file
 org InitGameState_save
@@ -31,8 +32,10 @@ InitializeForTesting: {
         ;LDA.w #$0221
         ;STA.w DashItemsEquipped : STA.w DashItemsCollected
 
-        ; Equip charge beam and an upgrade (Fix me)
-        ;LDA.w #$1100
+        ; Equip charge beam and an upgrade
+        %add_beams(!ChargeBeam)
+        LDA.w #1 : STA.w BeamUpgrades
+
         ;STA.w BeamsEquipped : STA.w BeamsCollected
 
         RTL
