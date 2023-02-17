@@ -5,6 +5,8 @@
 ; to data.
 ;------------------------------------------------------------------------------
 WaitForNMI = $808338 ; long
+EnableNMI = $80834B ; long
+DisableNMI = $80835D ; long
 LoadMapMirror = $80858C ; long
 QueueMusicTrack = $808FC1 ; long
 QueueSoundLibraryOne = $809049
@@ -34,7 +36,7 @@ SetRoomItem = $848899
 SetGoto = $848A24
 PLMInstruction = $848A2E
 QueueMusic = $848BDD
-NoopPLM = $84B62F ; Skips PLM. Also zero out overwrite x/y coordinates and room argument.
+NoopPLM = $84B6F7 ; Skips PLM. Also zero out overwrite x/y coordinates and room argument.
 DrawItemFrame1 = $84E04F
 DrawItemFrame2 = $84E067
 ShowMessage = $858080 ; long

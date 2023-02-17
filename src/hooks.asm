@@ -343,4 +343,9 @@ JSR.w HandleRoomMusicPickup : NOP #4
 org $8488DE
 JSR.w HandleRoomMusicPickup : NOP #4
 
+;org $8B92DE
+;JSL.l LoadTitleLogo
+org $8B9CAF
+JSL.l LoadTitleLogo
+
 pullpc
