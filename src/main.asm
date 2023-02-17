@@ -72,6 +72,14 @@ incsrc credits/credits_scroll.asm
 incsrc credits/itempercentage.asm
 warnpc $8C8000
 
+org $8CE1E9+(32*10)
+incbin data/titlelogo.pal
+org $8DC696
+incsrc data/logofadeobject.asm
+org $8CF3E9
+incsrc titlelogo.asm
+warnpc $8D8000
+
 org $8FE9A0
 incsrc doors.asm
 warnpc $908000
@@ -83,8 +91,10 @@ incsrc beams.asm
 incsrc stats/stats_weapons.asm
 warnpc $918000
 
-org $93F620
-warnpc $948000
+org $99EE21
+DashLogoSprite:
+incbin data/logosprite.bin
+warnpc $9A8000
 
 org $9AB542
 incbin ../data/supericon.bin
@@ -115,4 +125,3 @@ warnpc $E08000
 if !DEBUG == 1
     incsrc debugmode.asm
 endif
-
