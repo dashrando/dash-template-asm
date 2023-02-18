@@ -17,15 +17,16 @@ IncrementSpecialBeams:
 RTS
 
 IncrementMissiles:
-        LDA.l GoalComplete : BNE .skip
                 LDA.w HUDItemIndex : CMP.w #$0002 : BEQ .super
                         DEC.w CurrentMissiles
+                        LDA.l GoalComplete : BNE .done
                         LDA.l MissilesFired : INC : STA.l MissilesFired
-                        BRA .skip
+                        BRA .done
                 .super
                 DEC.w CurrentSupers
+                LDA.l GoalComplete : BNE .done
                 LDA.l SupersFired : INC : STA.l SupersFired
-        .skip
+        .done
 JMP.w $BEC7
 
 IncrementBombs:
