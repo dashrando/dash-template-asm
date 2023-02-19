@@ -54,7 +54,7 @@ dw $DEAD
 org $DF8039  ; Item counts for each area
 AreaCounts:
 dw $0000 ; 0x2F8039  Crateria / Blue Brinstar
-dw $0000 ; 0x2F803B  Green Brinstar
+dw $0000 ; 0x2F803B  Pink & Green Brinstar
 dw $0000 ; 0x2F803D  Upper Norfair
 dw $0000 ; 0x2F803F  Wrecked Ship
 dw $0000 ; 0x2F8041  East Maridia
