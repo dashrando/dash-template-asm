@@ -33,11 +33,32 @@ if !STD == 0
     org $8FC571 ; Plasma Spark
     dw NoopPLM : dw $0000, $0000 ; Plasma door blue
 
-    org $8FC773         ; Halfie Shaft
-    skip 38 : dw NoopPLM : dw $0000, $0000  ; Plasma door blue
+    org $8FC773 ; Halfie Shaft
+    skip $26 : dw NoopPLM : dw $0000, $0000 ; Plasma door blue
 
     org $8FC611 ; Back door to Draygon
     dw $0000    ; Make door blue
+    
+    org $8F823E ; Forgotten Highway before elevator
+    dw $0000    ; Make door blue
+    
+    org $8FCE9C         ; WS Save room header Phantoon alive
+    skip $14 : dw $C2C9 ; Turn on save station
+    
+    org $8FCC39         ; WS E-tank room header Phantoon alive
+    skip $14 : dw $C337 ; Show WS E-tank item
+
+    org $8FC247 ; WS main hub
+    skip $2A : dw NoopPLM : dw $0000, $0000  ; Open door to sponge bath
+
+    org $8FCBE7         ; WS back room Phantoon alive
+    skip $14 : dw $C323 ; Add missile door back
+    
+    org $8F8B4E         ; Norfair above Croc 8b96
+    skip $48 : dw $0000 ; Make upper Croc door blue
+
+    org $8F8B9E ; Croc room
+    dw NoopPLM : dw $0000, $0000 ; Make top door blue
 endif
 
 pullpc
