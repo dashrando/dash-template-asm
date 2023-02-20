@@ -48,9 +48,6 @@ if !STD == 0
     org $8FCC39         ; WS E-tank room header Phantoon alive
     skip $14 : dw $C337 ; Show WS E-tank item
 
-    org $8FC247 ; WS main hub
-    skip $2A : dw NoopPLM : dw $0000, $0000  ; Open door to sponge bath
-
     org $8FCBE7         ; WS back room Phantoon alive
     skip $14 : dw $C323 ; Add missile door back
     
