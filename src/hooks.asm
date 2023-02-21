@@ -98,6 +98,8 @@ org $948EEA
 JSL.l SmallSpikeDamage : NOP #2 ; Kraid Spikes
 org $948F25
 JSL.l SmallSpikeDamage : NOP #2 ; Draygon broken turrets
+org $A9B5E1
+JSR.w MotherBrainDamage : NOP
 
 ; Double Jump
 org $90A46E

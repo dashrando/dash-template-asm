@@ -134,4 +134,19 @@ EnemyDamageDivision:
 RTL
 warnpc $A0A477
 
+org $A9C2E5 ; Unused code
+MotherBrainDamage:
+        LDX.w EnemyIndex
+        LDA.w EnemyData,X : TAX
+        LDA.l $A00006,X : STA.b $12
+        LDA.w VanillaItemsEquipped : AND.w #$0021 : BEQ +
+                LSR.b $12
+                BIT.w #$0020 : BEQ +
+                        LSR.b $12
+        +
+        LDA.b $12
+        JSL.l ReceiveDamageSamus
+RTS
+warnpc $A9C313
+
 pullpc 
