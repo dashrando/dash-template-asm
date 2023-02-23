@@ -64,12 +64,12 @@ org $A9B19F : db $20
 org $A9B1B2 : db $30,$00
 org $A9B20C : db $03
 
-org $A995D4 ; Unused code
+org $A9D151 ; Unused code
 DisableAcidMotherBrain:
-        LDA.w #$8000 : STA.w LiquidYPos
+        LDA.w #$00E8 : STA.w LiquidYPos : STA.w FXYPos
         LDA.w #$000A ; What we wrote over
 RTS
-warnpc $A995DE
+warnpc $A9D160
 
 
 ; Disable GT Code
