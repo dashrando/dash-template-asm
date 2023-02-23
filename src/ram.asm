@@ -72,6 +72,7 @@ EnemyIndex = $7E0E54                 ;
 EnemyData = $7E0F78                  ; $7FF bytes. See enemy ram in disassembly.
 InvincibilityTimer = $7E18A8         ;
 KnockbackTimer = $7E18AA             ;
+LiquidYPos = $7E1978                 ; Base Y position for lava/acid. High bit set disables lava/acid.
 CopyClearCursor = $7E19B5            ; File copy/clear menu selection
 CopyClearSource = $7E19B7            ; File copy source slot / file clear slot
 CopyDestination = $7E19B9            ; File copy destination slot
