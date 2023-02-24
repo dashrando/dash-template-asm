@@ -75,6 +75,7 @@ AcidDamage:
 JMP.w AnimateSamusLavaAcid
 
 SpikeDamage:
+        STZ.w DoubleJumpFlag
         LDA.w VanillaItemsEquipped : AND.w #$0021 : BEQ .full
                                      CMP.w #$0021 : BEQ .1_4
                 LDA.w PeriodicDamage+$02 : CLC : ADC.w #$001E
@@ -88,6 +89,7 @@ SpikeDamage:
 RTL
 
 SmallSpikeDamage:
+        STZ.w DoubleJumpFlag
         LDA.w VanillaItemsEquipped : AND.w #$0021 : BEQ .full
                                      CMP.w #$0021 : BEQ .1_4
                 LDA.w PeriodicDamage+$02 : CLC : ADC.w #$0008

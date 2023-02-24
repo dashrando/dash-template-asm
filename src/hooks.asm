@@ -348,10 +348,5 @@ JSR.w HandleRoomMusicPickup : NOP #4
 org $8B9CAF
 JSL.l LoadTitleLogo
 
-;------------------------------------------------------------------------------
-; Miscellaneous
-;------------------------------------------------------------------------------
-org $A98EEE
-JSR.w DisableAcidMotherBrain
 
 pullpc
