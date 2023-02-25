@@ -81,6 +81,7 @@ endif
 %RoomEntry(Brinstar, $09,  !Area_GreenBrinstar, $00,  NoPatch) ; Big Pink
 %RoomEntry(Brinstar, $0A,  !Area_GreenBrinstar, $00,  NoPatch) ; Pre Spore Spawn
 %RoomEntry(Brinstar, $0B,  !Area_GreenBrinstar, $00,  NoPatch) ; Spore Spawn
+%RoomEntry(Brinstar, $0C,  !Area_GreenBrinstar, $00,  Room_MissionImpossible_Patch_01) ; Mission Impossible
 %RoomEntry(Brinstar, $0D,  !Area_GreenBrinstar, $00,  NoPatch) ; Green Hills
 %RoomEntry(Brinstar, $0E,  !Area_Crateria,      $00,  NoPatch) ; Morph Ball Room
 %RoomEntry(Brinstar, $0F,  !Area_Crateria,      $00,  NoPatch) ; Construction Zone
@@ -110,7 +111,7 @@ endif
 %RoomEntry(Brinstar, $29,  !Area_RedBrinstar,   $20,  NoPatch) ; Spazer
 %RoomEntry(Brinstar, $2A,  !Area_Kraid,         $00,  NoPatch) ; Kraid Entry
 %RoomEntry(Brinstar, $2B,  !Area_Kraid,         $00,  NoPatch) ; Kraid E-Tank
-%RoomEntry(Brinstar, $2C,  !Area_Kraid,         $00,  NoPatch) ; Kraid Missiles
+%RoomEntry(Brinstar, $2C,  !Area_Kraid,         $00,  Room_KraidMissiles_Patch_01) ; Kraid Missiles
 %RoomEntry(Brinstar, $2D,  !Area_Kraid,         $00,  NoPatch) ; Kraid Hallway
 %RoomEntry(Brinstar, $2E,  !Area_Kraid,         $00,  NoPatch) ; Pre Kraid
 %RoomEntry(Brinstar, $2F,  !Area_Kraid,         $00,  NoPatch) ; Kraid
