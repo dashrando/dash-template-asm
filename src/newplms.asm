@@ -280,6 +280,7 @@ RTS
 
 MaybeEquipSpazer:
 ; In: z - If unset, picked up spazer with plasma equipped
+;     A - (BeamsEquipped << 1) & $0008
         BEQ +
                 LSR : TRB.w BeamsEquipped
         +
