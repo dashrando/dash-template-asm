@@ -278,6 +278,13 @@ BrokenTurretBlock: ; Damage reduction for Draygon turrets
         SEP #$41
 RTS
 
+MaybeEquipSpazer:
+; In: z - If unset, picked up spazer with plasma equipped
+        BEQ +
+                LSR : TRB.w BeamsEquipped
+        +
+RTS
+
 pushpc
 org $84D0E8
 dw BrokenTurretBlock ; Replace Draygon grapple turret block instruction
