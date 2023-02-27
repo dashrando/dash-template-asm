@@ -279,8 +279,8 @@ BrokenTurretBlock: ; Damage reduction for Draygon turrets
 RTS
 
 MaybeEquipSpazer:
-; In: z - If unset, picked up spazer with plasma equipped
-;     A - (BeamsEquipped << 1) & $0008
+; In: A - (beam pickup bit << 1) & $0008
+        BIT.w BeamsEquipped
         BEQ +
                 LSR : TRB.w BeamsEquipped
         +
