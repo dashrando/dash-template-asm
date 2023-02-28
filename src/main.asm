@@ -6,6 +6,9 @@ lorom
 org $808000 ; Reserved
 dw $8001    ;
 
+org $80FFC0 ; Game header start
+db "Super Metroid DASH   "
+
 org $80FFD8 ; SRAM size
 db $05      ;
 

@@ -67,6 +67,10 @@ dw $0000 ; 0x2F804D  West Maridia
 dw $0000 ; 0x2F804F  Lower Norfair
 dw $0000 ; 0x2F8051  Crocomire
 
+org $DF8B00 ; 0x2F8B00
+SeedFlags:
+dd $00000000 ; Reserve 32-bits for the website 
+
 org $DF8B0B ; 0x2F8B0B
 NoFanfare:  ; $00 = Fanfare | $01 = No fanfare
 dw $0000
