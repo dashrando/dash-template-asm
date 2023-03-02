@@ -52,20 +52,20 @@ dw $0000 ; 0x2F8035  Charge Upgrade 5
 dw $DEAD
 
 org $DF8039  ; Item counts for each area
-AreaCounts:
-dw $0000 ; 0x2F8039  Crateria / Blue Brinstar
-dw $0000 ; 0x2F803B  Pink & Green Brinstar
-dw $0000 ; 0x2F803D  Upper Norfair
-dw $0000 ; 0x2F803F  Wrecked Ship
-dw $0000 ; 0x2F8041  East Maridia
+AreaItemCounts:
+dw $0302 ; 0x2F8039  Crateria / Blue Brinstar
+dw $0301 ; 0x2F803B  Pink & Green Brinstar
+dw $0104 ; 0x2F803D  Upper Norfair
+dw $0101 ; 0x2F803F  Wrecked Ship
+dw $0103 ; 0x2F8041  East Maridia
 dw $0000 ; 0x2F8043  Tourian
 dw $0000 ; 0x2F8045  Ceres
 dw $0000 ; 0x2F8047  Debug
-dw $0000 ; 0x2F8049  Red Brinstar
-dw $0000 ; 0x2F804B  Kraid
-dw $0000 ; 0x2F804D  West Maridia
-dw $0000 ; 0x2F804F  Lower Norfair
-dw $0000 ; 0x2F8051  Crocomire
+dw $0002 ; 0x2F8049  Red Brinstar
+dw $0101 ; 0x2F804B  Kraid
+dw $0100 ; 0x2F804D  West Maridia
+dw $0201 ; 0x2F804F  Lower Norfair
+dw $0101 ; 0x2F8051  Crocomire
 
 org $DF8B00 ; 0x2F8B00
 SeedFlags:

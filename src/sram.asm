@@ -81,6 +81,13 @@ FreshFileMarker: skip 2              ; $00 = File not active | $01 = Have starte
                                      ;
 base off
 
+;------------------------------------------------------------------------------
+; Area Item/Tank Counters
+;------------------------------------------------------------------------------
+base $7FFC00                         ;
+AreaCounters: skip 13*2              ;
+base off
+
 CreditsScrollSpeed = $7FFFE8
 
 ;------------------------------------------------------------------------------
@@ -92,13 +99,16 @@ CreditsScrollSpeed = $7FFFE8
 base $702000
 ExpandedSRAM:                        ;
 SlotOneExtendedSRAM:                 ;
-SlotOneStatsSRAM: skip $500          ; Stat block. $100 bytes.
+SlotOneStatsSRAM: skip $100          ; Stat block. $100 bytes.
+SlotOneCountersSRAM: skip $400       ; Counter block. $1A bytes.
                                      ;
 SlotTwoExtendedSRAM:                 ;
-SlotTwoStatsSRAM: skip $500          ; Stat block. $100 bytes.
+SlotTwoStatsSRAM: skip $100          ; Stat block. $100 bytes.
+SlotTwoCountersSRAM: skip $400       ; Counter block. $1A bytes.
                                      ;
 SlotThreeExtendedSRAM:               ;
-SlotThreeStatsSRAM: skip $500        ; Stat block. $100 bytes.
+SlotThreeStatsSRAM: skip $100        ; Stat block. $100 bytes.
+SlotThreeCountersSRAM: skip $400     ; Counter block. $1A bytes.
                                      ;
 CurrentSaveSlotSRAM: skip 2          ; Same index as the game uses + 1. No previous game if zero.
 

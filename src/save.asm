@@ -9,12 +9,12 @@
 LoadSaveExpanded:
 ; In: A - Save index
         TAX
-        LDA.l ColdBootFlag : BNE .loadstats
+        LDA.l ColdBootFlag : BNE .loadext
         TXA : INC : CMP.l CurrentSaveSlotSRAM : BEQ +
-                .loadstats
+                .loadext
                 TXA : INC : STA.l CurrentSaveSlotSRAM
                 DEC
-                JSL.l LoadStats
+                JSL.l LoadExtended
                 PHK : PLB
         +
         JSR.w SetBootTest
@@ -38,7 +38,7 @@ SetBootTest:
 RTS
 
 OnWriteSave:
-        JSL.l WriteStats
+        JSL.l WriteExtended
         INC : STA.l CurrentSaveSlotSRAM : DEC
         PEA.w $7E00 : PLB : PLB ; What we wrote over
 RTL
@@ -59,7 +59,7 @@ ClearExtendedBuffers:
                 STZ.w $FB40,X
                 STZ.w $FB80,X
                 STZ.w $FBC0,X
-                STZ.w $FC00,X
+                STZ.w $FC00,X ; Area counters
                 STZ.w $FC40,X
                 STZ.w $FC80,X
                 STZ.w $FCC0,X
@@ -76,7 +76,7 @@ ClearExtendedSRAM:
         +
         TXA
         ASL : TAX
-        LDA.w StatsSRAMOffsets,X : TAX
+        LDA.w ExtendedSRAMOffsets,X : TAX
         PEA $7000 : PLB : PLB
         LDY.w #$04FE ; $500 bytes allocated per slot
         -
@@ -92,9 +92,9 @@ RTS
 CopyExtendedBuffers:
         PHX : PHY
         LDA.w CopyClearSource : ASL : TAX
-        LDA.w StatsSRAMOffsets,X : STA.b $00
+        LDA.w ExtendedSRAMOffsets,X : STA.b $00
         LDA.w CopyDestination : ASL : TAX
-        LDA.w StatsSRAMOffsets,X : STA.b $03
+        LDA.w ExtendedSRAMOffsets,X : STA.b $03
         LDY.w #$0000 : LDX.w #$04FE ; $500 bytes allocated per slot
         -
                 LDA.b [$00],Y : STA.b [$03],Y
@@ -105,15 +105,15 @@ CopyExtendedBuffers:
         JSR.w LoadMenuTileMap ; What we wrote over
 RTS
 
-WriteStats:
+WriteExtended:
 ; In: A - Save index
         PHA
         ASL : TAX
         PHK : PLB
-        LDA.w StatsSRAMOffsets,X : STA.b $00
+        LDA.w ExtendedSRAMOffsets,X : STA.b $00
         LDA.w #$0070 : STA.b $02
-        LDY.w #$0000 ; Stats block $100 bytes
-        LDX.w #$00FE
+        LDY.w #$0000
+        LDX.w #$0118
         PEA.w StatsBlock>>8 : PLB : PLB
         -
                  LDA.w StatsBlock,Y : STA.b [$00],Y
@@ -123,14 +123,14 @@ WriteStats:
         PLA
 RTL
 
-LoadStats:
+LoadExtended:
         PHA
         ASL : TAX
         PHK : PLB
-        LDA.w StatsSRAMOffsets,X : STA.b $00
+        LDA.w ExtendedSRAMOffsets,X : STA.b $00
         LDA.w #$0070 : STA.b $02
         LDY.w #$0000
-        LDX.w #$00FE
+        LDX.w #$0118
         PEA.w StatsBlock>>8 : PLB : PLB
         -
                  LDA.b [$00],Y : STA.w StatsBlock,Y
@@ -140,7 +140,7 @@ LoadStats:
         PLA
 RTL
 
-StatsSRAMOffsets:
-dw SlotOneStatsSRAM
-dw SlotTwoStatsSRAM
-dw SlotThreeStatsSRAM
+ExtendedSRAMOffsets:
+dw SlotOneExtendedSRAM
+dw SlotTwoExtendedSRAM
+dw SlotThreeExtendedSRAM

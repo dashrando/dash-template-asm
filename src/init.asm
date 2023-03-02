@@ -12,6 +12,12 @@ InitGameState:
                 ; Construction zone and red tower elevator doors
                 LDA.l DoorBitArray+$06 : ORA.w #$0004 : STA.l DoorBitArray+$06
                 LDA.l DoorBitArray+$02 : ORA.w #$0001 : STA.l DoorBitArray+$02
+                ; Load area counters in Extended SRAM
+                LDX.w #24
+                -
+                        LDA.l AreaItemCounts,X : STA.l AreaCounters,X
+                        DEX #2
+                BPL -
                 .save:
                 LDA.w SaveSlotSelected
                 JSL.l SaveToSRAM
@@ -39,7 +45,7 @@ InitRAM:
         LDA.l BootTest+$02 : EOR.l BootTestInverse+$02 : CMP.w #$FFFF : BNE .coldboot
         LDA.l CurrentSaveSlotSRAM : BEQ .coldboot
                 DEC
-                JSL.l WriteStats
+                JSL.l WriteExtended
                 BRA .done
         .coldboot       
         PEA $7F00
