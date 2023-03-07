@@ -121,7 +121,7 @@ InfoStr:
 
 OnLoadGame: ; Pressing "START GAME"
         LDA.l GoalComplete : BNE .skip
-                LDA.w #$0001 : STA.l FreshFileMarker
+                LDA.l FreshFileMarker : ORA.w #$0002 : STA.l FreshFileMarker
         .skip
         STZ.w ScreenFadeCounter ; What we wrote over
 RTS

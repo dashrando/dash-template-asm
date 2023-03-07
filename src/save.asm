@@ -14,18 +14,20 @@ LoadSaveExpanded:
                 .loadext
                 TXA : INC : STA.l CurrentSaveSlotSRAM
                 DEC
-                JSL.l LoadExtended
-                PHK : PLB
+                JSL.l LoadExtendedStats
         +
-        JSR.w SetBootTest
-        
+        JSR.w LoadExtendedData
+        PHK : PLB
         LDA.w FileSelectCursor
         JSL.l LoadSave : BCS .newfile  ; What we wrote over
+                JSR.w SetBootTest
                 JSL.l LoadMapMirror
                 RTS
         .newfile
         JSR.w NewSaveFile
         JSR.w ClearExtendedBuffers ; We've read from uninitialized SRAM
+        JSR.w SetBootTest
+        LDA.l FreshFileMarker : ORA.w #$0001 : STA.l FreshFileMarker
         STZ.w AreaMapFlag
 RTS
 
@@ -38,7 +40,7 @@ SetBootTest:
 RTS
 
 OnWriteSave:
-        JSL.l WriteExtended
+        JSL.l WriteExtendedSave
         INC : STA.l CurrentSaveSlotSRAM : DEC
         PEA.w $7E00 : PLB : PLB ; What we wrote over
 RTL
@@ -52,17 +54,15 @@ ClearExtendedBuffers:
         STZ.w $09FC : STZ.w $09FE
         STZ.w $0A00
         
-        PEA.w StatsBlock>>8 : PLB : PLB
-        LDX.w #$003E
+        PEA.w ExtendedSaveWRAM>>8 : PLB : PLB
+        LDX.w #$00FE
         -
-                STZ.w $FB00,X ; Stats block
-                STZ.w $FB40,X
-                STZ.w $FB80,X
-                STZ.w $FBC0,X
-                STZ.w $FC00,X ; Area counters
-                STZ.w $FC40,X
-                STZ.w $FC80,X
-                STZ.w $FCC0,X
+                STZ.w $FA00,X
+                STZ.w $FB00,X
+                STZ.w $FC00,X
+                STZ.w $FD00,X
+                STZ.w $FE00,X
+                STZ.w $FF00,X
                 DEX #2
         BPL -
         PHK : PLB
@@ -78,7 +78,7 @@ ClearExtendedSRAM:
         ASL : TAX
         LDA.w ExtendedSRAMOffsets,X : TAX
         PEA $7000 : PLB : PLB
-        LDY.w #$04FE ; $500 bytes allocated per slot
+        LDY.w #$0FFE ; $1000 bytes allocated per slot
         -
                 STZ.w $0000,X
                 INX #2
@@ -95,7 +95,7 @@ CopyExtendedBuffers:
         LDA.w ExtendedSRAMOffsets,X : STA.b $00
         LDA.w CopyDestination : ASL : TAX
         LDA.w ExtendedSRAMOffsets,X : STA.b $03
-        LDY.w #$0000 : LDX.w #$04FE ; $500 bytes allocated per slot
+        LDY.w #$0000 : LDX.w #$0FFE ; $1000 bytes allocated per slot
         -
                 LDA.b [$00],Y : STA.b [$03],Y
                 INY #2
@@ -105,7 +105,7 @@ CopyExtendedBuffers:
         JSR.w LoadMenuTileMap ; What we wrote over
 RTS
 
-WriteExtended:
+WriteExtendedSave:
 ; In: A - Save index
         PHA
         ASL : TAX
@@ -113,7 +113,24 @@ WriteExtended:
         LDA.w ExtendedSRAMOffsets,X : STA.b $00
         LDA.w #$0070 : STA.b $02
         LDY.w #$0000
-        LDX.w #$0118
+        LDX.w #$05EE
+        PEA.w ExtendedSaveWRAM>>8 : PLB : PLB
+        -
+                 LDA.w ExtendedSaveWRAM,Y : STA.b [$00],Y
+                 INY #2
+                 DEX #2
+        BPL -
+        PLA
+RTL
+
+WriteExtendedStats:
+; In: A - Save index
+        PHA
+        ASL : TAX
+        LDA.l StatsSRAMOffsets,X : STA.b $00
+        LDA.w #$0070 : STA.b $02
+        LDY.w #$0000
+        LDX.w #$01FE
         PEA.w StatsBlock>>8 : PLB : PLB
         -
                  LDA.w StatsBlock,Y : STA.b [$00],Y
@@ -123,14 +140,27 @@ WriteExtended:
         PLA
 RTL
 
-LoadExtended:
-        PHA
+LoadExtendedData:
         ASL : TAX
-        PHK : PLB
-        LDA.w ExtendedSRAMOffsets,X : STA.b $00
+        LDA.l DataSRAMOffsets,X : STA.b $00
         LDA.w #$0070 : STA.b $02
         LDY.w #$0000
-        LDX.w #$0118
+        LDX.w #$02EE ; Size of data block in bank $7F
+        PEA.w DataBlock>>8 : PLB : PLB
+        -
+                 LDA.b [$00],Y : STA.w DataBlock,Y
+                 INY #2
+                 DEX #2
+        BPL -
+RTS
+
+LoadExtendedStats:
+        PHA
+        ASL : TAX
+        LDA.l StatsSRAMOffsets,X : STA.b $00
+        LDA.w #$0070 : STA.b $02
+        LDY.w #$0000
+        LDX.w #$01FE ; Size of stats block in bank $7F
         PEA.w StatsBlock>>8 : PLB : PLB
         -
                  LDA.b [$00],Y : STA.w StatsBlock,Y
@@ -144,3 +174,14 @@ ExtendedSRAMOffsets:
 dw SlotOneExtendedSRAM
 dw SlotTwoExtendedSRAM
 dw SlotThreeExtendedSRAM
+
+StatsSRAMOffsets:
+dw SlotOneStatsSRAM
+dw SlotTwoStatsSRAM
+dw SlotThreeStatsSRAM
+
+DataSRAMOffsets:
+dw SlotOneDataSRAM
+dw SlotTwoDataSRAM
+dw SlotThreeDataSRAM
+

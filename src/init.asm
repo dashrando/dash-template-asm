@@ -8,20 +8,24 @@
 InitGameState:
         LDA.w GameState : CMP.w #$001F : BNE .ret
         .main:
-        LDA.l $7ED7E2 : BNE .ret ; TODO: Fresh file save marker
+        LDA.l FreshFileMarker : CMP.w #$07 : BEQ .ret
+                LDA.l FreshFileMarker : ORA.w #$0004 : STA.l FreshFileMarker
                 ; Construction zone and red tower elevator doors
                 LDA.l DoorBitArray+$06 : ORA.w #$0004 : STA.l DoorBitArray+$06
                 LDA.l DoorBitArray+$02 : ORA.w #$0001 : STA.l DoorBitArray+$02
-                ; Load area counters in Extended SRAM
-                LDX.w #24
+                ; Initialize area counters
+                LDX.w #$0018
                 -
-                        LDA.l AreaItemCounts,X : STA.l AreaCounters,X
+                        LDA.l AreaItemCounts,X : TAY
+                        AND.w #$00FF : STA.l MajorCounters,X
+                        TYA : XBA : AND.w #$00FF : STA.l TankCounters,X
                         DEX #2
                 BPL -
                 .save:
                 LDA.w SaveSlotSelected
                 JSL.l SaveToSRAM
                 .ret:   
+                INC.w HUDDrawFlag
                 LDA.w #$0000
 RTL
 
@@ -45,7 +49,7 @@ InitRAM:
         LDA.l BootTest+$02 : EOR.l BootTestInverse+$02 : CMP.w #$FFFF : BNE .coldboot
         LDA.l CurrentSaveSlotSRAM : BEQ .coldboot
                 DEC
-                JSL.l WriteExtended
+                JSL.l WriteExtendedStats
                 BRA .done
         .coldboot       
         PEA $7F00

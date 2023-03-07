@@ -290,10 +290,8 @@ org $809c00
 JSR.w NewHUDAmmo
 
 ; Charge damage display
-org $809ab1
-JSR.w InitHUDCharge
-org $809bfb
-JSR.w NewHUDCharge
+org $809BFB
+JSR.w DrawNewHUD
 
 ; Max ammo tile changes
 org $858851
@@ -308,6 +306,19 @@ org $858A4F
 db $0F,$28,$0F,$28
 org $858a8f
 db $36,$30,$37,$30
+
+; Item counts
+org $848983
+JMP.w DecrementTankCount
+org $8489A6
+JMP.w DecrementTankCount
+org $8488F0
+JMP.w DecrementMajorCountHUDBeam
+org $84893E
+JMP.w DecrementMajorCountHUDBeam
+org $848965
+JMP.w DecrementMajorCountHUDBeam
+
 
 ;------------------------------------------------------------------------------
 ; Message Boxes

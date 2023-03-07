@@ -10,7 +10,7 @@
 StatsPrepFinal:
         PHY : PHP
         LDA.l CurrentSaveSlotSRAM : DEC
-        JSL.l LoadExtended ; Load stats saved at ship. Final cinematic uses ALL of bank $7F.
+        JSL.l LoadExtendedStats ; Load stats saved at ship. Final cinematic uses ALL of bank $7F.
         PEA.w StatsTables>>8 : PLB : PLB
         REP #$30
         STZ.w $0787 ; Current stat index

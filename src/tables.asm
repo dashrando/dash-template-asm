@@ -52,12 +52,12 @@ dw $0000 ; 0x2F8035  Charge Upgrade 5
 dw $DEAD
 
 org $DF8039  ; Item counts for each area
-AreaItemCounts:
+AreaItemCounts: ; High byte = tanks | Low byte = majors
 dw $0302 ; 0x2F8039  Crateria / Blue Brinstar
-dw $0301 ; 0x2F803B  Pink & Green Brinstar
-dw $0104 ; 0x2F803D  Upper Norfair
-dw $0101 ; 0x2F803F  Wrecked Ship
-dw $0103 ; 0x2F8041  East Maridia
+dw $0401 ; 0x2F803B  Pink & Green Brinstar
+dw $0204 ; 0x2F803D  Upper Norfair
+dw $0201 ; 0x2F803F  Wrecked Ship
+dw $0203 ; 0x2F8041  East Maridia
 dw $0000 ; 0x2F8043  Tourian
 dw $0000 ; 0x2F8045  Ceres
 dw $0000 ; 0x2F8047  Debug

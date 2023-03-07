@@ -103,19 +103,21 @@ RTS
 AmmoDigits:
 dw $0045, $003C, $003D, $003E, $003F, $0040, $0041, $0042, $0043, $0044
 
-InitHUDCharge:
-        LDA.l ChargeMode : CMP.w #$0101 : BCC +
-                LDA.w #$FFFF : STA.w PreviousBeams
+DrawNewHUD:
+        LDA.w HUDDrawFlag : BEQ +
+                JSR.w NewHUDCharge
+                JSR.w NewHUDCounts
+                STZ.w HUDDrawFlag
         +
-        LDA.w VanillaItemsEquipped
+        LDA.w #$9DD3
 RTS
 
 ; Routine that draws the charge damage on the HUD
 NewHUDCharge:
         LDA.l ChargeMode : CMP.w #$0101 : BCC +
                 LDA.w BeamUpgrades : XBA : ORA.w BeamsEquipped ; 000c-nnnn-0000-psiw
-                CMP.w PreviousBeams : BEQ +
-                        STA.w PreviousBeams
+                ;CMP.w PreviousBeams : BEQ +
+                        ;STA.w PreviousBeams
                         LDA.w #HUDHealthDigits : STA.b $00
                         JSL.l ExternalLoadChargeDamage
                         CMP.w #0100 : BCS .draw_3
@@ -128,5 +130,15 @@ NewHUDCharge:
                         LDX.w #$00AE
                         JSR.w HUDDrawThreeDigits
         +
-        LDA.w #$9DD3
 RTS
+
+NewHUDCounts:
+        LDA.w #HUDHealthDigits : STA.b $00
+        LDA.w SubAreaIndex : ASL : TAX
+        LDA.l MajorCounters,X : ASL : STA.b MultiplyResult
+        ASL #2 : CLC : ADC.b MultiplyResult : STA.b MultiplyResult ; Multiply by 10
+        LDA.l TankCounters,X : ADC.b MultiplyResult
+        LDX.w #$00A8
+        JSR.w HUDDrawTwoDigits
+RTS
+

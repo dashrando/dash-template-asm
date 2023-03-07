@@ -24,6 +24,7 @@ SubAreaIndex = $7E0336               ;
 RoomFlags = $7E0338                  ; Used to flag gravity suit physics on room entry, unpause,
                                      ; and relevant item pickups.
 MessageBoxFlag = $7E033A             ; $00 = No message box | $01 = Message box on screen
+HUDDrawFlag = $7E033C                ; Flags whether HUD item counts need to be updated.
 NMICounter = $7E05B8                 ;
 MusicQueue = $7E0619                 ; Word-length music queue entries. $0F bytes
 MusicQueueTimers = $7E0629           ; Word-length queue timers. $0F bytes
@@ -43,7 +44,6 @@ GameState = $7E0998                  ;
 DoorTransitionPtr = $7E099C          ;
 HUDItemIndex = $7E09D2               ;
 DoubleJumpFlag = $7E0A14             ; Zeroed when Samus lands. Unused(?) debug value.
-PreviousBeams = $7E0A1A              ;
 SamusPose = $7E0A1C                  ;
 DamageFlashCounter = $7E0A48         ; Samus hurt flash counter
 SamusPaletteFlags = $7E0A4A          ; Super special Samus palette flags.
@@ -88,10 +88,11 @@ ItemPLMBuffer = $7EF4A0              ; $1F bytes.
 ;------------------------------------------------------------------------------
 ; Bank $7F
 ;------------------------------------------------------------------------------
-base $7FFD00                         ;
+base $7FFF00                         ;
 BootTest: skip 4                     ; Used to determine cold boot vs soft reset
 BootTestInverse: skip 4              ;
 ColdBootFlag: skip 2                 ;
+CreditsScrollSpeed: skip 2           ;
 base off
 
 pullpc
