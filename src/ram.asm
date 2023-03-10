@@ -44,6 +44,7 @@ GameState = $7E0998                  ;
 DoorTransitionPtr = $7E099C          ;
 HUDItemIndex = $7E09D2               ;
 DoubleJumpFlag = $7E0A14             ; Zeroed when Samus lands. Unused(?) debug value.
+PreviousBeams = $7E0A1A              ; Word-length bitfield. Same as beams collected/equipped.
 SamusPose = $7E0A1C                  ;
 DamageFlashCounter = $7E0A48         ; Samus hurt flash counter
 SamusPaletteFlags = $7E0A4A          ; Super special Samus palette flags.

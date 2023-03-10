@@ -8,7 +8,6 @@ OnRoomLoad:
         PHX
         JSR.w DetermineSubArea ; Keep first
         JSL.l SetRoomFlags
-        INC.w HUDDrawFlag
         PLX
 RTS
 
@@ -50,5 +49,8 @@ dw .tourian
         LDA.l TourianRooms_sub_areas,X
         BRA .done
 .done
-        AND.w #$00FF : STA.w SubAreaIndex
+        AND.w #$00FF : CMP.w SubAreaIndex : BEQ +
+                INC.w HUDDrawFlag
+        +
+        STA.w SubAreaIndex
 RTS

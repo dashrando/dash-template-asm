@@ -181,6 +181,9 @@ LDA.w #$C062 : JSR.w CheckEquipmentBitmask
 org $82B542
 LDA.w #$C062 : JSR.w CheckEquipmentBitmask
 
+org $82AFD6
+JSR.w SetHUDFlagWeapons
+
 
 ;------------------------------------------------------------------------------
 ; Credits
