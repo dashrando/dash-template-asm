@@ -283,13 +283,13 @@ org $809AE0
 NOP #4
 
 ; Max ammo display
-org $809b0d
+org $809B0D
 dw InitHUDAmmoExpanded_missiles
-org $809b1b
+org $809B1B
 dw InitHUDAmmoExpanded_supers
-org $809b29
+org $809B29
 dw InitHUDAmmoExpanded_pbs
-org $809c00
+org $809C00
 JSR.w NewHUDAmmo
 
 ; Charge damage display
@@ -321,6 +321,15 @@ org $84893E
 JMP.w DecrementMajorCountHUDBeam
 org $848965
 JMP.w DecrementMajorCountHUDBeam
+
+org $809AF3 : NOP #4 ; Skip mini map initialization
+org $90E734 : NOP #4 ; Skip mini map update
+org $90E801 : NOP #4
+org $90E873 : NOP #4
+org $90E8E5 : NOP #4
+org $90E8F8 : NOP #4
+org $80C4AF
+INC.w $05F7
 
 
 ;------------------------------------------------------------------------------

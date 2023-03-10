@@ -142,3 +142,7 @@ NewHUDCounts:
         JSR.w HUDDrawTwoDigits
 RTS
 
+pushpc
+org $80988B
+incsrc data/hudtilemap.asm
+pullpc
