@@ -7,13 +7,11 @@
 
 InitGameState:
         LDA.w GameState : CMP.w #$001F : BNE .ret
-        .main:
         LDA.l FreshFileMarker : CMP.w #$07 : BEQ .ret
                 LDA.l FreshFileMarker : ORA.w #$0004 : STA.l FreshFileMarker
                 ; Construction zone and red tower elevator doors
                 LDA.l DoorBitArray+$06 : ORA.w #$0004 : STA.l DoorBitArray+$06
                 LDA.l DoorBitArray+$02 : ORA.w #$0001 : STA.l DoorBitArray+$02
-                ; Initialize area counters
                 LDX.w #$0018
                 -
                         LDA.l AreaItemCounts,X : TAY
@@ -21,12 +19,13 @@ InitGameState:
                         TYA : XBA : AND.w #$00FF : STA.l TankCounters,X
                         DEX #2
                 BPL -
-                .save:
                 LDA.w SaveSlotSelected
                 JSL.l SaveToSRAM
-                .ret:   
-                INC.w HUDDrawFlag
-                LDA.w #$0000
+        .ret
+        LDA.w #$0FF0 : STA.w PreviousBeams ; Force charge HUD draw
+        JSL.l InitRightHUDTiles
+        INC.w HUDDrawFlag
+        LDA.w #$0000
 RTL
 
 InitRAM:

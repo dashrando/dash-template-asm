@@ -80,7 +80,6 @@ RTS
         LDA.w #$0037 : ORA.b $18 : STA.l $7EC66C
 RTS
 
-; TODO: Optimize with a table or something
 NewHUDDivision:
         STA.w $4204
         SEP #$20
@@ -142,7 +141,18 @@ NewHUDCounts:
         JSR.w HUDDrawTwoDigits
 RTS
 
+InitRightHUDTiles:
+        LDA.w #$2C0F
+        LDX.w #$000A
+        -
+                STA.l RightHUDOne,X
+                STA.l RightHUDTwo,X
+                STA.l RightHUDThree,X
+                DEX #2
+        BPL -
+RTL
+
 pushpc
 org $80988B
-incsrc data/hudtilemap.asm
+incsrc data/hudtoprow.asm
 pullpc

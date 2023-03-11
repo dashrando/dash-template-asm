@@ -20,6 +20,8 @@ org 0
 MultiplierOne = $7E0026              ; 16-bit DP scratch space. Used by vanilla for multiplier
 MultiplierTwo = $7E0028              ; 16-bit DP scratch space. Used by vanilla for multiplier
 MultiplyResult = $7E002A             ; 32-bit DP scratch space. Used by vanilla for result.
+VRAMWriteTable = $7E00D0             ; See disassembly for entry format. $1FF bytes.
+VRAMTableSP = $7E0330                ; VRAM transfer table stack pointer.
 SubAreaIndex = $7E0336               ;
 RoomFlags = $7E0338                  ; Used to flag gravity suit physics on room entry, unpause,
                                      ; and relevant item pickups.
@@ -44,7 +46,7 @@ GameState = $7E0998                  ;
 DoorTransitionPtr = $7E099C          ;
 HUDItemIndex = $7E09D2               ;
 DoubleJumpFlag = $7E0A14             ; Zeroed when Samus lands. Unused(?) debug value.
-PreviousBeams = $7E0A1A              ; Word-length bitfield. Same as beams collected/equipped.
+PreviousBeams = $7E0A1A              ; Word-length bitfield. Beams equipped with charge upgrades ORed in.
 SamusPose = $7E0A1C                  ;
 DamageFlashCounter = $7E0A48         ; Samus hurt flash counter
 SamusPaletteFlags = $7E0A4A          ; Super special Samus palette flags.
@@ -84,6 +86,9 @@ PLMIds = $7E1C37                     ;
 ; Unmirrored WRAM
 ;------------------------------------------------------------------------------
 EnemyRam = $7E8000                   ; $07FF bytes.
+RightHUDOne = $7EC63C                ; Tile map buffers for where the mini-map was. $0C bytes
+RightHUDTwo = $7EC67C                ; per row.
+RightHUDThree = $7EC6BC              ;
 ItemPLMBuffer = $7EF4A0              ; $1F bytes.
 
 ;------------------------------------------------------------------------------

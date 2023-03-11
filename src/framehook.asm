@@ -17,6 +17,7 @@ RTL
 
 PostNMIHook:
         ; End of NMI
+        REP #$30
         JSR.w HandleTimersNMI
-        REP #$30 : INC.w NMICounter
+        INC.w NMICounter
 RTL
