@@ -239,6 +239,7 @@ CopyCreditsTileMap:
         .end_loop
         PLB
         LDA.w #$0002 : STA.l CreditsScrollSpeed
+        JSR.w CopyCreditsCharacters
         JSL.l StatsPrepFinal
         PLB : PLX : PLA
         JSL.l ClearBGObjects
@@ -298,3 +299,17 @@ CopyItemLocation:
         CLC : ADC.w #$0040 : TAX
         .end
 RTS
+
+CopyCreditsCharacters:
+        SEP #$20
+        LDA.b #$80 : STA.w $2115
+        LDA.b #$C0 : STA.w $2116
+        LDA.b #$44 : STA.w $2117
+        JSL.l SetupDMATransfer
+        db $01,$01,$18
+        dl CreditsCharacters
+        dw $0040
+        LDA.b #$02 : STA.w $420B
+        REP #$20
+RTS
+

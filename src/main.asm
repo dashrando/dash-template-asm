@@ -83,6 +83,10 @@ org $8CF3E9
 incsrc titlelogo.asm
 warnpc $8D8000
 
+org $8EE600
+CreditsCharacters:
+incbin data/slash_char.bin
+
 org $8FE9A0
 incsrc doors.asm
 warnpc $908000

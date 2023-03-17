@@ -110,6 +110,8 @@ CreditsScript:
     %row2(222,223) ; cassidymoen
     %row2(224,225) ; papaschmo
     %row2(226,227) ; tgderp
+    %row2(230,231) ; kupppo
+    %row2(160,161) ; rumbleminze
 
     %blank_row() : %blank_row()
     %row1(140)     ; --- additional programming ---
@@ -129,8 +131,7 @@ CreditsScript:
     %row1(147)     ; --- Testers ---
     %row2(148,149) ; fbs maniacal
     %row2(162,163) ; osse sloaters
-    %row2(134,135) ; rumble zeb
-    %row2(160,161) ; tracie
+    %row2(134,135) ; tracie zeb
     %blank_row() : %blank_row()
     %row1(142)     ; --- Disassembly ---
     %row2(143,144) ; pjboy kejardon
@@ -139,7 +140,7 @@ CreditsScript:
     %row2(165,166) ; MetroidConstruction.com
     %blank_row() : %blank_row()
     %row1(167)     ; SRL
-    %blank_row() : %blank_row()
+    %row2(232,233)
     %blank_row() : %blank_row()
     %row1(157)     ; Play this randomizer at
     %row2(168,169) ; dashrando.github.io
@@ -203,8 +204,6 @@ CreditsScript:
     %row1(681) ; Charge Upgrade Location
     %row1(682) ; Charge Upgrade Location
 
-    %blank_row() : %blank_row()
-
     %row2(214,215) ; Menu time
     %row2(216,217) ; Lag time
     %row2(218,219) ; Final time
@@ -213,7 +212,7 @@ CreditsScript:
 
     %blank_row() : %blank_row() : %blank_row()
     %blank_row() : %blank_row() : %blank_row()
-    %blank_row() :` %blank_row()
+    %blank_row() : %blank_row()
 
     dw SetScroll, $0003
 

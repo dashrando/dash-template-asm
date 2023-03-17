@@ -13,7 +13,7 @@ CreditsTileData:
     %font1("        RANDOMIZER CODE         ", "purple")  ; 129
     %font2("             TOTAL              ", "white")   ; 130 + 131
     %font2("           DESSYREQT            ", "white")   ; 132 + 133
-    %font2("    RUMBLEMINZE    ZEB316       ", "white")   ; 134 + 135
+    %font2("    TRACIEM        ZEB316       ", "white")   ; 134 + 135
     %font2("    ANDREWW        LEODOX       ", "white")   ; 136 + 137
     %font2("    PERSONITIS     SMILEY       ", "white")   ; 138 + 139
     %font1("     ADDITIONAL PROGRAMMING     ", "purple")  ; 140
@@ -30,12 +30,12 @@ CreditsTileData:
     %font1("          GAME BALANCE          ", "purple")  ; 156
     %font1("     PLAY THIS RANDOMIZER AT    ", "cyan")    ; 157
     %font2("              KIPP              ", "white")   ; 158 + 159
-    %font2("            TRACIEM             ", "white")   ; 160 + 161
+    %font2("          RUMBLEMINZE           ", "white")   ; 160 + 161
     %font2("    OSSE101        SLOATERS27   ", "white")   ; 162 + 163
     %font1("      METROID CONSTRUCTION      ", "yellow")  ; 164
     %font2("    METROIDCONSTRUCTION.COM     ", "white")   ; 165 + 166
     %font1("  SUPER METROID SRL COMMUNITY   ", "yellow")  ; 167
-    %font2("      DASHRANDO.GITHUB.IO       ", "white")   ; 168 + 169
+    %font2("         DASHRANDO.NET          ", "white")   ; 168 + 169
     %font1("      GAMEPLAY STATISTICS       ", "purple")  ; 170
     %font1("             DOORS              ", "green")   ; 171
     %font2(" DOOR TRANSITIONS               ", "white")   ; 172 + 173
@@ -66,9 +66,11 @@ CreditsTileData:
     %font2("       THANKS FOR PLAYING       ", "green")   ; 220 + 221
     %font2("          CASSIDYMOEN           ", "white")   ; 222 + 223
     %font2("           PAPASCHMO            ", "white")   ; 224 + 225
-    %font2("             TGDERP             ", "white")   ; 226 + 227
+    %font2("            TGDERP              ", "white")   ; 226 + 227
     %font1("      ORIGINAL RANDOMIZER       ", "yellow")  ; 228
     %font1("      MAJOR ITEM LOCATIONS      ", "pink")    ; 229
+    %font2("            KUPPPO              ", "white")   ; 230 + 231
+    %font2("     DASHRANDO.NET/SMDISCORD    ", "white")   ; 232 + 233
     dw $dead                                              ; End of credits tilemap
 
 CreditsNumbersTop:
