@@ -159,6 +159,7 @@ endif
 %RoomEntry(Norfair, $20,  !Area_UpperNorfair,  $00,  NoPatch) ; East Spike Lava Room
 %RoomEntry(Norfair, $21,  !Area_UpperNorfair,  $00,  NoPatch) ; East of East Spike Lava Room
 %RoomEntry(Norfair, $22,  !Area_UpperNorfair,  $00,  NoPatch) ; Pre Lava Dive
+%RoomEntry(Norfair, $23,  !Area_UpperNorfair,  $00,  NoPatch) ; Lava Guy Hallway
 %RoomEntry(Norfair, $24,  !Area_UpperNorfair,  $00,  NoPatch) ; Purple Shaft
 %RoomEntry(Norfair, $25,  !Area_LowerNorfair,  $00,  NoPatch) ; Lava Dive
 %RoomEntry(Norfair, $26,  !Area_LowerNorfair,  $00,  NoPatch) ; LN Elevator Top
