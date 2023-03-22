@@ -292,7 +292,11 @@ if !STD == 0
     pushpc
     org $8FC48B ; Crab Shaft
     dw $C826    ; Open gate
+
+    org $8F8C1C ; Green gate under croc
+    dw $C826    ; Open gate
     pullpc
+
 endif
 
 pushpc ; Put no-op room patch at the end of the bank

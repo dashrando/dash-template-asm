@@ -204,11 +204,6 @@ RTS
 
 PressureValvePickup:
         LDA.w VanillaItemsCollected : BIT.w #$0020 : BNE CollectEquipment_collect
-        JSL.l CheckWaterPhysicsLong : BNE .gravityphysics
-                LDA.w #$0000 : STA.w RoomFlags
-                BRA CollectEquipment_save
-        .gravityphysics
-        LDA.w #$0020 : STA.w RoomFlags
         BRA CollectEquipment_save
 
 HeatShieldPickup:
@@ -228,6 +223,7 @@ CollectEquipment:
                 LDA.w #$0168
                 JSL.l PlayRoomMusic
         +
+        JSL.l SetRoomFlags
         LDA.w $0002,Y : AND.w #$00FF : TAX
         JSL.l ShowMessage
         INY #3
