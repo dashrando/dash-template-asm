@@ -18,6 +18,7 @@ RTL
 PostNMIHook:
         ; End of NMI
         REP #$30
+        ;JSR.w PostHUDChangePalette
         JSR.w HandleTimersNMI
         INC.w NMICounter
 RTL

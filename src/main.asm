@@ -36,7 +36,8 @@ org $80CD90
 incsrc init.asm
 incsrc framehook.asm
 incsrc stats/stats.asm
-incsrc newhud.asm
+incsrc hud/newhud.asm
+incsrc hud/palettehdma.asm
 warnpc $80FFC0 ; SNES ROM Header
 
 org $81EF1A
@@ -50,6 +51,7 @@ incsrc menu.asm
 incsrc subareas.asm
 incsrc roompatching.asm
 incsrc stats/stats_doors.asm
+incsrc hud/hudupload.asm
 warnpc $838000
 
 org $84EFE0
@@ -77,11 +79,17 @@ warnpc $8C8000
 
 org $8CE1E9+(32*10)
 incbin data/titlelogo.pal
-org $8DC696
-incsrc data/logofadeobject.asm
 org $8CF3E9
 incsrc titlelogo.asm
 warnpc $8D8000
+
+org $8DC696
+incsrc data/logofadeobject.asm
+
+org $8EE600
+HUDTiles:
+incbin data/hudtiles.bin ; $200 bytes or 32 2bpp tiles allocated in this file
+warnpc $8F8000
 
 org $8FE9A0
 incsrc doors.asm

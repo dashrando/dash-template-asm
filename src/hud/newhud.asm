@@ -105,7 +105,8 @@ dw $0045, $003C, $003D, $003E, $003F, $0040, $0041, $0042, $0043, $0044
 DrawNewHUD:
         LDA.w HUDDrawFlag : BEQ +
                 JSR.w NewHUDCharge
-                JSR.w NewHUDCounts
+                ;JSR.w NewHUDCounts
+                JSR.w NewHUDArea
                 STZ.w HUDDrawFlag
         +
         LDA.w #$9DD3 ; What we wrote over
@@ -121,12 +122,11 @@ NewHUDCharge:
                         JSL.l ExternalLoadChargeDamage
                         CMP.w #0100 : BCS .draw_3
                                 .draw_2
-                                LDX.w #$00B0
+                                LDX.w #$00B6
                                 JSR.w HUDDrawTwoDigits
-                                LDA.w #$2C0F : STA.l $7EC6B6 ; Blank tile
                                 BRA +
                         .draw_3
-                        LDX.w #$00AE
+                        LDX.w #$00B4
                         JSR.w HUDDrawThreeDigits
         +
 RTS
@@ -143,14 +143,48 @@ RTS
 
 InitRightHUDTiles:
         LDA.w #$2C0F
-        LDX.w #$000A
+        LDX.w #$000C
         -
                 STA.l RightHUDOne,X
                 STA.l RightHUDTwo,X
                 STA.l RightHUDThree,X
                 DEX #2
         BPL -
+        LDA.w #$2C10
+        STA.l RightHUDOne
+        STA.l RightHUDTwo
+        LDA.w #$2C11
+        STA.l RightHUDThree
+
 RTL
+
+NewHUDArea:
+        LDA.w SubAreaIndex : ASL #2 : TAX
+        LDA.w HUDAreaCodes,X : STA.l RightHUDOne+$02
+        INX #2
+        LDA.w HUDAreaCodes,X : STA.l RightHUDOne+$04
+
+RTS
+
+RedDigits:
+dw $2809, $2800, $2801, $2802, $2803, $2804, $2805, $2806, $2807, $2808
+
+HUDAreaCodes:
+dw $28E2, $28E0 ; CA
+dw $28E6, $28E1 ; GB
+dw $28F4, $28ED ; UN
+dw $28F6, $28F2 ; WS
+dw $28E4, $28EC ; EM
+dw $28F3, $28ED ; TN
+dw $28E2, $28F2 ; CS
+dw $28E3, $28E1 ; DB
+dw $28F1, $28E1 ; RB
+dw $28EA, $28F1 ; KR
+dw $28F6, $28EC ; WM
+dw $28EB, $28ED ; LN
+dw $28E2, $28F1 ; CR
+dw $28ED, $28EC ; NM
+dw $28F2, $28EC ; SM
 
 pushpc
 org $80988B

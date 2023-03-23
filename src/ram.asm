@@ -20,6 +20,15 @@ org 0
 MultiplierOne = $7E0026              ; 16-bit DP scratch space. Used by vanilla for multiplier
 MultiplierTwo = $7E0028              ; 16-bit DP scratch space. Used by vanilla for multiplier
 MultiplyResult = $7E002A             ; 32-bit DP scratch space. Used by vanilla for result.
+HDMAChannels = $7E0085               ; HDMA channels to enable. Updated and written to $420C during NMI.
+BG1XScroll = $7E00B1                 ; BG1 X scroll ($210D). Updated during NMI
+BG1YScroll = $7E00B3                 ; BG1 Y scroll ($210E). Updated during NMI
+BG2XScroll = $7E00B5                 ; BG2 X scroll ($210F). Updated during NMI
+BG2YScroll = $7E00B7                 ; BG2 Y scroll ($2110). Updated during NMI
+BG3XScroll = $7E00B9                 ; BG3 X scroll ($2111). Updated during NMI
+BG3YScroll = $7E00BB                 ; BG3 Y scroll ($2112). Updated during NMI
+BG4XScroll = $7E00BD                 ; BG4 X scroll ($2113). Updated during NMI
+BG4YScroll = $7E00BF                 ; BG4 Y scroll ($2114). Updated during NMI
 VRAMWriteTable = $7E00D0             ; See disassembly for entry format. $1FF bytes.
 VRAMTableSP = $7E0330                ; VRAM transfer table stack pointer.
 SubAreaIndex = $7E0336               ;
@@ -37,6 +46,7 @@ MusicTimer = $7E063F                 ;
 ScreenFadeDelay = $7E0723            ;
 ScreenFadeCounter = $7E0725          ;
 AreaMapFlag = $7E0789                ;
+DoorDirection = $7E0791              ;
 RoomPointer = $7E079B                ;
 RoomIndex = $7E079D                  ;
 AreaIndex = $7E079F                  ;
@@ -86,9 +96,9 @@ PLMIds = $7E1C37                     ;
 ; Unmirrored WRAM
 ;------------------------------------------------------------------------------
 EnemyRam = $7E8000                   ; $07FF bytes.
-RightHUDOne = $7EC63C                ; Tile map buffers for where the mini-map was. $0C bytes
-RightHUDTwo = $7EC67C                ; per row.
-RightHUDThree = $7EC6BC              ;
+RightHUDOne = $7EC63A                ; Tile map buffers for where the mini-map was. $0E bytes
+RightHUDTwo = $7EC67A                ; per row.
+RightHUDThree = $7EC6BA              ;
 ItemPLMBuffer = $7EF4A0              ; $1F bytes.
 
 ;------------------------------------------------------------------------------

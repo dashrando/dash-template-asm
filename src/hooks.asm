@@ -330,7 +330,23 @@ org $90E8E5 : NOP #4
 org $90E8F8 : NOP #4
 org $80C4AF
 INC.w $05F7
+org $A48A7F : NOP #4 ; Skip mini map boss rooms
+org $A586F7 : NOP #4
+org $A6A122 : NOP #4
+org $A7AA7C : NOP #4
+org $A98809 : NOP #4
 
+org $82800E
+JSR.w LoadStandardBG3Expanded
+org $828051
+JSR.w LoadStandardBG3Expanded
+org $809666
+JSL.l LoadHUDTilesDoors : NOP
+org $828D1D
+JSR.W LoadPauseTilesExpanded : NOP
+
+;org $8583BF
+;JSL.l MessageBoxHDMA : NOP
 
 ;------------------------------------------------------------------------------
 ; Message Boxes
