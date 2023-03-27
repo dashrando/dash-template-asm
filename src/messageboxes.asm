@@ -15,7 +15,7 @@
 
 dw !EmptySmall, !Small, double_jump
 dw !EmptySmall, !Small, heat_shield
-dw !EmptySmall, !Small, aqua_boots
+dw !EmptySmall, !Small, pressure_valve
 dw !EmptySmall, !Small, beam_upgrade
 dw !EmptySmall, !Small, BtnArray
 
@@ -24,7 +24,7 @@ double_jump:
 dw "______    DOUBLE JUMP    _______"
 heat_shield:
 dw "______    HEAT SHIELD    _______"
-aqua_boots:
+pressure_valve:
 dw "______   PRESSURE VALVE  _______"
 beam_upgrade:
 dw "______   CHARGE UPGRADE  _______"

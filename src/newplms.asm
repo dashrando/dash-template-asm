@@ -88,10 +88,10 @@ HiddenItemTable:
 
 ; New item PLMs
 ;        id,  label name      visible, chozo, hidden
-%ItemPLM($00, BeamUpgrade)   ; $EFE0,  $F034, $F088
+%ItemPLM($00, DoubleJump)    ; $EFE0,  $F034, $F088
 %ItemPLM($01, HeatShield)    ; $EFE4,  $F038, $F08C
 %ItemPLM($02, PressureValve) ; $EFE8,  $F03C, $F090
-%ItemPLM($03, DoubleJump)    ; $EFEC,  $F040, $F094
+%ItemPLM($03, BeamUpgrade)   ; $EFEC,  $F040, $F094
 
 ; Graphics pointers for items (by item index)
 ; The first word is a pointer to 4bpp sprite data located at ItemTiles.
@@ -124,9 +124,9 @@ dw $0000              : db $00, $00, $00, $00, $00, $00, $00, $00    ; $24 - Unu
 
 DashItemTable:
 ;  pickup,              qty,   msg,   type,  ext2,  ext3,  loop,  hloop
-dw DoubleJumpPickup,    $0200, $001D, $0004, $0000, $0000, $0000, $0000  ; $00 - Double Jump
-dw HeatShieldPickup,    $0001, $001E, $0004, $0000, $0000, $0000, $0000  ; $01 - Heat Shield
-dw PressureValvePickup, $0020, $001F, $0004, $0000, $0000, $0000, $0000  ; $02 - Pressure Valve
+dw CollectEquipment,    $0200, $001D, $0004, $0000, $0000, $0000, $0000  ; $00 - Double Jump
+dw CollectEquipment,    $0001, $001E, $0004, $0000, $0000, $0000, $0000  ; $01 - Heat Shield
+dw CollectEquipment,    $0020, $001F, $0004, $0000, $0000, $0000, $0000  ; $02 - Pressure Valve
 dw BeamUpgradePickup,   $1000, $0020, $0001, $0000, $0000, $0000, $0000  ; $03 - BeamUpgrade
 dw $0000,               $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $04 - Unused
 dw $0000,               $0000, $0000, $0004, $0000, $0000, $0000, $0000  ; $05 - Unused
@@ -202,33 +202,17 @@ ItemPickup:
         PLX : PLY
 RTS
 
-PressureValvePickup:
-        LDA.w VanillaItemsCollected : BIT.w #$0020 : BNE CollectEquipment_collect
-        JSL.l CheckWaterPhysicsLong : BNE .gravityphysics
-                LDA.w #$0000 : STA.w RoomFlags
-                BRA CollectEquipment_save
-        .gravityphysics
-        LDA.w #$0020 : STA.w RoomFlags
-        BRA CollectEquipment_save
-
-HeatShieldPickup:
-        LDA.w VanillaItemsCollected : BIT.w #$0001 : BNE CollectEquipment_collect
-        BRA CollectEquipment_save
-
-DoubleJumpPickup:
-        LDA.w VanillaItemsCollected : BIT.w #$0200 : BNE CollectEquipment_collect
-        BRA CollectEquipment_save
-
 CollectEquipment:
-        .save
-        LDA.w DashItemsEquipped : ORA.w $0000,Y : STA.w DashItemsEquipped
-        .collect
-        LDA.w DashItemsCollected : ORA.w $0000,Y : STA.w DashItemsCollected
+        LDA.w $0000,Y : BIT.w VanillaItemsCollected : BNE .dont_equip
+        ORA.w DashItemsEquipped : STA.w DashItemsEquipped
+        .dont_equip
+        ORA.w DashItemsCollected : STA.w DashItemsCollected
         LDA.l NoFanfare : BNE +
                 LDA.w #$0168
                 JSL.l PlayRoomMusic
         +
         JSR.w DecrementMajorCount
+        JSL.l SetRoomFlags
         LDA.w $0002,Y : AND.w #$00FF : TAX
         JSL.l ShowMessage
         INY #3
