@@ -328,8 +328,6 @@ org $90E801 : NOP #4
 org $90E873 : NOP #4
 org $90E8E5 : NOP #4
 org $90E8F8 : NOP #4
-org $80C4AF
-INC.w $05F7
 org $A48A7F : NOP #4 ; Skip mini map boss rooms
 org $A586F7 : NOP #4
 org $A6A122 : NOP #4

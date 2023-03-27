@@ -7,6 +7,7 @@
 
 InitGameState:
         LDA.w GameState : CMP.w #$001F : BNE .ret
+        .main
         LDA.l FreshFileMarker : CMP.w #$07 : BEQ .ret
                 LDA.l FreshFileMarker : ORA.w #$0004 : STA.l FreshFileMarker
                 ; Construction zone and red tower elevator doors
@@ -19,6 +20,7 @@ InitGameState:
                         TYA : XBA : AND.w #$00FF : STA.l TankCounters,X
                         DEX #2
                 BPL -
+                .save
                 LDA.w SaveSlotSelected
                 JSL.l SaveToSRAM
         .ret
