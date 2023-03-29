@@ -78,7 +78,7 @@ endif
 %RoomEntry(Brinstar, $06,  !Area_GreenBrinstar, $00,  NoPatch) ; Green Brinstar Pre Refill
 %RoomEntry(Brinstar, $07,  !Area_GreenBrinstar, $00,  NoPatch) ; Green Brinstar Refill
 %RoomEntry(Brinstar, $08,  !Area_GreenBrinstar, $00,  Room_Dachora_Patch_01) ; Dachora
-%RoomEntry(Brinstar, $09,  !Area_GreenBrinstar, $00,  NoPatch) ; Big Pink
+%RoomEntry(Brinstar, $09,  !Area_GreenBrinstar, $00,  Room_BigPink_Patch_01) ; Big Pink
 %RoomEntry(Brinstar, $0A,  !Area_GreenBrinstar, $00,  NoPatch) ; Pre Spore Spawn
 %RoomEntry(Brinstar, $0B,  !Area_GreenBrinstar, $00,  NoPatch) ; Spore Spawn
 %RoomEntry(Brinstar, $0C,  !Area_GreenBrinstar, $00,  Room_MissionImpossible_Patch_01) ; Mission Impossible
