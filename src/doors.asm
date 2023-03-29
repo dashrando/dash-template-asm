@@ -56,6 +56,9 @@ if !STD == 0
 
     org $8F8B9E ; Croc room
     dw NoopPLM : dw $0000, $0000 ; Make top door blue
+
+    org $8F84EC ; Green Brin pre-map
+    dw $0000    ; Unlock grey door
 endif
 
 pullpc
