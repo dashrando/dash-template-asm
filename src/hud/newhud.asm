@@ -124,6 +124,7 @@ NewHUDCharge:
                                 .draw_2
                                 LDX.w #$00B6
                                 JSR.w HUDDrawTwoDigits
+                                LDA.w #$2C0F : STA.l $7EC6B6 ; Blank tile
                                 BRA +
                         .draw_3
                         LDX.w #$00B4
