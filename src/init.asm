@@ -45,6 +45,7 @@ InitRAM:
                 STZ $E000,X
                 DEX #2
         BPL -
+        LDA.w #HUDChangePalette_done : STA.w HUDHDMAPtr
         LDA.w #$FFFF : STA.w SubAreaIndex
         LDA.l BootTest+$00 : EOR.l BootTestInverse+$00 : CMP.w #$FFFF : BNE .coldboot
         LDA.l BootTest+$02 : EOR.l BootTestInverse+$02 : CMP.w #$FFFF : BNE .coldboot
@@ -69,6 +70,12 @@ InitRAM:
         BPL -
         LDA.w #$0001 : STA.l ColdBootFlag
         .done
+        LDX.w #$0014
+        -
+                LDA.l HUDHDMAOne,X : STA.l HUDHDMAOneWRAM,X
+                LDA.l HUDHDMATwo,X : STA.l HUDHDMATwoWRAM,X
+                DEX #2
+        BPL -
         PHK : PLB
 JMP.w $84B1
 

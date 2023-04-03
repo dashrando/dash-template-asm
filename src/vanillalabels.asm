@@ -30,6 +30,7 @@ ClearSamusBeamTiles = $82A2BE
 PlasmaSpazerMenuCheck = $82B068
 DrawFileSelectMissile = $82BA6E ; long
 PlayRoomMusic = $82E118 ; long
+LoadDestinationRoom = $82E76B ; long
 PLMDelete = $8486BC
 PLMPreInstruction = $8486C1
 PLMGoto = $848724

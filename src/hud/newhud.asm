@@ -105,7 +105,7 @@ dw $0045, $003C, $003D, $003E, $003F, $0040, $0041, $0042, $0043, $0044
 DrawNewHUD:
         LDA.w HUDDrawFlag : BEQ +
                 JSR.w NewHUDCharge
-                ;JSR.w NewHUDCounts
+                JSR.w NewHUDCounts
                 JSR.w NewHUDArea
                 STZ.w HUDDrawFlag
         +
@@ -122,24 +122,28 @@ NewHUDCharge:
                         JSL.l ExternalLoadChargeDamage
                         CMP.w #0100 : BCS .draw_3
                                 .draw_2
-                                LDX.w #$00B6
+                                LDX.w #$00BC
                                 JSR.w HUDDrawTwoDigits
-                                LDA.w #$2C0F : STA.l $7EC6B6 ; Blank tile
+                                LDA.w #$2C0F : STA.l $7EC6C2 ; Blank tile
                                 BRA +
                         .draw_3
-                        LDX.w #$00B4
+                        LDX.w #$00BA
                         JSR.w HUDDrawThreeDigits
         +
 RTS
 
 NewHUDCounts:
-        LDA.w #HUDHealthDigits : STA.b $00
-        LDA.w SubAreaIndex : ASL : TAX
-        LDA.l MajorCounters,X : ASL : STA.b MultiplyResult
-        ASL #2 : CLC : ADC.b MultiplyResult : STA.b MultiplyResult ; Multiply by 10
-        LDA.l TankCounters,X : ADC.b MultiplyResult
-        LDX.w #$00A8
-        JSR.w HUDDrawTwoDigits
+        LDA.w SubAreaIndex : ASL : TAX : TAY
+        LDA.l MajorCounters,X : ASL #2 : TAX
+        LDA.w CountdownDigits,X : ORA.w #$1800 : STA.l RightHUDOne+$06
+        INX #2
+        LDA.w CountdownDigits,X : ORA.w #$1800 : STA.l RightHUDOne+$08
+
+        TYX
+        LDA.l TankCounters,X : ASL #2 : TAX
+        LDA.w CountdownDigits,X : ORA.w #$1C00 : STA.l RightHUDOne+$0A
+        INX #2
+        LDA.w CountdownDigits,X : ORA.w #$1C00 : STA.l RightHUDOne+$0C
 RTS
 
 InitRightHUDTiles:
@@ -171,21 +175,45 @@ RedDigits:
 dw $2809, $2800, $2801, $2802, $2803, $2804, $2805, $2806, $2807, $2808
 
 HUDAreaCodes:
-dw $28E2, $28E0 ; CA
-dw $28E6, $28E1 ; GB
-dw $28F4, $28ED ; UN
-dw $28F6, $28F2 ; WS
-dw $28E4, $28EC ; EM
-dw $28F3, $28ED ; TN
-dw $28E2, $28F2 ; CS
-dw $28E3, $28E1 ; DB
-dw $28F1, $28E1 ; RB
-dw $28EA, $28F1 ; KR
-dw $28F6, $28EC ; WM
-dw $28EB, $28ED ; LN
-dw $28E2, $28F1 ; CR
-dw $28ED, $28EC ; NM
-dw $28F2, $28EC ; SM
+dw $20E2, $20E0 ; CA
+dw $20E6, $20E1 ; GB
+dw $20F4, $20ED ; UN
+dw $20F6, $20F2 ; WS
+dw $20E4, $20EC ; EM
+dw $20F3, $20ED ; TN
+dw $20E2, $20F2 ; CS
+dw $20E3, $20E1 ; DB
+dw $20F1, $20E1 ; RB
+dw $20EA, $20F1 ; KR
+dw $20F6, $20EC ; WM
+dw $20EB, $20ED ; LN
+dw $20E2, $20F1 ; CR
+dw $20ED, $20EC ; NM
+dw $20F2, $20EC ; SM
+
+CountdownDigits:
+; Need a palette ORed in if not 0
+dw $200F, $2009 ;  0
+dw $200F, $2000 ;  1
+dw $200F, $2001 ;  2
+dw $200F, $2002 ;  3
+dw $200F, $2003 ;  4
+dw $200F, $2004 ;  5
+dw $200F, $2005 ;  6
+dw $200F, $2006 ;  7
+dw $200F, $2007 ;  8
+dw $200F, $2008 ;  9
+dw $2000, $2009 ; 10
+dw $2000, $2000 ; 11
+dw $2000, $2001 ; 12
+dw $2000, $2002 ; 13
+dw $2000, $2003 ; 14
+dw $2000, $2004 ; 15
+dw $2000, $2005 ; 16
+dw $2000, $2006 ; 17
+dw $2000, $2007 ; 18
+dw $2000, $2008 ; 19
+dw $2001, $2009 ; 20
 
 pushpc
 org $80988B

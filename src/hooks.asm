@@ -23,6 +23,8 @@ org $809590
 JSL.l NMIHook
 org $8095F7
 JSL.l PostNMIHook : NOP
+org $8095E7
+NOP #3
 
 ;------------------------------------------------------------------------------
 ; Game State Initialization (doors, etc)
@@ -342,9 +344,24 @@ org $809666
 JSL.l LoadHUDTilesDoors : NOP
 org $828D1D
 JSR.W LoadPauseTilesExpanded : NOP
+org $8583BF
+JSL.l MessageBoxHDMA : NOP
 
-;org $8583BF
-;JSL.l MessageBoxHDMA : NOP
+; HUD HDMA command pointer hooks
+org $828106
+JSL.l SetHDMAPointerLoad : NOP #2
+org $82E34C
+JSL.l SetHDMAPointerDoorStart : NOP #2
+org $82E764
+JSL.l SetHDMAPointerDoorFadeIn : NOP #2
+org $82E764
+JSL.l SetHDMAPointerDoorEnd : NOP #2
+org $828CE7
+JSL.l SetHDMAPointerPause : NOP #2
+org $829343
+JSL.l SetHDMAPointerUnpause : NOP #2
+org $9493B5
+JSL.l SetHDMAPointerDoorFadeOut : NOP #2
 
 ;------------------------------------------------------------------------------
 ; Message Boxes
