@@ -28,6 +28,7 @@ LoadStandardBG3 = $8282E2
 LoadPauseMenuTiles = $828E75
 ClearSamusBeamTiles = $82A2BE
 PlasmaSpazerMenuCheck = $82B068
+MenuCheckButton = $82B568
 DrawFileSelectMissile = $82BA6E ; long
 PlayRoomMusic = $82E118 ; long
 LoadDestinationRoom = $82E76B ; long

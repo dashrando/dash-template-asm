@@ -1,60 +1,45 @@
 ;------------------------------------------------------------------------------
 ; HUD HDMA
 ;------------------------------------------------------------------------------
-; We use HDMA to put new colors on the HUD. We have a word in mirrored WRAM,
-; HUDHDMAPtr, that's a pointer to some routine in this module and bank ($80.)
-; These routines are responsible for:
-; 
-; 1. Placing our new colors in CGRAM before scanline 0 (use CGADD and CGDATA if
-;    transferring less than several contiguous colors, the most common case.)
-; 2. Selecting the appropriate HDMA channels for the situation and setting up
-;    our HDMA tables in WRAM to replace our colors with their vanilla color during
-;    the next frame.
+; Our HUD palette works in two phases using two pointers in mirrored WRAM
+; (HUDHDMAPtr and HUDColorsPtr.) First we need to hook into vanilla on various
+; game state changes to set both these pointers to routines in this module and
+; bank ($80.) 
 ;
-; These channels and colors will be different in different situations, so we also
-; need to hook in and change HUDHDMAPtr on game state changes that require different
-; approaches to the two tasks above. Some things to check that our HDMA does not
-; interfere with include but are not limited to the following: X-Ray/light cone,
-; power bomb explosion, liquid visibility and scrolling, message boxes.
+; 1. Our HUDHDMAPtr routine is called where the vanilla NMI writes to $420C. This
+;    routine is responsible for selecting the appropriate channels for the situation.
+;    We need to select two channels that will not interfere with vanilla effects
+;    including but not limited to: power bombs, X-ray, liquid effects and scrolling,
+;    and message boxes. This routine is also responsible for updating the HUD
+;    palette HDMA table in WRAM for the next frame.
+;
+;    The HDMA table should restore the vanilla palettes before the final scanline
+;    of the HUD (31.) If using fading palettes, get the color from the main vanilla
+;    palette buffer at $7EC000 (PaletteBuffer.) Otherwise, we may set them statically.
+;
+; 2. Our HUDColorsPtr routine is called in our post-NMI hook before the return
+;    from interrupt. This routine is responsible for putting our new colors into
+;    CGRAM during v-blank. For the most part we should use the CGADD and CGDATA
+;    registers directly unless we are transferring larger batches at once.
+;
+; We have to have one HDMA on scanline 0 per channel on every frame it's used,
+; so we should use that to set two of our original colors in order to save as
+; much time as possible during v-blank.
 ;------------------------------------------------------------------------------
+HUDHDMACommand:
+        LDA.w HUDHDMAPtr : BEQ .return
+                PEA.w .return-1 ; Arrange stack for RTS return
+                JMP.w (HUDHDMAPtr)
+        .return
+RTS
 
+ActivateHDMA:
+        LDX.b HDMAChannels : STX.w $420C
+RTS
 
-HUDChangePalette:
-        ;LDA.w NMIRequestFlag : BEQ .done
-        ;JSR.w FindChannel
-        ;PHX
-        ;LDA.b #$03 : STA.b ($10)
-        ;INC.b $10
-        ;LDA.b #$21 : STA.b ($10)
-        ;INC.b $10
-        ;REP #$20
-        ;LDA.w #HUDHDMAOneWRAM : STA.b ($10)
-        ;SEP #$20
-        ;INC.b $10 : INC.b $10
-        ;LDA.b #HUDHDMAOneWRAM>>16 : STA.b ($10)
-        ;PLA
-        ;ORA.b HDMAChannels : STA.b HDMAChannels
-
-        ;JSR.w FindChannel
-        ;PHX
-        ;LDA.b #$03 : STA.b ($10)
-        ;INC.b $10
-        ;LDA.b #$21 : STA.b ($10)
-        ;INC.b $10
-        ;REP #$20
-        ;LDA.w #HUDHDMATwoWRAM : STA.b ($10)
-        ;SEP #$20
-        ;INC.b $10 : INC.b $10
-        ;LDA.b #HUDHDMATwoWRAM>>16 : STA.b ($10)
-        ;PLA
-        ;ORA.b HDMAChannels : STA.b HDMAChannels
-
+SetupPaletteTransfer:
         SEP #$30
-        LDX.w TimeFrozenFlag : BNE +
-        LDX.w NMIRequestFlag : BNE +
-                REP #$30
-                RTL
-        +
+
         LDA.b #$03 : STA.w $4300
         LDA.b #$21 : STA.w $4301
         REP #$20
@@ -63,46 +48,18 @@ HUDChangePalette:
         LDA.b #HUDHDMAOneWRAM>>16 : STA.w $4304
         LDA.b #$01 : ORA.b HDMAChannels : STA.b HDMAChannels
 
-        LDA.b #$03 : STA.w $4310
-        LDA.b #$21 : STA.w $4311
+        LDX.b HDMAChannels : STX.w $420C
+
         REP #$20
-        LDA.w #HUDHDMATwoWRAM : STA.w $4312
-        SEP #$20
-        LDA.b #HUDHDMATwoWRAM>>16 : STA.w $4314
-        LDA.b #$02 : ORA.b HDMAChannels : STA.b HDMAChannels
-
-        ;LDA.b HDMAChannels : STA.w $420C
-
-        ; Initial (new) colors
-        LDA.b #$01 : STA.w $2121 ; Area Codes turquoise
-        LDA.b #$E0 : STA.w $2122 ;
-        LDA.b #$73 : STA.w $2122 ;
-        LDA.b #$03 : STA.w $2121 ;
-        LDA.b #$00 : STA.w $2122 ;
-        LDA.b #$00 : STA.w $2122 ;
-
-        LDA.b #$19 : STA.w $2121 ; Major Countdown red
-        LDA.b #$1D : STA.w $2122 ;
-        LDA.b #$08 : STA.w $2122 ;
-        LDA.b #$1A : STA.w $2121 ;
-        LDA.b #$FF : STA.w $2122 ;
-        LDA.b #$7F : STA.w $2122 ;
-
-        LDA.b #$1D : STA.w $2121 ; Tank Countdown green
-        LDA.b #$60 : STA.w $2122 ;
-        LDA.b #$02 : STA.w $2122 ;
-        LDA.b #$1E : STA.w $2121 ;
-        LDA.b #$FF : STA.w $2122 ;
-        LDA.b #$7F : STA.w $2122 ;
-
+        LDA.l PaletteBuffer+$02 : STA.l HUDHDMAOneWRAM+$26
+        LDA.l PaletteBuffer+$0A : STA.l HUDHDMAOneWRAM+$30
+        LDA.l PaletteBuffer+$0C : STA.l HUDHDMAOneWRAM+$35
+        LDA.l PaletteBuffer+$0E : STA.l HUDHDMAOneWRAM+$3A
+        LDA.l PaletteBuffer+$32 : STA.l HUDHDMAOneWRAM+$44
+        LDA.l PaletteBuffer+$34 : STA.l HUDHDMAOneWRAM+$49
+        LDA.l PaletteBuffer+$3C : STA.l HUDHDMAOneWRAM+$3F
         .done
-        REP #$30
-        ; HDMA table use vanilla palette buffer for fading color indexes we're using
-        LDA.l PaletteBuffer+$02 : STA.l HUDHDMAOneWRAM+$08
-        LDA.l PaletteBuffer+$06 : STA.l HUDHDMATwoWRAM+$08
-        LDA.l PaletteBuffer+$32 : STA.l HUDHDMAOneWRAM+$0D
-        LDA.l PaletteBuffer+$34 : STA.l HUDHDMATwoWRAM+$0D
-RTL
+RTS
 
 .door_fade
         SEP #$30
@@ -114,94 +71,62 @@ RTL
         LDA.b #HUDHDMAOneWRAM>>16 : STA.w $4304
         LDA.b #$01 : ORA.b HDMAChannels : STA.b HDMAChannels
 
-        LDA.b #$03 : STA.w $4310
-        LDA.b #$21 : STA.w $4311
+        LDX.b HDMAChannels : STX.w $420C
+
         REP #$20
-        LDA.w #HUDHDMATwoWRAM : STA.w $4312
-        SEP #$20
-        LDA.b #HUDHDMATwoWRAM>>16 : STA.w $4314
-        LDA.b #$02 : ORA.b HDMAChannels : STA.b HDMAChannels
-
-        LDA.b HDMAChannels : STA.w $420C
-
-        ; Initial (new) colors
-        LDA.b #$01 : STA.w $2121 ; Area Codes turquoise
-        LDA.b #$E0 : STA.w $2122 ;
-        LDA.b #$73 : STA.w $2122 ;
-        LDA.b #$03 : STA.w $2121 ;
-        LDA.b #$00 : STA.w $2122 ;
-        LDA.b #$00 : STA.w $2122 ;
-
-        LDA.b #$19 : STA.w $2121 ; Major Countdown red
-        LDA.b #$1D : STA.w $2122 ;
-        LDA.b #$08 : STA.w $2122 ;
-        LDA.b #$1A : STA.w $2121 ;
-        LDA.b #$FF : STA.w $2122 ;
-        LDA.b #$7F : STA.w $2122 ;
-
-        LDA.b #$1D : STA.w $2121 ; Tank Countdown green
-        LDA.b #$60 : STA.w $2122 ;
-        LDA.b #$02 : STA.w $2122 ;
-        LDA.b #$1E : STA.w $2121 ;
-        LDA.b #$FF : STA.w $2122 ;
-        LDA.b #$7F : STA.w $2122 ;
-
-        REP #$30
-        ; HDMA table use vanilla palette buffer for fading color indexes we're using
-        LDA.l PaletteBuffer+$02 : STA.l HUDHDMAOneWRAM+$08
-        LDA.l PaletteBuffer+$06 : STA.l HUDHDMATwoWRAM+$08
-        LDA.l PaletteBuffer+$32 : STA.l HUDHDMAOneWRAM+$0D
-        LDA.l PaletteBuffer+$34 : STA.l HUDHDMATwoWRAM+$0D
-RTL
+        LDA.l PaletteBuffer+$02 : STA.l HUDHDMAOneWRAM+$26
+        LDA.l PaletteBuffer+$0A : STA.l HUDHDMAOneWRAM+$08
+        LDA.l PaletteBuffer+$0C : STA.l HUDHDMAOneWRAM+$30
+        LDA.l PaletteBuffer+$0E : STA.l HUDHDMAOneWRAM+$35
+        LDA.l PaletteBuffer+$32 : STA.l HUDHDMAOneWRAM+$3A
+        LDA.l PaletteBuffer+$34 : STA.l HUDHDMAOneWRAM+$44
+        LDA.l PaletteBuffer+$3C : STA.l HUDHDMAOneWRAM+$38
+RTS
 
 .door
         ; Screen has faded and is mostly black
-        SEP #$20
-        LDA.b #$03 : STA.w $4350
-        LDA.b #$21 : STA.w $4351
+        SEP #$30
+        LDA.b #$03 : STA.w $4300
+        LDA.b #$21 : STA.w $4301
         REP #$20
-        LDA.w #HUDHDMAOneWRAM : STA.w $4352
+        LDA.w #HUDHDMAOneWRAM : STA.w $4302
         SEP #$20
-        LDA.b #HUDHDMAOneWRAM>>16 : STA.w $4354
-        LDA.b #$20 : ORA.b HDMAChannels : STA.b HDMAChannels
+        LDA.b #HUDHDMAOneWRAM>>16 : STA.w $4304
+        LDA.b #$01 : ORA.b HDMAChannels : STA.b HDMAChannels
 
-        LDA.b #$03 : STA.w $4340
-        LDA.b #$21 : STA.w $4341
-        REP #$20
-        LDA.w #HUDHDMATwoWRAM : STA.w $4342
-        SEP #$20
-        LDA.b #HUDHDMATwoWRAM>>16 : STA.w $4344
-        LDA.b #$10 : ORA.b HDMAChannels : STA.b HDMAChannels
-
-        LDA.b HDMAChannels : STA.w $420C
-
-        LDA.b #$01 : STA.w $2121 ; Area Codes turquoise
-        LDA.b #$E0 : STA.w $2122 ;
-        LDA.b #$73 : STA.w $2122 ;
-        LDA.b #$03 : STA.w $2121 ;
-        LDA.b #$00 : STA.w $2122 ;
-        LDA.b #$00 : STA.w $2122 ;
-
-        LDA.b #$19 : STA.w $2121 ; Major Countdown red
-        LDA.b #$1D : STA.w $2122 ;
-        LDA.b #$08 : STA.w $2122 ;
-        LDA.b #$1A : STA.w $2121 ;
-        LDA.b #$FF : STA.w $2122 ;
-        LDA.b #$7F : STA.w $2122 ;
-
-        LDA.b #$1D : STA.w $2121 ; Tank Countdown green
-        LDA.b #$60 : STA.w $2122 ;
-        LDA.b #$02 : STA.w $2122 ;
-        LDA.b #$1E : STA.w $2121 ;
-        LDA.b #$FF : STA.w $2122 ;
-        LDA.b #$7F : STA.w $2122 ;
+        LDX.b HDMAChannels : STX.w $420C
 
         REP #$20
-        LDA.w #$0000 : STA.l HUDHDMAOneWRAM+$08
-        LDA.w #$0000 : STA.l HUDHDMATwoWRAM+$08
-        LDA.w #$0000 : STA.l HUDHDMATwoWRAM+$0D
-        LDA.w #$0000 : STA.l HUDHDMATwoWRAM+$12
-RTL
+        LDA.w #$0000
+        STA.l HUDHDMAOneWRAM+$21
+        STA.l HUDHDMAOneWRAM+$26
+        STA.l HUDHDMAOneWRAM+$2B
+        STA.l HUDHDMAOneWRAM+$30
+        STA.l HUDHDMAOneWRAM+$3A
+        STA.l HUDHDMAOneWRAM+$3F
+RTS
+
+.door_transition
+        SEP #$30
+        LDA.b #$03 : STA.w $4300
+        LDA.b #$21 : STA.w $4301
+        REP #$20
+        LDA.w #HUDHDMAOneWRAM : STA.w $4302
+        SEP #$20
+        LDA.b #HUDHDMAOneWRAM>>16 : STA.w $4304
+        LDA.b #$01 : ORA.b HDMAChannels : STA.b HDMAChannels
+
+        LDX.b HDMAChannels : STX.w $420C
+
+        REP #$20
+        LDA.w #$0000
+        STA.l HUDHDMAOneWRAM+$21
+        STA.l HUDHDMAOneWRAM+$26
+        STA.l HUDHDMAOneWRAM+$2B
+        STA.l HUDHDMAOneWRAM+$30
+        STA.l HUDHDMAOneWRAM+$3A
+        STA.l HUDHDMAOneWRAM+$3F
+RTS
 
 .pause
         SEP #$30
@@ -213,103 +138,131 @@ RTL
         LDA.b #HUDHDMAOneWRAM>>16 : STA.w $4344
         LDA.b #$10 : ORA.b HDMAChannels : STA.b HDMAChannels
 
-        LDA.b #$03 : STA.w $4350
-        LDA.b #$21 : STA.w $4351
-        REP #$20
-        LDA.w #HUDHDMATwoWRAM : STA.w $4352
-        SEP #$20
-        LDA.b #HUDHDMATwoWRAM>>16 : STA.w $4354
-        LDA.b #$20 : ORA.b HDMAChannels : STA.b HDMAChannels
-
         LDA.b HDMAChannels : STA.w $420C
 
-        ; Initial (new) colors
-        LDA.b #$01 : STA.w $2121 ; Area Codes turquoise
-        LDA.b #$E0 : STA.w $2122 ;
-        LDA.b #$73 : STA.w $2122 ;
-        LDA.b #$03 : STA.w $2121 ;
-        LDA.b #$00 : STA.w $2122 ;
-        LDA.b #$00 : STA.w $2122 ;
-
-        LDA.b #$19 : STA.w $2121 ; Major Countdown red
-        LDA.b #$1D : STA.w $2122 ;
-        LDA.b #$08 : STA.w $2122 ;
-        LDA.b #$1A : STA.w $2121 ;
-        LDA.b #$FF : STA.w $2122 ;
-        LDA.b #$7F : STA.w $2122 ;
-
-        LDA.b #$1D : STA.w $2121 ; Tank Countdown green
-        LDA.b #$60 : STA.w $2122 ;
-        LDA.b #$02 : STA.w $2122 ;
-        LDA.b #$1E : STA.w $2121 ;
-        LDA.b #$FF : STA.w $2122 ;
-        LDA.b #$7F : STA.w $2122 ;
-
         REP #$30
-        ; HDMA table use vanilla palette buffer for fading color indexes we're using
-        LDA.l PaletteBuffer+$02 : STA.l HUDHDMAOneWRAM+$08
-        LDA.l PaletteBuffer+$06 : STA.l HUDHDMATwoWRAM+$08
-        LDA.l PaletteBuffer+$32 : STA.l HUDHDMAOneWRAM+$0D
-        LDA.l PaletteBuffer+$34 : STA.l HUDHDMATwoWRAM+$0D
+        LDA.l PaletteBuffer+$02 : STA.l HUDHDMAOneWRAM+$26
+        LDA.l PaletteBuffer+$0A : STA.l HUDHDMAOneWRAM+$30
+        LDA.l PaletteBuffer+$0C : STA.l HUDHDMAOneWRAM+$35
+        LDA.l PaletteBuffer+$0E : STA.l HUDHDMAOneWRAM+$3A
+        LDA.l PaletteBuffer+$32 : STA.l HUDHDMAOneWRAM+$44
+        LDA.l PaletteBuffer+$34 : STA.l HUDHDMAOneWRAM+$49
+        LDA.l PaletteBuffer+$3C : STA.l HUDHDMAOneWRAM+$3F
 RTL
 
 HUDHDMAOne:
-db 15 : dw $0F0F : dw $0000 ; Scanline 0
-db 08 : dw $0101 : dw $0BB1 ; Scanline 14
-db 07 : dw $1919 : dw $5AD6 ; Scanline 23
-db 01 : dw $1D1D : dw $02DF ; Scanline 30
-dw 00
+;-New Colors
+db 01 : dw $0101 : dw $73E0 ; Scanline 0  ; $00
+db 01 : dw $0505 : dw $0260 ; Scanline 1  ; $05
+db 01 : dw $0606 : dw $7FFF ; Scanline 2  ; $0A
+db 01 : dw $0707 : dw $0000 ; Scanline 3  ; $0F
+db 01 : dw $1919 : dw $5EF7 ; Scanline 4  ; $14
+db 01 : dw $1A1A : dw $7FFF ; Scanline 5  ; $19
+db 08 : dw $1E1E : dw $7FFF ; Scanline 6  ; $1E
+;-Vanilla Replacement
+db 01 : dw $0101 : dw $02DF ; Scanline 14 ; $23
+db 06 : dw $0F0F : dw $0000 ; Scanline 15 ; $28
+db 01 : dw $0606 : dw $2D08 ; Scanline 22 ; $32
+db 01 : dw $0505 : dw $41AD ; Scanline 21 ; $2D
+db 06 : dw $0707 : dw $1863 ; Scanline 23 ; $37
+db 01 : dw $1E1E : dw $001F ; Scanline 29 ; $3C
+db 01 : dw $1919 : dw $5AD6 ; Scanline 30 ; $41
+db 01 : dw $1A1A : dw $4A52 ; Scanline 31 ; $46
+db 00                                     ; $4B
 
-HUDHDMATwo:
-db 15 : dw $0F0F : dw $0000 ; Scanline 0
-db 08 : dw $0303 : dw $0145 ; Scanline 14
-db 07 : dw $1A1A : dw $4A52 ; Scanline 23
-db 01 : dw $1E1E : dw $001F ; Scanline 30
-dw 00
+HUDHDMATwo: ; Reserved
+db 01 : dw $0000 : dw $0000 ; Scanline 0  ; $00
+db 01 : dw $0000 : dw $0000 ; Scanline 1  ; $05
+db 01 : dw $0000 : dw $0000 ; Scanline 2  ; $0A
+db 01 : dw $0000 : dw $0000 ; Scanline 3  ; $0F
+db 01 : dw $0000 : dw $0000 ; Scanline 4  ; $14
+db 01 : dw $0000 : dw $0000 ; Scanline 5  ; $19
+db 08 : dw $0000 : dw $0000 ; Scanline 6  ; $1E
+db 01 : dw $0000 : dw $0000 ; Scanline 14 ; $23
+db 06 : dw $0000 : dw $0000 ; Scanline 15 ; $28
+db 01 : dw $0000 : dw $0000 ; Scanline 22 ; $32
+db 01 : dw $0000 : dw $0000 ; Scanline 21 ; $2D
+db 06 : dw $0000 : dw $0000 ; Scanline 23 ; $37
+db 01 : dw $0000 : dw $0000 ; Scanline 29 ; $3C
+db 01 : dw $0000 : dw $0000 ; Scanline 30 ; $41
+db 01 : dw $0000 : dw $0000 ; Scanline 31 ; $46
+db 00                                     ; $4B
 
 SetHDMAPointerLoad:
-        LDA.w #HUDChangePalette : STA.w HUDHDMAPtr
+        LDA.w #SetupPaletteTransfer : STA.w HUDHDMAPtr
         LDA.w #$0007 : STA.w GameState ; What we wrote over
 RTL
 
 SetHDMAPointerDoorFadeOut:
-        LDA.w #HUDChangePalette_door_fade : STA.w HUDHDMAPtr
+        LDA.w #SetupPaletteTransfer : STA.w HUDHDMAPtr
         LDA.w #$0009 : STA.w GameState ; What we wrote over
 RTL
 
 SetHDMAPointerDoorFadeIn:
-        LDA.w #HUDChangePalette_door_fade : STA.w HUDHDMAPtr
-        LDA.w #$E659 : STA.w DoorTransitionPtr ; What we wrote over
+        LDA.w #SetupPaletteTransfer_door_fade : STA.w HUDHDMAPtr
+        LDA.w #$E737 : STA.w DoorTransitionPtr ; What we wrote over
 RTL
 
 SetHDMAPointerDoorStart:
-        LDA.w #HUDChangePalette_door : STA.w HUDHDMAPtr
-        LDA.w #$E353 : STA.w DoorTransitionPtr ; What we wrote over
+        LDA.w #SetupPaletteTransfer_done : STA.w HUDHDMAPtr
+        LDA.w #$E310 : STA.w DoorTransitionPtr ; What we wrote over
 RTL
 
 SetHDMAPointerDoorEnd:
-        LDA.w #HUDChangePalette : STA.w HUDHDMAPtr
+        LDA.w #SetupPaletteTransfer : STA.w HUDHDMAPtr
         LDA.w #$0008 : STA.w GameState
 RTL
 
 SetHDMAPointerPause:
-        LDA.w #HUDChangePalette_pause : STA.w HUDHDMAPtr
+        LDA.w #SetupPaletteTransfer : STA.w HUDHDMAPtr
         STZ.w ScreenFadeCounter : INC.w GameState ; What we wrote over
 RTL
 
 SetHDMAPointerUnpause:
-        LDA.w #HUDChangePalette : STA.w HUDHDMAPtr
+        LDA.w #SetupPaletteTransfer : STA.w HUDHDMAPtr
         STZ.w ScreenFadeCounter : INC.w GameState ; What we wrote over
+RTL
+
+SetHDMAPointerDoorDark:
+        LDA.w #SetupPaletteTransfer_door_transition : STA.w HUDHDMAPtr
+        LDA.w #$E36E : STA.w DoorTransitionPtr ; What we wrote over
+RTL
+
+SetHDMAPointerEnding:
+        LDA.w #ActivateHDMA : STA.w HUDHDMAPtr
+        LDA.w #$0027 : STA.w GameState ; What we wrote over
 RTL
 
 MessageBoxHDMA:
                 LDA.b #$03 : STA.w $4300
                 LDA.b #$21 : STA.w $4301
                 REP #$20
-                LDA.w #HUDHDMAOne : STA.w $4302
+                LDA.w #HUDHDMAOneWRAM : STA.w $4302
                 SEP #$20
-                LDA.b #HUDHDMAOne>>16 : STA.w $4304
+                LDA.b #HUDHDMAOneWRAM>>16 : STA.w $4304
                 LDA.b #$41 : STA.w $420C ; What we wrote over
+RTL
+
+MessageBoxInitHDMA:
+                SEP #$20 ; What we wrote over
+                LDA.b #$03 : STA.w $4300
+                LDA.b #$21 : STA.w $4301
+                REP #$20
+                LDA.w #HUDHDMAOneWRAM : STA.w $4302
+                SEP #$20
+                LDA.b #HUDHDMAOneWRAM>>16 : STA.w $4304
+                LDA.b #$01 : STA.w $420C ; What we wrote over
+RTL
+
+MessageBoxCloseHDMA:
+                SEP #$20 ; What we wrote over
+                LDA.b #$03 : STA.w $4300
+                LDA.b #$21 : STA.w $4301
+                REP #$20
+                LDA.w #HUDHDMAOneWRAM : STA.w $4302
+                SEP #$20
+                LDA.b #HUDHDMAOneWRAM>>16 : STA.w $4304
+                LDA.b #$01 : STA.w $420C ; What we wrote over
 RTL
 
 FindChannel:
@@ -328,16 +281,3 @@ FindChannel:
         SEP #$30
 RTS
 
-; Vanilla palette colors
-; dw $0000, $02DF, $01D7, $00AC, $5A73, $41AD, $2D08, $1863, $0BB1, $48FB, $7FFF, $0000, $7FFF, $44E5, $7FFF, $0000
-; dw $2003, $0BB1, $1EA9, $0145, $5EBB, $3DB3, $292E, $1486, $6318, $5AD6, $4A52, $0000, $7FFF, $02DF, $001F, $0000
-
-; NOTES
-;
-; water fx - 2 3 4 5 7
-;
-;
-;
-;
-;
-;

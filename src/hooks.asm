@@ -23,8 +23,6 @@ org $809590
 JSL.l NMIHook
 org $8095F7
 JSL.l PostNMIHook : NOP
-org $8095E7
-NOP #3
 
 ;------------------------------------------------------------------------------
 ; Game State Initialization (doors, etc)
@@ -183,9 +181,12 @@ LDA.w #$C062 : JSR.w CheckEquipmentBitmask
 org $82B542
 LDA.w #$C062 : JSR.w CheckEquipmentBitmask
 
-org $82AFD6
-JSR.w SetHUDFlagWeapons
-
+org $82AFD3
+JSR.w SetHUDFlagMenu
+org $82B0CD
+JSR.w SetHUDFlagMenu
+org $82B15B
+JSR.w SetHUDFlagMenu
 
 ;------------------------------------------------------------------------------
 ; Credits
@@ -334,6 +335,7 @@ org $A48A7F : NOP #4 ; Skip mini map boss rooms
 org $A586F7 : NOP #4
 org $A6A122 : NOP #4
 org $A7AA7C : NOP #4
+org $A7CE24 : NOP #4
 org $A98809 : NOP #4
 
 org $82800E
@@ -346,22 +348,33 @@ org $828D1D
 JSR.W LoadPauseTilesExpanded : NOP
 org $8583BF
 JSL.l MessageBoxHDMA : NOP
+org $85814B
+JSL.l MessageBoxInitHDMA : NOP
+org $85865C
+NOP #3
 
 ; HUD HDMA command pointer hooks
 org $828106
 JSL.l SetHDMAPointerLoad : NOP #2
-org $82E34C
-JSL.l SetHDMAPointerDoorStart : NOP #2
-org $82E764
-JSL.l SetHDMAPointerDoorFadeIn : NOP #2
-org $82E764
-JSL.l SetHDMAPointerDoorEnd : NOP #2
+;org $82E309
+;JSL.l SetHDMAPointerDoorStart : NOP #2
+;org $82E729
+;JSL.l SetHDMAPointerDoorFadeIn : NOP #2
+;org $82E764
+;JSL.l SetHDMAPointerDoorEnd : NOP #2
 org $828CE7
 JSL.l SetHDMAPointerPause : NOP #2
 org $829343
 JSL.l SetHDMAPointerUnpause : NOP #2
-org $9493B5
-JSL.l SetHDMAPointerDoorFadeOut : NOP #2
+;org $9493B5
+;JSL.l SetHDMAPointerDoorFadeOut : NOP #2
+;org $82E367
+;JSL.l SetHDMAPointerDoorDark : NOP #2
+org $828500
+JSL.l SetHDMAPointerEnding : NOP #2
+
+org $8095DE
+JSR.w HUDHDMACommand
 
 ;------------------------------------------------------------------------------
 ; Message Boxes

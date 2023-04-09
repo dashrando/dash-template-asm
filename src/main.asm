@@ -87,8 +87,10 @@ org $8DC696
 incsrc data/logofadeobject.asm
 
 org $8EE600
-HUDTiles:
-incbin data/hudtiles.bin ; $200 bytes or 32 2bpp tiles allocated in this file
+HUDTilesAlphabet:
+incbin data/hudtiles_alphabet.bin ; $200 bytes or 32 2bpp tiles
+HUDTilesIcons:
+incbin data/hudtiles_icons.bin ; $200 bytes or 32 2bpp tiles
 CreditsCharacters:
 incbin data/slash_char.bin
 warnpc $8F8000

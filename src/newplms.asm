@@ -215,6 +215,7 @@ CollectEquipment:
         JSL.l SetRoomFlags
         LDA.w $0002,Y : AND.w #$00FF : TAX
         JSL.l ShowMessage
+        INC.w HUDDrawFlag
         INY #3
 RTS
 

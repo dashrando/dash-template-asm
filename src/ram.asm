@@ -36,11 +36,10 @@ RoomFlags = $7E0338                  ; Used to flag gravity suit physics on room
                                      ; and relevant item pickups.
 MessageBoxFlag = $7E033A             ; $00 = No message box | $01 = Message box on screen
 HUDDrawFlag = $7E033C                ; Flags whether HUD item counts need to be updated.
-HUDHDMAPtr = $7E033E                 ; Pointer to HUD HDMA command run in post-NMI hook.
+HUDHDMAPtr = $7E033E                 ; Pointer to HUD HDMA command run when vanilla writes to $420C
 PowerBombStatus = $7E0592            ; $4000 = pending | $8000 = exploding/cf
 NMIRequestFlag = $7E05B4             ;
 NMICounter = $7E05B8                 ;
-HUDColorsPtr = $7E0594               ; Pointer to routine that sets up colors for the next frame
 MusicQueue = $7E0619                 ; Word-length music queue entries. $0F bytes
 MusicQueueTimers = $7E0629           ; Word-length queue timers. $0F bytes
 MusicQueueWrite = $7E0639            ; Index of next available position to write. Word length
@@ -115,8 +114,8 @@ BootTest: skip 4                     ; Used to determine cold boot vs soft reset
 BootTestInverse: skip 4              ;
 ColdBootFlag: skip 2                 ;
 CreditsScrollSpeed: skip 2           ;
-HUDHDMAOneWRAM: skip 22              ;
-HUDHDMATwoWRAM: skip 22              ;
+HUDHDMAOneWRAM: skip $4C             ;
+HUDHDMATwoWRAM: skip $4C             ;
 base off
 
 pullpc

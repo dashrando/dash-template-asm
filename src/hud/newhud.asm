@@ -107,6 +107,7 @@ DrawNewHUD:
                 JSR.w NewHUDCharge
                 JSR.w NewHUDCounts
                 JSR.w NewHUDArea
+                JSR.w NewHUDItems
                 STZ.w HUDDrawFlag
         +
         LDA.w #$9DD3 ; What we wrote over
@@ -135,15 +136,15 @@ RTS
 NewHUDCounts:
         LDA.w SubAreaIndex : ASL : TAX : TAY
         LDA.l MajorCounters,X : ASL #2 : TAX
-        LDA.w CountdownDigits,X : ORA.w #$1800 : STA.l RightHUDOne+$06
+        LDA.w CountdownDigits,X : ORA.w #$0400 : STA.l RightHUDOne+$0A
         INX #2
-        LDA.w CountdownDigits,X : ORA.w #$1800 : STA.l RightHUDOne+$08
+        LDA.w CountdownDigits,X : ORA.w #$0400 : STA.l RightHUDOne+$0C
 
         TYX
         LDA.l TankCounters,X : ASL #2 : TAX
-        LDA.w CountdownDigits,X : ORA.w #$1C00 : STA.l RightHUDOne+$0A
+        LDA.w CountdownDigits,X : ORA.w #$0400 : STA.l RightHUDTwo+$0A
         INX #2
-        LDA.w CountdownDigits,X : ORA.w #$1C00 : STA.l RightHUDOne+$0C
+        LDA.w CountdownDigits,X : ORA.w #$0400 : STA.l RightHUDTwo+$0C
 RTS
 
 InitRightHUDTiles:
@@ -161,6 +162,9 @@ InitRightHUDTiles:
         LDA.w #$2C11
         STA.l RightHUDThree
 
+        LDA.w #$3867 : STA.l RightHUDOne+$08
+        LDA.w #$3866 : STA.l RightHUDTwo+$08
+
 RTL
 
 NewHUDArea:
@@ -171,38 +175,75 @@ NewHUDArea:
 
 RTS
 
+NewHUDItems:
+        LDA.w DashItemsEquipped : BEQ .none
+                TAY
+                LDX.w #HUDItemTiles+$00
+                BIT #$0020 : BEQ +
+                        INX #2
+                +
+                LDA.w $0000,X : STA.l RightHUDThree+$02
+                LDX.w #HUDItemTiles+$04
+                TYA
+                BIT #$0001 : BEQ +
+                        INX #2
+                +
+                LDA.w $0000,X : STA.l RightHUDThree+$04
+                LDX.w #HUDItemTiles+$08
+                TYA
+                BIT #$0200 : BEQ +
+                        INX #2
+                +
+                LDA.w $0000,X : STA.l RightHUDThree+$06
+                RTS
+        .none
+        LDA.w #$3460 : STA.l RightHUDThree+$02
+        LDA.w #$3462 : STA.l RightHUDThree+$06
+        LDA.w #$3464 : STA.l RightHUDThree+$04
+RTS
+
 RedDigits:
 dw $2809, $2800, $2801, $2802, $2803, $2804, $2805, $2806, $2807, $2808
 
 HUDAreaCodes:
-dw $20E2, $20E0 ; CA
-dw $20E6, $20E1 ; GB
-dw $20F4, $20ED ; UN
-dw $20F6, $20F2 ; WS
-dw $20E4, $20EC ; EM
-dw $20F3, $20ED ; TN
-dw $20E2, $20F2 ; CS
-dw $20E3, $20E1 ; DB
-dw $20F1, $20E1 ; RB
-dw $20EA, $20F1 ; KR
-dw $20F6, $20EC ; WM
-dw $20EB, $20ED ; LN
-dw $20E2, $20F1 ; CR
-dw $20ED, $20EC ; NM
-dw $20F2, $20EC ; SM
+dw $2015, $2013 ; CA
+dw $2019, $2014 ; GB
+dw $2027, $2020 ; UN
+dw $2029, $2025 ; WS
+dw $2017, $201F ; EM
+dw $2026, $2020 ; TN
+dw $2015, $2025 ; CS
+dw $2016, $2014 ; DB
+dw $2024, $2014 ; RB
+dw $201D, $2024 ; KR
+dw $2029, $201F ; WM
+dw $201E, $2020 ; LN
+dw $2015, $2024 ; CR
+dw $2020, $201F ; NM
+dw $2025, $201F ; SM
 
 CountdownDigits:
 ; Need a palette ORed in if not 0
-dw $200F, $2009 ;  0
-dw $200F, $2000 ;  1
-dw $200F, $2001 ;  2
-dw $200F, $2002 ;  3
-dw $200F, $2003 ;  4
-dw $200F, $2004 ;  5
-dw $200F, $2005 ;  6
-dw $200F, $2006 ;  7
-dw $200F, $2007 ;  8
-dw $200F, $2008 ;  9
+dw $2009, $2009 ;  0
+dw $2009, $2000 ;  1
+dw $2009, $2001 ;  2
+dw $2009, $2002 ;  3
+dw $2009, $2003 ;  4
+dw $2009, $2004 ;  5
+dw $2009, $2005 ;  6
+dw $2009, $2006 ;  7
+dw $2009, $2007 ;  8
+dw $2009, $2008 ;  9
+;dw $200F, $2009 ;  0
+;dw $200F, $2000 ;  1
+;dw $200F, $2001 ;  2
+;dw $200F, $2002 ;  3
+;dw $200F, $2003 ;  4
+;dw $200F, $2004 ;  5
+;dw $200F, $2005 ;  6
+;dw $200F, $2006 ;  7
+;dw $200F, $2007 ;  8
+;dw $200F, $2008 ;  9
 dw $2000, $2009 ; 10
 dw $2000, $2000 ; 11
 dw $2000, $2001 ; 12
@@ -214,6 +255,11 @@ dw $2000, $2006 ; 17
 dw $2000, $2007 ; 18
 dw $2000, $2008 ; 19
 dw $2001, $2009 ; 20
+
+HUDItemTiles:
+dw $3460, $2C61 ; Pressure Valve
+dw $3464, $3C65 ; Heat Shield
+dw $3462, $2863 ; Double Jump
 
 pushpc
 org $80988B
