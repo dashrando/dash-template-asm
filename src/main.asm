@@ -55,7 +55,6 @@ warnpc $838000
 org $84EFE0
 incsrc newplms.asm
 incsrc fanfare.asm
-incsrc plminject.asm
 warnpc $858000
 
 org $859643
