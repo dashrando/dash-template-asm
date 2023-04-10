@@ -18,6 +18,12 @@ RTL
 PostNMIHook:
         ; End of NMI
         REP #$30
+        LDA.w NMIAux : BEQ +
+                PHK : PEA .return-1 ; Setup RTL return
+                JMP.w [NMIAux]
+                .return
+                STZ.w NMIAux
+        +
         JSR.w HandleTimersNMI
         INC.w NMICounter
 RTL

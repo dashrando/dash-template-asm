@@ -338,20 +338,11 @@ org $A7AA7C : NOP #4
 org $A7CE24 : NOP #4
 org $A98809 : NOP #4
 
-org $82800E
-JSR.w LoadStandardBG3Expanded
-org $828051
-JSR.w LoadStandardBG3Expanded
-org $809666
-JSL.l LoadHUDTilesDoors : NOP
-org $828D1D
-JSR.W LoadPauseTilesExpanded : NOP
 org $8583BF
 JSL.l MessageBoxHDMA : NOP
 org $85814B
 JSL.l MessageBoxInitHDMA : NOP
-org $85865C
-NOP #3
+org $85865C : NOP #3
 
 ; HUD HDMA command pointer hooks
 org $828106

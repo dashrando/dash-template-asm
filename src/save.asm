@@ -173,10 +173,9 @@ LoadExtendedStats:
 RTL
 
 InitHUDHDMATables:
-        LDX.w #$004A
+        LDX.w #$0054
         -
-                LDA.l HUDHDMAOne,X : STA.l HUDHDMAOneWRAM,X
-                ;LDA.l HUDHDMATwo,X : STA.l HUDHDMATwoWRAM,X
+                LDA.l HUDHDMAOne,X : STA.l HUDHDMAWRAM,X
                 DEX #2
         BPL -
 RTS

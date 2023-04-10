@@ -43,21 +43,21 @@ SetupPaletteTransfer:
         LDA.b #$03 : STA.w $4300
         LDA.b #$21 : STA.w $4301
         REP #$20
-        LDA.w #HUDHDMAOneWRAM : STA.w $4302
+        LDA.w #HUDHDMAWRAM : STA.w $4302
         SEP #$20
-        LDA.b #HUDHDMAOneWRAM>>16 : STA.w $4304
+        LDA.b #HUDHDMAWRAM>>16 : STA.w $4304
         LDA.b #$01 : ORA.b HDMAChannels : STA.b HDMAChannels
 
         LDX.b HDMAChannels : STX.w $420C
 
         REP #$20
-        LDA.l PaletteBuffer+$02 : STA.l HUDHDMAOneWRAM+$26
-        LDA.l PaletteBuffer+$0A : STA.l HUDHDMAOneWRAM+$30
-        LDA.l PaletteBuffer+$0C : STA.l HUDHDMAOneWRAM+$35
-        LDA.l PaletteBuffer+$0E : STA.l HUDHDMAOneWRAM+$3A
-        LDA.l PaletteBuffer+$32 : STA.l HUDHDMAOneWRAM+$44
-        LDA.l PaletteBuffer+$34 : STA.l HUDHDMAOneWRAM+$49
-        LDA.l PaletteBuffer+$3C : STA.l HUDHDMAOneWRAM+$3F
+        LDA.l PaletteBuffer+$02 : STA.l HUDHDMAWRAM+$2B
+        LDA.l PaletteBuffer+$0A : STA.l HUDHDMAWRAM+$3A
+        LDA.l PaletteBuffer+$0C : STA.l HUDHDMAWRAM+$35
+        LDA.l PaletteBuffer+$0E : STA.l HUDHDMAWRAM+$44
+        LDA.l PaletteBuffer+$32 : STA.l HUDHDMAWRAM+$4E
+        LDA.l PaletteBuffer+$34 : STA.l HUDHDMAWRAM+$53
+        LDA.l PaletteBuffer+$3C : STA.l HUDHDMAWRAM+$49
         .done
 RTS
 
@@ -66,21 +66,21 @@ RTS
         LDA.b #$03 : STA.w $4300
         LDA.b #$21 : STA.w $4301
         REP #$20
-        LDA.w #HUDHDMAOneWRAM : STA.w $4302
+        LDA.w #HUDHDMAWRAM : STA.w $4302
         SEP #$20
-        LDA.b #HUDHDMAOneWRAM>>16 : STA.w $4304
+        LDA.b #HUDHDMAWRAM>>16 : STA.w $4304
         LDA.b #$01 : ORA.b HDMAChannels : STA.b HDMAChannels
 
         LDX.b HDMAChannels : STX.w $420C
 
         REP #$20
-        LDA.l PaletteBuffer+$02 : STA.l HUDHDMAOneWRAM+$26
-        LDA.l PaletteBuffer+$0A : STA.l HUDHDMAOneWRAM+$08
-        LDA.l PaletteBuffer+$0C : STA.l HUDHDMAOneWRAM+$30
-        LDA.l PaletteBuffer+$0E : STA.l HUDHDMAOneWRAM+$35
-        LDA.l PaletteBuffer+$32 : STA.l HUDHDMAOneWRAM+$3A
-        LDA.l PaletteBuffer+$34 : STA.l HUDHDMAOneWRAM+$44
-        LDA.l PaletteBuffer+$3C : STA.l HUDHDMAOneWRAM+$38
+        LDA.l PaletteBuffer+$02 : STA.l HUDHDMAWRAM+$26
+        LDA.l PaletteBuffer+$0A : STA.l HUDHDMAWRAM+$08
+        LDA.l PaletteBuffer+$0C : STA.l HUDHDMAWRAM+$30
+        LDA.l PaletteBuffer+$0E : STA.l HUDHDMAWRAM+$35
+        LDA.l PaletteBuffer+$32 : STA.l HUDHDMAWRAM+$3A
+        LDA.l PaletteBuffer+$34 : STA.l HUDHDMAWRAM+$44
+        LDA.l PaletteBuffer+$3C : STA.l HUDHDMAWRAM+$38
 RTS
 
 .door
@@ -89,21 +89,21 @@ RTS
         LDA.b #$03 : STA.w $4300
         LDA.b #$21 : STA.w $4301
         REP #$20
-        LDA.w #HUDHDMAOneWRAM : STA.w $4302
+        LDA.w #HUDHDMAWRAM : STA.w $4302
         SEP #$20
-        LDA.b #HUDHDMAOneWRAM>>16 : STA.w $4304
+        LDA.b #HUDHDMAWRAM>>16 : STA.w $4304
         LDA.b #$01 : ORA.b HDMAChannels : STA.b HDMAChannels
 
         LDX.b HDMAChannels : STX.w $420C
 
         REP #$20
         LDA.w #$0000
-        STA.l HUDHDMAOneWRAM+$21
-        STA.l HUDHDMAOneWRAM+$26
-        STA.l HUDHDMAOneWRAM+$2B
-        STA.l HUDHDMAOneWRAM+$30
-        STA.l HUDHDMAOneWRAM+$3A
-        STA.l HUDHDMAOneWRAM+$3F
+        STA.l HUDHDMAWRAM+$21
+        STA.l HUDHDMAWRAM+$26
+        STA.l HUDHDMAWRAM+$2B
+        STA.l HUDHDMAWRAM+$30
+        STA.l HUDHDMAWRAM+$3A
+        STA.l HUDHDMAWRAM+$3F
 RTS
 
 .door_transition
@@ -111,21 +111,21 @@ RTS
         LDA.b #$03 : STA.w $4300
         LDA.b #$21 : STA.w $4301
         REP #$20
-        LDA.w #HUDHDMAOneWRAM : STA.w $4302
+        LDA.w #HUDHDMAWRAM : STA.w $4302
         SEP #$20
-        LDA.b #HUDHDMAOneWRAM>>16 : STA.w $4304
+        LDA.b #HUDHDMAWRAM>>16 : STA.w $4304
         LDA.b #$01 : ORA.b HDMAChannels : STA.b HDMAChannels
 
         LDX.b HDMAChannels : STX.w $420C
 
         REP #$20
         LDA.w #$0000
-        STA.l HUDHDMAOneWRAM+$21
-        STA.l HUDHDMAOneWRAM+$26
-        STA.l HUDHDMAOneWRAM+$2B
-        STA.l HUDHDMAOneWRAM+$30
-        STA.l HUDHDMAOneWRAM+$3A
-        STA.l HUDHDMAOneWRAM+$3F
+        STA.l HUDHDMAWRAM+$21
+        STA.l HUDHDMAWRAM+$26
+        STA.l HUDHDMAWRAM+$2B
+        STA.l HUDHDMAWRAM+$30
+        STA.l HUDHDMAWRAM+$3A
+        STA.l HUDHDMAWRAM+$3F
 RTS
 
 .pause
@@ -133,42 +133,42 @@ RTS
         LDA.b #$03 : STA.w $4340
         LDA.b #$21 : STA.w $4341
         REP #$20
-        LDA.w #HUDHDMAOneWRAM : STA.w $4342
+        LDA.w #HUDHDMAWRAM : STA.w $4342
         SEP #$20
-        LDA.b #HUDHDMAOneWRAM>>16 : STA.w $4344
+        LDA.b #HUDHDMAWRAM>>16 : STA.w $4344
         LDA.b #$10 : ORA.b HDMAChannels : STA.b HDMAChannels
 
         LDA.b HDMAChannels : STA.w $420C
 
         REP #$30
-        LDA.l PaletteBuffer+$02 : STA.l HUDHDMAOneWRAM+$26
-        LDA.l PaletteBuffer+$0A : STA.l HUDHDMAOneWRAM+$30
-        LDA.l PaletteBuffer+$0C : STA.l HUDHDMAOneWRAM+$35
-        LDA.l PaletteBuffer+$0E : STA.l HUDHDMAOneWRAM+$3A
-        LDA.l PaletteBuffer+$32 : STA.l HUDHDMAOneWRAM+$44
-        LDA.l PaletteBuffer+$34 : STA.l HUDHDMAOneWRAM+$49
-        LDA.l PaletteBuffer+$3C : STA.l HUDHDMAOneWRAM+$3F
+        LDA.l PaletteBuffer+$02 : STA.l HUDHDMAWRAM+$2B
+        LDA.l PaletteBuffer+$0A : STA.l HUDHDMAWRAM+$3A
+        LDA.l PaletteBuffer+$0C : STA.l HUDHDMAWRAM+$35
+        LDA.l PaletteBuffer+$0E : STA.l HUDHDMAWRAM+$44
+        LDA.l PaletteBuffer+$32 : STA.l HUDHDMAWRAM+$4E
+        LDA.l PaletteBuffer+$34 : STA.l HUDHDMAWRAM+$53
+        LDA.l PaletteBuffer+$3C : STA.l HUDHDMAWRAM+$49
 RTL
 
 HUDHDMAOne:
-;-New Colors
-db 01 : dw $0101 : dw $73E0 ; Scanline 0  ; $00
-db 01 : dw $0505 : dw $0260 ; Scanline 1  ; $05
+db 01 : dw $0101 : dw $03DD ; Scanline 0  ; $00
+db 01 : dw $0505 : dw $132E ; Scanline 1  ; $05
 db 01 : dw $0606 : dw $7FFF ; Scanline 2  ; $0A
 db 01 : dw $0707 : dw $0000 ; Scanline 3  ; $0F
-db 01 : dw $1919 : dw $5EF7 ; Scanline 4  ; $14
+db 01 : dw $1919 : dw $3B00 ; Scanline 4  ; $14
 db 01 : dw $1A1A : dw $7FFF ; Scanline 5  ; $19
-db 08 : dw $1E1E : dw $7FFF ; Scanline 6  ; $1E
-;-Vanilla Replacement
-db 01 : dw $0101 : dw $02DF ; Scanline 14 ; $23
-db 06 : dw $0F0F : dw $0000 ; Scanline 15 ; $28
-db 01 : dw $0606 : dw $2D08 ; Scanline 22 ; $32
-db 01 : dw $0505 : dw $41AD ; Scanline 21 ; $2D
-db 06 : dw $0707 : dw $1863 ; Scanline 23 ; $37
-db 01 : dw $1E1E : dw $001F ; Scanline 29 ; $3C
-db 01 : dw $1919 : dw $5AD6 ; Scanline 30 ; $41
-db 01 : dw $1A1A : dw $4A52 ; Scanline 31 ; $46
-db 00                                     ; $4B
+db 07 : dw $1E1E : dw $7FFF ; Scanline 6  ; $1E
+db 01 : dw $0F0F : dw $0000 ; Scanline 13 ; $23
+db 01 : dw $0101 : dw $02DF ; Scanline 14 ; $28
+db 06 : dw $0F0F : dw $0000 ; Scanline 15 ; $2D
+db 01 : dw $0606 : dw $2D08 ; Scanline 21 ; $32
+db 01 : dw $0505 : dw $41AD ; Scanline 22 ; $37
+db 05 : dw $1919 : dw $71C7 ; Scanline 23 ; $3C ; Pressure Valve replacement
+db 01 : dw $0707 : dw $1863 ; Scanline 28 ; $41
+db 01 : dw $1E1E : dw $001F ; Scanline 29 ; $46
+db 01 : dw $1919 : dw $5AD6 ; Scanline 30 ; $4B
+db 01 : dw $1A1A : dw $4A52 ; Scanline 31 ; $50
+db 00                                     ; $55
 
 HUDHDMATwo: ; Reserved
 db 01 : dw $0000 : dw $0000 ; Scanline 0  ; $00
@@ -188,6 +188,10 @@ db 01 : dw $0000 : dw $0000 ; Scanline 30 ; $41
 db 01 : dw $0000 : dw $0000 ; Scanline 31 ; $46
 db 00                                     ; $4B
 
+; Commands with hooks in hooks.asm on different game state changes.
+; We may not need these or their hooks. When we're finished testing the
+; countdown HUD, we can remove any we're not using (which may be most
+; of them.)
 SetHDMAPointerLoad:
         LDA.w #SetupPaletteTransfer : STA.w HUDHDMAPtr
         LDA.w #$0007 : STA.w GameState ; What we wrote over
@@ -237,9 +241,9 @@ MessageBoxHDMA:
                 LDA.b #$03 : STA.w $4300
                 LDA.b #$21 : STA.w $4301
                 REP #$20
-                LDA.w #HUDHDMAOneWRAM : STA.w $4302
+                LDA.w #HUDHDMAWRAM : STA.w $4302
                 SEP #$20
-                LDA.b #HUDHDMAOneWRAM>>16 : STA.w $4304
+                LDA.b #HUDHDMAWRAM>>16 : STA.w $4304
                 LDA.b #$41 : STA.w $420C ; What we wrote over
 RTL
 
@@ -248,9 +252,9 @@ MessageBoxInitHDMA:
                 LDA.b #$03 : STA.w $4300
                 LDA.b #$21 : STA.w $4301
                 REP #$20
-                LDA.w #HUDHDMAOneWRAM : STA.w $4302
+                LDA.w #HUDHDMAWRAM : STA.w $4302
                 SEP #$20
-                LDA.b #HUDHDMAOneWRAM>>16 : STA.w $4304
+                LDA.b #HUDHDMAWRAM>>16 : STA.w $4304
                 LDA.b #$01 : STA.w $420C ; What we wrote over
 RTL
 
@@ -259,9 +263,9 @@ MessageBoxCloseHDMA:
                 LDA.b #$03 : STA.w $4300
                 LDA.b #$21 : STA.w $4301
                 REP #$20
-                LDA.w #HUDHDMAOneWRAM : STA.w $4302
+                LDA.w #HUDHDMAWRAM : STA.w $4302
                 SEP #$20
-                LDA.b #HUDHDMAOneWRAM>>16 : STA.w $4304
+                LDA.b #HUDHDMAWRAM>>16 : STA.w $4304
                 LDA.b #$01 : STA.w $420C ; What we wrote over
 RTL
 

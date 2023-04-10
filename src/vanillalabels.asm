@@ -31,6 +31,7 @@ PlasmaSpazerMenuCheck = $82B068
 MenuCheckButton = $82B568
 DrawFileSelectMissile = $82BA6E ; long
 PlayRoomMusic = $82E118 ; long
+TransferToVRAMRoomCommand = $82E5EB
 LoadDestinationRoom = $82E76B ; long
 PLMDelete = $8486BC
 PLMPreInstruction = $8486C1

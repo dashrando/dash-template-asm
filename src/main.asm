@@ -51,7 +51,6 @@ incsrc menu.asm
 incsrc subareas.asm
 incsrc roompatching.asm
 incsrc stats/stats_doors.asm
-incsrc hud/hudupload.asm
 warnpc $838000
 
 org $84EFE0
@@ -117,6 +116,10 @@ org $9AB5C0
 incbin ../data/pbicon.bin
 org $9AB691
 incbin ../data/missileicon.bin
+org $9AB300
+incbin data/hudtiles_alphabet.bin ; $200 bytes or 32 2bpp tiles
+org $9AB800
+incbin data/hudtiles_icons.bin ; $200 bytes or 32 2bpp tiles
 
 org $A0F7D3
 incsrc enemies.asm
