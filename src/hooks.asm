@@ -367,6 +367,9 @@ JSL.l SetHDMAPointerEnding : NOP #2
 org $8095DE
 JSR.w HUDHDMACommand
 
+org $91E601 ; Samus acquiring Hyper Beam
+JSL.l UpdateHUDHyperBeam : NOP #2
+
 ;------------------------------------------------------------------------------
 ; Message Boxes
 ;------------------------------------------------------------------------------

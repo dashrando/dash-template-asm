@@ -209,6 +209,11 @@ NewHUDItems:
         LDA.w #$3464 : STA.l RightHUDThree+$04
 RTS
 
+UpdateHUDHyperBeam:
+        LDA.w #$8000 : STA.w HyperBeamFlag ; What we wrote over
+        INC.w HUDDrawFlag
+RTL
+
 RedDigits:
 dw $2809, $2800, $2801, $2802, $2803, $2804, $2805, $2806, $2807, $2808
 
