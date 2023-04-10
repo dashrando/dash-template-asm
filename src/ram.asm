@@ -68,6 +68,7 @@ SamusPaletteFlags = $7E0A4A          ; Super special Samus palette flags.
 SamusSubDamage = $7E0A4C             ; Only affected by SamusPeriodicDamage.
 PeriodicDamage = $7E0A4E             ; Periodic damage to Samus (32-bits)
 SamusKnockbackDirection  =  $7E0A52  ; Knockback direction
+HyperBeamFlag = $7E0A76              ;
 TimeFrozenFlag = $7E0A78             ;
 DoorAdjustFlag = $7E0AA4             ; Set when doors being adjusted before scrolling (for timing.)
 SamusAnimationFrame = $7E0A96        ;

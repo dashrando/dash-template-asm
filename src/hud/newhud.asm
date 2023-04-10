@@ -116,6 +116,7 @@ RTS
 ; Routine that draws the charge damage on the HUD
 NewHUDCharge:
         LDA.l ChargeMode : CMP.w #$0101 : BCC +
+                LDA.w HyperBeamFlag : BNE .hyper
                 LDA.w BeamUpgrades : XBA : ORA.w BeamsEquipped ; 000c-nnnn-0000-psiw
                 CMP.w PreviousBeams : BEQ +
                         STA.w PreviousBeams
@@ -130,6 +131,12 @@ NewHUDCharge:
                         .draw_3
                         LDX.w #$00BA
                         JSR.w HUDDrawThreeDigits
+                        BRA +
+                .hyper
+                LDA.w #$2C0F
+                STA.l RightHUDThree+$08
+                STA.l RightHUDThree+$0A
+                STA.l RightHUDThree+$0C
         +
 RTS
 
