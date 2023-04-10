@@ -56,8 +56,8 @@ endif
 %RoomEntry(Crateria, $14,  !Area_Crateria,    $00,  NoPatch) ; Blue Brinstar Elevator
 %RoomEntry(Crateria, $15,  !Area_Crateria,    $00,  NoPatch) ; Bomb Torizo
 %RoomEntry(Crateria, $16,  !Area_Crateria,    $00,  NoPatch) ; Bomb Torizo Hallway
-%RoomEntry(Crateria, $18,  !Area_Crateria,    $00,  NoPatch) ; Terminator
 %RoomEntry(Crateria, $17,  !Area_Crateria,    $00,  NoPatch) ; Crateria Map Hallway
+%RoomEntry(Crateria, $18,  !Area_Crateria,    $00,  NoPatch) ; Terminator
 %RoomEntry(Crateria, $1A,  !Area_Crateria,    $00,  NoPatch) ; Mushroom Room
 %RoomEntry(Crateria, $1B,  !Area_Crateria,    $00,  NoPatch) ; Crateria Map
 %RoomEntry(Crateria, $1C,  !Area_Crateria,    $00,  NoPatch) ; Gauntlet Missiles
@@ -94,6 +94,8 @@ endif
 %RoomEntry(Brinstar, $16,  !Area_GreenBrinstar, $00,  NoPatch) ; Big Pink Supers Hallway
 %RoomEntry(Brinstar, $17,  !Area_GreenBrinstar, $20,  Room_Waterway_Patch_01) ; Waterway
 %RoomEntry(Brinstar, $18,  !Area_Crateria,      $20,  NoPatch) ; Blue Brinstar Missiles
+%RoomEntry(Brinstar, $19,  !Area_GreenBrinstar, $20,  NoPatch) ; Big Pink Wave Gate
+%RoomEntry(Brinstar, $1A,  !Area_GreenBrinstar, $20,  NoPatch) ; Big Pink E-tank
 %RoomEntry(Brinstar, $1B,  !Area_GreenBrinstar, $00,  NoPatch) ; Big Pink Save
 %RoomEntry(Brinstar, $1C,  !Area_Crateria,      $20,  NoPatch) ; Blue Brinstar Spike Bridge
 %RoomEntry(Brinstar, $1D,  !Area_Crateria,      $00,  NoPatch) ; Billy Mays
@@ -237,7 +239,7 @@ endif
 %RoomEntry(Maridia, $0C,  !Area_WestMaridia,  $20,  NoPatch) ; Crab Shaft
 %RoomEntry(Maridia, $0D,  !Area_WestMaridia,  $20,  NoPatch) ; Beach
 %RoomEntry(Maridia, $0E,  !Area_WestMaridia,  $20,  NoPatch) ; Broken Tube
-%RoomEntry(Maridia, $0F,  !Area_WestMaridia,  $20,  NoPatch) ; Crab Room
+%RoomEntry(Maridia, $0F,  !Area_EastMaridia,  $20,  NoPatch) ; Crab Room
 %RoomEntry(Maridia, $10,  !Area_EastMaridia,  $00,  NoPatch) ; Plasma Tunnel
 %RoomEntry(Maridia, $11,  !Area_EastMaridia,  $01,  !Plasma_Patch) ; Plasma Beam
 %RoomEntry(Maridia, $12,  !Area_EastMaridia,  $20,  NoPatch) ; Thread Needle
@@ -245,7 +247,7 @@ endif
 %RoomEntry(Maridia, $14,  !Area_EastMaridia,  $20,  NoPatch) ; Plasma Spark
 %RoomEntry(Maridia, $15,  !Area_EastMaridia,  $20,  NoPatch) ; Plasma Shaft
 %RoomEntry(Maridia, $16,  !Area_WestMaridia,  $20,  NoPatch) ; Maridia Map
-%RoomEntry(Maridia, $17,  !Area_WestMaridia,  $20,  NoPatch) ; Maridia Elevator Save
+%RoomEntry(Maridia, $17,  !Area_EastMaridia,  $20,  NoPatch) ; Maridia Elevator Save
 %RoomEntry(Maridia, $18,  !Area_EastMaridia,  $20,  NoPatch) ; Big Tube
 %RoomEntry(Maridia, $19,  !Area_EastMaridia,  $20,  NoPatch) ; Bug Sand Hole
 %RoomEntry(Maridia, $1A,  !Area_EastMaridia,  $20,  NoPatch) ; Sand Hall West
