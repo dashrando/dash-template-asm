@@ -40,67 +40,114 @@ NewHUDAmmo:
 RTS
 
 .missiles
-        JSR.w NewHUDDivision
-        LDA.w HUDItemIndex : CMP.w #$0001 : BEQ +
-                LDA.w #$1400 : STA.b $18 : BRA .writemissiles
-        +
+        JSR.w MissilesHundredsDigit
+        JSR.w DivideByFive
+        ASL #2 : TAX
         LDA.w #$1000 : STA.b $18
-        .writemissiles
-        LDX.b $12 : LDA.w AmmoDigits,X : ORA.b $18 : STA.l $7EC61C
-        LDX.b $14 : LDA.w AmmoDigits,X : ORA.b $18 : STA.l $7EC61E
-        LDX.b $16 : LDA.w AmmoDigits,X : ORA.b $18 : STA.l $7EC620
+        LDA.w HUDItemIndex : CMP.w #$0001 : BEQ +
+                LDA.b $18 : ORA.w #$0400 : STA.b $18
+        +
+        LDA.b $0E : ORA.b $18 : STA.l $7EC61C
+        LDA.w MaxAmmoDigits,X : ORA.b $18 : STA.l $7EC61E
+        INX #2
+        LDA.w MaxAmmoDigits,X : ORA.b $18 : STA.l $7EC620
         LDA.w #$0049 : ORA.b $18 : STA.l $7EC65C
         LDA.w #$004A : ORA.b $18 : STA.l $7EC65E
         LDA.w #$004B : ORA.b $18 : STA.l $7EC660
 RTS
 
 .supers
-        JSR.w NewHUDDivision_by10
-        LDA.w HUDItemIndex : CMP.w #$0002 : BEQ +
-                LDA.w #$1400 : STA.b $18 : BRA .writesupers
-        +
+        JSR.w DivideByFive
+        ASL #2 : TAX
         LDA.w #$1000 : STA.b $18
-        .writesupers
-        LDX.b $14 : LDA.w AmmoDigits,X : ORA.b $18 : STA.l $7EC624
-        LDX.b $16 : LDA.w AmmoDigits,X : ORA.b $18 : STA.l $7EC626
+        LDA.w HUDItemIndex : CMP.w #$0002 : BEQ +
+                LDA.b $18 : ORA.w #$0400 : STA.b $18
+        +
+        LDA.w MaxAmmoDigits,X : ORA.b $18 : STA.l $7EC624
+        INX #2
+        LDA.w MaxAmmoDigits,X : ORA.b $18 : STA.l $7EC626
         LDA.w #$0034 : ORA.b $18 : STA.l $7EC664
         LDA.w #$0035 : ORA.b $18 : STA.l $7EC666
 RTS
 
 .pbs
-        JSR.w NewHUDDivision_by10
-        LDA.w HUDItemIndex : CMP.w #$0003 : BEQ +
-                LDA.w #$1400 : STA.b $18 : BRA .writepbs
-        +
+        JSR.w DivideByFive
+        ASL #2 : TAX
         LDA.w #$1000 : STA.b $18
-        .writepbs
-        LDX.b $14 : LDA.w AmmoDigits,X : ORA.b $18 : STA.l $7EC62A
-        LDX.b $16 : LDA.w AmmoDigits,X : ORA.b $18 : STA.l $7EC62C
+        LDA.w HUDItemIndex : CMP.w #$0003 : BEQ +
+                LDA.b $18 : ORA.w #$0400 : STA.b $18
+        +
+        LDA.w MaxAmmoDigits,X : ORA.b $18 : STA.l $7EC62A
+        INX #2
+        LDA.w MaxAmmoDigits,X : ORA.b $18 : STA.l $7EC62C
         LDA.w #$0036 : ORA.b $18 : STA.l $7EC66A
         LDA.w #$0037 : ORA.b $18 : STA.l $7EC66C
 RTS
 
-NewHUDDivision:
-        STA.w $4204
-        SEP #$20
-        LDA.b #$64 : STA.w $4206
-        REP #$20
-        PHA : PLA : NOP
-        LDA.w $4214 : ASL : STA.b $12
-        LDA.w $4216
-        
-        .by10
-        STA.w $4204
-        SEP #$20
-        LDA.b #$0A : STA.w $4206
-        REP #$20
-        PHA : PLA : NOP
-        LDA.w $4214 : ASL : STA.b $14
-        LDA.w $4216 : ASL : STA.b $16
+MissilesHundredsDigit:
+; In: A - Max missile count
+; Out: A   - Max missile count modulo 100
+;      $0E - Hundreds digit tile offset
+        TAX
+        CMP.w #0300 : BCS .300
+        CMP.w #0200 : BCS .200
+        CMP.w #0100 : BCS .100
+                LDA.w #$0045 : STA.b $0E
+                TXA
+                RTS
+        .300
+        LDA.w #$003E : STA.b $0E
+        TXA
+        SBC.w #0300
+        RTS
+        .200
+        LDA.w #$003D : STA.b $0E
+        TXA
+        SBC.w #0200
+        RTS
+        .100
+        LDA.w #$003C : STA.b $0E
+        TXA
+        SBC.w #0100
 RTS
 
-AmmoDigits:
-dw $0045, $003C, $003D, $003E, $003F, $0040, $0041, $0042, $0043, $0044
+DivideByFive:
+; From Omegamatrix on the NesDev forums
+; https://forums.nesdev.org/viewtopic.php?t=11336
+; Minor optimization made for two digit numbers.
+        STA.b $18
+        LSR
+        ADC.b $18
+        ROR
+        LSR #2
+        ADC $18
+        ROR
+        ADC $18
+        ROR
+        LSR #2
+RTS
+
+MaxAmmoDigits:
+dw $0045, $0045
+dw $0045, $0040
+dw $003C, $0045
+dw $003C, $0040
+dw $003D, $0045
+dw $003D, $0040
+dw $003E, $0045
+dw $003E, $0040
+dw $003F, $0045
+dw $003F, $0040
+dw $0040, $0045
+dw $0040, $0040
+dw $0041, $0045
+dw $0041, $0040
+dw $0042, $0045
+dw $0042, $0040
+dw $0043, $0045
+dw $0043, $0040
+dw $0044, $0045
+dw $0044, $0040
 
 DrawNewHUD:
         LDA.w HUDDrawFlag : BEQ +

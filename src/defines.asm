@@ -25,8 +25,3 @@
 !end = $f6fe, $99fe
 !blank = $1fc0
 !row = $0040
-
-; HUD
-!COUNT_MAJOR_COLOR = 0x081D
-!AREA_CODE_COLOR = 0x73E0
-!COUNT_TANK_COLOR = 0x0260
