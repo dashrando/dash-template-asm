@@ -150,25 +150,27 @@ RTS
         LDA.l PaletteBuffer+$3C : STA.l HUDHDMAWRAM+$49
 RTL
 
+; $700F - purple
+; $2873 - pink
 HUDHDMAOne:
-db 01 : dw $0101 : dw $03DD ; Scanline 0  ; $00
-db 01 : dw $0505 : dw $132E ; Scanline 1  ; $05
-db 01 : dw $0606 : dw $7FFF ; Scanline 2  ; $0A
-db 01 : dw $0707 : dw $0000 ; Scanline 3  ; $0F
-db 01 : dw $1919 : dw $3B00 ; Scanline 4  ; $14
-db 01 : dw $1A1A : dw $7FFF ; Scanline 5  ; $19
-db 07 : dw $1E1E : dw $7FFF ; Scanline 6  ; $1E
-db 01 : dw $0F0F : dw $0000 ; Scanline 13 ; $23
-db 01 : dw $0101 : dw $02DF ; Scanline 14 ; $28
-db 06 : dw $0F0F : dw $0000 ; Scanline 15 ; $2D
-db 01 : dw $0606 : dw $2D08 ; Scanline 21 ; $32
-db 01 : dw $0505 : dw $41AD ; Scanline 22 ; $37
-db 05 : dw $1919 : dw $71C7 ; Scanline 23 ; $3C ; Pressure Valve replacement
-db 01 : dw $0707 : dw $1863 ; Scanline 28 ; $41
-db 01 : dw $1E1E : dw $001F ; Scanline 29 ; $46
-db 01 : dw $1919 : dw $5AD6 ; Scanline 30 ; $4B
-db 01 : dw $1A1A : dw $4A52 ; Scanline 31 ; $50
-db 00                                     ; $55
+db 01 : dw $0101 : dw $03DD ; Scanline 0  ; $00 | Area Code Yellow
+db 01 : dw $0505 : dw $700F ; Scanline 1  ; $05 | Major Count Purple
+db 01 : dw $0606 : dw $7FFF ; Scanline 2  ; $0A | Count White
+db 01 : dw $0707 : dw $0000 ; Scanline 3  ; $0F | Count Black
+db 01 : dw $1919 : dw $3687 ; Scanline 4  ; $14 | M/E Icons Muted Green
+db 01 : dw $1A1A : dw $7FFF ; Scanline 5  ; $19 | Pessure Valve White
+db 07 : dw $1E1E : dw $7FFF ; Scanline 6  ; $1E | Heat Shield White
+db 01 : dw $0F0F : dw $0000 ; Scanline 13 ; $23 | Reserved Write
+db 01 : dw $0101 : dw $02DF ; Scanline 14 ; $28 | Vanilla Write
+db 06 : dw $0505 : dw $1C3B ; Scanline 15 ; $2D | Major Count Red
+db 01 : dw $0606 : dw $2D08 ; Scanline 21 ; $32 | Vanilla Write
+db 01 : dw $0505 : dw $41AD ; Scanline 22 ; $37 | Vanilla Write
+db 05 : dw $1919 : dw $71C7 ; Scanline 23 ; $3C | Pressure Valve Blue
+db 01 : dw $0707 : dw $1863 ; Scanline 28 ; $41 | Vanilla Write
+db 01 : dw $1E1E : dw $001F ; Scanline 29 ; $46 | Vanilla Write
+db 01 : dw $1919 : dw $5AD6 ; Scanline 30 ; $4B | Vanilla Write
+db 01 : dw $1A1A : dw $4A52 ; Scanline 31 ; $50 | Vanilla Write
+db 00                                     ; $55 | Termination Byte
 
 HUDHDMATwo: ; Reserved
 db 01 : dw $0000 : dw $0000 ; Scanline 0  ; $00
