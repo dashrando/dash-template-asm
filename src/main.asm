@@ -19,8 +19,6 @@ incsrc vanillalabels.asm
 incsrc defines.asm
 incsrc hooks.asm
 
-incsrc generalbugfixes.asm
-
 org $81EF1A : fillbyte $FF : fill $10E5 ; Sorry Genji
 org $DF8000 : fillbyte $FF : fill $7FFF
 
@@ -38,6 +36,7 @@ incsrc framehook.asm
 incsrc stats/stats.asm
 incsrc hud/newhud.asm
 incsrc hud/palettehdma.asm
+incsrc generalbugfixes.asm
 warnpc $80FFC0 ; SNES ROM Header
 
 org $81EF1A

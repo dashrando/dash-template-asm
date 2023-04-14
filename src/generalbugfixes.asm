@@ -3,6 +3,12 @@
 ;------------------------------------------------------------------------------
 ; Small fixes, "common" Super Meroid randomizer patches.
 ;------------------------------------------------------------------------------
+
+FixDoorBG1Scroll:
+        LDA.w BG1XScroll : AND.w #$FF00
+        SEC
+RTS
+
 pushpc
 
 ; Disable Space/Time select in menu

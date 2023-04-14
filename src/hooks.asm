@@ -412,5 +412,11 @@ JSR.w HandleRoomMusicPickup : NOP #4
 org $8B9CAF
 JSL.l LoadTitleLogo
 
+;------------------------------------------------------------------------------
+; Misc
+;------------------------------------------------------------------------------
+org $80AE29
+JSR.w FixDoorBG1Scroll
+
 
 pullpc
