@@ -5,65 +5,42 @@
 ;------------------------------------------------------------------------------
 ; Draw Game Hash Code
 ;------------------------------------------------------------------------------
-;TODO: Refactor
 DrawFileSelectHash:
-        PHA : PHX : PHP
-        REP #$30
-        
-        LDA.l FileSelectCode : AND.w #$001F
-        ASL #3 : TAY
-        LDX.w #$0000
-        -
-        LDA.w WordTable,Y : AND.w #$00FF
-        ASL
-        PHX : TAX
-        LDA.w CharTable,X
-        PLX
-        STA.l $7FC052,X
-        INX #2 : INY
-        CPX.w #$000E : BNE -
-        
-        LDA.l FileSelectCode+$01 : AND.w #$001F
-        ASL #3 : TAY
-        LDX.w #$0000
-        -
-        LDA.w WordTable,Y : AND.w #$00FF
-        ASL
-        PHX : TAX
-        LDA.w CharTable,X
-        PLX
-        STA.l $7FC060,X
-        INX #2 : INY
-        CPX.w #$000E : BNE -
-        
-        LDA.l FileSelectCode+$02 : AND.w #$001F
-        ASL #3 : TAY
-        LDX.w #$0000
-        -
-        LDA.w WordTable,Y : AND.w #$00FF
-        ASL
-        PHX : TAX
-        LDA.w CharTable,X
-        PLX
-        STA.l $7FC092,X
-        INX #2 : INY
-        CPX.w #$000E : BNE -
+        PHX
+        LDA.w #$007F : STA.b $0A
 
+        LDA.w #$C052 : STA.b $08
+        LDA.l FileSelectCode : AND.w #$001F
+        JSR.w WriteHashTiles
+
+        LDA.w #$C060 : STA.b $08
+        LDA.l FileSelectCode+$01 : AND.w #$001F
+        JSR.w WriteHashTiles
+
+        LDA.w #$C092 : STA.b $08
+        LDA.l FileSelectCode+$02 : AND.w #$001F
+        JSR.w WriteHashTiles
+
+        LDA.w #$C0A0 : STA.b $08
         LDA.l FileSelectCode+$03 : AND.w #$001F
-        ASL #3 : TAY
-        LDX.w #$0000
-        -
-        LDA.w WordTable,Y : AND.w #$00FF
-        ASL
-        PHX : TAX
-        LDA.w CharTable,X
+        JSR.w WriteHashTiles
+
         PLX
-        STA.l $7FC0A0,X
-        INX #2 : INY
-        CPX.w #$000E : BNE -
-    
-        PLP : PLX : PLA
         LDX.w #$07FE
+RTS
+
+WriteHashTiles:
+        ASL #3 : ADC.w #$0007 : TAX
+        LDY.w #$000E
+        -
+                LDA.w WordTable,X : AND.w #$00FF
+                ASL
+                PHY : TAY
+                LDA.w CharTable,Y
+                PLY
+                STA.b [$08],Y
+                DEX : DEY #2
+        BPL -
 RTS
 
 CharTable:

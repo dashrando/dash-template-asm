@@ -2,8 +2,8 @@
 ; Doors
 ;------------------------------------------------------------------------------
 PreOpenG4:
-        LDA.l BossFlagsVanilla : BIT.w #$0100 : BEQ +
-        LDA.l BossFlagsVanilla+$02 : AND.w #$0101 : CMP.w #$0101 : BNE +
+        LDA.l BossFlagsVanilla+$01 : AND.w #$0101 : CMP.w #$0101 : BNE +
+        LDA.l BossFlagsVanilla+$03 : AND.w #$0101 : CMP.w #$0101 : BNE +
         LDA.l EventFlags
         ORA.w #$0400
         STA.l EventFlags
