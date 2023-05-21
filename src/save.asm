@@ -16,6 +16,7 @@ LoadSaveExpanded:
                 DEC
                 JSL.l LoadExtendedStats
         +
+        LDA.l CurrentSaveSlotSRAM : DEC
         JSR.w LoadExtendedData
         PHK : PLB
         LDA.w FileSelectCursor
