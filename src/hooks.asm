@@ -316,8 +316,8 @@ db $36,$30,$37,$30
 ; Item counts
 org $848983
 JMP.w DecrementTankCount
-org $8489A6
-JMP.w DecrementTankCount
+;org $8489A6
+;JMP.w DecrementTankCount
 org $8488F0
 JMP.w DecrementMajorCountHUDBeam
 org $84893E

@@ -240,6 +240,7 @@ CollectBeam:
                 LDA.w #$0168
                 JSL.l PlayRoomMusic
         +
+        JSR.w DecrementMajorCount
         LDA.w $0002,Y : AND.w #$00FF : TAX
         JSL.l ShowMessage
         INC.w HUDDrawFlag

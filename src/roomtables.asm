@@ -33,39 +33,40 @@ endif
 
 ; Crateria
 ;          Area      index  sub_areas      room_flags  room_patches
-%RoomEntry(Crateria, $00,  !Area_Crateria,    $00,  NoPatch) ; Landing Site
-%RoomEntry(Crateria, $01,  !Area_Crateria,    $00,  NoPatch) ; Gauntlet Front
-%RoomEntry(Crateria, $02,  !Area_Crateria,    $00,  NoPatch) ; Parlor
-%RoomEntry(Crateria, $03,  !Area_Crateria,    $00,  NoPatch) ; Landing Site PBs
-%RoomEntry(Crateria, $04,  !Area_Crateria,    $00,  NoPatch) ; Parlor Save
-%RoomEntry(Crateria, $05,  !Area_WreckedShip, $20,  NoPatch) ; Wrecked Ship Front
-%RoomEntry(Crateria, $06,  !Area_WreckedShip, $20,  NoPatch) ; Pre-Bowling Pancake Room
-%RoomEntry(Crateria, $07,  !Area_Crateria,    $00,  NoPatch) ; Right Side Junction
-%RoomEntry(Crateria, $08,  !Area_EastMaridia, $00,  NoPatch) ; Maridia Elevator Top
-%RoomEntry(Crateria, $09,  !Area_WreckedShip, $20,  NoPatch) ; Wrecked Ship Back Exit
-%RoomEntry(Crateria, $0A,  !Area_WreckedShip, $00,  NoPatch) ; Wrecked Ship Back Tunnel
-%RoomEntry(Crateria, $0B,  !Area_WreckedShip, $20,  NoPatch) ; Wrecked Ship Back Maze
-%RoomEntry(Crateria, $0C,  !Area_EastMaridia, $00,  NoPatch) ; East Maridia Back Corner
-%RoomEntry(Crateria, $0D,  !Area_Crateria,    $20,  NoPatch) ; Tunnel Right of Ship
-%RoomEntry(Crateria, $0E,  !Area_Crateria,    $20,  Room_Moat_Patch_01) ; Moat
-%RoomEntry(Crateria, $0F,  !Area_Crateria,    $00,  NoPatch) ; Red Brinstar Elevator
-%RoomEntry(Crateria, $10,  !Area_Crateria,    $00,  NoPatch) ; Gauntlet E-Tank
-%RoomEntry(Crateria, $11,  !Area_WreckedShip, $00,  NoPatch) ; Lonely Crab
-%RoomEntry(Crateria, $12,  !Area_Crateria,    $00,  NoPatch) ; Climb
-%RoomEntry(Crateria, $13,  !Area_Crateria,    $00,  NoPatch) ; Old Tourian
-%RoomEntry(Crateria, $14,  !Area_Crateria,    $00,  NoPatch) ; Blue Brinstar Elevator
-%RoomEntry(Crateria, $15,  !Area_Crateria,    $00,  NoPatch) ; Bomb Torizo
-%RoomEntry(Crateria, $16,  !Area_Crateria,    $00,  NoPatch) ; Bomb Torizo Hallway
-%RoomEntry(Crateria, $17,  !Area_Crateria,    $00,  NoPatch) ; Crateria Map Hallway
-%RoomEntry(Crateria, $18,  !Area_Crateria,    $00,  NoPatch) ; Terminator
-%RoomEntry(Crateria, $1A,  !Area_Crateria,    $00,  NoPatch) ; Mushroom Room
-%RoomEntry(Crateria, $1B,  !Area_Crateria,    $00,  NoPatch) ; Crateria Map
-%RoomEntry(Crateria, $1C,  !Area_Crateria,    $00,  NoPatch) ; Gauntlet Missiles
-%RoomEntry(Crateria, $1D,  !Area_Crateria,    $00,  NoPatch) ; Climb Supers
-%RoomEntry(Crateria, $1E,  !Area_Crateria,    $00,  NoPatch) ; 230 Missiles Tunnel
-%RoomEntry(Crateria, $1F,  !Area_Crateria,    $00,  NoPatch) ; 230 Missiles
-%RoomEntry(Crateria, $30,  !Area_Tourian,     $00,  NoPatch) ; Tourian Hallway
-%RoomEntry(Crateria, $33,  !Area_Tourian,     $20,  NoPatch) ; Tourian Elevator Top
+%RoomEntry(Crateria, $00,  !Area_Crateria,      $00,  NoPatch) ; Landing Site
+%RoomEntry(Crateria, $01,  !Area_Crateria,      $00,  NoPatch) ; Gauntlet Front
+%RoomEntry(Crateria, $02,  !Area_Crateria,      $00,  NoPatch) ; Parlor
+%RoomEntry(Crateria, $03,  !Area_Crateria,      $00,  NoPatch) ; Landing Site PBs
+%RoomEntry(Crateria, $04,  !Area_Crateria,      $00,  NoPatch) ; Parlor Save
+%RoomEntry(Crateria, $05,  !Area_WreckedShip,   $20,  NoPatch) ; Wrecked Ship Front
+%RoomEntry(Crateria, $06,  !Area_WreckedShip,   $20,  NoPatch) ; Pre-Bowling Pancake Room
+%RoomEntry(Crateria, $07,  !Area_Crateria,      $00,  NoPatch) ; Right Side Junction
+%RoomEntry(Crateria, $08,  !Area_EastMaridia,   $00,  NoPatch) ; Maridia Elevator Top
+%RoomEntry(Crateria, $09,  !Area_WreckedShip,   $20,  NoPatch) ; Wrecked Ship Back Exit
+%RoomEntry(Crateria, $0A,  !Area_WreckedShip,   $00,  NoPatch) ; Wrecked Ship Back Tunnel
+%RoomEntry(Crateria, $0B,  !Area_WreckedShip,   $20,  NoPatch) ; Wrecked Ship Back Maze
+%RoomEntry(Crateria, $0C,  !Area_EastMaridia,   $00,  NoPatch) ; East Maridia Back Corner
+%RoomEntry(Crateria, $0D,  !Area_Crateria,      $20,  NoPatch) ; Tunnel Right of Ship
+%RoomEntry(Crateria, $0E,  !Area_Crateria,      $20,  Room_Moat_Patch_01) ; Moat
+%RoomEntry(Crateria, $0F,  !Area_RedBrinstar,   $00,  NoPatch) ; Red Brinstar Elevator
+%RoomEntry(Crateria, $10,  !Area_Crateria,      $00,  NoPatch) ; Gauntlet E-Tank
+%RoomEntry(Crateria, $11,  !Area_WreckedShip,   $00,  NoPatch) ; Lonely Crab
+%RoomEntry(Crateria, $12,  !Area_Crateria,      $00,  NoPatch) ; Climb
+%RoomEntry(Crateria, $13,  !Area_Crateria,      $00,  NoPatch) ; Old Tourian
+%RoomEntry(Crateria, $14,  !Area_Crateria,      $00,  NoPatch) ; Blue Brinstar Elevator
+%RoomEntry(Crateria, $15,  !Area_Crateria,      $00,  NoPatch) ; Bomb Torizo
+%RoomEntry(Crateria, $16,  !Area_Crateria,      $00,  NoPatch) ; Bomb Torizo Hallway
+%RoomEntry(Crateria, $17,  !Area_Crateria,      $00,  NoPatch) ; Crateria Map Hallway
+%RoomEntry(Crateria, $18,  !Area_Crateria,      $00,  NoPatch) ; Terminator
+%RoomEntry(Crateria, $19,  !Area_GreenBrinstar, $00,  NoPatch) ; Green Brinstar Elevator Top
+%RoomEntry(Crateria, $1A,  !Area_Crateria,      $00,  NoPatch) ; Mushroom Room
+%RoomEntry(Crateria, $1B,  !Area_Crateria,      $00,  NoPatch) ; Crateria Map
+%RoomEntry(Crateria, $1C,  !Area_Crateria,      $00,  NoPatch) ; Gauntlet Missiles
+%RoomEntry(Crateria, $1D,  !Area_Crateria,      $00,  NoPatch) ; Climb Supers
+%RoomEntry(Crateria, $1E,  !Area_Crateria,      $00,  NoPatch) ; 230 Missiles Tunnel
+%RoomEntry(Crateria, $1F,  !Area_Crateria,      $00,  NoPatch) ; 230 Missiles
+%RoomEntry(Crateria, $30,  !Area_Tourian,       $00,  NoPatch) ; Tourian Hallway
+%RoomEntry(Crateria, $33,  !Area_Tourian,       $20,  NoPatch) ; Tourian Elevator Top
 
 ; Brinstar
 ;          Area      index  sub_areas      room_flags  room_patches
