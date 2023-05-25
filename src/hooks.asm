@@ -262,6 +262,8 @@ JSL.l OnCompleteGoal
 ; Loading save after file selection, transition to game options screen.
 org $81A24A
 JSR.w LoadSaveExpanded : BRA FileSelect_Done
+org $81916C
+JSR.w LoadSaveExpanded : NOP
 
 org $818006
 JSL.l OnWriteSave : NOP

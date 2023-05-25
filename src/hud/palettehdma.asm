@@ -250,6 +250,8 @@ MessageBoxHDMA:
 RTL
 
 MessageBoxInitHDMA:
+                LDA.w #$0BB1 : STA.l HUDHDMAWRAM+$4E ; Set message box vanilla palette colors
+                LDA.w #$001F : STA.l HUDHDMAWRAM+$53 ; Could also make affected tiles use palette 7?
                 SEP #$20 ; What we wrote over
                 LDA.b #$03 : STA.w $4300
                 LDA.b #$21 : STA.w $4301

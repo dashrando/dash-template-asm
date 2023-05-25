@@ -78,3 +78,4 @@ NoFanfare:  ; $00 = Fanfare | $01 = No fanfare
 dw $0000
 
 org $DF8B0E ; 0x2F8B0E
+
