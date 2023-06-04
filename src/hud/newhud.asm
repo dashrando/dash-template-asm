@@ -230,30 +230,38 @@ NewHUDArea:
 RTS
 
 NewHUDItems:
-        LDA.w DashItemsEquipped : BEQ .none
-                TAY
-                LDX.w #HUDItemTiles+$00
-                BIT #$0020 : BEQ +
+        LDA.w DashItemsCollected : BEQ .none
+                LDA.w #$0020 : LDX.w #HUDItemTiles+$00 ; PV
+                BIT.w DashItemsCollected : BEQ +
+                        INX #2
+                +
+                BIT.w DashItemsEquipped : BEQ +
                         INX #2
                 +
                 LDA.w $0000,X : STA.l RightHUDThree+$02
-                LDX.w #HUDItemTiles+$04
-                TYA
-                BIT #$0001 : BEQ +
+
+                LDA.w #$0001 : LDX.w #HUDItemTiles+$06 ; HS
+                BIT.w DashItemsCollected : BEQ +
+                        INX #2
+                +
+                BIT.w DashItemsEquipped : BEQ +
                         INX #2
                 +
                 LDA.w $0000,X : STA.l RightHUDThree+$04
-                LDX.w #HUDItemTiles+$08
-                TYA
-                BIT #$0200 : BEQ +
+
+                LDA.w #$0200 : LDX.w #HUDItemTiles+$0C ; DJ
+                BIT.w DashItemsCollected : BEQ +
+                        INX #2
+                +
+                BIT.w DashItemsEquipped : BEQ +
                         INX #2
                 +
                 LDA.w $0000,X : STA.l RightHUDThree+$06
                 RTS
         .none
-        LDA.w #$3460 : STA.l RightHUDThree+$02
-        LDA.w #$3462 : STA.l RightHUDThree+$06
-        LDA.w #$3464 : STA.l RightHUDThree+$04
+        LDA.w #$2C0F : STA.l RightHUDThree+$02
+        LDA.w #$2C0F : STA.l RightHUDThree+$06
+        LDA.w #$2C0F : STA.l RightHUDThree+$04
 RTS
 
 UpdateHUDHyperBeam:
@@ -316,9 +324,9 @@ dw $2001, $2008 ; 29
 dw $2002, $2009 ; 30
 
 HUDItemTiles:
-dw $3460, $3861 ; Pressure Valve
-dw $3464, $3C65 ; Heat Shield
-dw $3462, $2863 ; Double Jump
+dw $2C0F, $3460, $3861 ; Pressure Valve
+dw $2C0F, $3464, $3C65 ; Heat Shield
+dw $2C0F, $3462, $2863 ; Double Jump
 
 pushpc
 org $80988B
