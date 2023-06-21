@@ -78,4 +78,24 @@ NoFanfare:  ; $00 = Fanfare | $01 = No fanfare
 dw $0000
 
 org $DF8B0E ; 0x2F8B0E
+HeatDamageTable: ; $4000 - full heat damage
+if !STD == 0
+        .suitless: dw $4000
+        .gravity: dw $3000
+        .heatshield_un: dw $0000
+        .heatshield_ln: dw $2000
+        .varia: dw $0000
+else
+        .suitless: dw $4000
+        .gravity: dw $2000
+        .heatshield_un: dw $0000
+        .heatshield_ln: dw $2000
+        .varia: dw $0000
+endif
 
+org $DF8B18 ; 0x2F8B16
+BossTable: ; Values and indexes are both according to vanilla boss order KPDR.
+dw $0000   ;
+dw $0001   ;
+dw $0002   ;
+dw $0003   ;

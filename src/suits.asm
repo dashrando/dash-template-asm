@@ -24,23 +24,23 @@ ApplyPeriodicDamage:
 RTS
 
 HeatDamage:
-        LDA.w #$0001 : BIT.w VanillaItemsEquipped : BNE .nodamage
+        LDA.w #$0001 : BIT.w VanillaItemsEquipped : BNE .varia
                        BIT.w DashItemsEquipped : BNE .heatshield
         LDA.w #$0020 : BIT.w VanillaItemsEquipped : BNE .gravity
                 BRA .fulldamage
+        .varia
+        LDX.w  #$0008 : BRA .applydamage
         .gravity
-if !STD == 0
-        LDA.w #$3000 : BRA .applydamage
-else
-        LDA.w #$2000 : BRA .applydamage
-endif
+        LDX.w  #$0002 : BRA .applydamage
         .heatshield
-        LDA.w SubAreaIndex : CMP.w !Area_LowerNorfair : BNE .nodamage
-                .halfdamage
-                LDA.w #$2000 : BRA .applydamage
+        LDA.w SubAreaIndex : CMP.w !Area_LowerNorfair : BEQ .lowernorfair
+                LDX.w #$0004 : BRA .applydamage
+        .lowernorfair
+        LDX.w #$0006 : BRA .applydamage
         .fulldamage
-        LDA.w #$4000
+        LDX.w #$0000
         .applydamage
+        LDA.l HeatDamageTable,X : BEQ .nodamage
         CLC : ADC.w PeriodicDamage : STA.w PeriodicDamage
         LDA.w PeriodicDamage+$02 : ADC.w #$0000 : STA.w PeriodicDamage+$02
         JML.l $8DE394
