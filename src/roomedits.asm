@@ -353,6 +353,114 @@ dw $7802,$0001
 db $00
 dw $FFFF
 
+; Room $CF80: n00b tube east
+Room_EastTunnel_Patch_01:
+dw $070A,$0001
+db $22
+dw $070E,$0001
+db $22
+dw $078A,$0001
+db $22
+dw $078C,$0003
+db $FF,$00,$22
+dw $080A,$0005
+db $22,$85,$FF,$00,$22
+dw $088A,$0005
+db $22,$85,$FF,$00,$22
+dw $090A,$0005
+db $22,$85,$FF,$00,$22
+dw $098A,$0005
+db $22,$85,$FF,$00,$22
+dw $0A0A,$0005
+db $22,$85,$FF,$00,$22
+dw $0A8A,$0005
+db $85,$8D,$FF,$00,$85
+dw $2802,$0001
+db $00
+dw $FFFF
+
+; Room $A322: Red Brinstar -> Crateria elevator
+Room_RedBrinstarElevator_Patch_01:
+dw $142C,$0002
+db $FF,$00
+dw $145E,$0001
+db $62
+dw $1460,$0001
+db $62
+dw $14BE,$0004
+db $FF,$00,$FF,$00
+dw $151E,$0001
+db $62
+dw $1520,$0001
+db $62
+dw $157E,$0001
+db $43
+dw $1580,$0001
+db $22
+dw $7802,$0001
+db $00
+dw $FFFF
+
+; Room $9E52: Brinstar diagonal room
+Room_GreenHills_Patch_01:
+dw $0A2A,$0003
+db $FF,$00,$6A
+dw $0B2A,$0002
+db $FF,$00
+dw $36C6,$0001
+db $6F
+dw $36CC,$0001
+db $79
+dw $37CC,$0002
+db $FF,$00
+dw $4596,$0001
+db $00
+dw $FFFF
+
+; Room $D08A: Maridia green gate hall
+Room_CrabTunnel_Patch_01:
+dw $039C,$0005
+db $87,$1D,$94,$11,$A0
+dw $09CF,$0002
+db $D2,$92
+dw $FFFF
+
+; Room $94FD: Wrecked Ship back door
+Room_WreckedShipBackExit_Patch_01:
+dw $4506,$0008
+db $00,$81,$01,$81,$01,$85,$00,$85
+dw $45E6,$0008
+db $20,$11,$21,$11,$21,$15,$20,$15
+dw $4876,$0008
+db $00,$81,$01,$81,$01,$85,$00,$85
+dw $4956,$0008
+db $20,$11,$21,$11,$21,$15,$20,$15
+dw $76F4,$0004
+db $94,$95,$D5,$D4
+dw $78AC,$0004
+db $94,$95,$D5,$D4
+dw $D202,$0001
+db $00
+dw $FFFF
+
+; Room $D5A7: Snail room
+Room_Aqueduct_Patch_01:
+dw $1691,$0001
+db $F0
+dw $1693,$0001
+db $F4
+dw $18D1,$0001
+db $F0
+dw $18D3,$0001
+db $F4
+dw $2F49,$0002
+db $04,$04
+dw $3069,$0002
+db $04,$04
+dw $5A02,$0001
+db $00
+dw $FFFF
+
 
 ;------------------------------------------------------------------------------
 ; Room Edits
