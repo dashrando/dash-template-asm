@@ -1,7 +1,8 @@
 lorom
 
 !DEBUG ?= 0
-!STD ?= 0
+!RECALL ?= 0
+!AREA ?= 0
 
 org $808000 ; Reserved
 dw $8001    ;

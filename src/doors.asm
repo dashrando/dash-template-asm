@@ -29,7 +29,7 @@ dw PreOpenG4
 ;------------------------------------------------------------------------------
 ; Door Edits
 ;------------------------------------------------------------------------------
-if !STD == 0
+if !RECALL == 1
     org $8FC571 ; Plasma Spark
     dw NoopPLM : dw $0000, $0000 ; Plasma door blue
 
@@ -57,9 +57,18 @@ if !STD == 0
     org $8F8B9E ; Croc room
     dw NoopPLM : dw $0000, $0000 ; Make top door blue
 
-    org $8F84EC ; Green Brin pre-map
-    dw $0000    ; Unlock grey door
 endif
+
+if !AREA == 1
+    org $8FCE9C         ; WS Save room header Phantoon alive
+    skip $14 : dw $C2C9 ; Turn on save station
+
+    org $8FCBE7         ; WS back room Phantoon alive
+    skip $14 : dw $C323 ; Add missile door back
+endif
+
+org $8F84EC ; Green Brin pre-map
+dw $0000    ; Unlock grey door
 
 pullpc
 

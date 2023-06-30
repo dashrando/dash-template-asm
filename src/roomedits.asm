@@ -463,7 +463,7 @@ dw $FFFF
 ;------------------------------------------------------------------------------
 ; Smaller, non-patch room changes
 ;------------------------------------------------------------------------------
-if !STD == 0
+if !RECALL == 1
     pushpc
     org $8FC48B ; Crab Shaft
     dw $C826    ; Open gate
@@ -472,6 +472,11 @@ if !STD == 0
     dw $C826    ; Open gate
     pullpc
 
+endif
+
+if !AREA == 1
+    org $8FC48B ; Crab Shaft
+    dw $C826    ; Open gate
 endif
 
 pushpc ; Put no-op room patch at the end of the bank
