@@ -478,6 +478,9 @@ if !AREA == 1
     org $8FC48B ; Crab Shaft
     dw $C826    ; Open gate
 
+    org $8F8664 ; Green Hills
+    dw $C826    ; Open gate
+
     org $8F8880 ; Maridia Escape
     skip 30
     dw $C826    ; Open gate
