@@ -65,6 +65,11 @@ if !AREA == 1
 
     org $8FCBE7         ; WS back room Phantoon alive
     skip $14 : dw $C323 ; Add missile door back
+
+    org $83A63C                 ; West Sand Hall left door 
+    dw $D6FD                    ; Connect to Below Botwoon Energy Tank
+    db $00,$05,$3E,$06,$03,$00
+	dw $8000,$0000
 endif
 
 org $8F84EC ; Green Brin pre-map
