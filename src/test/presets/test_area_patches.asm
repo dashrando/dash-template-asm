@@ -5,7 +5,7 @@ incsrc ../quickmet.asm
 incsrc ../loadout.asm
 
 ; Start in Sand Falls
-%quickmet(!sandfalls)
+%quickmet(!big_pink_bottom)
 
 ; Disable creating a save file
 org InitGameState_save
@@ -31,12 +31,17 @@ InitializeForTesting: {
         ; Make sure Zebes is awake
         LDA.l EventFlags : ORA.w #$0001 : STA.l EventFlags
 
-        ; Place Dash items for collecting
-        ;pushpc
-        ;org $8F860E : dw $EFEC  ; Beam Upgrade at Charge Missiles
-        ;org $8F8608 : dw $EFEC  ; Beam Upgrade at Big Pink Missiles
-        ;org $8F8614 : dw $F040  ; Beam Upgrade at Charge Beam
-        ;pullpc
+        ; ---- Setup portals ----
+        pushpc
+
+        ; n00b bridge to Retro PBs
+        org $838F0A : dw $9E9F,$0400,$2601,$0200
+
+        ; Green Hills to Red Tower
+        org $838E86 : dw $A253,$0400,$4601,$0400
+
+        pullpc
+        ; ---- End portals ----
 
         RTL
 }
