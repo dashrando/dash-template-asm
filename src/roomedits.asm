@@ -457,7 +457,6 @@ dw $5A02,$0001
 db $00
 dw $FFFF
 
-
 ; Room $D6FD: Sand falls sand pit
 Room_BelowBotwoonEnergyTank_Patch_01:
 dw $01FE,$0004
@@ -491,6 +490,7 @@ db $FD,$01
 dw $1402,$0001
 db $00
 dw $FFFF
+
 
 ;------------------------------------------------------------------------------
 ; Room Edits

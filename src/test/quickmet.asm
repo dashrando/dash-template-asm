@@ -20,6 +20,7 @@
 !wrecked_ship_reserve = $C98E,$00B0,$0078,$ff,$ff,$05,$02
 !outside_ws_reserve = $93FE,$00a0,$0088,$ff,$ff,$07,$01
 !crab_tunnel = $D08A,$00B0,$00A8,$ff,$ff,$00,$00
+!sandfalls = $D6FD,$0020,$00A8,$ff,$ff,$03,$00
 
 ; Room scrolls when you jump (needs to be fixed)
 !big_pink_next_to_charge = $9D19,$0070,$0076,$ff,$ff,$02,$07

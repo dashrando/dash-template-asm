@@ -77,3 +77,22 @@ dw $0000    ; Unlock grey door
 
 pullpc
 
+;------------------------------------------------------------------------------
+; Lock doors for area
+;------------------------------------------------------------------------------
+
+if !AREA == 1
+    WestSandHall_GreyDoor_PLM:
+    dw $C842,$060E,$1000,$0000
+
+    SandFalls_GreyDoor_PLM:
+    dw $C842,$063E,$1000,$0000
+
+    pushpc
+    org $8FD273
+    dw WestSandHall_GreyDoor_PLM
+
+    org $8FD71E
+    dw SandFalls_GreyDoor_PLM
+    pullpc
+endif

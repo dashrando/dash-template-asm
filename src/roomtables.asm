@@ -20,6 +20,7 @@ endif
 
 if !AREA == 1
    !Aqueduct_Patch = Room_Aqueduct_Patch_01
+   !BelowBotwoonEnergyTank_Patch = Room_BelowBotwoonEnergyTank_Patch_01
    !CrabTunnel_Patch = Room_CrabTunnel_Patch_01
    !EastTunnel_Patch = Room_EastTunnel_Patch_01
    !RedElevator_Patch = Room_RedBrinstarElevator_Patch_01
@@ -27,6 +28,7 @@ if !AREA == 1
    !WS_Exit_Patch = Room_WreckedShipBackExit_Patch_01
 else
    !Aqueduct_Patch = NoPatch
+   !BelowBotwoonEnergyTank_Patch = NoPatch 
    !CrabTunnel_Patch = NoPatch
    !EastTunnel_Patch = NoPatch
    !RedElevator_Patch = NoPatch
@@ -280,7 +282,7 @@ endif
 %RoomEntry(Maridia, $24,  !Area_EastMaridia,  $20,  !Pants_Room_Patch) ; Pants Room 1
 %RoomEntry(Maridia, $25,  !Area_EastMaridia,  $20,  !Pants_Room_Patch) ; Pants Room 2
 %RoomEntry(Maridia, $26,  !Area_EastMaridia,  $20,  NoPatch) ; Spring Ball
-%RoomEntry(Maridia, $27,  !Area_EastMaridia,  $00,  NoPatch) ; Aqueduct East Landing
+%RoomEntry(Maridia, $27,  !Area_EastMaridia,  $00,  !BelowBotwoonEnergyTank_Patch) ; Aqueduct East Landing
 %RoomEntry(Maridia, $28,  !Area_EastMaridia,  $00,  NoPatch) ; Coliseum
 %RoomEntry(Maridia, $29,  !Area_EastMaridia,  $00,  NoPatch) ; Aqueduct Save
 %RoomEntry(Maridia, $2A,  !Area_EastMaridia,  $00,  NoPatch) ; Precious
