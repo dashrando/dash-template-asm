@@ -122,3 +122,7 @@ macro font2(str,color)
     dw "<str>"
     pulltable
 endmacro
+
+macro PrintLabelAddress(label)
+    print "<label>: 0x",hex(snestopc(<label>))
+endmacro
