@@ -124,5 +124,5 @@ macro font2(str,color)
 endmacro
 
 macro PrintLabelAddress(label)
-    print "<label>: 0x",hex(snestopc(<label>))
+    print "<label>: 0x",hex(snestopc(<label>)),","
 endmacro
