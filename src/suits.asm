@@ -24,6 +24,7 @@ ApplyPeriodicDamage:
 RTS
 
 HeatDamage:
+        PHX
         LDA.w #$0001 : BIT.w VanillaItemsEquipped : BNE .varia
                        BIT.w DashItemsEquipped : BNE .heatshield
         LDA.w #$0020 : BIT.w VanillaItemsEquipped : BNE .gravity
@@ -43,8 +44,10 @@ HeatDamage:
         LDA.l HeatDamageTable,X : BEQ .nodamage
         CLC : ADC.w PeriodicDamage : STA.w PeriodicDamage
         LDA.w PeriodicDamage+$02 : ADC.w #$0000 : STA.w PeriodicDamage+$02
+        PLX
         JML.l $8DE394
         .nodamage
+        PLX
 JML $8DE3AB
 
 LavaDamage: ; Never reached if gravity equipped
