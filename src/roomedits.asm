@@ -301,12 +301,203 @@ dw $0542,$0002
 dw $00FF
 dw $FFFF
 
+; Room $AD5E: Lower Norfair -> Bubble Norfair
+Room_SingleChamber_Patch_01:
+dw $05E0,$0004
+db $FF,$00,$FF,$00
+dw $06A0,$0004
+db $FF,$00,$FF,$00
+dw $0760,$0004
+db $FF,$00,$FF,$00
+dw $32F1,$0002
+db $00,$00
+dw $3351,$0002
+db $00,$00
+dw $33B1,$0002
+db $00,$00
+dw $7802,$0001
+db $00
+dw $FFFF
+
+; Room $AD5E: Lower Norfair -> Bubble Norfair
+Room_SingleChamber_Patch_02:
+dw $05E0,$0004
+db $FF,$00,$FF,$00
+dw $061E,$0008
+db $FF,$00,$FF,$00,$FF,$00,$FF,$00
+dw $06A0,$0004
+db $FF,$00,$FF,$00
+dw $06DE,$0003
+db $FF,$00,$0C
+dw $06E2,$0002
+db $1C,$81
+dw $0760,$0004
+db $FF,$00,$FF,$00
+dw $079E,$0004
+db $FF,$00,$05,$85
+dw $085E,$0004
+db $FF,$00,$05,$85
+dw $091E,$0004
+db $FF,$00,$05,$85
+dw $09DE,$0004
+db $FF,$00,$05,$85
+dw $0A9E,$0002
+db $0C,$81
+dw $32F1,$0002
+db $00,$00
+dw $3351,$0002
+db $00,$00
+dw $33B1,$0002
+db $00,$00
+dw $7802,$0001
+db $00
+dw $FFFF
+
+; Room $CF80: n00b tube east
+Room_EastTunnel_Patch_01:
+dw $070A,$0001
+db $22
+dw $070E,$0001
+db $22
+dw $078A,$0001
+db $22
+dw $078C,$0003
+db $FF,$00,$22
+dw $080A,$0005
+db $22,$85,$FF,$00,$22
+dw $088A,$0005
+db $22,$85,$FF,$00,$22
+dw $090A,$0005
+db $22,$85,$FF,$00,$22
+dw $098A,$0005
+db $22,$85,$FF,$00,$22
+dw $0A0A,$0005
+db $22,$85,$FF,$00,$22
+dw $0A8A,$0005
+db $85,$8D,$FF,$00,$85
+dw $2802,$0001
+db $00
+dw $FFFF
+
+; Room $A322: Red Brinstar -> Crateria elevator
+Room_RedBrinstarElevator_Patch_01:
+dw $142C,$0002
+db $FF,$00
+dw $145E,$0001
+db $62
+dw $1460,$0001
+db $62
+dw $14BE,$0004
+db $FF,$00,$FF,$00
+dw $151E,$0001
+db $62
+dw $1520,$0001
+db $62
+dw $157E,$0001
+db $43
+dw $1580,$0001
+db $22
+dw $7802,$0001
+db $00
+dw $FFFF
+
+; Room $9E52: Brinstar diagonal room
+Room_GreenHills_Patch_01:
+dw $0F24,$0004
+db $6A,$81,$6C,$81
+dw $36CA,$0001
+db $78
+dw $36CC,$0001
+db $78
+dw $37CC,$0002
+db $FF,$00
+dw $FFFF
+
+; Room $D08A: Maridia green gate hall
+Room_CrabTunnel_Patch_01:
+dw $039C,$0005
+db $87,$1D,$94,$11,$A0
+dw $09CF,$0002
+db $D2,$92
+dw $FFFF
+
+; Room $94FD: Wrecked Ship back door
+Room_WreckedShipBackExit_Patch_01:
+dw $4506,$0008
+db $00,$81,$01,$81,$01,$85,$00,$85
+dw $45E6,$0008
+db $20,$11,$21,$11,$21,$15,$20,$15
+dw $4876,$0008
+db $00,$81,$01,$81,$01,$85,$00,$85
+dw $4956,$0008
+db $20,$11,$21,$11,$21,$15,$20,$15
+dw $76F4,$0004
+db $94,$95,$D5,$D4
+dw $78AC,$0004
+db $94,$95,$D5,$D4
+dw $D202,$0001
+db $00
+dw $FFFF
+
+; Room $D5A7: Snail room
+Room_Aqueduct_Patch_01:
+dw $1691,$0001
+db $F0
+dw $1693,$0001
+db $F4
+dw $18D1,$0001
+db $F0
+dw $18D3,$0001
+db $F4
+dw $2F49,$0002
+db $04,$04
+dw $3069,$0002
+db $04,$04
+dw $5A02,$0001
+db $00
+dw $FFFF
+
+; Room $D6FD: Sand falls sand pit
+Room_BelowBotwoonEnergyTank_Patch_01:
+dw $01FE,$0004
+db $0E,$8A,$10,$82
+dw $027E,$0003
+db $0A,$82,$10
+dw $02FE,$0004
+db $0B,$8A,$07,$8A
+dw $037E,$0004
+db $0C,$C0,$40,$90
+dw $03FE,$0004
+db $2C,$D0,$60,$90
+dw $047E,$0004
+db $2C,$D8,$60,$98
+dw $04FE,$0004
+db $0C,$D8,$40,$98
+dw $057E,$0003
+db $0B,$82,$07
+dw $05FE,$0003
+db $0A,$82,$10
+dw $067E,$0003
+db $0E,$82,$10
+dw $09C0,$0002
+db $40,$01
+dw $0A00,$0002
+db $FF,$01
+dw $0A40,$0002
+db $FE,$01
+dw $0A80,$0002
+db $FD,$01
+dw $1402,$0001
+db $00
+dw $FFFF
+
+
 ;------------------------------------------------------------------------------
 ; Room Edits
 ;------------------------------------------------------------------------------
 ; Smaller, non-patch room changes
 ;------------------------------------------------------------------------------
-if !STD == 0
+if !RECALL == 1
     pushpc
     org $8FC48B ; Crab Shaft
     dw $C826    ; Open gate
@@ -315,6 +506,22 @@ if !STD == 0
     dw $C826    ; Open gate
     pullpc
 
+endif
+
+if !AREA == 1
+    org $8FC48B ; Crab Shaft
+    dw $C826    ; Open gate
+
+    org $8F8664 ; Green Hills
+    dw $C826    ; Open gate
+
+    org $8F8880 ; Maridia Escape
+    skip 30
+    dw $C826    ; Open gate
+
+    org $8FC3E1 ; East Tunnel
+    skip 60
+    dw $C826    ; Open gate
 endif
 
 pushpc ; Put no-op room patch at the end of the bank

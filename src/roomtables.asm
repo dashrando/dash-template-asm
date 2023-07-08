@@ -6,16 +6,34 @@
 ; room_patches (word.) 
 ;------------------------------------------------------------------------------
 
-if !STD == 1
-   !WS_Reserve_Patch = Room_WreckedShipReserve_Patch_01
-   !Plasma_Patch = NoPatch
-   !Pants_Room_Patch = NoPatch
-   !Shaktool_Patch = NoPatch
-else
+if !RECALL == 1
    !WS_Reserve_Patch = Room_WreckedShipReserve_Patch_02
    !Plasma_Patch = Room_Plasma_Patch_01
    !Pants_Room_Patch = Room_PreShaktool_Patch_01
    !Shaktool_Patch = Room_Shaktool_Patch_01
+else
+   !WS_Reserve_Patch = NoPatch
+   !Plasma_Patch = NoPatch
+   !Pants_Room_Patch = NoPatch
+   !Shaktool_Patch = NoPatch
+endif
+
+if !AREA == 1
+   !Aqueduct_Patch = Room_Aqueduct_Patch_01
+   !BelowBotwoonEnergyTank_Patch = Room_BelowBotwoonEnergyTank_Patch_01
+   !CrabTunnel_Patch = Room_CrabTunnel_Patch_01
+   !EastTunnel_Patch = Room_EastTunnel_Patch_01
+   !RedElevator_Patch = Room_RedBrinstarElevator_Patch_01
+   !SingleChamber_Patch = Room_SingleChamber_Patch_02
+   !WS_Exit_Patch = Room_WreckedShipBackExit_Patch_01
+else
+   !Aqueduct_Patch = NoPatch
+   !BelowBotwoonEnergyTank_Patch = NoPatch 
+   !CrabTunnel_Patch = NoPatch
+   !EastTunnel_Patch = NoPatch
+   !RedElevator_Patch = NoPatch
+   !SingleChamber_Patch = NoPatch
+   !WS_Exit_Patch = NoPatch
 endif
 
 ; Creates column-major table named <area>Rooms:
@@ -42,7 +60,7 @@ endif
 %RoomEntry(Crateria, $06,  !Area_WreckedShip,   $20,  NoPatch) ; Pre-Bowling Pancake Room
 %RoomEntry(Crateria, $07,  !Area_Crateria,      $00,  NoPatch) ; Right Side Junction
 %RoomEntry(Crateria, $08,  !Area_EastMaridia,   $00,  NoPatch) ; Maridia Elevator Top
-%RoomEntry(Crateria, $09,  !Area_WreckedShip,   $20,  NoPatch) ; Wrecked Ship Back Exit
+%RoomEntry(Crateria, $09,  !Area_WreckedShip,   $20,  !WS_Exit_Patch) ; Wrecked Ship Back Exit
 %RoomEntry(Crateria, $0A,  !Area_WreckedShip,   $00,  NoPatch) ; Wrecked Ship Back Tunnel
 %RoomEntry(Crateria, $0B,  !Area_WreckedShip,   $20,  NoPatch) ; Wrecked Ship Back Maze
 %RoomEntry(Crateria, $0C,  !Area_EastMaridia,   $00,  NoPatch) ; East Maridia Back Corner
@@ -106,7 +124,7 @@ endif
 %RoomEntry(Brinstar, $21,  !Area_RedBrinstar,   $00,  NoPatch) ; Pre X-Ray
 %RoomEntry(Brinstar, $22,  !Area_RedBrinstar,   $00,  NoPatch) ; X-Ray
 %RoomEntry(Brinstar, $23,  !Area_RedBrinstar,   $00,  NoPatch) ; Red Tower Spike Hallway
-%RoomEntry(Brinstar, $24,  !Area_RedBrinstar,   $00,  NoPatch) ; Red Tower Upper Right
+%RoomEntry(Brinstar, $24,  !Area_RedBrinstar,   $00,  !RedElevator_Patch) ; Red Tower Upper Right
 %RoomEntry(Brinstar, $25,  !Area_RedBrinstar,   $00,  NoPatch) ; Red Tower PBs Upper
 %RoomEntry(Brinstar, $26,  !Area_RedBrinstar,   $00,  NoPatch) ; Red Tower PBs Lower
 %RoomEntry(Brinstar, $27,  !Area_RedBrinstar,   $20,  NoPatch) ; Red Brinstar Bottom Left
@@ -156,7 +174,7 @@ endif
 %RoomEntry(Norfair, $1A,  !Area_UpperNorfair,  $00,  NoPatch) ; Bubble Mountain
 %RoomEntry(Norfair, $1B,  !Area_UpperNorfair,  $00,  NoPatch) ; Speed Speedway
 %RoomEntry(Norfair, $1C,  !Area_UpperNorfair,  $00,  NoPatch) ; Speed Booster
-%RoomEntry(Norfair, $1D,  !Area_UpperNorfair,  $00,  NoPatch) ; Wave Hallway
+%RoomEntry(Norfair, $1D,  !Area_UpperNorfair,  $00,  !SingleChamber_Patch) ; Wave Hallway
 %RoomEntry(Norfair, $1E,  !Area_UpperNorfair,  $00,  NoPatch) ; Wave Missiles
 %RoomEntry(Norfair, $1F,  !Area_UpperNorfair,  $00,  NoPatch) ; Wave Beam
 %RoomEntry(Norfair, $20,  !Area_UpperNorfair,  $00,  NoPatch) ; East Spike Lava Room
@@ -228,11 +246,11 @@ endif
 %RoomEntry(Maridia, $00,  !Area_RedBrinstar,  $20,  NoPatch) ; Tube Save
 %RoomEntry(Maridia, $01,  !Area_RedBrinstar,  $20,  NoPatch) ; Glass Tube
 %RoomEntry(Maridia, $02,  !Area_RedBrinstar,  $20,  NoPatch) ; Red Brinstar Tunnel Left
-%RoomEntry(Maridia, $03,  !Area_RedBrinstar,  $20,  NoPatch) ; Red Brinstar Tunnel Right
+%RoomEntry(Maridia, $03,  !Area_RedBrinstar,  $20,  !EastTunnel_Patch) ; Red Brinstar Tunnel Right
 %RoomEntry(Maridia, $04,  !Area_WestMaridia,  $20,  NoPatch) ; Main Street
 %RoomEntry(Maridia, $05,  !Area_WestMaridia,  $20,  NoPatch) ; Fish Tank
 %RoomEntry(Maridia, $06,  !Area_WestMaridia,  $20,  NoPatch) ; Mama Turtle
-%RoomEntry(Maridia, $07,  !Area_WestMaridia,  $20,  NoPatch) ; Crab Tunnel
+%RoomEntry(Maridia, $07,  !Area_WestMaridia,  $20,  !CrabTunnel_Patch) ; Crab Tunnel
 %RoomEntry(Maridia, $08,  !Area_WestMaridia,  $20,  NoPatch) ; Everest
 %RoomEntry(Maridia, $09,  !Area_WestMaridia,  $20,  NoPatch) ; Lonely Fish
 %RoomEntry(Maridia, $0A,  !Area_WestMaridia,  $20,  NoPatch) ; Watering Hole
@@ -258,13 +276,13 @@ endif
 %RoomEntry(Maridia, $1E,  !Area_EastMaridia,  $00,  NoPatch) ; Right Sand Pit
 %RoomEntry(Maridia, $1F,  !Area_EastMaridia,  $00,  NoPatch) ; Aqueduct Quicksand Left
 %RoomEntry(Maridia, $20,  !Area_EastMaridia,  $00,  NoPatch) ; Aqueduct Quicksand Right
-%RoomEntry(Maridia, $21,  !Area_EastMaridia,  $00,  NoPatch) ; Aqueduct
+%RoomEntry(Maridia, $21,  !Area_EastMaridia,  $00,  !Aqueduct_Patch) ; Aqueduct
 %RoomEntry(Maridia, $22,  !Area_EastMaridia,  $20,  NoPatch) ; Butterfly
 %RoomEntry(Maridia, $23,  !Area_EastMaridia,  $00,  Room_PreBotwoon_Patch_01) ; Pre Botwoon
 %RoomEntry(Maridia, $24,  !Area_EastMaridia,  $20,  !Pants_Room_Patch) ; Pants Room 1
 %RoomEntry(Maridia, $25,  !Area_EastMaridia,  $20,  !Pants_Room_Patch) ; Pants Room 2
 %RoomEntry(Maridia, $26,  !Area_EastMaridia,  $20,  NoPatch) ; Spring Ball
-%RoomEntry(Maridia, $27,  !Area_EastMaridia,  $00,  NoPatch) ; Aqueduct East Landing
+%RoomEntry(Maridia, $27,  !Area_EastMaridia,  $00,  !BelowBotwoonEnergyTank_Patch) ; Aqueduct East Landing
 %RoomEntry(Maridia, $28,  !Area_EastMaridia,  $00,  NoPatch) ; Coliseum
 %RoomEntry(Maridia, $29,  !Area_EastMaridia,  $00,  NoPatch) ; Aqueduct Save
 %RoomEntry(Maridia, $2A,  !Area_EastMaridia,  $00,  NoPatch) ; Precious

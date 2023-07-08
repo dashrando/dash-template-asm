@@ -2,7 +2,7 @@
 ; Enemies
 ;------------------------------------------------------------------------------
 pushpc
-if !STD == 0
+if !RECALL == 1
 ; Plasma Room Green Pirates
 org $A1D3ED : dw $F693
 org $A1D3FD : dw $F693

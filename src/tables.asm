@@ -11,13 +11,8 @@ db $00, $01, $02, $03
 
 org $DF8004 ; 0x2F8004
 ChargeMode:
-if !STD == 1
-    db $01  ; 0 = vanilla, 1 = starter, 2 = balance
-    db $00  ; 0 = no hud, 1 = charge damage on HUD
-else
-    db $02  ; 0 = vanilla, 1 = starter, 2 = balance
-    db $01  ; 0 = no hud, 1 = charge damage on HUD
-endif
+db $00  ; 0 = vanilla, 1 = starter, 2 = balance
+db $01  ; 0 = no hud, 1 = charge damage on HUD
 
 org $DF8006 ; 0x2F8006
 SpaceJumpPhysics:
@@ -79,19 +74,11 @@ dw $0000
 
 org $DF8B0E ; 0x2F8B0E
 HeatDamageTable: ; $4000 - full heat damage
-if !STD == 0
-        .suitless: dw $4000
-        .gravity: dw $3000
-        .heatshield_un: dw $0000
-        .heatshield_ln: dw $2000
-        .varia: dw $0000
-else
-        .suitless: dw $4000
-        .gravity: dw $2000
-        .heatshield_un: dw $0000
-        .heatshield_ln: dw $2000
-        .varia: dw $0000
-endif
+.suitless: dw $4000
+.gravity: dw $3000
+.heatshield_un: dw $0000
+.heatshield_ln: dw $2000
+.varia: dw $0000
 
 org $DF8B18 ; 0x2F8B16
 BossTable: ; Values and indexes are both according to vanilla boss order KPDR.

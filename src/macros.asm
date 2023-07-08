@@ -122,3 +122,9 @@ macro font2(str,color)
     dw "<str>"
     pulltable
 endmacro
+
+macro SetPos(x,y)
+    LDA.w #<x> : STA.w SamusXPos
+    LDA.w #<y> : STA.w SamusYPos
+    RTS
+endmacro

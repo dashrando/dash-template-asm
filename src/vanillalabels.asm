@@ -61,3 +61,36 @@ AnimateSamusGeneral = $90F084 ; long
 ReceiveDamageSamus = $91DF51
 InitializeProjectile = $938000
 ProjectilePointers = $9383C1
+
+; Boss Doors
+DoorToKraidBoss      = $8FA594
+DoorToPhantoonBoss   = $8FCCB9
+DoorToDraygonBoss    = $8FD7D7
+DoorToRidleyBoss     = $8FB3A1
+
+DoorFromKraidRoom    = $8FA5E5
+DoorFromPhantoonRoom = $8FCD59
+DoorFromDraygonRoom  = $8FDAA6
+DoorFromRidleyRoom   = $8FB376
+
+; Boss Door Vectors
+DoorVectorToKraid       = $8391B6
+DoorVectorToPhantoon    = $83A2AC
+DoorVectorToDraygon     = $83A840
+DoorVectorToRidley      = $8398CA
+
+DoorVectorToPreKraid    = $8391CE
+DoorVectorToPrePhantoon = $83A2C4
+DoorVectorToPreDraygon  = $83A96C
+DoorVectorToPreRidley   = $8398BE
+
+; Room Headers
+RoomHeaderPreKraid    = $8FA56B
+RoomHeaderPrePhantoon = $8FCC6F
+RoomHeaderPreDraygon  = $8FD78F
+RoomHeaderPreRidley   = $8FB37A
+
+RoomHeaderKraid    = $8FA59F
+RoomHeaderPhantoon = $8FCD13
+RoomHeaderDraygon  = $8FDA60
+RoomHeaderRidley   = $8FB32E
