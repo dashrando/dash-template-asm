@@ -18,7 +18,7 @@ InitializeForTesting: {
         %setup_controller()
 
         ; Add equipment and beams
-        %add_items(!MorphingBall,!Bombs,!SpaceJump,!ScrewAttack,!GravitySuit)
+        %add_items(!MorphingBall,!Bombs,!SpaceJump,!ScrewAttack,!GravitySuit,!VariaSuit)
         %add_beams(!PlasmaBeam,!WaveBeam,!IceBeam,!SpazerBeam)
         %unequip_beams(!SpazerBeam)
 
@@ -59,17 +59,17 @@ InitializeForTesting: {
         pushpc
 
         ;---- Round Trip 1 ----
-        ;org DoorToDraygonBoss : dw DoorVectorToKraidFromLeft
-        ;org DoorToKraidBoss : dw DoorVectorToRidleyFromRight
-        ;org DoorToRidleyBoss : dw DoorVectorToPhantoonFromLeft
-        ;org DoorToPhantoonBoss : dw DoorVectorToDraygonFromRight
+        org DoorToDraygonBoss : dw DoorVectorTeleportToKraid
+        org DoorToKraidBoss : dw DoorVectorTeleportToRidley
+        org DoorToRidleyBoss : dw DoorVectorTeleportToPhantoon
+        org DoorToPhantoonBoss : dw DoorVectorTeleportToDraygon
 
         ;---- Round Trip 2 ----
 
-        ;org DoorFromDraygonRoom : dw DoorVectorToPreKraidFromLeft
-        ;org DoorFromKraidRoom : dw DoorVectorToPreRidleyFromRight
-        ;org DoorFromRidleyRoom : dw DoorVectorToPrePhantoonFromLeft
-        ;org DoorFromPhantoonRoom : dw DoorVectorToPreDraygonFromRight
+        ;org DoorFromDraygonRoom : dw DoorVectorTeleportToPreKraid
+        ;org DoorFromKraidRoom : dw DoorVectorTeleportToPreRidley
+        ;org DoorFromRidleyRoom : dw DoorVectorTeleportToPrePhantoon
+        ;org DoorFromPhantoonRoom : dw DoorVectorTeleportToPreDraygon
 
         ;---- Round Trip 3 ----
         ;org DoorToDraygonBoss : dw DoorVectorToRidley

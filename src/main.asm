@@ -1,6 +1,7 @@
 lorom
 
 !DEBUG ?= 0
+!INTERFACE ?= 0
 !RECALL ?= 0
 !AREA ?= 0
 
@@ -134,6 +135,10 @@ incsrc tables.asm ; Keep this first
 incsrc roomtables.asm
 incsrc credits/credits_data.asm
 warnpc $E08000
+
+if !INTERFACE == 1
+    incsrc interface.asm
+endif
 
 if !DEBUG == 1
     incsrc debugmode.asm

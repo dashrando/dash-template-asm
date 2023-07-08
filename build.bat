@@ -66,7 +66,7 @@ if exist %ROOT_NAME%.sym del /Q %ROOT_NAME%.sym
 if exist %ROOT_NAME%.srm del /Q %ROOT_NAME%.srm
 
 copy %VANILLA% %ROM%
-%BIN%\asar.exe --symbols=wla -DRECALL=1 -DAREA=1 src\main.asm %ROM%
+%BIN%\asar.exe --symbols=wla -DRECALL=1 -DAREA=1 -DINTERFACE=1 src\main.asm %ROM%
 %BIN%\flips.exe --create --bps %VANILLA% %ROM% %PATCH%
 
 pause

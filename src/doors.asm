@@ -95,8 +95,6 @@ if !AREA == 1
     org $8FD71E
     dw SandFalls_GreyDoor_PLM
     pullpc
-
-
 endif
 
 ;------------------------------------------------------------------------------
@@ -124,51 +122,21 @@ endif
 ;------------------------------------------------------------------------------
 ; Boss Door Transitions
 ;------------------------------------------------------------------------------
-KraidEnterFromLeft:
-    LDA.w #$0034 : STA.w SamusXPos
-    LDA.w #$0188 : STA.w SamusYPos
-rts
+AppearInKraidRoom:    %SetPos($0034,$0188)
+AppearInPhantoonRoom: %SetPos($002E,$00B8)
+AppearInDraygonRoom:  %SetPos($01D0,$0070)
+AppearInRidleyRoom:   %SetPos($00C4,$0084)
 
-PhantoonEnterFromLeft:
-    LDA.w #$002E : STA.w SamusXPos
-    LDA.w #$00B8 : STA.w SamusYPos
-rts
-
-DraygonEnterFromRight:
-    LDA.w #$01D0 : STA.w SamusXPos
-    LDA.w #$0070 : STA.w SamusYPos
-rts
-
-RidleyEnterFromRight:
-    LDA.w #$00C4 : STA.w SamusXPos
-    LDA.w #$0084 : STA.w SamusYPos
-rts
-
-PreKraidEnterFromLeft:
-    LDA.w #$01CD : STA.w SamusXPos
-    LDA.w #$0188 : STA.w SamusYPos
-rts
-
-PrePhantoonEnterFromLeft:
-    JSR.w $E1FE  ; Vanilla Door ASM
-    LDA.w #$049F : STA.w SamusXPos
-    LDA.w #$00B8 : STA.w SamusYPos
-rts
-
-PreDraygonEnterFromRight:
-    JSR.w $E3D9  ; Vanilla Door ASM
-    LDA.w #$0034 : STA.w SamusXPos
-    LDA.w #$0288 : STA.w SamusYPos
-rts
-
-PreRidleyEnterFromRight:
-    LDA.w #$002E : STA.w SamusXPos
-    LDA.w #$0098 : STA.w SamusYPos
-rts
+AppearInPreKraid:                  %SetPos($01CD,$0188)
+AppearInPrePhantoon: JSR.w $E1FE : %SetPos($049F,$00B8)
+AppearInPreDraygon:  JSR.w $E3D9 : %SetPos($0034,$0288)
+AppearInPreRidley:                 %SetPos($002E,$0098)
 
 pushpc
 
-;
+;------------------------------------------------------------------------------
+; Always reload CRE when leaving boss rooms
+;------------------------------------------------------------------------------
 org RoomHeaderPreKraid
 skip 8 : db $02
 
@@ -181,83 +149,41 @@ skip 8 : db $02
 org RoomHeaderPreRidley
 skip 8 : db $02
 
-;
+;------------------------------------------------------------------------------
+; Create door vectors for entering a room from an unexpected direction
+;------------------------------------------------------------------------------
 org $83AD70
 
-print "const BOSSES = {"
-%PrintLabelAddress(DoorToKraidBoss)
-%PrintLabelAddress(DoorToPhantoonBoss)
-%PrintLabelAddress(DoorToDraygonBoss)
-%PrintLabelAddress(DoorToRidleyBoss)
+DoorVectorTeleportToKraid:
+dw $A59F : db $40,$04,$01,$16,$00,$01 : dw $8000,AppearInKraidRoom
+; vanilla = dx A59F,00,04,01,16,00,01,8000,0000
 
-print "//"
-%PrintLabelAddress(DoorVectorToKraid)
-%PrintLabelAddress(DoorVectorToPhantoon)
-%PrintLabelAddress(DoorVectorToDraygon)
-%PrintLabelAddress(DoorVectorToRidley)
-print "//"
+DoorVectorTeleportToPhantoon:
+dw $CD13 : db $40,$04,$01,$06,$00,$00 : dw $8000,AppearInPhantoonRoom
+; vanilla = dx CD13,00,04,01,06,00,00,8000,0000
 
-;print "DoorVectorToKraidFromLeft"
-DoorVectorToKraidFromLeft:
-dw $A59F : db $40,$04,$01,$16,$00,$01 : dw $8000,KraidEnterFromLeft
-%PrintLabelAddress(DoorVectorToKraidFromLeft)
-; vanilla
-;dx A59F,00,04,01,16,00,01,8000,0000
+DoorVectorTeleportToDraygon:
+dw $DA60 : db $40,$05,$1E,$06,$01,$00 : dw $8000,AppearInDraygonRoom
+; vanilla = dx DA60,00,05,1E,06,01,00,8000,0000
 
-DoorVectorToPhantoonFromLeft:
-dw $CD13 : db $40,$04,$01,$06,$00,$00 : dw $8000,PhantoonEnterFromLeft
-%PrintLabelAddress(DoorVectorToPhantoonFromLeft)
-; vanilla
-;dx CD13,00,04,01,06,00,00,8000,0000
+DoorVectorTeleportToRidley:
+dw $B32E : db $40,$05,$0E,$06,$00,$00 : dw $8000,AppearInRidleyRoom
+; vanilla = dx B32E,00,05,0E,06,00,00,8000,0000
 
-DoorVectorToDraygonFromRight:
-dw $DA60 : db $40,$05,$1E,$06,$01,$00 : dw $8000,DraygonEnterFromRight
-%PrintLabelAddress(DoorVectorToDraygonFromRight)
-; vanilla
-;dx DA60,00,05,1E,06,01,00,8000,0000
+DoorVectorTeleportToPreKraid:
+dw $A56B : db $40,$05,$1E,$16,$01,$01 : dw $8000,AppearInPreKraid
+; vanilla = dx A56B,00,05,1E,16,01,01,8000,0000
 
-DoorVectorToRidleyFromRight:
-dw $B32E : db $40,$05,$0E,$06,$00,$00 : dw $8000,RidleyEnterFromRight
-%PrintLabelAddress(DoorVectorToRidleyFromRight)
-; vanilla
-;dx B32E,00,05,0E,06,00,00,8000,0000
+DoorVectorTeleportToPrePhantoon:
+dw $CC6F : db $40,$05,$4E,$06,$04,$00 : dw $8000,AppearInPrePhantoon
+; vanilla = dx CC6F,00,05,4E,06,04,00,8000,E1FE
 
-print "//"
-%PrintLabelAddress(DoorFromKraidRoom)
-%PrintLabelAddress(DoorFromPhantoonRoom)
-%PrintLabelAddress(DoorFromDraygonRoom)
-%PrintLabelAddress(DoorFromRidleyRoom)
+DoorVectorTeleportToPreDraygon:
+dw $D78F : db $40,$04,$01,$26,$00,$02 : dw $8000,AppearInPreDraygon
+; vanilla = dx D78F,00,04,01,26,00,02,8000,E3D9
 
-print "//"
-%PrintLabelAddress(DoorVectorToPreKraid)
-%PrintLabelAddress(DoorVectorToPrePhantoon)
-%PrintLabelAddress(DoorVectorToPreDraygon)
-%PrintLabelAddress(DoorVectorToPreRidley)
-print "//"
-
-DoorVectorToPreKraidFromLeft:
-dw $A56B : db $40,$05,$1E,$16,$01,$01 : dw $8000,PreKraidEnterFromLeft
-%PrintLabelAddress(DoorVectorToPreKraidFromLeft)
-; vanilla
-;dx A56B,00,05,1E,16,01,01,8000,0000
-
-DoorVectorToPrePhantoonFromLeft:
-dw $CC6F : db $40,$05,$4E,$06,$04,$00 : dw $8000,PrePhantoonEnterFromLeft
-%PrintLabelAddress(DoorVectorToPrePhantoonFromLeft)
-; vanilla
-;dx CC6F,00,05,4E,06,04,00,8000,E1FE
-
-DoorVectorToPreDraygonFromRight:
-dw $D78F : db $40,$04,$01,$26,$00,$02 : dw $8000,PreDraygonEnterFromRight
-%PrintLabelAddress(DoorVectorToPreDraygonFromRight)
-; vanilla
-;dx D78F,00,04,01,26,00,02,8000,E3D9
-
-DoorVectorToPreRidleyFromRight:
-dw $B37A : db $40,$04,$01,$06,$00,$00 : dw $8000,PreRidleyEnterFromRight
-%PrintLabelAddress(DoorVectorToPreRidleyFromRight)
-; vanilla
-;dx B37A,00,04,01,06,00,00,8000,0000
-print "}"
+DoorVectorTeleportToPreRidley:
+dw $B37A : db $40,$04,$01,$06,$00,$00 : dw $8000,AppearInPreRidley
+; vanilla = dx B37A,00,04,01,06,00,00,8000,0000
 
 pullpc

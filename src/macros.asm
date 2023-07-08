@@ -123,6 +123,8 @@ macro font2(str,color)
     pulltable
 endmacro
 
-macro PrintLabelAddress(label)
-    print "<label>: 0x",hex(snestopc(<label>)),","
+macro SetPos(x,y)
+    LDA.w #<x> : STA.w SamusXPos
+    LDA.w #<y> : STA.w SamusYPos
+    RTS
 endmacro

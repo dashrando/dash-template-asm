@@ -63,26 +63,26 @@ InitializeProjectile = $938000
 ProjectilePointers = $9383C1
 
 ; Boss Doors
-DoorToKraidBoss      = $8FA594 ; 0x07A594
-DoorToPhantoonBoss   = $8FCCB9 ; 0x07CCB9
-DoorToDraygonBoss    = $8FD7D7 ; 0x07D7D7
-DoorToRidleyBoss     = $8FB3A1 ; 0x07B3A1
+DoorToKraidBoss      = $8FA594
+DoorToPhantoonBoss   = $8FCCB9
+DoorToDraygonBoss    = $8FD7D7
+DoorToRidleyBoss     = $8FB3A1
 
-DoorFromKraidRoom    = $8FA5E5 ; 0x07A5E5
-DoorFromPhantoonRoom = $8FCD59 ; 0x07CD59
-DoorFromDraygonRoom  = $8FDAA6 ; 0x07DAA6
-DoorFromRidleyRoom   = $8FB376 ; 0x07B376
+DoorFromKraidRoom    = $8FA5E5
+DoorFromPhantoonRoom = $8FCD59
+DoorFromDraygonRoom  = $8FDAA6
+DoorFromRidleyRoom   = $8FB376
 
 ; Boss Door Vectors
-DoorVectorToKraid       = $8391B6 ; 0x0191B6
-DoorVectorToPhantoon    = $83A2AC ; 0x01A2AC
-DoorVectorToDraygon     = $83A840 ; 0x01A840
-DoorVectorToRidley      = $8398CA ; 0x0198CA
+DoorVectorToKraid       = $8391B6
+DoorVectorToPhantoon    = $83A2AC
+DoorVectorToDraygon     = $83A840
+DoorVectorToRidley      = $8398CA
 
-DoorVectorToPreKraid    = $8391CE ; 0x0191CE
-DoorVectorToPrePhantoon = $83A2C4 ; 0x01A2C4
-DoorVectorToPreDraygon  = $83A96C ; 0x01A96C
-DoorVectorToPreRidley   = $8398BE ; 0x0198BE
+DoorVectorToPreKraid    = $8391CE
+DoorVectorToPrePhantoon = $83A2C4
+DoorVectorToPreDraygon  = $83A96C
+DoorVectorToPreRidley   = $8398BE
 
 ; Room Headers
 RoomHeaderPreKraid    = $8FA56B
