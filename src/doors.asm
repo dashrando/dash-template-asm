@@ -132,6 +132,43 @@ AppearInPrePhantoon: JSR.w $E1FE : %SetPos($049F,$00B8)
 AppearInPreDraygon:  JSR.w $E3D9 : %SetPos($0034,$0288)
 AppearInPreRidley:                 %SetPos($002E,$0098)
 
+;------------------------------------------------------------------------------
+; Area Door Transitions
+;------------------------------------------------------------------------------
+
+AppearInRetroPBs:      %SetPos($0000,$0000)
+AppearInGreenHills:    %SetPos($0000,$0000)
+AppearInMoat:          %SetPos($0000,$0000)
+AppearInOcean:         %SetPos($0000,$0000)
+AppearInG4:            %SetPos($0000,$0000)
+AppearInTourian:       %SetPos($0000,$0000)
+AppearInKago:          %SetPos($0000,$0000)
+AppearInGreenElevator: %SetPos($0000,$0000)
+AppearInCrabs:         %SetPos($0000,$0000)
+AppearInRedElevator:   %SetPos($0000,$0000)
+AppearInHighwayExit:   %SetPos($0000,$0000)
+AppearInHighway:       %SetPos($0000,$0000)
+AppearInNoobBridge:    %SetPos($0000,$0000)
+AppearInRedTower:      %SetPos($0000,$0000)
+AppearInMaridiaEscape: %SetPos($0000,$0000)
+AppearInRedFish:       %SetPos($0000,$0000)
+AppearInMaridiaTube:   %SetPos($0000,$0000)
+AppearInMainStreet:    %SetPos($0000,$0000)
+AppearInKraidEntry:    %SetPos($0000,$0000)
+AppearInElevatorEntry: %SetPos($0000,$0000)
+AppearInAboveKraid:    %SetPos($0000,$0000)
+AppearInMaridiaMap:    %SetPos($0000,$0000)
+AppearInKraidMouth:    %SetPos($0000,$0000)
+AppearInKraidsLair:    %SetPos($0000,$0000)
+AppearInCrocEntry:     %SetPos($0000,$0000)
+AppearInCroc:          %SetPos($0000,$0000)
+AppearInSingleChamber: %SetPos($0000,$0000)
+AppearInMuskateers:    %SetPos($0000,$0000)
+AppearInLavaDive:      %SetPos($0000,$0000)
+AppearInRidleyMouth:   %SetPos($0000,$0000)
+AppearInPreAqueduct:   %SetPos($0000,$0000)
+AppearInAqueduct:      %SetPos($0000,$0000)
+
 pushpc
 
 ;------------------------------------------------------------------------------
@@ -185,5 +222,101 @@ dw $D78F : db $40,$04,$01,$26,$00,$02 : dw $8000,AppearInPreDraygon
 DoorVectorTeleportToPreRidley:
 dw $B37A : db $40,$04,$01,$06,$00,$00 : dw $8000,AppearInPreRidley
 ; vanilla = dx B37A,00,04,01,06,00,00,8000,0000
+
+DoorVectorTeleportToRetroPBs:
+dw $0000 : db $00,$00,$00,$00,$00,$00 : dw $8000,AppearInRetroPBs
+
+DoorVectorTeleportToGreenHills:
+dw $0000 : db $00,$00,$00,$00,$00,$00 : dw $8000,AppearInGreenHills
+
+DoorVectorTeleportToMoat:
+dw $0000 : db $00,$00,$00,$00,$00,$00 : dw $8000,AppearInMoat
+
+DoorVectorTeleportToOcean:
+dw $0000 : db $00,$00,$00,$00,$00,$00 : dw $8000,AppearInOcean
+
+DoorVectorTeleportToG4:
+dw $0000 : db $00,$00,$00,$00,$00,$00 : dw $8000,AppearInG4
+
+DoorVectorTeleportToTourian:
+dw $0000 : db $00,$00,$00,$00,$00,$00 : dw $8000,AppearInTourian
+
+DoorVectorTeleportToKago:
+dw $0000 : db $00,$00,$00,$00,$00,$00 : dw $8000,AppearInKago
+
+DoorVectorTeleportToGreenElevator:
+dw $0000 : db $00,$00,$00,$00,$00,$00 : dw $8000,AppearInGreenElevator
+
+DoorVectorTeleportToCrabs:
+dw $0000 : db $00,$00,$00,$00,$00,$00 : dw $8000,AppearInCrabs
+
+DoorVectorTeleportToRedElevator:
+dw $0000 : db $00,$00,$00,$00,$00,$00 : dw $8000,AppearInRedElevator
+
+DoorVectorTeleportToHighwayExit:
+dw $0000 : db $00,$00,$00,$00,$00,$00 : dw $8000,AppearInHighwayExit
+
+DoorVectorTeleportToHighway:
+dw $0000 : db $00,$00,$00,$00,$00,$00 : dw $8000,AppearInHighway
+
+DoorVectorTeleportToNoobBridge:
+dw $0000 : db $00,$00,$00,$00,$00,$00 : dw $8000,AppearInNoobBridge
+
+DoorVectorTeleportToRedTower:
+dw $0000 : db $00,$00,$00,$00,$00,$00 : dw $8000,AppearInRedTower
+
+DoorVectorTeleportToMaridiaEscape:
+dw $0000 : db $00,$00,$00,$00,$00,$00 : dw $8000,AppearInMaridiaEscape
+
+DoorVectorTeleportToRedFish:
+dw $0000 : db $00,$00,$00,$00,$00,$00 : dw $8000,AppearInRedFish
+
+DoorVectorTeleportToMaridiaTube:
+dw $0000 : db $00,$00,$00,$00,$00,$00 : dw $8000,AppearInMaridiaTube
+
+DoorVectorTeleportToMainStreet:
+dw $0000 : db $00,$00,$00,$00,$00,$00 : dw $8000,AppearInMainStreet
+
+DoorVectorTeleportToKraidEntry:
+dw $0000 : db $00,$00,$00,$00,$00,$00 : dw $8000,AppearInKraidEntry
+
+DoorVectorTeleportToElevatorEntry:
+dw $0000 : db $00,$00,$00,$00,$00,$00 : dw $8000,AppearInElevatorEntry
+
+DoorVectorTeleportToAboveKraid:
+dw $0000 : db $00,$00,$00,$00,$00,$00 : dw $8000,AppearInAboveKraid
+
+DoorVectorTeleportToMaridiaMap:
+dw $0000 : db $00,$00,$00,$00,$00,$00 : dw $8000,AppearInMaridiaMap
+
+DoorVectorTeleportToKraidMouth:
+dw $0000 : db $00,$00,$00,$00,$00,$00 : dw $8000,AppearInKraidMouth
+
+DoorVectorTeleportToKraidsLair:
+dw $0000 : db $00,$00,$00,$00,$00,$00 : dw $8000,AppearInKraidsLair
+
+DoorVectorTeleportToCrocEntry:
+dw $0000 : db $00,$00,$00,$00,$00,$00 : dw $8000,AppearInCrocEntry
+
+DoorVectorTeleportToCroc:
+dw $0000 : db $00,$00,$00,$00,$00,$00 : dw $8000,AppearInCroc
+
+DoorVectorTeleportToSingleChamber:
+dw $0000 : db $00,$00,$00,$00,$00,$00 : dw $8000,AppearInSingleChamber
+
+DoorVectorTeleportToMuskateers:
+dw $0000 : db $00,$00,$00,$00,$00,$00 : dw $8000,AppearInMuskateers
+
+DoorVectorTeleportToLavaDive:
+dw $0000 : db $00,$00,$00,$00,$00,$00 : dw $8000,AppearInLavaDive
+
+DoorVectorTeleportToRidleyMouth:
+dw $0000 : db $00,$00,$00,$00,$00,$00 : dw $8000,AppearInRidleyMouth
+
+DoorVectorTeleportToPreAqueduct:
+dw $0000 : db $00,$00,$00,$00,$00,$00 : dw $8000,AppearInPreAqueduct
+
+DoorVectorTeleportToAqueduct:
+dw $0000 : db $00,$00,$00,$00,$00,$00 : dw $8000,AppearInAqueduct
 
 pullpc
