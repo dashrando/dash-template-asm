@@ -5,7 +5,7 @@ incsrc ../quickmet.asm
 incsrc ../loadout.asm
 
 ; Start in Big Pink
-%quickmet(!big_pink_bottom)
+%quickmet(!green_hills)
 
 ; Disable creating a save file
 org InitGameState_save
@@ -41,13 +41,24 @@ InitializeForTesting: {
         ; ---- Setup portals ----
         pushpc
 
-        org Door_GreenHills : dw DoorVectorToOcean
-        org Door_Ocean : dw DoorVectorToNoobBridge
-        org Door_NoobBridge : dw DoorVectorToRedFish
-        org Door_RedFish : dw DoorVectorToGreenElevator
-        org Door_GreenElevator : dw DoorVectorToTourian
-        org Door_Tourian : dw DoorVectorToMoat
-        org Door_Moat : dw DoorVectorToLavaDive
+        ;org Door_GreenHills : dw DoorVectorToOcean
+        ;org Door_Ocean : dw DoorVectorToNoobBridge
+        ;org Door_NoobBridge : dw DoorVectorToRedFish
+        ;org Door_RedFish : dw DoorVectorToGreenElevator
+        ;org Door_GreenElevator : dw DoorVectorToTourian
+        ;org Door_Tourian : dw DoorVectorToMoat
+        ;org Door_Moat : dw DoorVectorToLavaDive
+
+        ;org Door_GreenHills : dw DoorVectorTeleportToCrocEntry
+        ;org Door_GreenHills : dw DoorVectorTeleportToMoat
+        org Door_GreenHills : dw DoorVectorTeleportToPreAqueduct
+        org Door_PreAqueduct : dw DoorVectorTeleportToRidleyMouth
+        org Door_RidleyMouth : dw DoorVectorTeleportToSingleChamber
+        org Door_SingleChamber : dw DoorVectorTeleportToKraidMouth
+        org Door_ElevatorEntry : dw DoorVectorTeleportToRetroPBs
+        org Door_RetroPBs : dw DoorVectorTeleportToAqueduct
+        org Door_Aqueduct : dw DoorVectorTeleportToOcean
+        org Door_Ocean : dw DoorVectorToGreenHills
 
         pullpc
         ; ---- End portals ----
