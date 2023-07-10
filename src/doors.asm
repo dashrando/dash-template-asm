@@ -131,15 +131,15 @@ endmacro
 ;------------------------------------------------------------------------------
 ; Boss Door Transitions
 ;------------------------------------------------------------------------------
-AppearInKraidRoom:    %SetPos($0034,$0188)
-AppearInPhantoonRoom: %SetPos($002E,$00B8)
-AppearInDraygonRoom:  %SetPos($01D0,$0070)
-AppearInRidleyRoom:   %SetPos($00C4,$0084)
+AppearInKraidRoom:    %Teleport(DoorVectorToKraid)
+AppearInPhantoonRoom: %Teleport(DoorVectorToPhantoon)
+AppearInDraygonRoom:  %Teleport(DoorVectorToDraygon)
+AppearInRidleyRoom:   %Teleport(DoorVectorToRidley)
 
-AppearInPreKraid:                  %SetPos($01CD,$0188)
-AppearInPrePhantoon: JSR.w $E1FE : %SetPos($049F,$00B8)
-AppearInPreDraygon:  JSR.w $E3D9 : %SetPos($0034,$0288)
-AppearInPreRidley:                 %SetPos($002E,$0098)
+AppearInPreKraid:    %Teleport(DoorVectorToPreKraid)
+AppearInPrePhantoon: %Teleport(DoorVectorToPrePhantoon)
+AppearInPreDraygon:  %Teleport(DoorVectorToPreDraygon)
+AppearInPreRidley:   %Teleport(DoorVectorToPreRidley)
 
 ;------------------------------------------------------------------------------
 ; Area Door Transitions
@@ -208,6 +208,8 @@ TeleportSamus:
         LDA $830003,X
         AND.w #$0003
         CMP.w #$0003 ; 00 = right, 01 = left, 02 = down, 03 = up
+        ; TODO: add a little x for left, subtract a little x for right
+        ;       add a little y for down
         BNE +
                 LDA.w SamusYPos
                 SBC.w #$0058
