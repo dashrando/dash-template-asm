@@ -49,16 +49,48 @@ InitializeForTesting: {
         ;org Door_Tourian : dw DoorVectorToMoat
         ;org Door_Moat : dw DoorVectorToLavaDive
 
-        ;org Door_GreenHills : dw DoorVectorTeleportToCrocEntry
-        ;org Door_GreenHills : dw DoorVectorTeleportToMoat
-        org Door_GreenHills : dw DoorVectorTeleportToPreAqueduct
-        org Door_PreAqueduct : dw DoorVectorTeleportToRidleyMouth
-        org Door_RidleyMouth : dw DoorVectorTeleportToSingleChamber
-        org Door_SingleChamber : dw DoorVectorTeleportToKraidMouth
-        org Door_ElevatorEntry : dw DoorVectorTeleportToRetroPBs
-        org Door_RetroPBs : dw DoorVectorTeleportToAqueduct
-        org Door_Aqueduct : dw DoorVectorTeleportToOcean
-        org Door_Ocean : dw DoorVectorToGreenHills
+        ;org Door_GreenHills : dw DoorVectorTeleportToPreAqueduct
+        ;org Door_PreAqueduct : dw DoorVectorTeleportToRidleyMouth
+        ;org Door_RidleyMouth : dw DoorVectorTeleportToSingleChamber
+        ;org Door_SingleChamber : dw DoorVectorTeleportToKraidMouth
+        ;org Door_ElevatorEntry : dw DoorVectorTeleportToRetroPBs
+        ;org Door_RetroPBs : dw DoorVectorTeleportToAqueduct
+        ;org Door_Aqueduct : dw DoorVectorTeleportToOcean
+        ;org Door_Ocean : dw DoorVectorToGreenHills
+
+        ;org Door_GreenHills : dw DoorVectorTeleportToCrabs
+        ;org Door_Crabs : dw DoorVectorTeleportToMainStreet
+        ;org Door_MainStreet : dw DoorVectorTeleportToCrocEntry
+        ;org Door_CrocEntry : dw DoorVectorTeleportToNoobBridge
+        ;org Door_NoobBridge : dw DoorVectorTeleportToRedElevator
+        ;org Door_RedElevator : dw DoorVectorTeleportToMaridiaTube
+        ;org Door_MaridiaTube : dw DoorVectorTeleportToCroc
+        ;org Door_Croc : dw DoorVectorTeleportToRidleyMouth
+
+        ;org Door_GreenHills : dw DoorVectorTeleportToCrabs
+        ;org Door_Crabs : dw DoorVectorToMaridiaTube
+        ;org Door_MaridiaTube : dw DoorVectorToCrocEntry
+        ;org Door_CrocEntry : dw DoorVectorToRedElevator
+        ;org Door_RedElevator : dw DoorVectorToMainStreet
+        ;org Door_MainStreet : dw DoorVectorToCroc
+        ;org Door_Croc : dw DoorVectorTeleportToLavaDive
+
+        ;org Door_MainStreet : dw DoorVectorTeleportToCrocEntry
+        ;org Door_CrocEntry : dw DoorVectorTeleportToNoobBridge
+        ;org Door_NoobBridge : dw DoorVectorTeleportToRedElevator
+        ;org Door_RedElevator : dw DoorVectorTeleportToMaridiaTube
+        ;org Door_MaridiaTube : dw DoorVectorTeleportToCroc
+        ;org Door_Croc : dw DoorVectorTeleportToRidleyMouth
+
+        org Door_GreenHills : dw DoorVectorTeleportToMainStreet
+        org Door_MainStreet : dw DoorVectorTeleportToMaridiaMap
+        org Door_MaridiaMap : dw DoorVectorTeleportToCroc
+        org Door_Croc : dw DoorVectorTeleportToRidleyMouth
+        org Door_RidleyMouth : dw DoorVectorTeleportToCrocEntry
+        org Door_CrocEntry : dw DoorVectorTeleportToRedTower
+        org Door_RedTower : dw DoorVectorTeleportToRedElevator
+        org Door_RedElevator : dw DoorVectorTeleportToMaridiaEscape
+        org Door_MaridiaEscape : dw DoorVectorTeleportToCrabs
 
         pullpc
         ; ---- End portals ----

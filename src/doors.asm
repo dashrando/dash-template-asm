@@ -243,6 +243,8 @@ skip 8 : db $02
 ;------------------------------------------------------------------------------
 org $83AD70
 
+;---
+
 DoorVectorTeleportToKraid:
 dw $A59F : db $40,$04,$01,$16,$00,$01 : dw $8000,AppearInKraidRoom
 ;dx A59F,00,04,01,16,00,01,8000,0000
@@ -283,202 +285,125 @@ DoorVectorTeleportToRetroPBs:
 dw $9E9F : db $40,$04,$01,$26,$00,$02 : dw $8000,AppearInRetroPBs
 ;dx 9E9F,00,04,01,26,00,02,8000,0000
 
-;---
-
 DoorVectorTeleportToGreenHills:
 dw $9E52 : db $40,$05,$1E,$06,$01,$00 : dw $8000,AppearInGreenHills
 ;dx 9E52,00,05,1E,06,01,00,8000,0000
-
-;---
 
 DoorVectorTeleportToMoat:
 dw $95FF : db $40,$05,$1E,$06,$01,$00 : dw $8000,AppearInMoat
 ;dx 95FF,00,05,1E,06,01,00,8000,0000
 
-;---
-
 DoorVectorTeleportToOcean:
 dw $93FE : db $40,$04,$01,$46,$00,$04 : dw $8000,AppearInOcean
 ;dx 93FE,00,04,01,46,00,04,8000,0000
-
-;---
 
 DoorVectorTeleportToG4:
 dw $99BD : db $40,$05,$0E,$66,$00,$06 : dw $8000,AppearInG4
 ;dx 99BD,00,05,0E,66,00,06,8000,0000
 
-;---
-
 DoorVectorTeleportToTourian:
 dw $A5ED : db $40,$04,$01,$06,$00,$00 : dw $8000,AppearInTourian
 ;dx A5ED,00,04,01,06,00,00,8000,0000
-
-;---
 
 DoorVectorTeleportToKago:
 dw $9969 : db $40,$04,$01,$06,$00,$00 : dw $8000,AppearInKago
 ;dx 9969,00,04,01,06,00,00,8000,0000
 
-;---
-
 DoorVectorTeleportToGreenElevator:
 dw $9938 : db $40,$05,$0E,$06,$00,$00 : dw $8000,AppearInGreenElevator
 ;dx 9938,00,05,0E,06,00,00,8000,0000
 
-;---
-
-;DoorVectorToCrabs:
-;dx 948C,00,07,16,2D,01,02,01C0,B9F1
-
-DoorVectorReverseToCrabs:
-dw $948C : db $40,$07,$16,$2D,$01,$02 : dw $01C0,AppearInCrabs
-
 DoorVectorTeleportToCrabs:
 dw $948C : db $40,$00,$16,$2D,$01,$02 : dw $0000,AppearInCrabs
-
-;---
+;dx 948C,00,07,16,2D,01,02,01C0,B9F1
 
 DoorVectorTeleportToRedElevator:
-dw $962A : db $40,$06,$06,$02,$00,$00 : dw $8000,AppearInRedElevator
+dw $962A : db $40,$00,$06,$02,$00,$00 : dw $0000,AppearInRedElevator
 ;dx 962A,00,06,06,02,00,00,8000,0000
-
-;---
 
 DoorVectorTeleportToHighwayExit:
 dw $957D : db $40,$04,$01,$16,$00,$01 : dw $8000,AppearInHighwayExit
 ;dx 957D,00,04,01,16,00,01,8000,0000
 
-;---
-
 DoorVectorTeleportToHighway:
 dw $95A8 : db $40,$05,$0E,$06,$00,$00 : dw $8000,AppearInHighway
 ;dx 95A8,00,05,0E,06,00,00,8000,0000
-
-;---
 
 DoorVectorTeleportToNoobBridge:
 dw $9FBA : db $40,$05,$5E,$06,$05,$00 : dw $8000,AppearInNoobBridge
 ;dx 9FBA,00,05,5E,06,05,00,8000,0000
 
-;---
-
 DoorVectorTeleportToRedTower:
 dw $A253 : db $40,$04,$01,$46,$00,$04 : dw $8000,AppearInRedTower
 ;dx A253,00,04,01,46,00,04,8000,0000
-
-;---
 
 DoorVectorTeleportToMaridiaEscape:
 dw $A322 : db $40,$05,$2E,$36,$02,$03 : dw $8000,AppearInMaridiaEscape
 ;dx A322,40,05,2E,36,02,03,8000,E367
 
-;---
-
 DoorVectorTeleportToRedFish:
 dw $D104 : db $40,$04,$01,$06,$00,$00 : dw $8000,AppearInRedFish
 ;dx D104,40,04,01,06,00,00,8000,BDAF
 
-;---
-
 DoorVectorTeleportToMaridiaTube:
-dw $CEFB : db $40,$06,$06,$02,$00,$00 : dw $0170,AppearInMaridiaTube
+dw $CEFB : db $40,$00,$06,$02,$00,$00 : dw $0170,AppearInMaridiaTube
 ;dx CEFB,00,06,06,02,00,00,0170,0000
-
-;---
-
-;DoorVectorToMainStreet:
-;dx CFC9,00,07,16,7D,01,07,0200,0000
-
-DoorVectorReverseToMainStreet:
-dw $CFC9 : db $40,$07,$16,$7D,$01,$07 : dw $0200,AppearInMainStreet
 
 DoorVectorTeleportToMainStreet:
 dw $CFC9 : db $40,$00,$16,$7D,$01,$07 : dw $0000,AppearInMainStreet
-
-;---
+;dx CFC9,00,07,16,7D,01,07,0200,0000
 
 DoorVectorTeleportToKraidEntry:
 dw $CF80 : db $40,$05,$0E,$16,$00,$01 : dw $8000,AppearInKraidEntry
 ;dx CF80,40,05,0E,16,00,01,8000,BDD1
 
-;---
-
 DoorVectorTeleportToElevatorEntry:
 dw $A6A1 : db $40,$04,$01,$06,$00,$00 : dw $8000,AppearInElevatorEntry
 ;dx A6A1,40,04,01,06,00,00,8000,0000
-
-;---
 
 DoorVectorTeleportToAboveKraid:
 dw $CF80 : db $40,$05,$3E,$06,$03,$00 : dw $8000,AppearInAboveKraid
 ;dx CF80,00,05,3E,06,03,00,8000,0000
 
-;---
-
 DoorVectorTeleportToMaridiaMap:
 dw $D21C : db $40,$04,$01,$16,$00,$01 : dw $8000,AppearInMaridiaMap
 ;dx D21C,00,04,01,16,00,01,8000,E356
-
-;---
 
 DoorVectorTeleportToKraidMouth:
 dw $A6A1 : db $40,$05,$2E,$06,$02,$00 : dw $8000,AppearInKraidMouth
 ;dx A6A1,00,05,2E,06,02,00,8000,BD3F
 
-;---
-
 DoorVectorTeleportToKraidsLair:
 dw $A471 : db $40,$04,$01,$06,$00,$00 : dw $8000,AppearInKraidsLair
 ;dx A471,00,04,01,06,00,00,8000,0000
 
-;---
-
-;DoorVectorToCrocEntry:
-;dx A923,00,07,C6,2D,0C,02,01C0,0000
-
-DoorVectorReverseToCrocEntry:
-dw $A923 : db $40,$07,$C6,$2D,$0C,$02 : dw $01C0,AppearInCrocEntry
-
 DoorVectorTeleportToCrocEntry:
 dw $A923 : db $40,$00,$C6,$2D,$0C,$02 : dw $0000,AppearInCrocEntry
-
-;---
+;dx A923,00,07,C6,2D,0C,02,01C0,0000
 
 DoorVectorTeleportToCroc:
-dw $A98D : db $40,$06,$36,$02,$03,$00 : dw $8000,AppearInCroc
+dw $A98D : db $40,$00,$36,$02,$03,$00 : dw $8000,AppearInCroc
 ;dx A98D,00,06,36,02,03,00,8000,0000
-
-;---
 
 DoorVectorTeleportToSingleChamber:
 dw $AD5E : db $40,$05,$5E,$06,$05,$00 : dw $8000,AppearInSingleChamber
 ;dx AD5E,00,05,5E,06,05,00,8000,0000
 
-;---
-
 DoorVectorTeleportToMuskateers:
 dw $B656 : db $40,$04,$11,$06,$01,$00 : dw $8000,AppearInMuskateers
 ;dx B656,00,04,11,06,01,00,8000,0000
-
-;---
 
 DoorVectorTeleportToLavaDive:
 dw $AE74 : db $40,$04,$11,$26,$01,$02 : dw $8000,AppearInLavaDive
 ;dx AE74,00,04,11,26,01,02,8000,0000
 
-;---
-
 DoorVectorTeleportToRidleyMouth:
 dw $AF14 : db $40,$05,$3E,$06,$03,$00 : dw $8000,AppearInRidleyMouth
 ;dx AF14,00,05,3E,06,03,00,8000,0000
 
-;---
-
 DoorVectorTeleportToPreAqueduct:
 dw $D1A3 : db $40,$05,$1E,$36,$01,$03 : dw $8000,AppearInPreAqueduct
 ;dx D1A3,00,05,1E,36,01,03,8000,E398
-
-;---
 
 DoorVectorTeleportToAqueduct:
 dw $D5A7 : db $40,$04,$01,$16,$00,$01 : dw $8000,AppearInAqueduct
