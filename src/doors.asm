@@ -186,25 +186,25 @@ TeleportSamus:
         PHX
         LDA $03,S : TAX
 
-        ;
+        ; Call an external routine if specified
         LDA $83000A,X : BEQ .xpos
                 STA $12
                 PEA .xpos-1
                 JMP ($0012)
         .xpos
         
-        ;
+        ; Update Samus X position
         LDA $830004,X
         AND.w #$00FF : ASL #4
         STA.w SamusXPos
 
-        ;
+        ; Update Samus Y position
         LDA $830005,X
         AND.w #$00FF : ASL #4
         ADC.w #$28  ; TODO: based on samus height?
         STA.w SamusYPos
 
-        ;
+        ; Tweak Samus position based on door location
         LDA $830003,X
         AND.w #$0003
         CMP.w #$0003 ; 00 = right, 01 = left, 02 = down, 03 = up
@@ -217,7 +217,6 @@ TeleportSamus:
                 STZ $0791
         +
 
-        ;
         PLX : PLA
 RTS
 
