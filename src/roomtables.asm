@@ -38,10 +38,10 @@ endif
 
 ; Creates column-major table named <area>Rooms:
 %AreaRoomTable(Crateria, $33)
-%AreaRoomTable(Brinstar, $37)
-%AreaRoomTable(Norfair, $4C)
-%AreaRoomTable(WreckedShip, $11)
-%AreaRoomTable(Maridia, $37)
+%AreaRoomTable(Brinstar, $3D)
+%AreaRoomTable(Norfair, $52)
+%AreaRoomTable(WreckedShip, $16)
+%AreaRoomTable(Maridia, $3D)
 %AreaRoomTable(Tourian, $12)
 
 ;------------------------------------------------------------------------------
@@ -142,6 +142,11 @@ endif
 %RoomEntry(Brinstar, $35,  !Area_Kraid,         $00,  NoPatch) ; Varia Suit
 %RoomEntry(Brinstar, $36,  !Area_Kraid,         $00,  NoPatch) ; Kraid Save
 %RoomEntry(Brinstar, $37,  !Area_RedBrinstar,   $00,  NoPatch) ; Red Tower Save
+%RoomEntry(Brinstar, $38,  $39,                 $00,  NoPatch) ; Phantoon
+%RoomEntry(Brinstar, $39,  $49,                 $00,  NoPatch) ; Draygon
+%RoomEntry(Brinstar, $3A,  $49,                 $00,  NoPatch) ; Space Jump
+%RoomEntry(Brinstar, $3B,  $29,                 $00,  NoPatch) ; Ridley
+%RoomEntry(Brinstar, $3C,  $29,                 $00,  NoPatch) ; Ridley E-Tank
 
 ; Norfair
 ;          Area      index  sub_areas      room_flags  room_patches
@@ -221,6 +226,11 @@ endif
 %RoomEntry(Norfair, $4A,  !Area_LowerNorfair,  $00,  NoPatch) ; Screw Attack
 %RoomEntry(Norfair, $4B,  !Area_LowerNorfair,  $00,  NoPatch) ; Firefleas
 %RoomEntry(Norfair, $4C,  !Area_LowerNorfair,  $00,  NoPatch) ; Ridley Save
+%RoomEntry(Norfair, $4D,  $1B,                 $00,  NoPatch) ; Kraid
+%RoomEntry(Norfair, $4E,  $1B,                 $00,  NoPatch) ; Varia Suit
+%RoomEntry(Norfair, $4F,  $3B,                 $00,  NoPatch) ; Phantoon
+%RoomEntry(Norfair, $50,  $4B,                 $00,  NoPatch) ; Draygon
+%RoomEntry(Norfair, $51,  $4B,                 $00,  NoPatch) ; Space Jump
 
 ; Wrecked Ship
 ;          Area       index     sub_areas      room_flags  room_patches
@@ -240,6 +250,12 @@ endif
 %RoomEntry(WreckedShip, $0D,  !Area_WreckedShip,  $00,  NoPatch) ; Wrecked Ship Right Supers
 %RoomEntry(WreckedShip, $0E,  !Area_WreckedShip,  $00,  NoPatch) ; Gravity Suit
 %RoomEntry(WreckedShip, $0F,  !Area_WreckedShip,  $00,  NoPatch) ; Wrecked Ship Save
+%RoomEntry(WreckedShip, $10,  $13,                $00,  NoPatch) ; Kraid
+%RoomEntry(WreckedShip, $11,  $13,                $00,  NoPatch) ; Varia Suit
+%RoomEntry(WreckedShip, $12,  $43,                $00,  NoPatch) ; Draygon
+%RoomEntry(WreckedShip, $13,  $43,                $00,  NoPatch) ; Space Jump
+%RoomEntry(WreckedShip, $14,  $23,                $00,  NoPatch) ; Ridley
+%RoomEntry(WreckedShip, $15,  $23,                $00,  NoPatch) ; Ridley E-Tank
 
 ; Maridia
 ;          Area    index     sub_areas      room_flags  room_patches
@@ -299,6 +315,11 @@ endif
 %RoomEntry(Maridia, $35,  !Area_EastMaridia,  $00,  NoPatch) ; Cactus Alley West
 %RoomEntry(Maridia, $36,  !Area_EastMaridia,  $00,  NoPatch) ; Cactus Alley East
 %RoomEntry(Maridia, $37,  !Area_EastMaridia,  $00,  NoPatch) ; Draygon
+%RoomEntry(Maridia, $38,  $14,                $00,  NoPatch) ; Kraid
+%RoomEntry(Maridia, $39,  $14,                $00,  NoPatch) ; Varia Suit
+%RoomEntry(Maridia, $3A,  $34,                $00,  NoPatch) ; Phantoon
+%RoomEntry(Maridia, $3B,  $24,                $00,  NoPatch) ; Ridley
+%RoomEntry(Maridia, $3C,  $24,                $00,  NoPatch) ; Ridley E-Tank
 
 ; Tourian
 ;          Area    index     sub_areas room_flags  room_patches

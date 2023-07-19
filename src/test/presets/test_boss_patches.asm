@@ -4,9 +4,9 @@ incsrc ../buttons.asm
 incsrc ../quickmet.asm
 incsrc ../loadout.asm
 
-; Start in Sand Falls
 ;%quickmet(!pre_draygon)
 %quickmet(!pre_kraid)
+;%quickmet(!pre_phantoon)
 
 ; Disable creating a save file
 org InitGameState_save
@@ -33,43 +33,32 @@ InitializeForTesting: {
         LDA.l EventFlags : ORA.w #$0001 : STA.l EventFlags
 
         ; Kill bosses
-        LDA.l BossFlagsVanilla   : ORA.w #$0100 : STA.l BossFlagsVanilla ; Kraid
-        LDA.l BossFlagsVanilla+2 : ORA.w #$0100 : STA.l BossFlagsVanilla+2 ; Phantoon
-        LDA.l BossFlagsVanilla+4 : ORA.w #$0001 : STA.l BossFlagsVanilla+4 ; Draygon
-        LDA.l BossFlagsVanilla+2 : ORA.w #$0001 : STA.l BossFlagsVanilla+2 ; Ridley
-
-        if !AREA == 1
-        ; ---- Setup portals ----
-        pushpc
-
-        ; n00b bridge to Retro PBs
-        ;org $838F0A : dw $9E9F,$0400,$2601,$0200,$8000,$0000
-        ; Retro PBs to n00b bridge
-        ;org $838E9E : dw $9FBA,$0500,$065E,$0005,$8000,$0000
-
-        ; Green Hills to Red Tower
-        ;org $838E86 : dw $A253,$0400,$4601,$0400,$8000,$0000
-        ; Red Tower to Green Hills
-        ;org $83902A : dw $9E52,$0500,$061E,$0001,$8000,$0000
-
-        pullpc
-        ; ---- End portals ----
+        LDA.l BossFlagsVanilla   : ORA.w #$0100 : STA.l BossFlagsVanilla ; Brinstar
+        LDA.l BossFlagsVanilla+2 : ORA.w #$0100 : STA.l BossFlagsVanilla+2 ; Wrecked Ship
+        LDA.l BossFlagsVanilla+4 : ORA.w #$0001 : STA.l BossFlagsVanilla+4 ; Maridia
+        LDA.l BossFlagsVanilla+2 : ORA.w #$0001 : STA.l BossFlagsVanilla+2 ; Norfair
 
         ; ---- Setup bosses ----
         pushpc
 
+        ; Disable fanfare
+        org NoFanfare : dw $0001 ; Disable fanfares
+
+        ;---- Round Trip 0 ----
+        ;org DoorToKraidBoss : dw DoorVectorToPhantoonInWreckedShip
+        ;org DoorToPhantoonBoss : dw DoorVectorToPhantoonInMaridia
+        ;org DoorToDraygonBoss : dw DoorVectorToPhantoonInNorfair
+        ;org DoorToRidleyBoss : dw DoorVectorToPhantoonInBrinstar
+
         ;---- Round Trip 1 ----
-        org DoorToDraygonBoss : dw DoorVectorTeleportToKraid
-        org DoorToKraidBoss : dw DoorVectorTeleportToRidley
-        org DoorToRidleyBoss : dw DoorVectorTeleportToPhantoon
-        org DoorToPhantoonBoss : dw DoorVectorTeleportToDraygon
+        ;org DoorToDraygonBoss : dw DoorVectorToKraidInBrinstar
+        ;org DoorFromKraidRoom : dw DoorVectorTeleportToPreDraygon
 
         ;---- Round Trip 2 ----
-
-        ;org DoorFromDraygonRoom : dw DoorVectorTeleportToPreKraid
-        ;org DoorFromKraidRoom : dw DoorVectorTeleportToPreRidley
-        ;org DoorFromRidleyRoom : dw DoorVectorTeleportToPrePhantoon
-        ;org DoorFromPhantoonRoom : dw DoorVectorTeleportToPreDraygon
+        org DoorToKraidBoss : dw DoorVectorToKraidInWreckedShip
+        org DoorToPhantoonBoss : dw DoorVectorToKraidInMaridia
+        org DoorToDraygonBoss : dw DoorVectorToKraidInNorfair
+        org DoorToRidleyBoss : dw DoorVectorToKraidInBrinstar
 
         ;---- Round Trip 3 ----
         ;org DoorToDraygonBoss : dw DoorVectorToRidley
@@ -92,7 +81,6 @@ InitializeForTesting: {
         ;org DoorFromKraidRoom : dw DoorVectorToPreKraid
 
         pullpc
-        endif
         ; ---- End bosses ----
 
         RTL

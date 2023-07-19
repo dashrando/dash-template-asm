@@ -1,41 +1,62 @@
-macro PrintLabelAddress(label)
-    print "  <label>: 0x",hex(snestopc(<label>)),","
+macro PrintAddress(varName,address)
+    print "  <varName>: 0x",hex(snestopc(<address>)),","
 endmacro
 
-print ""
-print "const BOSSES = {"
+macro PrintHexByte(varName,varValue)
+    print "  <varName>: 0x",hex(<varValue>),","
+endmacro
+
+macro PrintLabelAddress(label)
+    %PrintAddress(<label>,<label>)
+endmacro
+
+print "export const BOSS_DOORS = {"
+print "  // Boss Entry Door Pointers"
 %PrintLabelAddress(DoorToKraidBoss)
 %PrintLabelAddress(DoorToPhantoonBoss)
 %PrintLabelAddress(DoorToDraygonBoss)
 %PrintLabelAddress(DoorToRidleyBoss)
-print "  //"
+print "  // Vanilla Boss Entry Door Vectors"
 %PrintLabelAddress(DoorVectorToKraid)
 %PrintLabelAddress(DoorVectorToPhantoon)
 %PrintLabelAddress(DoorVectorToDraygon)
 %PrintLabelAddress(DoorVectorToRidley)
-print "  //"
-%PrintLabelAddress(DoorVectorTeleportToKraid)
-%PrintLabelAddress(DoorVectorTeleportToPhantoon)
-%PrintLabelAddress(DoorVectorTeleportToDraygon)
-%PrintLabelAddress(DoorVectorTeleportToRidley)
-print "  //"
+print "  // Custom Boss Entry Door Vectors"
+%PrintLabelAddress(DoorVectorToKraidInBrinstar)
+%PrintLabelAddress(DoorVectorToKraidInWreckedShip)
+%PrintLabelAddress(DoorVectorToKraidInMaridia)
+%PrintLabelAddress(DoorVectorToKraidInNorfair)
+%PrintLabelAddress(DoorVectorToPhantoonInBrinstar)
+%PrintLabelAddress(DoorVectorToPhantoonInWreckedShip)
+%PrintLabelAddress(DoorVectorToPhantoonInMaridia)
+%PrintLabelAddress(DoorVectorToPhantoonInNorfair)
+%PrintLabelAddress(DoorVectorToDraygonInBrinstar)
+%PrintLabelAddress(DoorVectorToDraygonInWreckedShip)
+%PrintLabelAddress(DoorVectorToDraygonInMaridia)
+%PrintLabelAddress(DoorVectorToDraygonInNorfair)
+%PrintLabelAddress(DoorVectorToRidleyInBrinstar)
+%PrintLabelAddress(DoorVectorToRidleyInWreckedShip)
+%PrintLabelAddress(DoorVectorToRidleyInMaridia)
+%PrintLabelAddress(DoorVectorToRidleyInNorfair)
+print "  // Boss Exit Door Pointers"
 %PrintLabelAddress(DoorFromKraidRoom)
 %PrintLabelAddress(DoorFromPhantoonRoom)
 %PrintLabelAddress(DoorFromDraygonRoom)
 %PrintLabelAddress(DoorFromRidleyRoom)
-print "  //"
+print "  // Vanilla Boss Exit Door Vectors"
 %PrintLabelAddress(DoorVectorToPreKraid)
 %PrintLabelAddress(DoorVectorToPrePhantoon)
 %PrintLabelAddress(DoorVectorToPreDraygon)
 %PrintLabelAddress(DoorVectorToPreRidley)
-print "  //"
+print "  // Custom Boss Exit Door Vectors"
 %PrintLabelAddress(DoorVectorTeleportToPreKraid)
 %PrintLabelAddress(DoorVectorTeleportToPrePhantoon)
 %PrintLabelAddress(DoorVectorTeleportToPreDraygon)
 %PrintLabelAddress(DoorVectorTeleportToPreRidley)
 print "};"
 print ""
-print "const AREAS = {"
+print "export const AREA_DOORS = {"
+print "  // Door Pointers"
 %PrintLabelAddress(Door_RetroPBs)
 %PrintLabelAddress(Door_GreenHills)
 %PrintLabelAddress(Door_Moat)
@@ -68,7 +89,7 @@ print "const AREAS = {"
 %PrintLabelAddress(Door_RidleyMouth)
 %PrintLabelAddress(Door_PreAqueduct)
 %PrintLabelAddress(Door_Aqueduct)
-print "  //"
+print "  // Vanilla Door Vectors"
 %PrintLabelAddress(DoorVectorToRetroPBs)
 %PrintLabelAddress(DoorVectorToGreenHills)
 %PrintLabelAddress(DoorVectorToMoat)
@@ -101,7 +122,7 @@ print "  //"
 %PrintLabelAddress(DoorVectorToRidleyMouth)
 %PrintLabelAddress(DoorVectorToPreAqueduct)
 %PrintLabelAddress(DoorVectorToAqueduct)
-print "  //"
+print "  // Custom Door Vectors"
 %PrintLabelAddress(DoorVectorTeleportToRetroPBs)
 %PrintLabelAddress(DoorVectorTeleportToGreenHills)
 %PrintLabelAddress(DoorVectorTeleportToMoat)
@@ -136,3 +157,20 @@ print "  //"
 %PrintLabelAddress(DoorVectorTeleportToAqueduct)
 print "};"
 print ""
+print "export const BOSS_ITEMS = {"
+print "  // Varia Suit Location"
+%PrintAddress(VariaSuitInBrinstar,$8F8ACA)
+%PrintAddress(VariaSuitInWreckedShip,RoomHeaderVariaSuitInWreckedShip_item_plm)
+%PrintAddress(VariaSuitInMaridia,RoomHeaderVariaSuitInMaridia_item_plm)
+%PrintAddress(VariaSuitInNorfair,RoomHeaderVariaSuitInNorfair_item_plm)
+print "  // Space Jump Location"
+%PrintAddress(SpaceJumpInBrinstar,RoomHeaderSpaceJumpInBrinstar_item_plm)
+%PrintAddress(SpaceJumpInWreckedShip,RoomHeaderSpaceJumpInWreckedShip_item_plm)
+%PrintAddress(SpaceJumpInMaridia,$8FC7A7)
+%PrintAddress(SpaceJumpInNorfair,RoomHeaderSpaceJumpInNorfair_item_plm)
+print "  // Ridley Tank Location"
+%PrintAddress(RidleyTankInBrinstar,RoomHeaderRidleyTankInBrinstar_item_plm)
+%PrintAddress(RidleyTankInWreckedShip,RoomHeaderRidleyTankInWreckedShip_item_plm)
+%PrintAddress(RidleyTankInMaridia,RoomHeaderRidleyTankInMaridia_item_plm)
+%PrintAddress(RidleyTankInNorfair,$8F9108)
+print "};"

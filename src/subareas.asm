@@ -11,45 +11,28 @@ OnRoomLoad:
         PLX
 RTS
 
+SubAreaHandlers:
+dw CrateriaRooms_sub_areas
+dw BrinstarRooms_sub_areas
+dw NorfairRooms_sub_areas
+dw WreckedShipRooms_sub_areas
+dw MaridiaRooms_sub_areas
+dw TourianRooms_sub_areas
+
 DetermineSubArea:
         STA.w AreaIndex ; What we wrote over
+        STA.w FxAreaIndex
         ASL : TAX
-        JMP.w (SubAreaHandlers,X)
-
-SubAreaHandlers:
-dw .crateria
-dw .brinstar
-dw .norfair
-dw .wreckedship
-dw .maridia
-dw .tourian
-
-.crateria
-        LDA.w RoomIndex : TAX
-        LDA.l CrateriaRooms_sub_areas,X
-        BRA .done
-.brinstar
-        LDA.w RoomIndex : TAX
-        LDA.l BrinstarRooms_sub_areas,X
-        BRA .done
-.norfair
-        LDA.w RoomIndex : TAX
-        LDA.l NorfairRooms_sub_areas,X
-        BRA .done
-.wreckedship
-        LDA.w RoomIndex : TAX
-        LDA.l WreckedShipRooms_sub_areas,X
-        BRA .done
-.maridia
-        LDA.w RoomIndex : TAX
-        LDA.l MaridiaRooms_sub_areas,X
-        BRA .done
-.tourian
-        LDA.w RoomIndex : TAX
-        LDA.l TourianRooms_sub_areas,X
-        BRA .done
-.done
-        AND.w #$00FF : CMP.w SubAreaIndex : BEQ +
+        LDA.l SubAreaHandlers,X
+        ADC.w RoomIndex : TAX
+        LDA.l $DF0000,X
+        PHA
+        AND.w #$00F0 : BEQ +
+                LSR #4
+                STA.w FxAreaIndex
+        +
+        PLA
+        AND.w #$000F : CMP.w SubAreaIndex : BEQ +
                 INC.w HUDDrawFlag
         +
         STA.w SubAreaIndex

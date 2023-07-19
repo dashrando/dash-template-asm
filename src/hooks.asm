@@ -420,5 +420,7 @@ JSL.l LoadTitleLogo
 org $80AE29
 JSR.w FixDoorBG1Scroll
 
+org $89AC62
+LDA.w FxAreaIndex
 
 pullpc

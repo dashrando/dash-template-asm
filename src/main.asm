@@ -92,6 +92,7 @@ warnpc $8F8000
 
 org $8FE9A0
 incsrc doors.asm
+incsrc rooms.asm
 warnpc $908000
 
 org $90F63A

@@ -68,10 +68,10 @@ RoomHeaderPrePhantoon = $8FCC6F
 RoomHeaderPreDraygon  = $8FD78F
 RoomHeaderPreRidley   = $8FB37A
 
-RoomHeaderKraid    = $8FA59F
-RoomHeaderPhantoon = $8FCD13
-RoomHeaderDraygon  = $8FDA60
-RoomHeaderRidley   = $8FB32E
+RoomHeaderKraidInBrinstar       = $8FA59F
+RoomHeaderPhantoonInWreckedShip = $8FCD13
+RoomHeaderDraygonInMaridia      = $8FDA60
+RoomHeaderRidleyInNorfair       = $8FB32E
 
 ; Boss Doors
 DoorToKraidBoss      = $8FA594

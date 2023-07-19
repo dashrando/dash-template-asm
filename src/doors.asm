@@ -244,21 +244,90 @@ org $83AD70
 
 ;---
 
-DoorVectorTeleportToKraid:
-dw $A59F : db $40,$04,$01,$16,$00,$01 : dw $8000,AppearInKraidRoom
-;dx A59F,00,04,01,16,00,01,8000,0000
+macro VariaSuitVectors(area)
+DoorVectorToVariaSuitIn<area>:
+dw RoomHeaderVariaSuitIn<area> : %CopyBytes($8391DA+2,$8391E6)
+DoorVectorToKraidFromVariaSuitIn<area>:
+dw RoomHeaderKraidIn<area>     : %CopyBytes($839252+2,$83925E)
+endmacro
 
-DoorVectorTeleportToPhantoon:
-dw $CD13 : db $40,$04,$01,$06,$00,$00 : dw $8000,AppearInPhantoonRoom
-;dx CD13,00,04,01,06,00,00,8000,0000
+%VariaSuitVectors(Norfair)
+%VariaSuitVectors(WreckedShip)
+%VariaSuitVectors(Maridia)
 
-DoorVectorTeleportToDraygon:
-dw $DA60 : db $40,$05,$1E,$06,$01,$00 : dw $8000,AppearInDraygonRoom
-;dx DA60,00,05,1E,06,01,00,8000,0000
+;---
 
-DoorVectorTeleportToRidley:
-dw $B32E : db $40,$05,$0E,$06,$00,$00 : dw $8000,AppearInRidleyRoom
-;dx B32E,00,05,0E,06,00,00,8000,0000
+macro KraidVector(area)
+DoorVectorToKraidIn<area>:
+dw RoomHeaderKraidIn<area> : db $40,$04,$01,$16,$00,$01 : dw $8000,AppearInKraidRoom
+endmacro
+
+%KraidVector(Brinstar)
+%KraidVector(WreckedShip)
+%KraidVector(Maridia)
+%KraidVector(Norfair)
+
+;---
+
+macro PhantoonVector(area)
+DoorVectorToPhantoonIn<area>:
+dw RoomHeaderPhantoonIn<area> : db $40,$04,$01,$06,$00,$00 : dw $8000,AppearInPhantoonRoom
+endmacro
+
+%PhantoonVector(Brinstar)
+%PhantoonVector(WreckedShip)
+%PhantoonVector(Maridia)
+%PhantoonVector(Norfair)
+
+;---
+
+macro SpaceJumpVectors(area)
+DoorVectorToSpaceJumpIn<area>:
+dw RoomHeaderSpaceJumpIn<area> : %CopyBytes($83A978+2,$83A984) ; verify (ok)
+DoorVectorToDraygonFromSpaceJumpIn<area>:
+dw RoomHeaderDraygonIn<area>   : %CopyBytes($83A924+2,$83A930) ; verify (ok)
+endmacro
+
+%SpaceJumpVectors(Brinstar)
+%SpaceJumpVectors(WreckedShip)
+%SpaceJumpVectors(Norfair)
+
+;---
+
+macro DraygonVector(area)
+DoorVectorToDraygonIn<area>:
+dw RoomHeaderDraygonIn<area> : db $40,$05,$1E,$06,$01,$00 : dw $8000,AppearInDraygonRoom
+endmacro
+
+%DraygonVector(Brinstar)
+%DraygonVector(WreckedShip)
+%DraygonVector(Maridia)
+%DraygonVector(Norfair)
+
+;---
+
+macro RidleyTankVectors(area)
+DoorVectorToRidleyTankIn<area>:
+dw RoomHeaderRidleyTankIn<area> : %CopyBytes($8398B2+2,$8398BE) ; verify
+DoorVectorToRidleyFromTankIn<area>:
+dw RoomHeaderRidleyIn<area>     : %CopyBytes($839A62+2,$839A6E) ; verify
+endmacro
+
+%RidleyTankVectors(Brinstar)
+%RidleyTankVectors(WreckedShip)
+%RidleyTankVectors(Maridia)
+
+;---
+
+macro RidleyVector(area)
+DoorVectorToRidleyIn<area>:
+dw RoomHeaderRidleyIn<area> : db $40,$05,$0E,$06,$00,$00 : dw $8000,AppearInRidleyRoom
+endmacro
+
+%RidleyVector(Brinstar)
+%RidleyVector(Norfair)
+%RidleyVector(WreckedShip)
+%RidleyVector(Maridia)
 
 ;---
 
