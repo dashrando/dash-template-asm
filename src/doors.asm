@@ -116,6 +116,38 @@ if !AREA == 1
     org $8F874B : db $8C
     org $A193A8 : db $00
 
+    ; Croc Entry portal
+    org $8F8B4E         ; Norfair above Croc 8b96
+    skip $48 : dw $0000 ; Make upper Croc door blue
+
+    ; Croc Exit portal
+    org $8F8B9E ; Croc room
+    dw NoopPLM : dw $0000, $0000 ; Make top door blue
+    
+    ; G4 portal
+    org $8F844C
+    skip 36 : dw $0000
+
+    ; Crabs
+    org $8F81FE
+    skip 42 : dw $0000
+
+    ; Red Elevator
+    org $8F8250
+    skip 6 : dw $0000
+
+    ; Highway (Maridia)
+    org $8F823E
+    skip 0 : dw $0000
+
+    ; Lava Dive
+    org $8F8D1E
+    skip 48 : dw $0000
+
+    ; PreAqueduct
+    org $8FC4EF
+    skip 12 : dw $0000
+
     pullpc
 endif
 
