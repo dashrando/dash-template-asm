@@ -148,6 +148,10 @@ if !AREA == 1
     org $8FC4EF
     skip 12 : dw $0000
 
+    ; Back door WS
+    org $8FC247
+    skip 42 : dw NoopPLM : dw $0000, $0000
+
     pullpc
 endif
 

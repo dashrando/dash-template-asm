@@ -423,4 +423,17 @@ JSR.w FixDoorBG1Scroll
 org $89AC62
 LDA.w FxAreaIndex
 
+;------------------------------------------------------------------------------
+; Ridley Fixes (assume always in Norfair)
+;------------------------------------------------------------------------------
+org $A6A15C : LDA.w #2
+org $A6A369 : LDY.w #2
+org $A6A424 : LDA.w #2
+org $A6A469 : LDA.w #2
+org $A6A478 : LDA.w #2
+org $A6D914 : LDA.w #2
+org $A6D93B : LDA.w #2
+org $A6DF8A : LDA.w #2
+org $A6E4D2 : LDA.w #2
+
 pullpc
