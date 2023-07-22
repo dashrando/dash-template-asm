@@ -83,13 +83,16 @@ InitializeForTesting: {
         ;org Door_Croc : dw DoorVectorTeleportToRidleyMouth
 
         org Door_GreenHills : dw DoorVectorTeleportToMainStreet
-        org Door_MainStreet : dw DoorVectorTeleportToMaridiaMap
-        org Door_MaridiaMap : dw DoorVectorTeleportToCroc
+        org Door_MainStreet : dw DoorVectorTeleportToG4
+        org Door_G4 : dw DoorVectorTeleportToCroc
         org Door_Croc : dw DoorVectorTeleportToRidleyMouth
         org Door_RidleyMouth : dw DoorVectorTeleportToCrocEntry
         org Door_CrocEntry : dw DoorVectorTeleportToRedTower
         org Door_RedTower : dw DoorVectorTeleportToRedElevator
-        org Door_RedElevator : dw DoorVectorTeleportToMaridiaEscape
+        org Door_RedElevator : dw DoorVectorTeleportToPreAqueduct
+        org Door_PreAqueduct : dw DoorVectorTeleportToHighway
+        org Door_Highway : dw DoorVectorTeleportToLavaDive
+        org Door_LavaDive : dw DoorVectorTeleportToMaridiaEscape
         org Door_MaridiaEscape : dw DoorVectorTeleportToCrabs
 
         pullpc
