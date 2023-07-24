@@ -116,21 +116,145 @@ if !AREA == 1
     org $8F874B : db $8C
     org $A193A8 : db $00
 
+    ; Croc Entry portal
+    org $8F8B4E         ; Norfair above Croc 8b96
+    skip $48 : dw $0000 ; Make upper Croc door blue
+
+    ; Croc Exit portal
+    org $8F8B9E ; Croc room
+    dw NoopPLM : dw $0000, $0000 ; Make top door blue
+    
+    ; G4 portal
+    org $8F844C
+    skip 36 : dw $0000
+
+    ; Crabs
+    org $8F81FE
+    skip 42 : dw $0000
+
+    ; Red Elevator
+    org $8F8250
+    skip 6 : dw $0000
+
+    ; Highway (Maridia)
+    org $8F823E
+    skip 0 : dw $0000
+
+    ; Lava Dive
+    org $8F8D1E
+    skip 48 : dw $0000
+
+    ; PreAqueduct
+    org $8FC4EF
+    skip 12 : dw $0000
+
+    ; Back door WS
+    org $8FC247
+    skip 42 : dw NoopPLM : dw $0000, $0000
+
     pullpc
 endif
 
 ;------------------------------------------------------------------------------
+; Use vanilla door vector to reposition Samus
+;------------------------------------------------------------------------------
+
+macro Teleport(vanilla_door_vector)
+        PEA.w <vanilla_door_vector>
+        JMP.w TeleportSamus
+endmacro
+
+;------------------------------------------------------------------------------
 ; Boss Door Transitions
 ;------------------------------------------------------------------------------
-AppearInKraidRoom:    %SetPos($0034,$0188)
-AppearInPhantoonRoom: %SetPos($002E,$00B8)
-AppearInDraygonRoom:  %SetPos($01D0,$0070)
-AppearInRidleyRoom:   %SetPos($00C4,$0084)
+AppearInKraidRoom:    %Teleport(DoorVectorToKraid)
+AppearInPhantoonRoom: %Teleport(DoorVectorToPhantoon)
+AppearInDraygonRoom:  %Teleport(DoorVectorToDraygon)
+AppearInRidleyRoom:   %Teleport(DoorVectorToRidley)
 
-AppearInPreKraid:                  %SetPos($01CD,$0188)
-AppearInPrePhantoon: JSR.w $E1FE : %SetPos($049F,$00B8)
-AppearInPreDraygon:  JSR.w $E3D9 : %SetPos($0034,$0288)
-AppearInPreRidley:                 %SetPos($002E,$0098)
+AppearInPreKraid:    %Teleport(DoorVectorToPreKraid)
+AppearInPrePhantoon: %Teleport(DoorVectorToPrePhantoon)
+AppearInPreDraygon:  %Teleport(DoorVectorToPreDraygon)
+AppearInPreRidley:   %Teleport(DoorVectorToPreRidley)
+
+;------------------------------------------------------------------------------
+; Area Door Transitions
+;------------------------------------------------------------------------------
+
+AppearInRetroPBs:      %Teleport(DoorVectorToRetroPBs)
+AppearInGreenHills:    %Teleport(DoorVectorToGreenHills)
+AppearInMoat:          %Teleport(DoorVectorToMoat)
+AppearInOcean:         %Teleport(DoorVectorToOcean)
+AppearInG4:            %Teleport(DoorVectorToG4)
+AppearInTourian:       %Teleport(DoorVectorToTourian)
+AppearInKago:          %Teleport(DoorVectorToKago)
+AppearInGreenElevator: %Teleport(DoorVectorToGreenElevator)
+AppearInCrabs:         %Teleport(DoorVectorToCrabs)
+AppearInRedElevator:   %Teleport(DoorVectorToRedElevator)
+AppearInHighwayExit:   %Teleport(DoorVectorToHighwayExit)
+AppearInHighway:       %Teleport(DoorVectorToHighway)
+AppearInNoobBridge:    %Teleport(DoorVectorToNoobBridge)
+AppearInRedTower:      %Teleport(DoorVectorToRedTower)
+AppearInMaridiaEscape: %Teleport(DoorVectorToMaridiaEscape)
+AppearInRedFish:       %Teleport(DoorVectorToRedFish)
+AppearInMaridiaTube:   %Teleport(DoorVectorToMaridiaTube)
+AppearInMainStreet:    %Teleport(DoorVectorToMainStreet)
+AppearInKraidEntry:    %Teleport(DoorVectorToKraidEntry)
+AppearInElevatorEntry: %Teleport(DoorVectorToElevatorEntry)
+AppearInAboveKraid:    %Teleport(DoorVectorToAboveKraid)
+AppearInMaridiaMap:    %Teleport(DoorVectorToMaridiaMap)
+AppearInKraidMouth:    %Teleport(DoorVectorToKraidMouth)
+AppearInKraidsLair:    %Teleport(DoorVectorToKraidsLair)
+AppearInCrocEntry:     %Teleport(DoorVectorToCrocEntry)
+AppearInCroc:          %Teleport(DoorVectorToCroc)
+AppearInSingleChamber: %Teleport(DoorVectorToSingleChamber)
+AppearInMuskateers:    %Teleport(DoorVectorToMuskateers)
+AppearInLavaDive:      %Teleport(DoorVectorToLavaDive)
+AppearInRidleyMouth:   %Teleport(DoorVectorToRidleyMouth)
+AppearInPreAqueduct:   %Teleport(DoorVectorToPreAqueduct)
+AppearInAqueduct:      %Teleport(DoorVectorToAqueduct)
+
+;------------------------------------------------------------------------------
+; Logic to position Samus using misaligned door transitions
+;------------------------------------------------------------------------------
+
+TeleportSamus:
+        PHX
+        LDA $03,S : TAX
+
+        ; Call an external routine if specified
+        LDA $83000A,X : BEQ .xpos
+                STA $12
+                PEA .xpos-1
+                JMP ($0012)
+        .xpos
+        
+        ; Update Samus X position
+        LDA $830004,X
+        AND.w #$00FF : ASL #4
+        STA.w SamusXPos
+
+        ; Update Samus Y position
+        LDA $830005,X
+        AND.w #$00FF : ASL #4
+        ADC.w #$28  ; TODO: based on samus height?
+        STA.w SamusYPos
+
+        ; Tweak Samus position based on door location
+        LDA $830003,X
+        AND.w #$0003
+        CMP.w #$0003 ; 00 = right, 01 = left, 02 = down, 03 = up
+        ; TODO: add a little x for left, subtract a little x for right
+        ;       add a little y for down
+        BNE +
+                LDA.w SamusYPos
+                SBC.w #$0058
+                STA.w SamusYPos
+                STZ $0791
+        +
+
+        PLX : PLA
+RTS
 
 pushpc
 
@@ -154,36 +278,239 @@ skip 8 : db $02
 ;------------------------------------------------------------------------------
 org $83AD70
 
-DoorVectorTeleportToKraid:
-dw $A59F : db $40,$04,$01,$16,$00,$01 : dw $8000,AppearInKraidRoom
-; vanilla = dx A59F,00,04,01,16,00,01,8000,0000
+;---
 
-DoorVectorTeleportToPhantoon:
-dw $CD13 : db $40,$04,$01,$06,$00,$00 : dw $8000,AppearInPhantoonRoom
-; vanilla = dx CD13,00,04,01,06,00,00,8000,0000
+macro VariaSuitVectors(area)
+DoorVectorToVariaSuitIn<area>:
+dw RoomHeaderVariaSuitIn<area> : %CopyBytes($8391DA+2,$8391E6)
+DoorVectorToKraidFromVariaSuitIn<area>:
+dw RoomHeaderKraidIn<area>     : %CopyBytes($839252+2,$83925E)
+endmacro
 
-DoorVectorTeleportToDraygon:
-dw $DA60 : db $40,$05,$1E,$06,$01,$00 : dw $8000,AppearInDraygonRoom
-; vanilla = dx DA60,00,05,1E,06,01,00,8000,0000
+%VariaSuitVectors(Norfair)
+%VariaSuitVectors(WreckedShip)
+%VariaSuitVectors(Maridia)
 
-DoorVectorTeleportToRidley:
-dw $B32E : db $40,$05,$0E,$06,$00,$00 : dw $8000,AppearInRidleyRoom
-; vanilla = dx B32E,00,05,0E,06,00,00,8000,0000
+;---
+
+macro KraidVector(area)
+DoorVectorToKraidIn<area>:
+dw RoomHeaderKraidIn<area> : db $40,$04,$01,$16,$00,$01 : dw $8000,AppearInKraidRoom
+endmacro
+
+%KraidVector(Brinstar)
+%KraidVector(WreckedShip)
+%KraidVector(Maridia)
+%KraidVector(Norfair)
+
+;---
+
+macro PhantoonVector(area)
+DoorVectorToPhantoonIn<area>:
+dw RoomHeaderPhantoonIn<area> : db $40,$04,$01,$06,$00,$00 : dw $8000,AppearInPhantoonRoom
+endmacro
+
+%PhantoonVector(Brinstar)
+%PhantoonVector(WreckedShip)
+%PhantoonVector(Maridia)
+%PhantoonVector(Norfair)
+
+;---
+
+macro SpaceJumpVectors(area)
+DoorVectorToSpaceJumpIn<area>:
+dw RoomHeaderSpaceJumpIn<area> : %CopyBytes($83A978+2,$83A984) ; verify (ok)
+DoorVectorToDraygonFromSpaceJumpIn<area>:
+dw RoomHeaderDraygonIn<area>   : %CopyBytes($83A924+2,$83A930) ; verify (ok)
+endmacro
+
+%SpaceJumpVectors(Brinstar)
+%SpaceJumpVectors(WreckedShip)
+%SpaceJumpVectors(Norfair)
+
+;---
+
+macro DraygonVector(area)
+DoorVectorToDraygonIn<area>:
+dw RoomHeaderDraygonIn<area> : db $40,$05,$1E,$06,$01,$00 : dw $8000,AppearInDraygonRoom
+endmacro
+
+%DraygonVector(Brinstar)
+%DraygonVector(WreckedShip)
+%DraygonVector(Maridia)
+%DraygonVector(Norfair)
+
+;---
+
+macro RidleyTankVectors(area)
+DoorVectorToRidleyTankIn<area>:
+dw RoomHeaderRidleyTankIn<area> : %CopyBytes($8398B2+2,$8398BE) ; verify
+DoorVectorToRidleyFromTankIn<area>:
+dw RoomHeaderRidleyIn<area>     : %CopyBytes($839A62+2,$839A6E) ; verify
+endmacro
+
+%RidleyTankVectors(Brinstar)
+%RidleyTankVectors(WreckedShip)
+%RidleyTankVectors(Maridia)
+
+;---
+
+macro RidleyVector(area)
+DoorVectorToRidleyIn<area>:
+dw RoomHeaderRidleyIn<area> : db $40,$05,$0E,$06,$00,$00 : dw $8000,AppearInRidleyRoom
+endmacro
+
+%RidleyVector(Brinstar)
+%RidleyVector(Norfair)
+%RidleyVector(WreckedShip)
+%RidleyVector(Maridia)
+
+;---
 
 DoorVectorTeleportToPreKraid:
 dw $A56B : db $40,$05,$1E,$16,$01,$01 : dw $8000,AppearInPreKraid
-; vanilla = dx A56B,00,05,1E,16,01,01,8000,0000
+;dx A56B,00,05,1E,16,01,01,8000,0000
 
 DoorVectorTeleportToPrePhantoon:
 dw $CC6F : db $40,$05,$4E,$06,$04,$00 : dw $8000,AppearInPrePhantoon
-; vanilla = dx CC6F,00,05,4E,06,04,00,8000,E1FE
+;dx CC6F,00,05,4E,06,04,00,8000,E1FE
 
 DoorVectorTeleportToPreDraygon:
 dw $D78F : db $40,$04,$01,$26,$00,$02 : dw $8000,AppearInPreDraygon
-; vanilla = dx D78F,00,04,01,26,00,02,8000,E3D9
+;dx D78F,00,04,01,26,00,02,8000,E3D9
 
 DoorVectorTeleportToPreRidley:
 dw $B37A : db $40,$04,$01,$06,$00,$00 : dw $8000,AppearInPreRidley
-; vanilla = dx B37A,00,04,01,06,00,00,8000,0000
+;dx B37A,00,04,01,06,00,00,8000,0000
+
+;---
+
+DoorVectorTeleportToRetroPBs:
+dw $9E9F : db $40,$04,$01,$26,$00,$02 : dw $8000,AppearInRetroPBs
+;dx 9E9F,00,04,01,26,00,02,8000,0000
+
+DoorVectorTeleportToGreenHills:
+dw $9E52 : db $40,$05,$1E,$06,$01,$00 : dw $8000,AppearInGreenHills
+;dx 9E52,00,05,1E,06,01,00,8000,0000
+
+DoorVectorTeleportToMoat:
+dw $95FF : db $40,$05,$1E,$06,$01,$00 : dw $8000,AppearInMoat
+;dx 95FF,00,05,1E,06,01,00,8000,0000
+
+DoorVectorTeleportToOcean:
+dw $93FE : db $40,$04,$01,$46,$00,$04 : dw $8000,AppearInOcean
+;dx 93FE,00,04,01,46,00,04,8000,0000
+
+DoorVectorTeleportToG4:
+dw $99BD : db $40,$05,$0E,$66,$00,$06 : dw $8000,AppearInG4
+;dx 99BD,00,05,0E,66,00,06,8000,0000
+
+DoorVectorTeleportToTourian:
+dw $A5ED : db $40,$04,$01,$06,$00,$00 : dw $8000,AppearInTourian
+;dx A5ED,00,04,01,06,00,00,8000,0000
+
+DoorVectorTeleportToKago:
+dw $9969 : db $40,$04,$01,$06,$00,$00 : dw $8000,AppearInKago
+;dx 9969,00,04,01,06,00,00,8000,0000
+
+DoorVectorTeleportToGreenElevator:
+dw $9938 : db $40,$05,$0E,$06,$00,$00 : dw $8000,AppearInGreenElevator
+;dx 9938,00,05,0E,06,00,00,8000,0000
+
+DoorVectorTeleportToCrabs:
+dw $948C : db $40,$00,$16,$2D,$01,$02 : dw $0000,AppearInCrabs
+;dx 948C,00,07,16,2D,01,02,01C0,B9F1
+
+DoorVectorTeleportToRedElevator:
+dw $962A : db $40,$00,$06,$02,$00,$00 : dw $0000,AppearInRedElevator
+;dx 962A,00,06,06,02,00,00,8000,0000
+
+DoorVectorTeleportToHighwayExit:
+dw $957D : db $40,$04,$01,$16,$00,$01 : dw $8000,AppearInHighwayExit
+;dx 957D,00,04,01,16,00,01,8000,0000
+
+DoorVectorTeleportToHighway:
+dw $95A8 : db $40,$05,$0E,$06,$00,$00 : dw $8000,AppearInHighway
+;dx 95A8,00,05,0E,06,00,00,8000,0000
+
+DoorVectorTeleportToNoobBridge:
+dw $9FBA : db $40,$05,$5E,$06,$05,$00 : dw $8000,AppearInNoobBridge
+;dx 9FBA,00,05,5E,06,05,00,8000,0000
+
+DoorVectorTeleportToRedTower:
+dw $A253 : db $40,$04,$01,$46,$00,$04 : dw $8000,AppearInRedTower
+;dx A253,00,04,01,46,00,04,8000,0000
+
+DoorVectorTeleportToMaridiaEscape:
+dw $A322 : db $40,$05,$2E,$36,$02,$03 : dw $8000,AppearInMaridiaEscape
+;dx A322,40,05,2E,36,02,03,8000,E367
+
+DoorVectorTeleportToRedFish:
+dw $D104 : db $40,$04,$01,$06,$00,$00 : dw $8000,AppearInRedFish
+;dx D104,40,04,01,06,00,00,8000,BDAF
+
+DoorVectorTeleportToMaridiaTube:
+dw $CEFB : db $40,$00,$06,$02,$00,$00 : dw $0170,AppearInMaridiaTube
+;dx CEFB,00,06,06,02,00,00,0170,0000
+
+DoorVectorTeleportToMainStreet:
+dw $CFC9 : db $40,$00,$16,$7D,$01,$07 : dw $0000,AppearInMainStreet
+;dx CFC9,00,07,16,7D,01,07,0200,0000
+
+DoorVectorTeleportToKraidEntry:
+dw $CF80 : db $40,$05,$0E,$16,$00,$01 : dw $8000,AppearInKraidEntry
+;dx CF80,40,05,0E,16,00,01,8000,BDD1
+
+DoorVectorTeleportToElevatorEntry:
+dw $A6A1 : db $40,$04,$01,$06,$00,$00 : dw $8000,AppearInElevatorEntry
+;dx A6A1,40,04,01,06,00,00,8000,0000
+
+DoorVectorTeleportToAboveKraid:
+dw $CF80 : db $40,$05,$3E,$06,$03,$00 : dw $8000,AppearInAboveKraid
+;dx CF80,00,05,3E,06,03,00,8000,0000
+
+DoorVectorTeleportToMaridiaMap:
+dw $D21C : db $40,$04,$01,$16,$00,$01 : dw $8000,AppearInMaridiaMap
+;dx D21C,00,04,01,16,00,01,8000,E356
+
+DoorVectorTeleportToKraidMouth:
+dw $A6A1 : db $40,$05,$2E,$06,$02,$00 : dw $8000,AppearInKraidMouth
+;dx A6A1,00,05,2E,06,02,00,8000,BD3F
+
+DoorVectorTeleportToKraidsLair:
+dw $A471 : db $40,$04,$01,$06,$00,$00 : dw $8000,AppearInKraidsLair
+;dx A471,00,04,01,06,00,00,8000,0000
+
+DoorVectorTeleportToCrocEntry:
+dw $A923 : db $40,$00,$C6,$2D,$0C,$02 : dw $0000,AppearInCrocEntry
+;dx A923,00,07,C6,2D,0C,02,01C0,0000
+
+DoorVectorTeleportToCroc:
+dw $A98D : db $40,$00,$36,$02,$03,$00 : dw $8000,AppearInCroc
+;dx A98D,00,06,36,02,03,00,8000,0000
+
+DoorVectorTeleportToSingleChamber:
+dw $AD5E : db $40,$05,$5E,$06,$05,$00 : dw $8000,AppearInSingleChamber
+;dx AD5E,00,05,5E,06,05,00,8000,0000
+
+DoorVectorTeleportToMuskateers:
+dw $B656 : db $40,$04,$11,$06,$01,$00 : dw $8000,AppearInMuskateers
+;dx B656,00,04,11,06,01,00,8000,0000
+
+DoorVectorTeleportToLavaDive:
+dw $AE74 : db $40,$04,$11,$26,$01,$02 : dw $8000,AppearInLavaDive
+;dx AE74,00,04,11,26,01,02,8000,0000
+
+DoorVectorTeleportToRidleyMouth:
+dw $AF14 : db $40,$05,$3E,$06,$03,$00 : dw $8000,AppearInRidleyMouth
+;dx AF14,00,05,3E,06,03,00,8000,0000
+
+DoorVectorTeleportToPreAqueduct:
+dw $D1A3 : db $40,$05,$1E,$36,$01,$03 : dw $8000,AppearInPreAqueduct
+;dx D1A3,00,05,1E,36,01,03,8000,E398
+
+DoorVectorTeleportToAqueduct:
+dw $D5A7 : db $40,$04,$01,$16,$00,$01 : dw $8000,AppearInAqueduct
+;dx D5A7,00,04,01,16,00,01,8000,0000
 
 pullpc

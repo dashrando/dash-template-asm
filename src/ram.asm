@@ -31,6 +31,8 @@ BG4XScroll = $7E00BD                 ; BG4 X scroll ($2113). Updated during NMI
 BG4YScroll = $7E00BF                 ; BG4 Y scroll ($2114). Updated during NMI
 VRAMWriteTable = $7E00D0             ; See disassembly for entry format. $1FF bytes.
 VRAMTableSP = $7E0330                ; VRAM transfer table stack pointer.
+FxAreaIndex = $7E0332                ; Used to set the area specific FX in rooms. Populated with
+                                     ; the top 4 bits of the subarea value in the room tables.
 SubAreaIndex = $7E0336               ;
 RoomFlags = $7E0338                  ; Used to flag gravity suit physics on room entry, unpause,
                                      ; and relevant item pickups.

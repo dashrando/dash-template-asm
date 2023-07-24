@@ -4,9 +4,8 @@ incsrc ../buttons.asm
 incsrc ../quickmet.asm
 incsrc ../loadout.asm
 
-; Start in Sand Falls
-;%quickmet(!pre_draygon)
-%quickmet(!pre_kraid)
+; Start in Big Pink
+%quickmet(!green_hills)
 
 ; Disable creating a save file
 org InitGameState_save
@@ -42,58 +41,63 @@ InitializeForTesting: {
         ; ---- Setup portals ----
         pushpc
 
-        ; n00b bridge to Retro PBs
-        ;org $838F0A : dw $9E9F,$0400,$2601,$0200,$8000,$0000
-        ; Retro PBs to n00b bridge
-        ;org $838E9E : dw $9FBA,$0500,$065E,$0005,$8000,$0000
+        ;org Door_GreenHills : dw DoorVectorToOcean
+        ;org Door_Ocean : dw DoorVectorToNoobBridge
+        ;org Door_NoobBridge : dw DoorVectorToRedFish
+        ;org Door_RedFish : dw DoorVectorToGreenElevator
+        ;org Door_GreenElevator : dw DoorVectorToTourian
+        ;org Door_Tourian : dw DoorVectorToMoat
+        ;org Door_Moat : dw DoorVectorToLavaDive
 
-        ; Green Hills to Red Tower
-        ;org $838E86 : dw $A253,$0400,$4601,$0400,$8000,$0000
-        ; Red Tower to Green Hills
-        ;org $83902A : dw $9E52,$0500,$061E,$0001,$8000,$0000
+        ;org Door_GreenHills : dw DoorVectorTeleportToPreAqueduct
+        ;org Door_PreAqueduct : dw DoorVectorTeleportToRidleyMouth
+        ;org Door_RidleyMouth : dw DoorVectorTeleportToSingleChamber
+        ;org Door_SingleChamber : dw DoorVectorTeleportToKraidMouth
+        ;org Door_ElevatorEntry : dw DoorVectorTeleportToRetroPBs
+        ;org Door_RetroPBs : dw DoorVectorTeleportToAqueduct
+        ;org Door_Aqueduct : dw DoorVectorTeleportToOcean
+        ;org Door_Ocean : dw DoorVectorToGreenHills
+
+        ;org Door_GreenHills : dw DoorVectorTeleportToCrabs
+        ;org Door_Crabs : dw DoorVectorTeleportToMainStreet
+        ;org Door_MainStreet : dw DoorVectorTeleportToCrocEntry
+        ;org Door_CrocEntry : dw DoorVectorTeleportToNoobBridge
+        ;org Door_NoobBridge : dw DoorVectorTeleportToRedElevator
+        ;org Door_RedElevator : dw DoorVectorTeleportToMaridiaTube
+        ;org Door_MaridiaTube : dw DoorVectorTeleportToCroc
+        ;org Door_Croc : dw DoorVectorTeleportToRidleyMouth
+
+        ;org Door_GreenHills : dw DoorVectorTeleportToCrabs
+        ;org Door_Crabs : dw DoorVectorToMaridiaTube
+        ;org Door_MaridiaTube : dw DoorVectorToCrocEntry
+        ;org Door_CrocEntry : dw DoorVectorToRedElevator
+        ;org Door_RedElevator : dw DoorVectorToMainStreet
+        ;org Door_MainStreet : dw DoorVectorToCroc
+        ;org Door_Croc : dw DoorVectorTeleportToLavaDive
+
+        ;org Door_MainStreet : dw DoorVectorTeleportToCrocEntry
+        ;org Door_CrocEntry : dw DoorVectorTeleportToNoobBridge
+        ;org Door_NoobBridge : dw DoorVectorTeleportToRedElevator
+        ;org Door_RedElevator : dw DoorVectorTeleportToMaridiaTube
+        ;org Door_MaridiaTube : dw DoorVectorTeleportToCroc
+        ;org Door_Croc : dw DoorVectorTeleportToRidleyMouth
+
+        org Door_GreenHills : dw DoorVectorTeleportToMainStreet
+        org Door_MainStreet : dw DoorVectorTeleportToG4
+        org Door_G4 : dw DoorVectorTeleportToCroc
+        org Door_Croc : dw DoorVectorTeleportToRidleyMouth
+        org Door_RidleyMouth : dw DoorVectorTeleportToCrocEntry
+        org Door_CrocEntry : dw DoorVectorTeleportToRedTower
+        org Door_RedTower : dw DoorVectorTeleportToRedElevator
+        org Door_RedElevator : dw DoorVectorTeleportToPreAqueduct
+        org Door_PreAqueduct : dw DoorVectorTeleportToHighway
+        org Door_Highway : dw DoorVectorTeleportToLavaDive
+        org Door_LavaDive : dw DoorVectorTeleportToMaridiaEscape
+        org Door_MaridiaEscape : dw DoorVectorTeleportToCrabs
 
         pullpc
         ; ---- End portals ----
-
-        ; ---- Setup bosses ----
-        pushpc
-
-        ;---- Round Trip 1 ----
-        org DoorToDraygonBoss : dw DoorVectorTeleportToKraid
-        org DoorToKraidBoss : dw DoorVectorTeleportToRidley
-        org DoorToRidleyBoss : dw DoorVectorTeleportToPhantoon
-        org DoorToPhantoonBoss : dw DoorVectorTeleportToDraygon
-
-        ;---- Round Trip 2 ----
-
-        ;org DoorFromDraygonRoom : dw DoorVectorTeleportToPreKraid
-        ;org DoorFromKraidRoom : dw DoorVectorTeleportToPreRidley
-        ;org DoorFromRidleyRoom : dw DoorVectorTeleportToPrePhantoon
-        ;org DoorFromPhantoonRoom : dw DoorVectorTeleportToPreDraygon
-
-        ;---- Round Trip 3 ----
-        ;org DoorToDraygonBoss : dw DoorVectorToRidley
-        ;org DoorFromRidleyRoom : dw DoorVectorToPreDraygon
-
-        ;---- Round Trip 4 ----
-        ;org DoorToDraygonBoss : dw DoorVectorToRidley
-        ;org DoorFromRidleyRoom : dw DoorVectorToPreRidley
-        ;org DoorToRidleyBoss : dw DoorVectorToDraygon
-        ;org DoorFromDraygonRoom : dw DoorVectorToPreDraygon
-
-        ;---- Round Trip 5 ----
-        ;org DoorToKraidBoss : dw DoorVectorToPhantoon
-        ;org DoorFromPhantoonRoom : dw DoorVectorToPreKraid
-
-        ;---- Round Trip 6 ----
-        ;org DoorToKraidBoss : dw DoorVectorToPhantoon
-        ;org DoorFromPhantoonRoom : dw DoorVectorToPrePhantoon
-        ;org DoorToPhantoonBoss : dw DoorVectorToKraid
-        ;org DoorFromKraidRoom : dw DoorVectorToPreKraid
-
-        pullpc
         endif
-        ; ---- End bosses ----
 
         RTL
 }
