@@ -79,16 +79,16 @@ DoorToPhantoonBoss   = $8FCCB9
 DoorToDraygonBoss    = $8FD7D7
 DoorToRidleyBoss     = $8FB3A1
 
-DoorFromKraidRoom    = $8FA5E5
-DoorFromPhantoonRoom = $8FCD59
-DoorFromDraygonRoom  = $8FDAA6
-DoorFromRidleyRoom   = $8FB376
+DoorFromKraidInBrinstar       = $8FA5E5
+DoorFromPhantoonInWreckedShip = $8FCD59
+DoorFromDraygonInMaridia      = $8FDAA6
+DoorFromRidleyInNorfair       = $8FB376
 
 ; Boss Door Vectors
-DoorVectorToKraid       = $8391B6
-DoorVectorToPhantoon    = $83A2AC
-DoorVectorToDraygon     = $83A840
-DoorVectorToRidley      = $8398CA
+DoorVectorToKraidInBrinstar       = $8391B6
+DoorVectorToPhantoonInWreckedShip = $83A2AC
+DoorVectorToDraygonInMaridia      = $83A840
+DoorVectorToRidleyInNorfair       = $8398CA
 
 DoorVectorToPreKraid    = $8391CE
 DoorVectorToPrePhantoon = $83A2C4

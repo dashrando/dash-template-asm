@@ -23,7 +23,7 @@ InitializeForTesting: {
         %unequip_beams(!SpazerBeam)
 
         ; Add some ammo
-        LDA.w #10
+        LDA.w #50
         STA.w CurrentPBs : STA.w MaxPBs
         STA.w CurrentSupers : STA.w MaxSupers
         LDA.w #40
@@ -45,40 +45,30 @@ InitializeForTesting: {
         org NoFanfare : dw $0001 ; Disable fanfares
 
         ;---- Round Trip 0 ----
-        ;org DoorToKraidBoss : dw DoorVectorToPhantoonInWreckedShip
-        ;org DoorToPhantoonBoss : dw DoorVectorToPhantoonInMaridia
-        ;org DoorToDraygonBoss : dw DoorVectorToPhantoonInNorfair
-        ;org DoorToRidleyBoss : dw DoorVectorToPhantoonInBrinstar
-
-        ;---- Round Trip 1 ----
-        ;org DoorToDraygonBoss : dw DoorVectorToKraidInBrinstar
-        ;org DoorFromKraidRoom : dw DoorVectorTeleportToPreDraygon
+        org DoorToKraidBoss : dw DoorVectorToKraidInBrinstar
+        org DoorFromKraidInBrinstar : dw DoorVectorToPrePhantoon
+        org DoorToPhantoonBoss : dw DoorVectorToKraidInWreckedShip
+        org DoorFromKraidInWreckedShip : dw DoorVectorToPreDraygon
+        org DoorToDraygonBoss : dw DoorVectorToKraidInMaridia
+        org DoorFromKraidInMaridia : dw DoorVectorToPreRidley
+        org DoorToRidleyBoss : dw DoorVectorToKraidInNorfair
+        org DoorFromKraidInNorfair : dw DoorVectorToPreKraid
 
         ;---- Round Trip 2 ----
-        org DoorToKraidBoss : dw DoorVectorToKraidInWreckedShip
-        org DoorToPhantoonBoss : dw DoorVectorToKraidInMaridia
-        org DoorToDraygonBoss : dw DoorVectorToKraidInNorfair
-        org DoorToRidleyBoss : dw DoorVectorToKraidInBrinstar
-
-        ;---- Round Trip 3 ----
-        ;org DoorToDraygonBoss : dw DoorVectorToRidley
-        ;org DoorFromRidleyRoom : dw DoorVectorToPreDraygon
-
-        ;---- Round Trip 4 ----
-        ;org DoorToDraygonBoss : dw DoorVectorToRidley
-        ;org DoorFromRidleyRoom : dw DoorVectorToPreRidley
-        ;org DoorToRidleyBoss : dw DoorVectorToDraygon
-        ;org DoorFromDraygonRoom : dw DoorVectorToPreDraygon
-
-        ;---- Round Trip 5 ----
-        ;org DoorToKraidBoss : dw DoorVectorToPhantoon
-        ;org DoorFromPhantoonRoom : dw DoorVectorToPreKraid
+        ;org DoorToKraidBoss : dw DoorVectorToKraidInWreckedShip
+        ;org DoorToPhantoonBoss : dw DoorVectorToKraidInMaridia
+        ;org DoorToDraygonBoss : dw DoorVectorToKraidInNorfair
+        ;org DoorToRidleyBoss : dw DoorVectorToKraidInBrinstar
 
         ;---- Round Trip 6 ----
-        ;org DoorToKraidBoss : dw DoorVectorToPhantoon
-        ;org DoorFromPhantoonRoom : dw DoorVectorToPrePhantoon
-        ;org DoorToPhantoonBoss : dw DoorVectorToKraid
-        ;org DoorFromKraidRoom : dw DoorVectorToPreKraid
+        ;org DoorToKraidBoss : dw DoorVectorToPhantoonInWreckedShip
+        ;org DoorToPhantoonBoss : dw DoorVectorToKraidInBrinstar
+
+        ;---- Round Trip 7 ----
+        ;org DoorToKraidBoss : dw DoorVectorToDraygonInMaridia
+        ;org DoorToDraygonBoss : dw DoorVectorToPhantoonInWreckedShip
+        ;org DoorToPhantoonBoss : dw DoorVectorToRidleyInNorfair
+        ;org DoorToRidleyBoss : dw DoorVectorToKraidInBrinstar
 
         pullpc
         ; ---- End bosses ----

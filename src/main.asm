@@ -52,6 +52,7 @@ incsrc menu.asm
 incsrc subareas.asm
 incsrc roompatching.asm
 incsrc stats/stats_doors.asm
+incsrc doortransition.asm
 warnpc $838000
 
 org $84EFE0

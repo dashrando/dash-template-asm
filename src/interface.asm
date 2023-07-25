@@ -16,12 +16,7 @@ print "  // Boss Entry Door Pointers"
 %PrintLabelAddress(DoorToPhantoonBoss)
 %PrintLabelAddress(DoorToDraygonBoss)
 %PrintLabelAddress(DoorToRidleyBoss)
-print "  // Vanilla Boss Entry Door Vectors"
-%PrintLabelAddress(DoorVectorToKraid)
-%PrintLabelAddress(DoorVectorToPhantoon)
-%PrintLabelAddress(DoorVectorToDraygon)
-%PrintLabelAddress(DoorVectorToRidley)
-print "  // Custom Boss Entry Door Vectors"
+print "  // Boss Entry Door Vectors"
 %PrintLabelAddress(DoorVectorToKraidInBrinstar)
 %PrintLabelAddress(DoorVectorToKraidInWreckedShip)
 %PrintLabelAddress(DoorVectorToKraidInMaridia)
@@ -39,20 +34,15 @@ print "  // Custom Boss Entry Door Vectors"
 %PrintLabelAddress(DoorVectorToRidleyInMaridia)
 %PrintLabelAddress(DoorVectorToRidleyInNorfair)
 print "  // Boss Exit Door Pointers"
-%PrintLabelAddress(DoorFromKraidRoom)
-%PrintLabelAddress(DoorFromPhantoonRoom)
-%PrintLabelAddress(DoorFromDraygonRoom)
-%PrintLabelAddress(DoorFromRidleyRoom)
-print "  // Vanilla Boss Exit Door Vectors"
+%PrintLabelAddress(DoorFromKraidInBrinstar)
+%PrintLabelAddress(DoorFromPhantoonInWreckedShip)
+%PrintLabelAddress(DoorFromDraygonInMaridia)
+%PrintLabelAddress(DoorFromRidleyInNorfair)
+print "  // Boss Exit Door Vectors"
 %PrintLabelAddress(DoorVectorToPreKraid)
 %PrintLabelAddress(DoorVectorToPrePhantoon)
 %PrintLabelAddress(DoorVectorToPreDraygon)
 %PrintLabelAddress(DoorVectorToPreRidley)
-print "  // Custom Boss Exit Door Vectors"
-%PrintLabelAddress(DoorVectorTeleportToPreKraid)
-%PrintLabelAddress(DoorVectorTeleportToPrePhantoon)
-%PrintLabelAddress(DoorVectorTeleportToPreDraygon)
-%PrintLabelAddress(DoorVectorTeleportToPreRidley)
 print "};"
 print ""
 print "export const AREA_DOORS = {"
@@ -122,39 +112,6 @@ print "  // Vanilla Door Vectors"
 %PrintLabelAddress(DoorVectorToRidleyMouth)
 %PrintLabelAddress(DoorVectorToPreAqueduct)
 %PrintLabelAddress(DoorVectorToAqueduct)
-print "  // Custom Door Vectors"
-%PrintLabelAddress(DoorVectorTeleportToRetroPBs)
-%PrintLabelAddress(DoorVectorTeleportToGreenHills)
-%PrintLabelAddress(DoorVectorTeleportToMoat)
-%PrintLabelAddress(DoorVectorTeleportToOcean)
-%PrintLabelAddress(DoorVectorTeleportToG4)
-%PrintLabelAddress(DoorVectorTeleportToTourian)
-%PrintLabelAddress(DoorVectorTeleportToKago)
-%PrintLabelAddress(DoorVectorTeleportToGreenElevator)
-%PrintLabelAddress(DoorVectorTeleportToCrabs)
-%PrintLabelAddress(DoorVectorTeleportToRedElevator)
-%PrintLabelAddress(DoorVectorTeleportToHighwayExit)
-%PrintLabelAddress(DoorVectorTeleportToHighway)
-%PrintLabelAddress(DoorVectorTeleportToNoobBridge)
-%PrintLabelAddress(DoorVectorTeleportToRedTower)
-%PrintLabelAddress(DoorVectorTeleportToMaridiaEscape)
-%PrintLabelAddress(DoorVectorTeleportToRedFish)
-%PrintLabelAddress(DoorVectorTeleportToMaridiaTube)
-%PrintLabelAddress(DoorVectorTeleportToMainStreet)
-%PrintLabelAddress(DoorVectorTeleportToKraidEntry)
-%PrintLabelAddress(DoorVectorTeleportToElevatorEntry)
-%PrintLabelAddress(DoorVectorTeleportToAboveKraid)
-%PrintLabelAddress(DoorVectorTeleportToMaridiaMap)
-%PrintLabelAddress(DoorVectorTeleportToKraidMouth)
-%PrintLabelAddress(DoorVectorTeleportToKraidsLair)
-%PrintLabelAddress(DoorVectorTeleportToCrocEntry)
-%PrintLabelAddress(DoorVectorTeleportToCroc)
-%PrintLabelAddress(DoorVectorTeleportToSingleChamber)
-%PrintLabelAddress(DoorVectorTeleportToMuskateers)
-%PrintLabelAddress(DoorVectorTeleportToLavaDive)
-%PrintLabelAddress(DoorVectorTeleportToRidleyMouth)
-%PrintLabelAddress(DoorVectorTeleportToPreAqueduct)
-%PrintLabelAddress(DoorVectorTeleportToAqueduct)
 print "};"
 print ""
 print "export const BOSS_ITEMS = {"
