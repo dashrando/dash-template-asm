@@ -49,18 +49,31 @@ InitializeForTesting: {
         ;org Door_Tourian : dw DoorVectorToMoat
         ;org Door_Moat : dw DoorVectorToLavaDive
 
-        ;org Door_GreenHills : dw DoorVectorToPreAqueduct
-        ;org Door_PreAqueduct : dw DoorVectorToRidleyMouth
-        ;org Door_RidleyMouth : dw DoorVectorToSingleChamber
-        ;org Door_SingleChamber : dw DoorVectorToKraidMouth
-        ;org Door_ElevatorEntry : dw DoorVectorToRetroPBs
-        ;org Door_RetroPBs : dw DoorVectorToAqueduct
-        ;org Door_Aqueduct : dw DoorVectorToOcean
-        ;org Door_Ocean : dw DoorVectorToGreenHills
+        org Door_GreenHills : dw DoorVectorToPreAqueduct
+        org Door_PreAqueduct : dw DoorVectorToRidleyMouth
+        org Door_RidleyMouth : dw DoorVectorToSingleChamber
+        org Door_SingleChamber : dw DoorVectorToKraidMouth
+        org Door_ElevatorEntry : dw DoorVectorToRetroPBs
+        org Door_RetroPBs : dw DoorVectorToAqueduct
+        org Door_Aqueduct : dw DoorVectorToOcean
+        org Door_Ocean : dw DoorVectorToMainStreet
+        org Door_MainStreet : dw DoorVectorToKraidEntry
+        org Door_KraidEntry : dw DoorVectorToMaridiaTube
+        org Door_MaridiaTube : dw DoorVectorToTourian
+        org Door_Tourian : dw DoorVectorToKago
+        org Door_Kago : dw DoorVectorToCrabs
+        org Door_Crabs : dw DoorVectorToSingleChamber
+        org Door_SingleChamber : dw DoorVectorToMaridiaEscape
+        org Door_MaridiaEscape : dw DoorVectorToGreenHills
+
+        ;org Door_GreenHills : dw DoorVectorToMoat
+        ;org Door_Moat : dw DoorVectorToRetroPBs
+        ;org Door_RetroPBs : dw DoorVectorToElevatorEntry
+        ;org Door_ElevatorEntry : dw DoorVectorToCrabs
 
         ; shows garbage in ridley mouth room
-        org Door_GreenHills : dw DoorVectorToCroc
-        org Door_Croc : dw DoorVectorToRidleyMouth
+        ;org Door_GreenHills : dw DoorVectorToCroc
+        ;org Door_Croc : dw DoorVectorToRidleyMouth
 
         ;org Door_GreenHills : dw DoorVectorToCrabs
         ;org Door_Crabs : dw DoorVectorToMainStreet

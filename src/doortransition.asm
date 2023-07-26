@@ -1,7 +1,7 @@
 FixDoorBits:
         PHA
         STZ.w DoorDirection
-        LDA.w DoorMisaligned : BIT.w #$0002 : BNE +
+        LDA.w DoorMisaligned : BIT.w #$4000 : BNE +
                 LDA $01,S
                 STA.w DoorDirection
         +
@@ -15,40 +15,34 @@ HandleEnterDoor:
         PHA : PHX
         STZ.w DoorMisaligned
         LDX.w #0
-.loop:
-    lda.l DoorDirectionTable,X
-    beq .done
-    cmp $01,S
-    beq .search
-    inx #4
-    bra .loop
-.search:
-    lda.l DoorDirectionTable+2,X
-    sta $01,S
-    ldx.w #0
-    .inner:
-        lda.l DoorVectorTable,X
-        beq .done
-        cmp $03,S
-        beq .compare
-        inx #4
-        bra .inner
-    .compare:
-        lda.l DoorVectorTable+2,X
-        cmp $01,S
-        beq .done
+        .loop:
+                LDA.l DoorDirectionTable,X
+                BEQ .done
+                CMP $01,S
+                BEQ .search
+                TXA : CLC : ADC.w #10 : TAX
+                BRA .loop
+        .search:
+        LDA.l DoorDirectionTable+4,X
+        STA $01,S
+        LDX.w #0
+        .inner:
+                LDA.l DoorDirectionTable+2,X
+                BEQ .done
+                CMP $03,S
+                BEQ .compare
+                TXA : CLC : ADC.w #10 : TAX
+                BRA .inner
+        .compare:
+        LDA.w #$8000
+        STA.w DoorMisaligned
+        LDA.l DoorDirectionTable+4,X
+        CMP $01,S : BEQ .done
+                TXA : ORA.w #$C000
+                STA.w DoorMisaligned
 
-        lda.w #1
-        sta.w DoorMisaligned
-        lda.l DoorVectorTable+2,X
-        cmp.w #3
-        bcc .done
-        lda.w #3
-        sta.w DoorMisaligned
-.done:
-plx
-pla
-
+        .done:
+        PLX : PLA
 RTS
 warnpc $94E000
 pullpc

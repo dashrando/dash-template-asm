@@ -45,14 +45,18 @@ InitializeForTesting: {
         org NoFanfare : dw $0001 ; Disable fanfares
 
         ;---- Round Trip 0 ----
-        org DoorToKraidBoss : dw DoorVectorToKraidInBrinstar
-        org DoorFromKraidInBrinstar : dw DoorVectorToPrePhantoon
-        org DoorToPhantoonBoss : dw DoorVectorToKraidInWreckedShip
-        org DoorFromKraidInWreckedShip : dw DoorVectorToPreDraygon
-        org DoorToDraygonBoss : dw DoorVectorToKraidInMaridia
-        org DoorFromKraidInMaridia : dw DoorVectorToPreRidley
-        org DoorToRidleyBoss : dw DoorVectorToKraidInNorfair
-        org DoorFromKraidInNorfair : dw DoorVectorToPreKraid
+        macro BossRoundTrip(boss)
+        org DoorToKraidBoss : dw DoorVectorTo<boss>InBrinstar
+        org DoorFrom<boss>InBrinstar : dw DoorVectorToPrePhantoon
+        org DoorToPhantoonBoss : dw DoorVectorTo<boss>InWreckedShip
+        org DoorFrom<boss>InWreckedShip : dw DoorVectorToPreDraygon
+        org DoorToDraygonBoss : dw DoorVectorTo<boss>InMaridia
+        org DoorFrom<boss>InMaridia : dw DoorVectorToPreRidley
+        org DoorToRidleyBoss : dw DoorVectorTo<boss>InNorfair
+        org DoorFrom<boss>InNorfair : dw DoorVectorToPreKraid
+        endmacro
+
+        %BossRoundTrip(Ridley)
 
         ;---- Round Trip 2 ----
         ;org DoorToKraidBoss : dw DoorVectorToKraidInWreckedShip
