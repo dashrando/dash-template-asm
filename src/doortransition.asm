@@ -1,3 +1,14 @@
+FixTransitionFX:
+        PHA
+        LDA.w DoorMisaligned : BIT.w #$4000 : BEQ +
+        ; Always black out for misaligned doors
+        LDA.w #1 : ORA $01,S
+        STA $01,S
+        +
+        PLA
+        STA.w CREBitset
+RTS
+
 FixDoorBits:
         PHA
         STZ.w DoorDirection

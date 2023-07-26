@@ -343,10 +343,10 @@ dw Door_Crabs,DoorVectorToRedElevator,$0003,$007D,$0058 ; testing
 
 ; Up / Down Doors
 dw Door_RedElevator,DoorVectorToCrabs,$0004,$014F,$02B8 ; testing
-dw Door_MaridiaTube,DoorVectorToMainStreet,$0005,$014B,$07A8
-dw Door_MainStreet,DoorVectorToMaridiaTube,$0006,$007B,$0078
+dw Door_MaridiaTube,DoorVectorToMainStreet,$0005,$0130,$07A8 ; testing
+dw Door_MainStreet,DoorVectorToMaridiaTube,$0006,$0058,$0078
 dw Door_CrocEntry,DoorVectorToCroc,$0007,$037E,$0098
-dw Door_Croc,DoorVectorToCrocEntry,$0008,$0CA4,$02B8
+dw Door_Croc,DoorVectorToCrocEntry,$0008,$0C70,$02B8 ; testing
 
 ; Boss Entry Doors (keep vanilla pairings first)
 dw DoorToKraidBoss,DoorVectorToKraidInBrinstar,$0001,$0030,$0188 ; testing

@@ -62,8 +62,8 @@ InitializeForTesting: {
         org Door_MaridiaTube : dw DoorVectorToTourian
         org Door_Tourian : dw DoorVectorToKago
         org Door_Kago : dw DoorVectorToCrabs
-        org Door_Crabs : dw DoorVectorToSingleChamber
-        org Door_SingleChamber : dw DoorVectorToMaridiaEscape
+        org Door_Crabs : dw DoorVectorToCrocEntry
+        org Door_CrocEntry : dw DoorVectorToMaridiaEscape
         org Door_MaridiaEscape : dw DoorVectorToGreenHills
 
         ;org Door_GreenHills : dw DoorVectorToMoat

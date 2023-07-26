@@ -58,6 +58,7 @@ DoorDirection = $7E0791              ;
 RoomPointer = $7E079B                ;
 RoomIndex = $7E079D                  ;
 AreaIndex = $7E079F                  ;
+CREBitset = $7E07B3                  ; $0001 = Disable BG1 | $0002 = Reload CRE | $0003 = Load extra large tileset
 DoorMisaligned = $7E07D3             ; Misaligned door (0x1 | 0x2)
 FileSelectCursor = $7E0952           ;
 SaveSlotPresence = $7E0954           ;
