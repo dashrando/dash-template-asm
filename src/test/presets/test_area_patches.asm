@@ -41,6 +41,7 @@ InitializeForTesting: {
         ; ---- Setup portals ----
         pushpc
 
+        ; aligned doors
         ;org Door_GreenHills : dw DoorVectorToOcean
         ;org Door_Ocean : dw DoorVectorToNoobBridge
         ;org Door_NoobBridge : dw DoorVectorToRedFish
@@ -49,6 +50,7 @@ InitializeForTesting: {
         ;org Door_Tourian : dw DoorVectorToMoat
         ;org Door_Moat : dw DoorVectorToLavaDive
 
+        ; misaligned doors
         org Door_GreenHills : dw DoorVectorToPreAqueduct
         org Door_PreAqueduct : dw DoorVectorToRidleyMouth
         org Door_RidleyMouth : dw DoorVectorToSingleChamber
@@ -64,62 +66,23 @@ InitializeForTesting: {
         org Door_Kago : dw DoorVectorToCrabs
         org Door_Crabs : dw DoorVectorToCrocEntry
         org Door_CrocEntry : dw DoorVectorToMaridiaEscape
-        org Door_MaridiaEscape : dw DoorVectorToGreenHills
-
-        ;org Door_GreenHills : dw DoorVectorToMoat
-        ;org Door_Moat : dw DoorVectorToRetroPBs
-        ;org Door_RetroPBs : dw DoorVectorToElevatorEntry
-        ;org Door_ElevatorEntry : dw DoorVectorToCrabs
+        org Door_MaridiaEscape : dw DoorVectorToRedElevator
+        org Door_RedElevator : dw DoorVectorToRedTower
+        org Door_RedTower : dw DoorVectorToCroc
+        org Door_Croc : dw DoorVectorToAboveKraid
+        org Door_AboveKraid : dw DoorVectorToHighwayExit
+        org Door_HighwayExit : dw DoorVectorToMuskateers
+        org Door_Muskateers : dw DoorVectorToLavaDive
+        org Door_LavaDive : dw DoorVectorToKraidsLair
+        org Door_KraidsLair : dw DoorVectorToMaridiaMap
+        org Door_MaridiaMap : dw DoorVectorToRedFish
+        org Door_RedFish : dw DoorVectorToGreenElevator
+        org Door_GreenElevator : dw DoorVectorToNoobBridge
+        org Door_NoobBridge : dw DoorVectorToGreenHills
 
         ; shows garbage in ridley mouth room
         ;org Door_GreenHills : dw DoorVectorToCroc
         ;org Door_Croc : dw DoorVectorToRidleyMouth
-
-        ;org Door_GreenHills : dw DoorVectorToCrabs
-        ;org Door_Crabs : dw DoorVectorToMainStreet
-        ;org Door_MainStreet : dw DoorVectorToCrocEntry
-        ;org Door_CrocEntry : dw DoorVectorToNoobBridge
-        ;org Door_NoobBridge : dw DoorVectorToRedElevator
-        ;org Door_RedElevator : dw DoorVectorToMaridiaTube
-        ;org Door_MaridiaTube : dw DoorVectorToCroc
-        ;org Door_Croc : dw DoorVectorToRidleyMouth
-
-        ;org Door_GreenHills : dw DoorVectorTeleportToCrabs
-        ;org Door_Crabs : dw DoorVectorToMaridiaTube
-        ;org Door_MaridiaTube : dw DoorVectorToCrocEntry
-        ;org Door_CrocEntry : dw DoorVectorToRedElevator
-        ;org Door_RedElevator : dw DoorVectorToMainStreet
-        ;org Door_MainStreet : dw DoorVectorToCroc
-        ;org Door_Croc : dw DoorVectorTeleportToLavaDive
-
-        ;org Door_MainStreet : dw DoorVectorTeleportToCrocEntry
-        ;org Door_CrocEntry : dw DoorVectorTeleportToNoobBridge
-        ;org Door_NoobBridge : dw DoorVectorTeleportToRedElevator
-        ;org Door_RedElevator : dw DoorVectorTeleportToMaridiaTube
-        ;org Door_MaridiaTube : dw DoorVectorTeleportToCroc
-        ;org Door_Croc : dw DoorVectorTeleportToRidleyMouth
-
-        ; pretty hard
-        ;org Door_GreenHills : dw DoorVectorToMainStreet
-        ;org Door_MainStreet : dw DoorVectorToG4
-        ;org Door_G4 : dw DoorVectorToCroc
-        ;org Door_Croc : dw DoorVectorToRidleyMouth
-        ;org Door_RidleyMouth : dw DoorVectorToCrocEntry
-        ;org Door_CrocEntry : dw DoorVectorToRedTower
-        ;org Door_RedTower : dw DoorVectorToRedElevator
-        ;org Door_RedElevator : dw DoorVectorToPreAqueduct
-        ;org Door_PreAqueduct : dw DoorVectorToHighway
-        ;org Door_Highway : dw DoorVectorToLavaDive
-        ;org Door_LavaDive : dw DoorVectorToMaridiaEscape
-        ;org Door_MaridiaEscape : dw DoorVectorToCrabs
-
-        ;org Door_GreenHills : dw DoorVectorToOcean
-        ;org Door_GreenHills : dw DoorVectorToMoat
-        ;org Door_GreenHills : dw DoorVectorToCrabs
-
-        ;org Door_GreenHills : dw DoorVectorTeleportToRedTower
-        ;org Door_RedTower : dw DoorVectorTeleportToRetroPBs
-        ;org Door_GreenHills : dw DoorVectorTeleportToRedTower
 
         pullpc
         ; ---- End portals ----
