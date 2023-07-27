@@ -17,8 +17,8 @@ InitializeForTesting: {
         %setup_controller()
 
         ; Add equipment and beams
-        %add_items(!MorphingBall,!Bombs,!SpaceJump,!ScrewAttack,!GravitySuit,!VariaSuit)
-        %add_beams(!PlasmaBeam,!WaveBeam,!IceBeam,!SpazerBeam)
+        %add_items(!MorphingBall,!Bombs,!SpaceJump,!ScrewAttack,!GravitySuit,!VariaSuit,!SpeedBooster)
+        %add_beams(!PlasmaBeam,!WaveBeam,!IceBeam,!SpazerBeam,!ChargeBeam)
         %unequip_beams(!SpazerBeam)
 
         ; Add some ammo
@@ -36,6 +36,8 @@ InitializeForTesting: {
         LDA.l BossFlagsVanilla+2 : ORA.w #$0100 : STA.l BossFlagsVanilla+2 ; Phantoon
         LDA.l BossFlagsVanilla+4 : ORA.w #$0001 : STA.l BossFlagsVanilla+4 ; Draygon
         LDA.l BossFlagsVanilla+2 : ORA.w #$0001 : STA.l BossFlagsVanilla+2 ; Ridley
+
+        LDA.l BossFlagsVanilla+2 : ORA.w #$0002 : STA.l BossFlagsVanilla+2 ; Crocomire
 
         if !AREA == 1
         ; ---- Setup portals ----
@@ -95,6 +97,10 @@ InitializeForTesting: {
         ; shows garbage in ridley mouth room
         ;org Door_GreenHills : dw DoorVectorToCroc
         ;org Door_Croc : dw DoorVectorToRidleyMouth
+
+        ; test contact state between doors (screw attack, pseudo, etc.)
+        ;%Setup(GreenHills,Croc)
+        ;%Setup(Croc,RetroPBs)
 
         pullpc
         ; ---- End portals ----

@@ -162,13 +162,9 @@ endif
 TeleportSamus:
         LDA.w DoorMisaligned : BEQ .done
 
-        PHA : BIT.w #$8000 : BEQ +
-        LDA.w #$0080
-        STA.w $18a8
-        +
+        PHA : BIT.w #$4000 : BEQ .iframes
 
-        PLA : BIT.w #$4000 : BEQ .done
-
+        ; Reset position in the room
         PHX
         AND.w #$0FFF : TAX
         LDA.l DoorDirectionTable+6,X
@@ -177,23 +173,34 @@ TeleportSamus:
         STA.w SamusYPos
         PLX
 
-        STZ $0B2C : STZ $0B2E
-        STZ $0B42 : STZ $0B44
-        STZ $0B46 : STZ $0B48
-
+        ; Reset pose variables
         STZ $0A1C : STZ $0A1E
         STZ $0A20 : STZ $0A22
         STZ $0A24 : STZ $0A26
+
+        ; Reset speed variables
+        STZ $0B2C : STZ $0B2E
+        STZ $0B42 : STZ $0B44
+        STZ $0B46 : STZ $0B48
 
         LDA.w #$FFFF
         STA $0A2A : STA $0A2C : STA $0A2E
 
         STZ.w SamusAnimationFrame
 
-        LDA $0A6E : CMP #$0002 : BNE +
+        ; Shinesparking? TODO: clear out remaining frames
+        LDA.w SamusContactDamageIndex : CMP #$0002 : BNE +
             LDA #$CACA
             STA.w $0741
         +
+
+        ; Clear contact damage index (screw attack, pseudo screw, speedboosting, etc.)
+        STZ.w SamusContactDamageIndex
+
+        .iframes:
+        PLA : BIT.w #$8000 : BEQ .done
+            LDA.w #$0080
+            STA.w InvincibilityTimer
 
         .done:
         PLB : PLP
