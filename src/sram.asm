@@ -27,6 +27,8 @@ CurrentSupers = $7E09CA              ; Current and max super missiles.
 MaxSupers = $7E09CC                  ;
 CurrentPBs = $7E09CE                 ; Current and max power bombs.
 MaxPBs = $7E09D0                     ;
+MaxReserves = $7E09D4                ; Current and max reserves.
+CurrentReserves = $7E09D6            ;
 DashItemsCollected = $7E09EC         ; Word-length bitfields used for new items, similar to the
 DashItemsEquipped = $7E09EE          ; vanilla item bitfields.
                                      ; - - - - - - d -  - - q - - - - h

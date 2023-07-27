@@ -196,3 +196,6 @@ DoorVectorToLavaDive = $8396D2
 DoorVectorToRidleyMouth = $83967E
 DoorVectorToPreAqueduct = $83A708
 DoorVectorToAqueduct = $83A4C8
+
+;
+DoorVectorToTourianElevator = $839222

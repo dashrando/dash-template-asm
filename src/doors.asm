@@ -206,6 +206,24 @@ TeleportSamus:
         PLB : PLP
 RTL
 
+RefillAll:
+        LDA.w MaxHealth
+        STA.w CurrentHealth
+        LDA.w MaxReserves
+        STA.w CurrentReserves
+        LDA.w MaxMissiles
+        STA.w CurrentMissiles
+        LDA.w MaxSupers
+        STA.w CurrentSupers
+        LDA.w MaxPBs
+        STA.w CurrentPBs
+RTS
+
+if !AREA == 1
+        org DoorVectorToTourianElevator
+        skip 10 : dw RefillAll
+endif
+
 pushpc
 
 ;------------------------------------------------------------------------------
