@@ -313,40 +313,40 @@ endmacro
 DoorDirectionTable:
 
 ; Left / Right Doors
-dw Door_GreenHills,DoorVectorToRetroPBs,$0001,$0020,$0288 ; testing
-dw Door_RetroPBs,DoorVectorToGreenHills,$0002,$01A0,$0088 ; testing
-dw Door_Moat,DoorVectorToOcean,$0001,$0024,$0488 ; testing
-dw Door_Ocean,DoorVectorToMoat,$0002,$01BF,$0088 ; testing
+dw Door_GreenHills,DoorVectorToRetroPBs,$0001,$0020,$0288
+dw Door_RetroPBs,DoorVectorToGreenHills,$0002,$01A0,$0088
+dw Door_Moat,DoorVectorToOcean,$0001,$0024,$0488
+dw Door_Ocean,DoorVectorToMoat,$0002,$01A0,$0088
 dw Door_G4,DoorVectorToTourian,$0001,$0010,$0088
-dw Door_Tourian,DoorVectorToG4,$0002,$00BC,$0688
+dw Door_Tourian,DoorVectorToG4,$0002,$00A0,$0688
 dw Door_GreenElevator,DoorVectorToKago,$0001,$0020,$0088
-dw Door_Kago,DoorVectorToGreenElevator,$0002,$00C6,$0088
-dw Door_Highway,DoorVectorToHighwayExit,$0001,$0022,$0188 ; good
-dw Door_HighwayExit,DoorVectorToHighway,$0002,$00A0,$0088 ; good
-dw Door_NoobBridge,DoorVectorToRedTower,$0001,$0038,$0488
-dw Door_RedTower,DoorVectorToNoobBridge,$0002,$05CB,$0088
-dw Door_MaridiaEscape,DoorVectorToRedFish,$0001,$0038,$0088
-dw Door_RedFish,DoorVectorToMaridiaEscape,$0002,$02A0,$0388 ; testing
-dw Door_KraidEntry,DoorVectorToElevatorEntry,$0001,$0037,$0088 ; good
-dw Door_ElevatorEntry,DoorVectorToKraidEntry,$0002,$00C0,$0188 ; testing
-dw Door_AboveKraid,DoorVectorToMaridiaMap,$0001,$002C,$0188
-dw Door_MaridiaMap,DoorVectorToAboveKraid,$0002,$03C2,$0088
-dw Door_KraidMouth,DoorVectorToKraidsLair,$0001,$003A,$0088
-dw Door_KraidsLair,DoorVectorToKraidMouth,$0002,$02A0,$0098 ; testing
+dw Door_Kago,DoorVectorToGreenElevator,$0002,$00A0,$0088
+dw Door_Highway,DoorVectorToHighwayExit,$0001,$0022,$0188
+dw Door_HighwayExit,DoorVectorToHighway,$0002,$00A0,$0088
+dw Door_NoobBridge,DoorVectorToRedTower,$0001,$0028,$0488
+dw Door_RedTower,DoorVectorToNoobBridge,$0002,$05B0,$0088
+dw Door_MaridiaEscape,DoorVectorToRedFish,$0001,$0020,$0088
+dw Door_RedFish,DoorVectorToMaridiaEscape,$0002,$02A0,$0388
+dw Door_KraidEntry,DoorVectorToElevatorEntry,$0001,$0037,$0088
+dw Door_ElevatorEntry,DoorVectorToKraidEntry,$0002,$00A0,$0188
+dw Door_AboveKraid,DoorVectorToMaridiaMap,$0001,$0008,$0188
+dw Door_MaridiaMap,DoorVectorToAboveKraid,$0002,$03A0,$0088
+dw Door_KraidMouth,DoorVectorToKraidsLair,$0001,$0020,$0088
+dw Door_KraidsLair,DoorVectorToKraidMouth,$0002,$02A0,$0098
 dw Door_SingleChamber,DoorVectorToMuskateers,$0001,$0138,$0088
-dw Door_Muskateers,DoorVectorToSingleChamber,$0002,$05B0,$0088 ; good
+dw Door_Muskateers,DoorVectorToSingleChamber,$0002,$05A4,$0088
 dw Door_RidleyMouth,DoorVectorToLavaDive,$0001,$0138,$0288
-dw Door_LavaDive,DoorVectorToRidleyMouth,$0002,$03A0,$0088 ; good
-dw Door_PreAqueduct,DoorVectorToAqueduct,$0001,$0030,$0188 ; good
-dw Door_Aqueduct,DoorVectorToPreAqueduct,$0002,$01A0,$0388 ; good
-dw Door_Crabs,DoorVectorToRedElevator,$0003,$007D,$0058 ; testing
+dw Door_LavaDive,DoorVectorToRidleyMouth,$0002,$03A0,$0088
+dw Door_PreAqueduct,DoorVectorToAqueduct,$0001,$0030,$0188
+dw Door_Aqueduct,DoorVectorToPreAqueduct,$0002,$01A0,$0388
 
 ; Up / Down Doors
-dw Door_RedElevator,DoorVectorToCrabs,$0004,$014F,$02B8 ; testing
-dw Door_MaridiaTube,DoorVectorToMainStreet,$0005,$0130,$07A8 ; testing
-dw Door_MainStreet,DoorVectorToMaridiaTube,$0006,$0044,$0078 ; good
+dw Door_Crabs,DoorVectorToRedElevator,$0003,$0060,$0058
+dw Door_RedElevator,DoorVectorToCrabs,$0004,$014F,$02B8
+dw Door_MaridiaTube,DoorVectorToMainStreet,$0005,$00F0,$07A8
+dw Door_MainStreet,DoorVectorToMaridiaTube,$0006,$0044,$0078
 dw Door_CrocEntry,DoorVectorToCroc,$0007,$037E,$0098
-dw Door_Croc,DoorVectorToCrocEntry,$0008,$0C70,$02B8 ; good
+dw Door_Croc,DoorVectorToCrocEntry,$0008,$0C70,$02B8
 
 ; Boss Entry Doors (keep vanilla pairings first)
 dw DoorToKraidBoss,DoorVectorToKraidInBrinstar,$0001,$0030,$0188 ; good

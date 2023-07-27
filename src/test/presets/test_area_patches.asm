@@ -50,35 +50,47 @@ InitializeForTesting: {
         ;org Door_Tourian : dw DoorVectorToMoat
         ;org Door_Moat : dw DoorVectorToLavaDive
 
+        macro Setup(door,vector)
+        org Door_<door> : dw DoorVectorTo<vector>
+        endmacro
+
         ; misaligned doors
-        org Door_GreenHills : dw DoorVectorToPreAqueduct
-        org Door_PreAqueduct : dw DoorVectorToRidleyMouth
-        org Door_RidleyMouth : dw DoorVectorToSingleChamber
-        org Door_SingleChamber : dw DoorVectorToKraidMouth
-        org Door_ElevatorEntry : dw DoorVectorToRetroPBs
-        org Door_RetroPBs : dw DoorVectorToAqueduct
-        org Door_Aqueduct : dw DoorVectorToOcean
-        org Door_Ocean : dw DoorVectorToMainStreet
-        org Door_MainStreet : dw DoorVectorToKraidEntry
-        org Door_KraidEntry : dw DoorVectorToMaridiaTube
-        org Door_MaridiaTube : dw DoorVectorToTourian
-        org Door_Tourian : dw DoorVectorToKago
-        org Door_Kago : dw DoorVectorToCrabs
-        org Door_Crabs : dw DoorVectorToCrocEntry
-        org Door_CrocEntry : dw DoorVectorToMaridiaEscape
-        org Door_MaridiaEscape : dw DoorVectorToRedElevator
-        org Door_RedElevator : dw DoorVectorToRedTower
-        org Door_RedTower : dw DoorVectorToCroc
-        org Door_Croc : dw DoorVectorToAboveKraid
-        org Door_AboveKraid : dw DoorVectorToHighwayExit
-        org Door_HighwayExit : dw DoorVectorToMuskateers
-        org Door_Muskateers : dw DoorVectorToLavaDive
-        org Door_LavaDive : dw DoorVectorToKraidsLair
-        org Door_KraidsLair : dw DoorVectorToMaridiaMap
-        org Door_MaridiaMap : dw DoorVectorToRedFish
-        org Door_RedFish : dw DoorVectorToGreenElevator
-        org Door_GreenElevator : dw DoorVectorToNoobBridge
-        org Door_NoobBridge : dw DoorVectorToGreenHills
+        %Setup(GreenHills,MainStreet)
+
+        %Setup(MainStreet,PreAqueduct)
+        %Setup(PreAqueduct,RidleyMouth)
+        %Setup(RidleyMouth,SingleChamber)
+        %Setup(SingleChamber,KraidMouth)
+        %Setup(KraidMouth,G4)
+        %Setup(G4,Moat)
+        %Setup(Moat,GreenElevator)
+        %Setup(GreenElevator,Highway)
+        %Setup(Highway,NoobBridge)
+        %Setup(NoobBridge,MaridiaEscape)
+        %Setup(MaridiaEscape,KraidEntry)
+        %Setup(KraidEntry,AboveKraid)
+
+        %Setup(AboveKraid,Croc)
+
+        %Setup(Croc,RetroPBs)
+        %Setup(RetroPBs,Aqueduct)
+        %Setup(Aqueduct,Ocean)
+        %Setup(Ocean,ElevatorEntry)
+        %Setup(ElevatorEntry,HighwayExit)
+        %Setup(HighwayExit,LavaDive)
+        %Setup(LavaDive,Muskateers)
+        %Setup(Muskateers,Tourian)
+        %Setup(Tourian,Kago)
+        %Setup(Kago,RedFish)
+        %Setup(RedFish,MaridiaMap)
+        %Setup(MaridiaMap,KraidsLair)
+        %Setup(KraidsLair,RedTower)
+
+        %Setup(RedTower,RedElevator)
+        %Setup(RedElevator,MaridiaTube)
+        %Setup(CrocEntry,MaridiaTube)
+        %Setup(MaridiaTube,Crabs)
+        %Setup(Crabs,GreenHills)
 
         ; shows garbage in ridley mouth room
         ;org Door_GreenHills : dw DoorVectorToCroc
