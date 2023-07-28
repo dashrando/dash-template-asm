@@ -24,6 +24,7 @@
 !crab_tunnel = $D08A,$00B0,$00A8,$ff,$ff,$00,$00
 !sandfalls = $D6FD,$0020,$00A8,$ff,$ff,$03,$00
 !green_hills = $9E52,$01C0,$0088,$FF,$FF,$01,$00
+!single_chamber = $AD5E,$05A4,$0088,$FF,$FF,$00,$00
 
 ; Room scrolls when you jump (needs to be fixed)
 !big_pink_next_to_charge = $9D19,$0070,$0076,$ff,$ff,$02,$07

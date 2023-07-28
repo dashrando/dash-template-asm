@@ -81,13 +81,13 @@ pullpc
 ; Lock doors for area
 ;------------------------------------------------------------------------------
 
+WestSandHall_GreyDoor_PLM:
+dw $C842,$060E,$1000,$0000
+
+SandFalls_GreyDoor_PLM:
+dw $C842,$063E,$1000,$0000
+
 if !AREA == 1
-    WestSandHall_GreyDoor_PLM:
-    dw $C842,$060E,$1000,$0000
-
-    SandFalls_GreyDoor_PLM:
-    dw $C842,$063E,$1000,$0000
-
     pushpc
     org $8FD273
     dw WestSandHall_GreyDoor_PLM
@@ -220,8 +220,10 @@ RefillAll:
 RTS
 
 if !AREA == 1
+        pushpc
         org DoorVectorToTourianElevator
         skip 10 : dw RefillAll
+        pullpc
 endif
 
 pushpc
