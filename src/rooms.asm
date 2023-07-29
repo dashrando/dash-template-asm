@@ -66,7 +66,7 @@ RoomHeaderSpaceJumpIn<areaName>:
 %UpdateItem(RoomHeaderSpaceJumpIn<areaName>)
 endmacro
 
-%SetupSpaceJump(Brinstar,    $01,$13, $00A4)
+%SetupSpaceJump(Brinstar,    $01,$3A, $00A4)
 %SetupSpaceJump(Norfair,     $02,$51, $00A5)
 %SetupSpaceJump(WreckedShip, $03,$13, $00A6)
 
