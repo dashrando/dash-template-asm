@@ -1,3 +1,6 @@
+;------------------------------------------------------------------------------
+; Door transition routines for area and boss randomization
+;------------------------------------------------------------------------------
 FixTransitionFX:
         PHA
         LDA.w DoorMisaligned : BIT.w #$4000 : BEQ +

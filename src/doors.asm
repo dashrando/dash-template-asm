@@ -199,8 +199,12 @@ TeleportSamus:
 
         .iframes:
         PLA : BIT.w #$8000 : BEQ .done
-            LDA.w #$0080
-            STA.w InvincibilityTimer
+            if !AREA == 1
+                LDA.w #$0080
+                STA.w InvincibilityTimer
+            else
+                NOP #6
+            endif
 
         .done:
         PLB : PLP
