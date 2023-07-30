@@ -198,7 +198,7 @@ TeleportSamus:
         STZ.w SamusContactDamageIndex
 
         .iframes:
-        PLA : BIT.w #$8000 : BEQ .done
+        PLA : BIT.w #$8000 : BEQ .cleanup
             if !AREA == 1
                 LDA.w #$0080
                 STA.w InvincibilityTimer
@@ -206,6 +206,9 @@ TeleportSamus:
                 NOP #6
             endif
 
+        .cleanup:
+        STZ.w DoorMisaligned
+        STZ.w CREBitset
         .done:
         PLB : PLP
 RTL
