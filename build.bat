@@ -72,12 +72,42 @@ copy %VANILLA% %ROM% > nul
 set ROOT_NAME=build\interface
 set ROM=%ROOT_NAME%.sfc
 set JS_SRC=%ROOT_NAME%.js
-
-if exist %ROM% del /Q %ROM%
 if exist %JS_SRC% del /Q %JS_SRC%
 
+if exist %ROM% del /Q %ROM%
 copy %VANILLA% %ROM% > nul
 %BIN%\asar.exe -DRECALL=1 -DAREA=1 -DINTERFACE=1 src\main.asm %ROM% > %JS_SRC%
+
+if exist %ROM% del /Q %ROM%
+copy %VANILLA% %ROM% > nul
+%BIN%\asar.exe -DINTERFACE=1 src\main.asm %ROM% > build\std.js
+FC /B %JS_SRC% build\std.js > nul
+if %ERRORLEVEL% GTR 0 (
+   echo ERROR! %JS_SRC% and build\std.js do not match
+) else (
+   del /Q build\std.js
+)
+
+if exist %ROM% del /Q %ROM%
+copy %VANILLA% %ROM% > nul
+%BIN%\asar.exe -DRECALL=1 -DINTERFACE=1 src\main.asm %ROM% > build\recall.js
+FC /B %JS_SRC% build\recall.js > nul
+if %ERRORLEVEL% GTR 0 (
+   echo ERROR! %JS_SRC% and build\recall.js do not match
+) else (
+   del /Q build\recall.js
+)
+
+if exist %ROM% del /Q %ROM%
+copy %VANILLA% %ROM% > nul
+%BIN%\asar.exe -DAREA=1 -DINTERFACE=1 src\main.asm %ROM% > build\std_area.js
+FC /B %JS_SRC% build\std_area.js > nul
+if %ERRORLEVEL% GTR 0 (
+   echo ERROR! %JS_SRC% and build\std_area.js do not match
+) else (
+   del /Q build\std_area.js
+)
+
 if exist %ROM% del /Q %ROM%
 
 pause
