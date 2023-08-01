@@ -58,6 +58,10 @@ InitializeForTesting: {
 
         %BossRoundTrip(Ridley)
 
+        ; Testing Kraid in LN
+        ;org DoorFromKraidInBrinstar : dw DoorVectorToPreRidley
+        ;org DoorToRidleyBoss : dw DoorVectorToKraidInNorfair
+
         ;---- Round Trip 2 ----
         ;org DoorToKraidBoss : dw DoorVectorToKraidInWreckedShip
         ;org DoorToPhantoonBoss : dw DoorVectorToKraidInMaridia

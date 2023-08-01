@@ -92,8 +92,8 @@ incbin data/slash_char.bin
 warnpc $8F8000
 
 org $8FE9A0
-incsrc doors.asm
 incsrc rooms.asm
+incsrc doors.asm
 incsrc music.asm
 warnpc $908000
 

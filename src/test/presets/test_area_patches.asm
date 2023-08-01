@@ -37,7 +37,7 @@ InitializeForTesting: {
         LDA.l BossFlagsVanilla+4 : ORA.w #$0001 : STA.l BossFlagsVanilla+4 ; Draygon
         LDA.l BossFlagsVanilla+2 : ORA.w #$0001 : STA.l BossFlagsVanilla+2 ; Ridley
 
-        LDA.l BossFlagsVanilla+2 : ORA.w #$0002 : STA.l BossFlagsVanilla+2 ; Crocomire
+        ;LDA.l BossFlagsVanilla+2 : ORA.w #$0002 : STA.l BossFlagsVanilla+2 ; Crocomire
 
         if !AREA == 1
         ; ---- Setup portals ----

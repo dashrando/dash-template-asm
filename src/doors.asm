@@ -210,6 +210,10 @@ TeleportSamus:
         STZ.w DoorMisaligned
         STZ.w CREBitset
         .done:
+        ; Clear this flag to avoid graphics issues when leaving Crocomire
+        STZ.w RequestEnemyBG2Tilemap
+
+        ; We over wrote to call this routine
         PLB : PLP
 RTL
 

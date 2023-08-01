@@ -94,6 +94,8 @@ BombCounter = $7E0CD2                ;
 ProjectileIndex = $7E0DDE            ;
 BoundaryPosition = $7E0E32           ;
 EnemyIndex = $7E0E54                 ;
+RequestEnemyBG2Tilemap = $7E0E1E     ; Some bosses are rendered on BG2. This flag is set to request
+                                     ; that the enemy BG2 tilemap be transferred to VRAM.
 EnemyData = $7E0F78                  ; $7FF bytes. See enemy ram in disassembly.
 InvincibilityTimer = $7E18A8         ;
 KnockbackTimer = $7E18AA             ;
