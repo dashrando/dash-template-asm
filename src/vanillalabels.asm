@@ -10,6 +10,7 @@ DisableNMI = $80835D ; long
 LoadMapMirror = $80858C ; long
 QueueMusicTrack = $808FC1 ; long
 QueueSoundLibraryOne = $809049
+GenericBitmasks = $8085B6
 SetupDMATransfer = $8091A9 ; long
 HUDMissiles_bottomrow = $8099F6
 InitializeHUD = $809A79 ; long

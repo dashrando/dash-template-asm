@@ -200,7 +200,7 @@ UpdateSaveSlot:
         PHX : PHA
 
         ; Load the bitmask for the seleted slot
-        ASL : TAX : LDA.l $8085B6,X
+        ASL : TAX : LDA.l GenericBitmasks,X
 
         ; Selected slot unused? Use it
         BIT.w SaveSlotPresence : BEQ .done
@@ -210,14 +210,14 @@ UpdateSaveSlot:
         STA $01,S
 
         ; Update non-slot SRAM
-        STA.w FileSelectCursor
+        STA.w SaveSlotSelected
         STA.l $701FEC
         EOR.w #$FFFF
         STA.l $701FEE
         
         ; Load the bitmask for the new slot
         LDA $01,S
-        ASL : TAX : LDA.l $8085B6,X
+        ASL : TAX : LDA.l GenericBitmasks,X
 
         .done:
         ; Note save slot has been used
