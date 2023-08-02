@@ -42,6 +42,7 @@ SetBootTest:
 RTS
 
 OnWriteSave:
+        JSR.w UpdateSaveSlot
         JSL.l WriteExtendedSave
         INC : STA.l CurrentSaveSlotSRAM : DEC
         PEA.w $7E00 : PLB : PLB ; What we wrote over
@@ -195,3 +196,31 @@ dw SlotOneDataSRAM
 dw SlotTwoDataSRAM
 dw SlotThreeDataSRAM
 
+UpdateSaveSlot:
+        PHX : PHA
+
+        ; Load the bitmask for the seleted slot
+        ASL : TAX : LDA.l GenericBitmasks,X
+
+        ; Selected slot unused? Use it
+        BIT.w SaveSlotPresence : BEQ .done
+
+        ; Move to the next slot
+        AND.w #$0003
+        STA $01,S
+
+        ; Update non-slot SRAM
+        STA.w SaveSlotSelected
+        STA.l $701FEC
+        EOR.w #$FFFF
+        STA.l $701FEE
+        
+        ; Load the bitmask for the new slot
+        LDA $01,S
+        ASL : TAX : LDA.l GenericBitmasks,X
+
+        .done:
+        ; Note save slot has been used
+        ORA.w SaveSlotPresence : STA.w SaveSlotPresence
+        PLA : PLX
+RTS

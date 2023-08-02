@@ -10,6 +10,7 @@ DisableNMI = $80835D ; long
 LoadMapMirror = $80858C ; long
 QueueMusicTrack = $808FC1 ; long
 QueueSoundLibraryOne = $809049
+GenericBitmasks = $8085B6
 SetupDMATransfer = $8091A9 ; long
 HUDMissiles_bottomrow = $8099F6
 InitializeHUD = $809A79 ; long
@@ -79,16 +80,16 @@ DoorToPhantoonBoss   = $8FCCB9
 DoorToDraygonBoss    = $8FD7D7
 DoorToRidleyBoss     = $8FB3A1
 
-DoorFromKraidRoom    = $8FA5E5
-DoorFromPhantoonRoom = $8FCD59
-DoorFromDraygonRoom  = $8FDAA6
-DoorFromRidleyRoom   = $8FB376
+DoorFromKraidInBrinstar       = $8FA5E5
+DoorFromPhantoonInWreckedShip = $8FCD59
+DoorFromDraygonInMaridia      = $8FDAA6
+DoorFromRidleyInNorfair       = $8FB376
 
 ; Boss Door Vectors
-DoorVectorToKraid       = $8391B6
-DoorVectorToPhantoon    = $83A2AC
-DoorVectorToDraygon     = $83A840
-DoorVectorToRidley      = $8398CA
+DoorVectorToKraidInBrinstar       = $8391B6
+DoorVectorToPhantoonInWreckedShip = $83A2AC
+DoorVectorToDraygonInMaridia      = $83A840
+DoorVectorToRidleyInNorfair       = $8398CA
 
 DoorVectorToPreKraid    = $8391CE
 DoorVectorToPrePhantoon = $83A2C4
@@ -196,3 +197,43 @@ DoorVectorToLavaDive = $8396D2
 DoorVectorToRidleyMouth = $83967E
 DoorVectorToPreAqueduct = $83A708
 DoorVectorToAqueduct = $83A4C8
+
+; Non-Area Door Vectors
+DoorVectorToTourianElevator = $839222
+
+; Room State Vectors
+RoomState1RetroPBs = $8F9EB1        ; ok
+RoomState2RetroPBs = $8F9ECB        ; ok
+RoomState1GreenHills = $8F9E5F      ; ok
+RoomState1Moat = $8F960C            ; fixed
+RoomState1Ocean = $8F940B           ; ok
+RoomState1G4 = $8F99CA              ; fixed
+RoomState1Tourian = $8FA5FA         ; ok
+RoomState1Kago = $8F9976            ; fixed
+RoomState1GreenElevator = $8F9945   ; ok
+RoomState1Crabs = $8F9499           ; fixed
+RoomState1RedElevator = $8F9637     ; ok
+RoomState1HighwayExit = $8F958A     ; fixed
+RoomState1Highway = $8F95B5         ; ok
+RoomState1NoobBridge = $8F9FC7      ; ok
+RoomState1RedTower = $8FA260        ; ok
+RoomState1MaridiaEscape = $8FA32F   ; ok
+RoomState1RedFish = $8FD111         ; ok
+RoomState1MaridiaTube = $8FCF0D     ; ok
+RoomState2MaridiaTube = $8FCF27     ; ok
+RoomState1MainStreet = $8FCFD6      ; ok
+RoomState1KraidEntry = $8FCF8D      ; ok
+RoomState1ElevatorEntry = $8FA6AE   ; ok
+RoomState1AboveKraid = $8FCF8D      ; ok
+RoomState1MaridiaMap = $8FD229      ; ok
+RoomState1KraidMouth = $8FA6AE      ; ok
+RoomState1KraidsLair = $8FA47E      ; fixed
+RoomState1CrocEntry = $8FA930       ; ok
+RoomState1Croc = $8FA99F            ; ok
+RoomState2Croc = $8FA9B9            ; fixed
+RoomState1SingleChamber = $8FAD6B   ; ok
+RoomState1Muskateers = $8FB663      ; ok
+RoomState1LavaDive = $8FAE81        ; fixed
+RoomState1RidleyMouth = $8FAF21     ; fixed
+RoomState1PreAqueduct = $8FD1B0     ; ok
+RoomState1Aqueduct = $8FD5B4        ; ok

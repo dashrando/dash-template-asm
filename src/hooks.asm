@@ -436,4 +436,21 @@ org $A6D93B : LDA.w #2
 org $A6DF8A : LDA.w #2
 org $A6E4D2 : LDA.w #2
 
+;------------------------------------------------------------------------------
+; Door Transitions
+;------------------------------------------------------------------------------
+org $9493A7
+JSR.w HandleEnterDoor : NOP
+org $9493EA
+JSR.w HandleEnterDoor : NOP
+
+org $8FE8BA
+JMP.w TeleportSamus
+
+org $82DE32
+JSR.w FixDoorBits
+
+org $82DE0C
+JSR.w FixTransitionFX
+
 pullpc

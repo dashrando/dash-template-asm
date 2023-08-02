@@ -26,7 +26,8 @@ macro SetupKraid(areaName,areaIndex,roomIndex,exitRoom)
 RoomHeaderKraidIn<areaName>:
       %CopyBytes($8FA59F,$8FA5E5)
 .doors:
-      dw DoorVectorTeleportTo<exitRoom>,DoorVectorToVariaSuitIn<areaName>
+DoorFromKraidIn<areaName>:
+      dw DoorVectorTo<exitRoom>,DoorVectorToVariaSuitIn<areaName>
 %UpdateRoom(RoomHeaderKraidIn<areaName>,<roomIndex>,<areaIndex>)
 endmacro
 
@@ -40,7 +41,8 @@ macro SetupPhantoon(areaName,areaIndex,roomIndex,exitRoom)
 RoomHeaderPhantoonIn<areaName>:
       %CopyBytes($8FCD13,$8FCD59)
 .doors:
-      dw DoorVectorTeleportTo<exitRoom>
+DoorFromPhantoonIn<areaName>:
+      dw DoorVectorTo<exitRoom>
 %UpdateRoom(RoomHeaderPhantoonIn<areaName>,<roomIndex>,<areaIndex>)
 endmacro
 
@@ -64,7 +66,7 @@ RoomHeaderSpaceJumpIn<areaName>:
 %UpdateItem(RoomHeaderSpaceJumpIn<areaName>)
 endmacro
 
-%SetupSpaceJump(Brinstar,    $01,$13, $00A4)
+%SetupSpaceJump(Brinstar,    $01,$3A, $00A4)
 %SetupSpaceJump(Norfair,     $02,$51, $00A5)
 %SetupSpaceJump(WreckedShip, $03,$13, $00A6)
 
@@ -74,7 +76,8 @@ macro SetupDraygon(areaName,areaIndex,roomIndex,exitRoom)
 RoomHeaderDraygonIn<areaName>:
       %CopyBytes($8FDA60,$8FDAA6)
 .doors:
-      dw DoorVectorTeleportTo<exitRoom>,DoorVectorToSpaceJumpIn<areaName>
+DoorFromDraygonIn<areaName>:
+      dw DoorVectorTo<exitRoom>,DoorVectorToSpaceJumpIn<areaName>
 %UpdateRoom(RoomHeaderDraygonIn<areaName>,<roomIndex>,<areaIndex>)
 endmacro
 
@@ -108,7 +111,9 @@ macro SetupRidley(areaName,areaIndex,roomIndex,exitRoom)
 RoomHeaderRidleyIn<areaName>:
       %CopyBytes($8FB32E,$8FB374)
 .doors:
-      dw DoorVectorToRidleyTankIn<areaName>,DoorVectorTeleportTo<exitRoom>
+      dw DoorVectorToRidleyTankIn<areaName>
+DoorFromRidleyIn<areaName>:
+      dw DoorVectorTo<exitRoom>
 %UpdateRoom(RoomHeaderRidleyIn<areaName>,<roomIndex>,<areaIndex>)
 endmacro
 

@@ -5,7 +5,7 @@ incsrc ../loadout.asm
 
 ; Disable creating a save file
 org InitGameState_save
-NOP #6
+NOP #3
 JSL InitializeForTesting
 
 org $DFFDB0

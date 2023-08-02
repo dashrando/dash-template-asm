@@ -81,13 +81,13 @@ pullpc
 ; Lock doors for area
 ;------------------------------------------------------------------------------
 
+WestSandHall_GreyDoor_PLM:
+dw $C842,$060E,$1000,$0000
+
+SandFalls_GreyDoor_PLM:
+dw $C842,$063E,$1000,$0000
+
 if !AREA == 1
-    WestSandHall_GreyDoor_PLM:
-    dw $C842,$060E,$1000,$0000
-
-    SandFalls_GreyDoor_PLM:
-    dw $C842,$063E,$1000,$0000
-
     pushpc
     org $8FD273
     dw WestSandHall_GreyDoor_PLM
@@ -156,105 +156,86 @@ if !AREA == 1
 endif
 
 ;------------------------------------------------------------------------------
-; Use vanilla door vector to reposition Samus
-;------------------------------------------------------------------------------
-
-macro Teleport(vanilla_door_vector)
-        PEA.w <vanilla_door_vector>
-        JMP.w TeleportSamus
-endmacro
-
-;------------------------------------------------------------------------------
-; Boss Door Transitions
-;------------------------------------------------------------------------------
-AppearInKraidRoom:    %Teleport(DoorVectorToKraid)
-AppearInPhantoonRoom: %Teleport(DoorVectorToPhantoon)
-AppearInDraygonRoom:  %Teleport(DoorVectorToDraygon)
-AppearInRidleyRoom:   %Teleport(DoorVectorToRidley)
-
-AppearInPreKraid:    %Teleport(DoorVectorToPreKraid)
-AppearInPrePhantoon: %Teleport(DoorVectorToPrePhantoon)
-AppearInPreDraygon:  %Teleport(DoorVectorToPreDraygon)
-AppearInPreRidley:   %Teleport(DoorVectorToPreRidley)
-
-;------------------------------------------------------------------------------
-; Area Door Transitions
-;------------------------------------------------------------------------------
-
-AppearInRetroPBs:      %Teleport(DoorVectorToRetroPBs)
-AppearInGreenHills:    %Teleport(DoorVectorToGreenHills)
-AppearInMoat:          %Teleport(DoorVectorToMoat)
-AppearInOcean:         %Teleport(DoorVectorToOcean)
-AppearInG4:            %Teleport(DoorVectorToG4)
-AppearInTourian:       %Teleport(DoorVectorToTourian)
-AppearInKago:          %Teleport(DoorVectorToKago)
-AppearInGreenElevator: %Teleport(DoorVectorToGreenElevator)
-AppearInCrabs:         %Teleport(DoorVectorToCrabs)
-AppearInRedElevator:   %Teleport(DoorVectorToRedElevator)
-AppearInHighwayExit:   %Teleport(DoorVectorToHighwayExit)
-AppearInHighway:       %Teleport(DoorVectorToHighway)
-AppearInNoobBridge:    %Teleport(DoorVectorToNoobBridge)
-AppearInRedTower:      %Teleport(DoorVectorToRedTower)
-AppearInMaridiaEscape: %Teleport(DoorVectorToMaridiaEscape)
-AppearInRedFish:       %Teleport(DoorVectorToRedFish)
-AppearInMaridiaTube:   %Teleport(DoorVectorToMaridiaTube)
-AppearInMainStreet:    %Teleport(DoorVectorToMainStreet)
-AppearInKraidEntry:    %Teleport(DoorVectorToKraidEntry)
-AppearInElevatorEntry: %Teleport(DoorVectorToElevatorEntry)
-AppearInAboveKraid:    %Teleport(DoorVectorToAboveKraid)
-AppearInMaridiaMap:    %Teleport(DoorVectorToMaridiaMap)
-AppearInKraidMouth:    %Teleport(DoorVectorToKraidMouth)
-AppearInKraidsLair:    %Teleport(DoorVectorToKraidsLair)
-AppearInCrocEntry:     %Teleport(DoorVectorToCrocEntry)
-AppearInCroc:          %Teleport(DoorVectorToCroc)
-AppearInSingleChamber: %Teleport(DoorVectorToSingleChamber)
-AppearInMuskateers:    %Teleport(DoorVectorToMuskateers)
-AppearInLavaDive:      %Teleport(DoorVectorToLavaDive)
-AppearInRidleyMouth:   %Teleport(DoorVectorToRidleyMouth)
-AppearInPreAqueduct:   %Teleport(DoorVectorToPreAqueduct)
-AppearInAqueduct:      %Teleport(DoorVectorToAqueduct)
-
-;------------------------------------------------------------------------------
 ; Logic to position Samus using misaligned door transitions
 ;------------------------------------------------------------------------------
 
 TeleportSamus:
+        LDA.w DoorMisaligned : BEQ .done
+
+        PHA : BIT.w #$4000 : BEQ .iframes
+
+        ; Reset position in the room
         PHX
-        LDA $03,S : TAX
-
-        ; Call an external routine if specified
-        LDA $83000A,X : BEQ .xpos
-                STA $12
-                PEA .xpos-1
-                JMP ($0012)
-        .xpos
-        
-        ; Update Samus X position
-        LDA $830004,X
-        AND.w #$00FF : ASL #4
+        AND.w #$0FFF : TAX
+        LDA.l DoorDirectionTable+6,X
         STA.w SamusXPos
-
-        ; Update Samus Y position
-        LDA $830005,X
-        AND.w #$00FF : ASL #4
-        ADC.w #$28  ; TODO: based on samus height?
+        LDA.l DoorDirectionTable+8,X
         STA.w SamusYPos
+        PLX
 
-        ; Tweak Samus position based on door location
-        LDA $830003,X
-        AND.w #$0003
-        CMP.w #$0003 ; 00 = right, 01 = left, 02 = down, 03 = up
-        ; TODO: add a little x for left, subtract a little x for right
-        ;       add a little y for down
-        BNE +
-                LDA.w SamusYPos
-                SBC.w #$0058
-                STA.w SamusYPos
-                STZ $0791
+        ; Reset pose variables
+        STZ $0A1C : STZ $0A1E
+        STZ $0A20 : STZ $0A22
+        STZ $0A24 : STZ $0A26
+
+        ; Reset speed variables
+        STZ $0B2C : STZ $0B2E
+        STZ $0B42 : STZ $0B44
+        STZ $0B46 : STZ $0B48
+
+        LDA.w #$FFFF
+        STA $0A2A : STA $0A2C : STA $0A2E
+
+        STZ.w SamusAnimationFrame
+
+        ; Shinesparking? TODO: clear out remaining frames
+        LDA.w SamusContactDamageIndex : CMP #$0002 : BNE +
+            LDA #$CACA
+            STA.w $0741
         +
 
-        PLX : PLA
+        ; Clear contact damage index (screw attack, pseudo screw, speedboosting, etc.)
+        STZ.w SamusContactDamageIndex
+
+        .iframes:
+        PLA : BIT.w #$8000 : BEQ .cleanup
+            if !AREA == 1
+                LDA.w #$0080
+                STA.w InvincibilityTimer
+            else
+                NOP #6
+            endif
+
+        .cleanup:
+        STZ.w DoorMisaligned
+        STZ.w CREBitset
+        .done:
+        ; Clear this flag to avoid graphics issues when leaving Crocomire
+        STZ.w RequestEnemyBG2Tilemap
+
+        ; We over wrote to call this routine
+        PLB : PLP
+RTL
+
+RefillAll:
+        LDA.w MaxHealth
+        STA.w CurrentHealth
+        LDA.w MaxReserves
+        STA.w CurrentReserves
+        LDA.w MaxMissiles
+        STA.w CurrentMissiles
+        LDA.w MaxSupers
+        STA.w CurrentSupers
+        LDA.w MaxPBs
+        STA.w CurrentPBs
 RTS
+
+if !AREA == 1
+        pushpc
+        org DoorVectorToTourianElevator
+        skip 10 : dw RefillAll
+        pullpc
+endif
 
 pushpc
 
@@ -295,10 +276,9 @@ endmacro
 
 macro KraidVector(area)
 DoorVectorToKraidIn<area>:
-dw RoomHeaderKraidIn<area> : db $40,$04,$01,$16,$00,$01 : dw $8000,AppearInKraidRoom
+dw RoomHeaderKraidIn<area> : db $40,$04,$01,$16,$00,$01 : dw $8000,$0000
 endmacro
 
-%KraidVector(Brinstar)
 %KraidVector(WreckedShip)
 %KraidVector(Maridia)
 %KraidVector(Norfair)
@@ -307,11 +287,10 @@ endmacro
 
 macro PhantoonVector(area)
 DoorVectorToPhantoonIn<area>:
-dw RoomHeaderPhantoonIn<area> : db $40,$04,$01,$06,$00,$00 : dw $8000,AppearInPhantoonRoom
+dw RoomHeaderPhantoonIn<area> : db $40,$04,$01,$06,$00,$00 : dw $8000,$0000
 endmacro
 
 %PhantoonVector(Brinstar)
-%PhantoonVector(WreckedShip)
 %PhantoonVector(Maridia)
 %PhantoonVector(Norfair)
 
@@ -332,12 +311,11 @@ endmacro
 
 macro DraygonVector(area)
 DoorVectorToDraygonIn<area>:
-dw RoomHeaderDraygonIn<area> : db $40,$05,$1E,$06,$01,$00 : dw $8000,AppearInDraygonRoom
+dw RoomHeaderDraygonIn<area> : db $40,$05,$1E,$06,$01,$00 : dw $8000,$0000
 endmacro
 
 %DraygonVector(Brinstar)
 %DraygonVector(WreckedShip)
-%DraygonVector(Maridia)
 %DraygonVector(Norfair)
 
 ;---
@@ -355,162 +333,102 @@ endmacro
 
 ;---
 
-macro RidleyVector(area)
+macro RidleyVector(area,cre_bitset)
 DoorVectorToRidleyIn<area>:
-dw RoomHeaderRidleyIn<area> : db $40,$05,$0E,$06,$00,$00 : dw $8000,AppearInRidleyRoom
+dw RoomHeaderRidleyIn<area> : db $40,$05,$0E,$06,$00,<cre_bitset> : dw $8000,$0000
 endmacro
 
-%RidleyVector(Brinstar)
-%RidleyVector(Norfair)
-%RidleyVector(WreckedShip)
-%RidleyVector(Maridia)
+%RidleyVector(Brinstar,$01)
+%RidleyVector(WreckedShip,$01)
+%RidleyVector(Maridia,$00)
 
-;---
+;--------------------------------------------------------------------
+; Door Alignment Table
+;    types: 0001 right-to-left
+;           0002 left-to-right
+;           0003+ unique (don't try to align)
+;--------------------------------------------------------------------
+DoorDirectionTable:
 
-DoorVectorTeleportToPreKraid:
-dw $A56B : db $40,$05,$1E,$16,$01,$01 : dw $8000,AppearInPreKraid
-;dx A56B,00,05,1E,16,01,01,8000,0000
+; Left / Right Doors
+dw Door_GreenHills,DoorVectorToRetroPBs,$0001,$0020,$0288
+dw Door_RetroPBs,DoorVectorToGreenHills,$0002,$01A0,$0088
+dw Door_Moat,DoorVectorToOcean,$0001,$0024,$0488
+dw Door_Ocean,DoorVectorToMoat,$0002,$01A0,$0088
+dw Door_G4,DoorVectorToTourian,$0001,$0010,$0088
+dw Door_Tourian,DoorVectorToG4,$0002,$00A0,$0688
+dw Door_GreenElevator,DoorVectorToKago,$0001,$0020,$0088
+dw Door_Kago,DoorVectorToGreenElevator,$0002,$00A0,$0088
+dw Door_Highway,DoorVectorToHighwayExit,$0001,$0022,$0188
+dw Door_HighwayExit,DoorVectorToHighway,$0002,$00A0,$0088
+dw Door_NoobBridge,DoorVectorToRedTower,$0001,$0028,$0488
+dw Door_RedTower,DoorVectorToNoobBridge,$0002,$05B0,$0088
+dw Door_MaridiaEscape,DoorVectorToRedFish,$0001,$0020,$0088
+dw Door_RedFish,DoorVectorToMaridiaEscape,$0002,$02A0,$0388
+dw Door_KraidEntry,DoorVectorToElevatorEntry,$0001,$0037,$0088
+dw Door_ElevatorEntry,DoorVectorToKraidEntry,$0002,$00A0,$0188
+dw Door_AboveKraid,DoorVectorToMaridiaMap,$0001,$0008,$0188
+dw Door_MaridiaMap,DoorVectorToAboveKraid,$0002,$03A0,$0088
+dw Door_KraidMouth,DoorVectorToKraidsLair,$0001,$0020,$0088
+dw Door_KraidsLair,DoorVectorToKraidMouth,$0002,$02A0,$0098
+dw Door_SingleChamber,DoorVectorToMuskateers,$0001,$0138,$0088
+dw Door_Muskateers,DoorVectorToSingleChamber,$0002,$05A4,$0088
+dw Door_RidleyMouth,DoorVectorToLavaDive,$0001,$0138,$0288
+dw Door_LavaDive,DoorVectorToRidleyMouth,$0002,$03A0,$0088
+dw Door_PreAqueduct,DoorVectorToAqueduct,$0001,$0030,$0188
+dw Door_Aqueduct,DoorVectorToPreAqueduct,$0002,$01A0,$0388
 
-DoorVectorTeleportToPrePhantoon:
-dw $CC6F : db $40,$05,$4E,$06,$04,$00 : dw $8000,AppearInPrePhantoon
-;dx CC6F,00,05,4E,06,04,00,8000,E1FE
+; Up / Down Doors
+dw Door_Crabs,DoorVectorToRedElevator,$0003,$0060,$0058
+dw Door_RedElevator,DoorVectorToCrabs,$0004,$014F,$02B8
+dw Door_MaridiaTube,DoorVectorToMainStreet,$0005,$00F0,$07A8
+dw Door_MainStreet,DoorVectorToMaridiaTube,$0006,$0044,$0078
+dw Door_CrocEntry,DoorVectorToCroc,$0007,$037E,$0098
+dw Door_Croc,DoorVectorToCrocEntry,$0008,$0C70,$02B8
 
-DoorVectorTeleportToPreDraygon:
-dw $D78F : db $40,$04,$01,$26,$00,$02 : dw $8000,AppearInPreDraygon
-;dx D78F,00,04,01,26,00,02,8000,E3D9
+; Boss Entry Doors (keep vanilla pairings first)
+dw DoorToKraidBoss,DoorVectorToKraidInBrinstar,$0001,$0030,$0188 ; good
+dw DoorToKraidBoss,DoorVectorToPhantoonInBrinstar,$0001,$0030,$00B8 ; good
+dw DoorToKraidBoss,DoorVectorToDraygonInBrinstar,$0002,$01A0,$0088 ; good
+dw DoorToKraidBoss,DoorVectorToRidleyInBrinstar,$0009,$0084,$0198 ; good
 
-DoorVectorTeleportToPreRidley:
-dw $B37A : db $40,$04,$01,$06,$00,$00 : dw $8000,AppearInPreRidley
-;dx B37A,00,04,01,06,00,00,8000,0000
+dw DoorToPhantoonBoss,DoorVectorToPhantoonInWreckedShip,$0001,$0030,$00B8 ; good
+dw DoorToPhantoonBoss,DoorVectorToKraidInWreckedShip,$0001,$0030,$0188 ; good
+dw DoorToPhantoonBoss,DoorVectorToDraygonInWreckedShip,$0002,$01A0,$0088 ; good
+dw DoorToPhantoonBoss,DoorVectorToRidleyInWreckedShip,$000A,$0084,$0198 ; good
 
-;---
+dw DoorToDraygonBoss,DoorVectorToDraygonInMaridia,$0002,$01A0,$0088 ; good
+dw DoorToDraygonBoss,DoorVectorToKraidInMaridia,$0001,$0030,$0188 ; good
+dw DoorToDraygonBoss,DoorVectorToPhantoonInMaridia,$0001,$0030,$00B8 ; good
+dw DoorToDraygonBoss,DoorVectorToRidleyInMaridia,$0002,$0084,$0198 ; good
 
-DoorVectorTeleportToRetroPBs:
-dw $9E9F : db $40,$04,$01,$26,$00,$02 : dw $8000,AppearInRetroPBs
-;dx 9E9F,00,04,01,26,00,02,8000,0000
+dw DoorToRidleyBoss,DoorVectorToRidleyInNorfair,$0002,$0084,$0198 ; good
+dw DoorToRidleyBoss,DoorVectorToKraidInNorfair,$0001,$0030,$0188 ; good
+dw DoorToRidleyBoss,DoorVectorToPhantoonInNorfair,$0001,$0030,$00B8 ; good
+dw DoorToRidleyBoss,DoorVectorToDraygonInNorfair,$0002,$01A0,$0088 ; good
 
-DoorVectorTeleportToGreenHills:
-dw $9E52 : db $40,$05,$1E,$06,$01,$00 : dw $8000,AppearInGreenHills
-;dx 9E52,00,05,1E,06,01,00,8000,0000
+; Boss Exit Doors (keep vanilla pairings first)
+dw DoorFromKraidInBrinstar,DoorVectorToPreKraid,$0002,$01B0,$0188 ; good
+dw DoorFromPhantoonInBrinstar,DoorVectorToPreKraid,$0002,$01B0,$0188 ; good
+dw DoorFromDraygonInBrinstar,DoorVectorToPreKraid,$0001,$01B0,$0188 ; good
+dw DoorFromRidleyInBrinstar,DoorVectorToPreKraid,$0001,$01B0,$0188 ; good
 
-DoorVectorTeleportToMoat:
-dw $95FF : db $40,$05,$1E,$06,$01,$00 : dw $8000,AppearInMoat
-;dx 95FF,00,05,1E,06,01,00,8000,0000
+dw DoorFromPhantoonInWreckedShip,DoorVectorToPrePhantoon,$0002,$04C4,$0088 ; testing
+dw DoorFromKraidInWreckedShip,DoorVectorToPrePhantoon,$0002,$04C4,$0088 ; testing
+dw DoorFromDraygonInWreckedShip,DoorVectorToPrePhantoon,$0001,$04C4,$0088 ; testing
+dw DoorFromRidleyInWreckedShip,DoorVectorToPrePhantoon,$0001,$04C4,$0088 ; testing
 
-DoorVectorTeleportToOcean:
-dw $93FE : db $40,$04,$01,$46,$00,$04 : dw $8000,AppearInOcean
-;dx 93FE,00,04,01,46,00,04,8000,0000
+dw DoorFromDraygonInMaridia,DoorVectorToPreDraygon,$0001,$003C,$0288 ; good
+dw DoorFromKraidInMaridia,DoorVectorToPreDraygon,$0002,$003C,$0288 ; good
+dw DoorFromPhantoonInMaridia,DoorVectorToPreDraygon,$0002,$003C,$0288 ; good
+dw DoorFromRidleyInMaridia,DoorVectorToPreDraygon,$0001,$003C,$0288 ; good
 
-DoorVectorTeleportToG4:
-dw $99BD : db $40,$05,$0E,$66,$00,$06 : dw $8000,AppearInG4
-;dx 99BD,00,05,0E,66,00,06,8000,0000
+dw DoorFromRidleyInNorfair,DoorVectorToPreRidley,$0001,$0020,$0098 ; good
+dw DoorFromKraidInNorfair,DoorVectorToPreRidley,$0002,$0020,$0098 ; good
+dw DoorFromPhantoonInNorfair,DoorVectorToPreRidley,$0002,$0020,$0098 ; good
+dw DoorFromDraygonInNorfair,DoorVectorToPreRidley,$0001,$0020,$0098 ; good
 
-DoorVectorTeleportToTourian:
-dw $A5ED : db $40,$04,$01,$06,$00,$00 : dw $8000,AppearInTourian
-;dx A5ED,00,04,01,06,00,00,8000,0000
-
-DoorVectorTeleportToKago:
-dw $9969 : db $40,$04,$01,$06,$00,$00 : dw $8000,AppearInKago
-;dx 9969,00,04,01,06,00,00,8000,0000
-
-DoorVectorTeleportToGreenElevator:
-dw $9938 : db $40,$05,$0E,$06,$00,$00 : dw $8000,AppearInGreenElevator
-;dx 9938,00,05,0E,06,00,00,8000,0000
-
-DoorVectorTeleportToCrabs:
-dw $948C : db $40,$00,$16,$2D,$01,$02 : dw $0000,AppearInCrabs
-;dx 948C,00,07,16,2D,01,02,01C0,B9F1
-
-DoorVectorTeleportToRedElevator:
-dw $962A : db $40,$00,$06,$02,$00,$00 : dw $0000,AppearInRedElevator
-;dx 962A,00,06,06,02,00,00,8000,0000
-
-DoorVectorTeleportToHighwayExit:
-dw $957D : db $40,$04,$01,$16,$00,$01 : dw $8000,AppearInHighwayExit
-;dx 957D,00,04,01,16,00,01,8000,0000
-
-DoorVectorTeleportToHighway:
-dw $95A8 : db $40,$05,$0E,$06,$00,$00 : dw $8000,AppearInHighway
-;dx 95A8,00,05,0E,06,00,00,8000,0000
-
-DoorVectorTeleportToNoobBridge:
-dw $9FBA : db $40,$05,$5E,$06,$05,$00 : dw $8000,AppearInNoobBridge
-;dx 9FBA,00,05,5E,06,05,00,8000,0000
-
-DoorVectorTeleportToRedTower:
-dw $A253 : db $40,$04,$01,$46,$00,$04 : dw $8000,AppearInRedTower
-;dx A253,00,04,01,46,00,04,8000,0000
-
-DoorVectorTeleportToMaridiaEscape:
-dw $A322 : db $40,$05,$2E,$36,$02,$03 : dw $8000,AppearInMaridiaEscape
-;dx A322,40,05,2E,36,02,03,8000,E367
-
-DoorVectorTeleportToRedFish:
-dw $D104 : db $40,$04,$01,$06,$00,$00 : dw $8000,AppearInRedFish
-;dx D104,40,04,01,06,00,00,8000,BDAF
-
-DoorVectorTeleportToMaridiaTube:
-dw $CEFB : db $40,$00,$06,$02,$00,$00 : dw $0170,AppearInMaridiaTube
-;dx CEFB,00,06,06,02,00,00,0170,0000
-
-DoorVectorTeleportToMainStreet:
-dw $CFC9 : db $40,$00,$16,$7D,$01,$07 : dw $0000,AppearInMainStreet
-;dx CFC9,00,07,16,7D,01,07,0200,0000
-
-DoorVectorTeleportToKraidEntry:
-dw $CF80 : db $40,$05,$0E,$16,$00,$01 : dw $8000,AppearInKraidEntry
-;dx CF80,40,05,0E,16,00,01,8000,BDD1
-
-DoorVectorTeleportToElevatorEntry:
-dw $A6A1 : db $40,$04,$01,$06,$00,$00 : dw $8000,AppearInElevatorEntry
-;dx A6A1,40,04,01,06,00,00,8000,0000
-
-DoorVectorTeleportToAboveKraid:
-dw $CF80 : db $40,$05,$3E,$06,$03,$00 : dw $8000,AppearInAboveKraid
-;dx CF80,00,05,3E,06,03,00,8000,0000
-
-DoorVectorTeleportToMaridiaMap:
-dw $D21C : db $40,$04,$01,$16,$00,$01 : dw $8000,AppearInMaridiaMap
-;dx D21C,00,04,01,16,00,01,8000,E356
-
-DoorVectorTeleportToKraidMouth:
-dw $A6A1 : db $40,$05,$2E,$06,$02,$00 : dw $8000,AppearInKraidMouth
-;dx A6A1,00,05,2E,06,02,00,8000,BD3F
-
-DoorVectorTeleportToKraidsLair:
-dw $A471 : db $40,$04,$01,$06,$00,$00 : dw $8000,AppearInKraidsLair
-;dx A471,00,04,01,06,00,00,8000,0000
-
-DoorVectorTeleportToCrocEntry:
-dw $A923 : db $40,$00,$C6,$2D,$0C,$02 : dw $0000,AppearInCrocEntry
-;dx A923,00,07,C6,2D,0C,02,01C0,0000
-
-DoorVectorTeleportToCroc:
-dw $A98D : db $40,$00,$36,$02,$03,$00 : dw $8000,AppearInCroc
-;dx A98D,00,06,36,02,03,00,8000,0000
-
-DoorVectorTeleportToSingleChamber:
-dw $AD5E : db $40,$05,$5E,$06,$05,$00 : dw $8000,AppearInSingleChamber
-;dx AD5E,00,05,5E,06,05,00,8000,0000
-
-DoorVectorTeleportToMuskateers:
-dw $B656 : db $40,$04,$11,$06,$01,$00 : dw $8000,AppearInMuskateers
-;dx B656,00,04,11,06,01,00,8000,0000
-
-DoorVectorTeleportToLavaDive:
-dw $AE74 : db $40,$04,$11,$26,$01,$02 : dw $8000,AppearInLavaDive
-;dx AE74,00,04,11,26,01,02,8000,0000
-
-DoorVectorTeleportToRidleyMouth:
-dw $AF14 : db $40,$05,$3E,$06,$03,$00 : dw $8000,AppearInRidleyMouth
-;dx AF14,00,05,3E,06,03,00,8000,0000
-
-DoorVectorTeleportToPreAqueduct:
-dw $D1A3 : db $40,$05,$1E,$36,$01,$03 : dw $8000,AppearInPreAqueduct
-;dx D1A3,00,05,1E,36,01,03,8000,E398
-
-DoorVectorTeleportToAqueduct:
-dw $D5A7 : db $40,$04,$01,$16,$00,$01 : dw $8000,AppearInAqueduct
-;dx D5A7,00,04,01,16,00,01,8000,0000
+; End
+dw $0000
 
 pullpc

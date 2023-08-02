@@ -52,6 +52,7 @@ incsrc menu.asm
 incsrc subareas.asm
 incsrc roompatching.asm
 incsrc stats/stats_doors.asm
+incsrc doortransition.asm
 warnpc $838000
 
 org $84EFE0
@@ -91,8 +92,9 @@ incbin data/slash_char.bin
 warnpc $8F8000
 
 org $8FE9A0
-incsrc doors.asm
 incsrc rooms.asm
+incsrc doors.asm
+incsrc music.asm
 warnpc $908000
 
 org $90F63A
