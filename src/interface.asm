@@ -131,3 +131,14 @@ print "  // Ridley Tank Location"
 %PrintAddress(RidleyTankInMaridia,RoomHeaderRidleyTankInMaridia_item_plm)
 %PrintAddress(RidleyTankInNorfair,$8F9108)
 print "};"
+print ""
+print "export const TABLE_FLAGS = {"
+print "  // Charge Modes: 0x00 = Vanilla  0x01 = Starter,"
+print "  //               0x02 = Recall   0x03 = New"
+%PrintLabelAddress(ChargeMode)
+print "  // HUD bits: 0x01 = Charge  0x02 = Item Counts,"
+print "  //           0x04 = Area    0x08 = Dash Items"
+%PrintLabelAddress(HUDBitField)
+print "  // Fanfare: 0x0000 = On  0x0001 = Off"
+%PrintLabelAddress(NoFanfare)
+print "};"
