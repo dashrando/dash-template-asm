@@ -99,56 +99,65 @@ endif
 
 ;------------------------------------------------------------------------------
 ; Flashing doors for area
+; Grey Door Facing Left  : $C842
+; Grey Door Facing Right : $C848
+; Grey Door Facing Up    : $C84E
+; Grey Door Facing Down  : $C854
 ;------------------------------------------------------------------------------
 
 if !AREA == 1
     pushpc
 
-    ; n00b bridge portal
+    ; n00b bridge portal - Room $9FBA
     org $8F87A6 : dw $C842,$065E,$8C33
     org $A19325 : db $00
 
-    ; Green Hills portal
+    ; Green Hills portal - Room $9E52
     org $8F8670 : dw $C842,$061E,$8C30
     org $A19D5B : db $00
 
-    ; Retro PBs portal
+    ; Retro PBs portal - Room $9E9F
     org $8F874B : db $8C
     org $A193A8 : db $00
 
-    ; Croc Entry portal
+    ; Croc Entry portal - Room $A923
     org $8F8B4E         ; Norfair above Croc 8b96
     skip $48 : dw $0000 ; Make upper Croc door blue
 
-    ; Croc Exit portal
+    ; Croc Exit portal - Room $A98D
     org $8F8B9E ; Croc room
     dw NoopPLM : dw $0000, $0000 ; Make top door blue
-    
-    ; G4 portal
+ 
+    ; G4 portal - Room $99BD
     org $8F844C
-    skip 36 : dw $0000
+    skip 36 : dw $C842 : skip 2 : dw $8C1E
+    org $A18572 : db $00
 
-    ; Crabs
-    org $8F81FE
-    skip 42 : dw $0000
+    ; Crabs - Room $948C
+    org $8F81FE 
+    skip 42 : dw $C84E : skip 2 : dw $8C0E
+    org $A18F7B : db $00
 
-    ; Red Elevator
+    ; Red Elevator - Room $962A
     org $8F8250
-    skip 6 : dw $0000
+    skip 6 : dw $C854 : skip 2 : dw $8C10
+    org $8F825D : db $00
 
-    ; Highway (Maridia)
+    ; Highway (Maridia) - Room $95A8
     org $8F823E
-    skip 0 : dw $0000
+    skip 0 : dw $C842 : db $0E : db $06 : dw $8C0F ; Adjusted PLM coords
 
-    ; Lava Dive
+    ; Lava Dive - Room $AE74
     org $8F8D1E
-    skip 48 : dw $0000
+    skip 48 : dw $C848 : skip 2 : dw $8C58
+    org $A1B9D7 : dw $00
 
-    ; PreAqueduct
+    ; PreAqueduct - Room $D1A3
     org $8FC4EF
-    skip 12 : dw $0000
+    skip 12 : dw $C842 : skip 2 : dw $8C8F
+    org $A1D005 : dw $00
 
-    ; Back door WS
+    ; Back door WS - Room $CAF6
     org $8FC247
     skip 42 : dw NoopPLM : dw $0000, $0000
 
