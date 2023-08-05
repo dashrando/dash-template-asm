@@ -110,16 +110,16 @@ if !AREA == 1
     pushpc
 
     ; n00b bridge portal - Room $9FBA
-    org $8F87A6 : dw $C842,$065E,$8C33
-    org $A19325 : db $00
+    org $8F87A6 : dw $C842,$065E,$9C33
+    ;org $A19325 : db $00
 
     ; Green Hills portal - Room $9E52
-    org $8F8670 : dw $C842,$061E,$8C30
-    org $A19D5B : db $00
+    org $8F8670 : dw $C842,$061E,$9C30
+    ;org $A19D5B : db $00
 
     ; Retro PBs portal - Room $9E9F
-    org $8F874B : db $8C
-    org $A193A8 : db $00
+    org $8F874B : db $9C
+    ;org $A193A8 : db $00
 
     ; Croc Entry portal - Room $A923
     org $8F8B4E         ; Norfair above Croc 8b96
@@ -131,32 +131,32 @@ if !AREA == 1
  
     ; G4 portal - Room $99BD
     org $8F844C
-    skip 36 : dw $C842 : skip 2 : dw $8C1E
-    org $A18572 : db $00
+    skip 36 : dw $C842 : skip 2 : dw $9C1E
+    ;org $A18572 : db $00
 
     ; Crabs - Room $948C
     org $8F81FE 
-    skip 42 : dw $C84E : skip 2 : dw $8C0E
-    org $A18F7B : db $00
+    skip 42 : dw $C84E : skip 2 : dw $9C0E
+    ;org $A18F7B : db $00
 
     ; Red Elevator - Room $962A
     org $8F8250
-    skip 6 : dw $C854 : skip 2 : dw $8C10
-    org $8F825D : db $00
+    skip 6 : dw $C854 : skip 2 : dw $9C10
+    ;org $8F825D : db $00
 
     ; Highway (Maridia) - Room $95A8
     org $8F823E
-    skip 0 : dw $C842 : db $0E : db $06 : dw $8C0F ; Adjusted PLM coords
+    skip 0 : dw $C842 : db $0E : db $06 : dw $9C0F ; Adjusted PLM coords
 
     ; Lava Dive - Room $AE74
     org $8F8D1E
-    skip 48 : dw $C848 : skip 2 : dw $8C58
-    org $A1B9D7 : db $00
+    skip 48 : dw $C848 : skip 2 : dw $9C58
+    ;org $A1B9D7 : db $00
 
     ; PreAqueduct - Room $D1A3
     org $8FC4EF
-    skip 12 : dw $C842 : skip 2 : dw $8C8F
-    org $A1D005 : db $00
+    skip 12 : dw $C842 : skip 2 : dw $9C8F
+    ;org $A1D005 : db $00
 
     ; Back door WS - Room $CAF6
     org $8FC247
@@ -165,12 +165,12 @@ if !AREA == 1
     ; Main Street - Room $CFC9
     org $8FCFD6
     skip 20 : dw CustomPLMs_MainStreet
-    org $A1DF2F : db $00
+    ;org $A1DF2F : db $00
 
     ; Ridley Mouth - Room $AF14
     org $8FAF21
     skip 20 : dw CustomPLMs_RidleyMouth
-    org $A1AD6B : db $00
+    ;org $A1AD6B : db $00
 
     pullpc
 endif
@@ -181,12 +181,12 @@ endif
 
 CustomPLMs_MainStreet:
 %CopyBytes($8FC42B,24)           ; copy existing list
-dw $C84E : db $16,$7D : dw $8C0E ; flashing door cap
+dw $C84E : db $16,$7D : dw $9C00 ; flashing door cap
 dw $0000
 
 CustomPLMs_RidleyMouth:
 %CopyBytes($8F8D7E,0)            ; copy existing list (none)
-dw $C842 : db $3E,$06 : dw $8C33 ; flashing door cap
+dw $C842 : db $3E,$06 : dw $9C00 ; flashing door cap
 dw $0000
 
 ;------------------------------------------------------------------------------

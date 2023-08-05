@@ -462,4 +462,10 @@ JSR.w FixDoorBits
 org $82DE0C
 JSR.w FixTransitionFX
 
+;------------------------------------------------------------------------------
+; Flashing Doors
+;------------------------------------------------------------------------------
+org $84BE43
+LDA.w CustomGreyDoorList,y
+
 pullpc
