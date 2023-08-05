@@ -38,6 +38,7 @@ if !RECALL == 1
 
     org $8FC611 ; Back door to Draygon
     dw $0000    ; Make door blue
+    ;dw NoopPLM : dw $0000, $0000 ; Crashes! but why?
     
     org $8F823E ; Forgotten Highway before elevator
     dw $0000    ; Make door blue
@@ -150,19 +151,43 @@ if !AREA == 1
     ; Lava Dive - Room $AE74
     org $8F8D1E
     skip 48 : dw $C848 : skip 2 : dw $8C58
-    org $A1B9D7 : dw $00
+    org $A1B9D7 : db $00
 
     ; PreAqueduct - Room $D1A3
     org $8FC4EF
     skip 12 : dw $C842 : skip 2 : dw $8C8F
-    org $A1D005 : dw $00
+    org $A1D005 : db $00
 
     ; Back door WS - Room $CAF6
     org $8FC247
     skip 42 : dw NoopPLM : dw $0000, $0000
 
+    ; Main Street - Room $CFC9
+    org $8FCFD6
+    skip 20 : dw CustomPLMs_MainStreet
+    org $A1DF2F : db $00
+
+    ; Ridley Mouth - Room $AF14
+    org $8FAF21
+    skip 20 : dw CustomPLMs_RidleyMouth
+    org $A1AD6B : db $00
+
     pullpc
 endif
+
+;------------------------------------------------------------------------------
+; Custom PLM lists
+;------------------------------------------------------------------------------
+
+CustomPLMs_MainStreet:
+%CopyBytes($8FC42B,24)           ; copy existing list
+dw $C84E : db $16,$7D : dw $8C0E ; flashing door cap
+dw $0000
+
+CustomPLMs_RidleyMouth:
+%CopyBytes($8F8D7E,0)            ; copy existing list (none)
+dw $C842 : db $3E,$06 : dw $8C33 ; flashing door cap
+dw $0000
 
 ;------------------------------------------------------------------------------
 ; Logic to position Samus using misaligned door transitions
@@ -272,9 +297,9 @@ org $83AD70
 
 macro VariaSuitVectors(area)
 DoorVectorToVariaSuitIn<area>:
-dw RoomHeaderVariaSuitIn<area> : %CopyBytes($8391DA+2,$8391E6)
+dw RoomHeaderVariaSuitIn<area> : %CopyRange($8391DA+2,$8391E6)
 DoorVectorToKraidFromVariaSuitIn<area>:
-dw RoomHeaderKraidIn<area>     : %CopyBytes($839252+2,$83925E)
+dw RoomHeaderKraidIn<area>     : %CopyRange($839252+2,$83925E)
 endmacro
 
 %VariaSuitVectors(Norfair)
@@ -307,9 +332,9 @@ endmacro
 
 macro SpaceJumpVectors(area)
 DoorVectorToSpaceJumpIn<area>:
-dw RoomHeaderSpaceJumpIn<area> : %CopyBytes($83A978+2,$83A984) ; verify (ok)
+dw RoomHeaderSpaceJumpIn<area> : %CopyRange($83A978+2,$83A984) ; verify (ok)
 DoorVectorToDraygonFromSpaceJumpIn<area>:
-dw RoomHeaderDraygonIn<area>   : %CopyBytes($83A924+2,$83A930) ; verify (ok)
+dw RoomHeaderDraygonIn<area>   : %CopyRange($83A924+2,$83A930) ; verify (ok)
 endmacro
 
 %SpaceJumpVectors(Brinstar)
@@ -331,9 +356,9 @@ endmacro
 
 macro RidleyTankVectors(area)
 DoorVectorToRidleyTankIn<area>:
-dw RoomHeaderRidleyTankIn<area> : %CopyBytes($8398B2+2,$8398BE) ; verify
+dw RoomHeaderRidleyTankIn<area> : %CopyRange($8398B2+2,$8398BE) ; verify
 DoorVectorToRidleyFromTankIn<area>:
-dw RoomHeaderRidleyIn<area>     : %CopyBytes($839A62+2,$839A6E) ; verify
+dw RoomHeaderRidleyIn<area>     : %CopyRange($839A62+2,$839A6E) ; verify
 endmacro
 
 %RidleyTankVectors(Brinstar)

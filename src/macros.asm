@@ -67,7 +67,15 @@ macro DefineCustomDigits(palette,colorSwap)
         endif
 endmacro
 
-macro CopyBytes(start,end)
+macro CopyBytes(start,length)
+        !pos = 0
+        while !pos < <length>
+                db read1(<start>+!pos)
+                !pos #= !pos+1
+        endif
+endmacro
+
+macro CopyRange(start,end)
         !pos = <start>
         while !pos < <end>
                 db read1(!pos)
