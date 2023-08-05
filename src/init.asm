@@ -24,7 +24,7 @@ InitGameState:
                 LDA.w SaveSlotSelected
                 JSL.l SaveToSRAM
         .ret
-        LDA.w #$0FF0 : STA.w PreviousBeams ; Force charge HUD draw
+        LDA.l HUDBitField : AND.w #$00FF : STA.w HUDFlags
         JSL.l InitRightHUDTiles
         INC.w HUDDrawFlag
         LDA.w #$0000

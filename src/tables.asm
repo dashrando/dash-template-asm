@@ -11,8 +11,15 @@ db $00, $01, $02, $03
 
 org $DF8004 ; 0x2F8004
 ChargeMode:
-db $00  ; 0 = vanilla, 1 = starter, 2 = balance
-db $01  ; 0 = no hud, 1 = charge damage on HUD
+db $01 ; 0 = vanilla, 1 = starter, 2 = balance
+
+org $DF8005 ; 0x2F8005
+HUDBitField:
+db #%00001101  ; HUD Bits:
+               ; 0 = charge damage
+               ; 1 = item counts
+               ; 2 = subarea
+               ; 3 = dash items
 
 org $DF8006 ; 0x2F8006
 SpaceJumpPhysics:

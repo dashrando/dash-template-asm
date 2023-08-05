@@ -150,40 +150,44 @@ dw $0044, $0045
 dw $0044, $0040
 
 DrawNewHUD:
-        LDA.w HUDDrawFlag : BEQ +
-                JSR.w NewHUDCharge
-                JSR.w NewHUDCounts
-                JSR.w NewHUDArea
-                JSR.w NewHUDItems
+        LDA.w HUDDrawFlag : BEQ .done
+                LDA.w #%00000001 : BIT.w HUDFlags : BEQ +
+                        JSR.w NewHUDCharge
+                +
+                LDA.w #%00000010 : BIT.w HUDFlags : BEQ +
+                        JSR.w NewHUDCounts
+                +
+                LDA.w #%00000100 : BIT.w HUDFlags : BEQ +
+                        JSR.w NewHUDArea
+                +
+                LDA.w #%00001000 : BIT.w HUDFlags : BEQ +
+                        JSR.w NewHUDItems
+                +
                 STZ.w HUDDrawFlag
-        +
+        .done:
         LDA.w #$9DD3 ; What we wrote over
 RTS
 
 ; Routine that draws the charge damage on the HUD
 NewHUDCharge:
-        LDA.l ChargeMode : CMP.w #$0101 : BCC +
-                LDA.w HyperBeamFlag : BNE .hyper
-                LDA.w BeamUpgrades : XBA : ORA.w BeamsEquipped ; 000c-nnnn-0000-psiw
-                CMP.w PreviousBeams : BEQ +
-                        STA.w PreviousBeams
-                        LDA.w #HUDHealthDigits : STA.b $00
-                        JSL.l ExternalLoadChargeDamage
-                        CMP.w #0100 : BCS .draw_3
-                                .draw_2
-                                LDX.w #$00BC
-                                JSR.w HUDDrawTwoDigits
-                                LDA.w #$2C0F : STA.l $7EC6C2 ; Blank tile
-                                BRA +
-                        .draw_3
-                        LDX.w #$00BA
-                        JSR.w HUDDrawThreeDigits
+        LDA.w HyperBeamFlag : BNE .hyper
+                LDA.w #HUDHealthDigits : STA.b $00
+                JSL.l ExternalLoadChargeDamage
+                CMP.w #0100 : BCS .draw_3
+                        .draw_2
+                        LDX.w #$00BC
+                        JSR.w HUDDrawTwoDigits
+                        LDA.w #$2C0F : STA.l $7EC6C2 ; Blank tile
                         BRA +
-                .hyper
-                LDA.w #$2C0F
-                STA.l RightHUDThree+$08
-                STA.l RightHUDThree+$0A
-                STA.l RightHUDThree+$0C
+                .draw_3
+                LDX.w #$00BA
+                JSR.w HUDDrawThreeDigits
+                BRA +
+        .hyper
+        LDA.w #$2C0F
+        STA.l RightHUDThree+$08
+        STA.l RightHUDThree+$0A
+        STA.l RightHUDThree+$0C
         +
 RTS
 
@@ -216,9 +220,10 @@ InitRightHUDTiles:
         LDA.w #$2C11
         STA.l RightHUDThree
 
-        LDA.w #$3867 : STA.l RightHUDOne+$08
-        LDA.w #$3866 : STA.l RightHUDTwo+$08
-
+        LDA.w #%00000010 : BIT.w HUDFlags : BEQ +
+                LDA.w #$3867 : STA.l RightHUDOne+$08
+                LDA.w #$3866 : STA.l RightHUDTwo+$08
+        +
 RTL
 
 NewHUDArea:
@@ -226,7 +231,6 @@ NewHUDArea:
         LDA.w HUDAreaCodes,X : STA.l RightHUDOne+$02
         INX #2
         LDA.w HUDAreaCodes,X : STA.l RightHUDOne+$04
-
 RTS
 
 NewHUDItems:
