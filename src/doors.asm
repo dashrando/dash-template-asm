@@ -176,17 +176,17 @@ if !AREA == 1
 endif
 
 ;------------------------------------------------------------------------------
-; Custom PLM lists
+; Custom PLM lists ($AD-$CF are good values)
 ;------------------------------------------------------------------------------
 
 CustomPLMs_MainStreet:
 %CopyBytes($8FC42B,24)           ; copy existing list
-dw $C84E : db $16,$7D : dw $9C00 ; flashing door cap
+dw $C84E : db $16,$7D : dw $9CAD ; flashing door cap
 dw $0000
 
 CustomPLMs_RidleyMouth:
 %CopyBytes($8F8D7E,0)            ; copy existing list (none)
-dw $C842 : db $3E,$06 : dw $9C00 ; flashing door cap
+dw $C842 : db $3E,$06 : dw $9CAE ; flashing door cap
 dw $0000
 
 ;------------------------------------------------------------------------------
