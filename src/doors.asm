@@ -153,22 +153,21 @@ if !AREA == 1
     skip 48 : dw $C848 : skip 2 : dw $9C58
     ;org $A1B9D7 : db $00
 
-    ; PreAqueduct - Room $D1A3
-    org $8FC4EF
-    skip 12 : dw $C842 : skip 2 : dw $9C8F
-    ;org $A1D005 : db $00
-
     ; Back door WS - Room $CAF6
     org $8FC247
     skip 42 : dw NoopPLM : dw $0000, $0000
 
+    ; PreAqueduct - Room $D1A3
+    org RoomState1PreAqueduct
+    skip 20 : dw CustomPLMs_PreAqueduct
+
     ; Main Street - Room $CFC9
-    org $8FCFD6
+    org RoomState1MainStreet
     skip 20 : dw CustomPLMs_MainStreet
     ;org $A1DF2F : db $00
 
     ; Ridley Mouth - Room $AF14
-    org $8FAF21
+    org RoomState1RidleyMouth
     skip 20 : dw CustomPLMs_RidleyMouth
     ;org $A1AD6B : db $00
 
@@ -182,11 +181,19 @@ endif
 CustomPLMs_MainStreet:
 %CopyBytes($8FC42B,24)           ; copy existing list
 dw $C84E : db $16,$7D : dw $9CAD ; flashing door cap
+dw $B76F : db $18,$59 : dw $0005 ; add save station
 dw $0000
 
 CustomPLMs_RidleyMouth:
 %CopyBytes($8F8D7E,0)            ; copy existing list (none)
 dw $C842 : db $3E,$06 : dw $9CAE ; flashing door cap
+dw $0000
+
+CustomPLMs_PreAqueduct:
+%CopyBytes($8FC4EF,18)           ; copy existing list
+skip -6                          ; rewind to overwrite green door
+dw $C842 : skip 2     : dw $9C8F ; flashing door cap
+dw $B76F : db $0D,$29 : dw $0004 ; add save station
 dw $0000
 
 ;------------------------------------------------------------------------------
