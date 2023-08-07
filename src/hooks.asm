@@ -459,7 +459,7 @@ JMP.w TeleportSamus
 org $82DE32
 JSR.w FixDoorBits
 
-org $82DE0C
-JSR.w FixTransitionFX
+;org $82DE0C
+;JSR.w FixTransitionFX
 
 pullpc
