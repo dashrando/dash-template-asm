@@ -23,6 +23,7 @@ if !AREA == 1
    !BelowBotwoonEnergyTank_Patch = Room_BelowBotwoonEnergyTank_Patch_01
    !CrabTunnel_Patch = Room_CrabTunnel_Patch_01
    !EastTunnel_Patch = Room_EastTunnel_Patch_01
+   !GreenHills_Patch = Room_GreenHills_Patch_02
    !RedElevator_Patch = Room_RedBrinstarElevator_Patch_01
    !SingleChamber_Patch = Room_SingleChamber_Patch_02
    !WS_Exit_Patch = Room_WreckedShipBackExit_Patch_01
@@ -31,6 +32,7 @@ else
    !BelowBotwoonEnergyTank_Patch = NoPatch 
    !CrabTunnel_Patch = NoPatch
    !EastTunnel_Patch = NoPatch
+   !GreenHills_Patch = NoPatch
    !RedElevator_Patch = NoPatch
    !SingleChamber_Patch = NoPatch
    !WS_Exit_Patch = NoPatch
@@ -101,7 +103,7 @@ endif
 %RoomEntry(Brinstar, $0A,  !Area_GreenBrinstar, $00,  NoPatch) ; Pre Spore Spawn
 %RoomEntry(Brinstar, $0B,  !Area_GreenBrinstar, $00,  NoPatch) ; Spore Spawn
 %RoomEntry(Brinstar, $0C,  !Area_GreenBrinstar, $00,  Room_MissionImpossible_Patch_01) ; Mission Impossible
-%RoomEntry(Brinstar, $0D,  !Area_GreenBrinstar, $00,  NoPatch) ; Green Hills
+%RoomEntry(Brinstar, $0D,  !Area_GreenBrinstar, $00,  !GreenHills_Patch) ; Green Hills
 %RoomEntry(Brinstar, $0E,  !Area_Crateria,      $00,  NoPatch) ; Morph Ball Room
 %RoomEntry(Brinstar, $0F,  !Area_Crateria,      $00,  NoPatch) ; Construction Zone
 %RoomEntry(Brinstar, $10,  !Area_Crateria,      $00,  NoPatch) ; Ceiling E-Tank
