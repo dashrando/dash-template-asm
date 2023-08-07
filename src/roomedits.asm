@@ -413,6 +413,16 @@ dw $37CC,$0002
 db $FF,$00
 dw $FFFF
 
+; Room $9E52: Brinstar diagonal room
+Room_GreenHills_Patch_02:
+dw $0A2A,$0004
+db $FF,$00,$6C,$85
+dw $0B2A,$0002
+db $FF,$00
+dw $4596,$0001
+db $00
+dw $FFFF
+
 ; Room $D08A: Maridia green gate hall
 Room_CrabTunnel_Patch_01:
 dw $039C,$0005
