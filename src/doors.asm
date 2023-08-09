@@ -120,14 +120,6 @@ if !AREA == 1
     ; Retro PBs portal - Room $9E9F
     org $8F874B : db $9C
     ;org $A193A8 : db $00
-
-    ; Croc Entry portal - Room $A923
-    org $8F8B4E         ; Norfair above Croc 8b96
-    skip $48 : dw $0000 ; Make upper Croc door blue
-
-    ; Croc Exit portal - Room $A98D
-    org $8F8B9E ; Croc room
-    dw NoopPLM : dw $0000, $0000 ; Make top door blue
  
     ; G4 portal - Room $99BD
     org $8F844C
@@ -161,6 +153,10 @@ if !AREA == 1
     org RoomState1PreAqueduct
     skip 20 : dw CustomPLMs_PreAqueduct
 
+    ; Aqueduct - Room $D5A7
+    org RoomState1Aqueduct
+    skip 20 : dw CustomPLMs_Aqueduct
+
     ; Main Street - Room $CFC9
     org RoomState1MainStreet
     skip 20 : dw CustomPLMs_MainStreet
@@ -171,6 +167,103 @@ if !AREA == 1
     skip 20 : dw CustomPLMs_RidleyMouth
     ;org $A1AD6B : db $00
 
+    ; Moat - Room $95FF
+    org RoomState1Moat
+    skip 20 : dw CustomPLMs_Moat
+
+    ; Ocean - Room $93FE
+    org RoomState1Ocean
+    skip 20 : dw CustomPLMs_Ocean
+
+    ; Tourian - Room $A5ED
+    org RoomState1Tourian
+    skip 20 : dw CustomPLMs_Tourian
+    
+    ; Kago - Room $9969
+    org RoomState1Kago
+    skip 20 : dw CustomPLMs_Kago
+    
+    ; Green Elevator - Room $9938
+    org RoomState1GreenElevator
+    skip 20 : dw CustomPLMs_GreenElevator
+
+    ; HighwayExit - Room $957D
+    org RoomState1HighwayExit
+    skip 20 : dw CustomPLMs_HighwayExit
+
+    ; Red Tower - Room $A253
+    org RoomState1RedTower
+    skip 20 : dw CustomPLMs_RedTower
+
+    ; Maridia Escape - Room $A322
+    org RoomState1MaridiaEscape
+    skip 20 : dw CustomPLMs_MaridiaEscape
+
+    ; Red Fish - Room $D104
+    org RoomState1RedFish
+    skip 20 : dw CustomPLMs_RedFish
+
+    ; Maridia Tube - Room $CEFB
+    org RoomState1MaridiaTube
+    skip 20 : dw CustomPLMs_MaridiaTube
+    org RoomState2MaridiaTube
+    skip 20 : dw CustomPLMs_MaridiaTube
+
+    ; Kraid Entry And Above Kraid - Room $CF80
+    org RoomState1KraidEntry
+    skip 20 : dw CustomPLMs_KraidEntryAndAboveKraid
+
+    ; Elevator Entry And Kraid Mouth - Room $A6A1
+    org RoomState1ElevatorEntry
+    skip 20 : dw CustomPLMs_ElevatorEntryAndKraidMouth
+
+    ; Maridia Map - Room $D21C
+    org RoomState1MaridiaMap
+    skip 20 : dw CustomPLMs_MaridiaMap
+
+    ; Kraid's Lair - Room $A471
+    org RoomState1KraidsLair
+    skip 20 : dw CustomPLMs_KraidsLair
+
+    ; Single Chamber - Room $AD5E
+    org RoomState1SingleChamber
+    skip 20 : dw CustomPLMs_SingleChamber
+
+    ; Muskateers - Room $B656
+    org RoomState1Muskateers
+    skip 20 : dw CustomPLMs_Muskateers
+
+    ; Croc Entry (UN) - Room $A923
+    org RoomState1CrocEntry
+    skip 20 : dw CustomPLMs_CrocEntry
+
+    ; Croc - Room $A98D
+    org RoomState1Croc
+    skip 20 : dw CustomPLMs_Croc
+    org RoomState2Croc
+    skip 20 : dw CustomPLMs_Croc
+
+    ; Pre Kraid's Lair - Room $856B
+    org $8F8A02
+    skip 18
+    dw NoopPLM : dw $0000, $0000       ; Make refill room door blue
+
+    ; Green Tower - Room $9AD9
+    org $8F848E
+    skip 36
+    dw NoopPLM : dw $0156, $9C1F       ; Make save room door blue
+    skip 18
+    dw NoopPLM : dw $0166, $9C23       ; Make refill room door blue
+
+    ; Collosseum - Room $D72A
+    org $8FC6EF
+    dw NoopPLM : dw $6E06 : dw $9C98   ; Make save room door blue
+
+    ; Highway Maridia Elevator - Room $D30B
+    org $8FC563
+    skip 6
+    dw NoopPLM : dw $0E46 : dw $9C92   ; Make save room door blue
+
     pullpc
 endif
 
@@ -179,21 +272,128 @@ endif
 ;------------------------------------------------------------------------------
 
 CustomPLMs_MainStreet:
-%CopyBytes($8FC42B,24)           ; copy existing list
-dw $C84E : db $16,$7D : dw $9CAD ; flashing door cap
-dw $B76F : db $18,$59 : dw $0005 ; add save station
+%CopyBytes($8FC42B,24)            ; copy existing list
+dw $C84E : db $16,$7D : dw $9CAD  ; flashing door cap
+dw $B76F : db $18,$59 : dw $0005  ; add save station
 dw $0000
 
 CustomPLMs_RidleyMouth:
-%CopyBytes($8F8D7E,0)            ; copy existing list (none)
-dw $C842 : db $3E,$06 : dw $9CAE ; flashing door cap
+%CopyBytes($8F8D7E,0)             ; copy existing list (none)
+dw $C842 : db $3E,$06 : dw $9CAE  ; flashing door cap
 dw $0000
 
 CustomPLMs_PreAqueduct:
-%CopyBytes($8FC4EF,18)           ; copy existing list
-skip -6                          ; rewind to overwrite green door
-dw $C842 : skip 2     : dw $9C8F ; flashing door cap
-dw $B76F : db $0D,$29 : dw $0004 ; add save station
+%CopyBytes($8FC4EF,18)            ; copy existing list
+skip -6                           ; rewind to overwrite green door
+dw $C842 : skip 2     : dw $9C8F  ; flashing door cap
+dw $B76F : db $0D,$29 : dw $0004  ; add save station
+dw $0000
+
+CustomPLMs_Aqueduct:
+%CopyBytes($8FC5FD,18)            ; copy existing list
+skip -18                          ; rewind to remove pink door
+dw NoopPLM : dw $0126 : dw $9C96  ; make save room door blue
+skip 12
+dw $C848 : db $01,$16 : dw $9C95  ; flashing door cap
+dw $0000
+
+CustomPLMs_Moat:
+%CopyBytes($8F8248,6)             ; copy existing list
+dw $C842 : db $1E,$06 : dw $9C04  ; flashing door cap
+dw $0000
+
+CustomPLMs_Ocean:
+%CopyBytes($8F81DC,6)             ; copy existing list
+dw $C848 : db $01,$46 : dw $9C03  ; flashing door cap
+dw $0000
+
+CustomPLMs_Tourian:
+%CopyBytes($8FA83C,0)             ; copy existing list
+dw $C848 : db $01,$06 : dw $9C00  ; flashing door cap
+dw $0000
+
+CustomPLMs_Kago:
+%CopyBytes($8F8442,0)             ; copy existing list
+dw $C848 : db $01,$06 : dw $9C00  ; flashing door cap
+dw $0000
+
+CustomPLMs_GreenElevator:
+%CopyBytes($8F843A,6)             ; copy existing list
+dw $C842 : db $0E,$06 : dw $9C66  ; flashing door cap
+dw $0000
+
+CustomPLMs_HighwayExit:
+%CopyBytes($8F823C,0)             ; copy existing list
+dw $C848 : db $01,$16 : dw $9C00  ; flashing door cap
+dw $0000
+
+CustomPLMs_RedTower:
+%CopyBytes($8F8854,24)            ; copy existing list
+skip -12                          ; rewind to remove green door to sloaters refill
+dw NoopPLM : dw $0196 : dw $9C38  ; Make green door blue
+skip 6
+dw $C848 : db $01,$46 : dw $9C39  ; flashing door cap
+dw $0000
+
+CustomPLMs_MaridiaEscape:
+%CopyBytes($8F8880,60)            ; copy existing list
+dw $C842 : db $2E,$36 : dw $9C74  ; flashing door cap
+dw $0000
+
+CustomPLMs_RedFish:
+%CopyBytes($8FC49B,12)            ; copy existing list
+dw $C848 : db $01,$06 : dw $9C38  ; flashing door cap
+dw $0000
+
+CustomPLMs_MaridiaTube:
+%CopyBytes($8FC37D,96)            ; copy existing list
+skip -6                           ; rewind to remove pink door
+dw $C854 : db $06,$02 : dw $9C4C  ; flashing door cap
+dw $0000
+
+CustomPLMs_KraidEntryAndAboveKraid:
+%CopyBytes($8FC3E1,72)            ; copy existing list
+dw $C842 : db $0E,$16 : dw $9CB5  ; flashing door cap (Kraid Entry)
+dw $C842 : db $3E,$06 : dw $9CB5  ; flashing door cap (Above Kraid)
+dw $0000
+
+CustomPLMs_ElevatorEntryAndKraidMouth:
+%CopyBytes($8F8A5C,108)           ; copy existing list
+dw $C848 : db $01,$06 : dw $9C00  ; flashing door cap (Elevator Entry)
+dw $C842 : db $2E,$06 : dw $9C00  ; flashing door cap (Kraid Mouth)
+dw $0000
+
+CustomPLMs_MaridiaMap:
+%CopyBytes($8FC53B,18)            ; copy existing list
+dw $C848 : db $01,$16 : dw $9C90  ; flashing door cap
+dw $0000
+
+CustomPLMs_KraidsLair:
+%CopyBytes($8F8976,30)            ; copy existing list
+dw $C848 : db $01,$06 : dw $9CA2  ; flashing door cap
+dw $0000
+
+CustomPLMs_SingleChamber:
+%CopyBytes($8F8C8A,36)            ; copy existing list
+dw $C842 : db $5E,$06 : dw $9CAA  ; flashing door cap
+dw $0000
+
+CustomPLMs_Muskateers:
+%CopyBytes($8F90D0,54)            ; copy existing list
+dw $C848 : db $11,$06 : dw $9C4D  ; flashing door cap
+dw $0000
+
+CustomPLMs_CrocEntry:
+%CopyBytes($8F8B4E,54)            ; copy existing list
+skip -6                           ; rewind to replace green door
+dw $C84E : db $C6,$2D : dw $9C4E  ; flashing door cap
+dw $0000
+
+CustomPLMs_Croc:
+%CopyBytes($8F8B9E,12)            ; copy existing list
+skip -12
+dw $C854 : db $36,$02 : dw $9C4F  ; flashing door cap
+skip 6
 dw $0000
 
 ;------------------------------------------------------------------------------
