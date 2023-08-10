@@ -29,6 +29,10 @@ dw PreOpenG4
 ;------------------------------------------------------------------------------
 ; Door Edits
 ;------------------------------------------------------------------------------
+
+org $8FCE9C         ; WS Save room header Phantoon alive
+skip $14 : dw $C2C9 ; Turn on save station
+
 if !RECALL == 1
     org $8FC571 ; Plasma Spark
     dw NoopPLM : dw $0000, $0000 ; Plasma door blue
@@ -42,9 +46,6 @@ if !RECALL == 1
     
     org $8F823E ; Forgotten Highway before elevator
     dw $0000    ; Make door blue
-    
-    org $8FCE9C         ; WS Save room header Phantoon alive
-    skip $14 : dw $C2C9 ; Turn on save station
     
     org $8FCC39         ; WS E-tank room header Phantoon alive
     skip $14 : dw $C337 ; Show WS E-tank item
@@ -61,8 +62,6 @@ if !RECALL == 1
 endif
 
 if !AREA == 1
-    org $8FCE9C         ; WS Save room header Phantoon alive
-    skip $14 : dw $C2C9 ; Turn on save station
 
     org $8FCBE7         ; WS back room Phantoon alive
     skip $14 : dw $C323 ; Add missile door back
@@ -114,27 +113,23 @@ if !AREA == 1
     ;org $A19325 : db $00
 
     ; Green Hills portal - Room $9E52
-    org $8F8670 : dw $C842,$061E,$9C30
-    ;org $A19D5B : db $00
+    org RoomState1GreenHills
+    skip 20 : dw CustomPLMs_GreenHills
 
     ; Retro PBs portal - Room $9E9F
     org $8F874B : db $9C
-    ;org $A193A8 : db $00
  
     ; G4 portal - Room $99BD
     org $8F844C
     skip 36 : dw $C842 : skip 2 : dw $9C1E
-    ;org $A18572 : db $00
 
     ; Crabs - Room $948C
     org $8F81FE 
     skip 42 : dw $C84E : skip 2 : dw $9C0E
-    ;org $A18F7B : db $00
 
     ; Red Elevator - Room $962A
     org $8F8250
     skip 6 : dw $C854 : skip 2 : dw $9C10
-    ;org $8F825D : db $00
 
     ; Highway (Maridia) - Room $95A8
     org $8F823E
@@ -143,7 +138,6 @@ if !AREA == 1
     ; Lava Dive - Room $AE74
     org $8F8D1E
     skip 48 : dw $C848 : skip 2 : dw $9C58
-    ;org $A1B9D7 : db $00
 
     ; Back door WS - Room $CAF6
     org $8FC247
@@ -160,12 +154,10 @@ if !AREA == 1
     ; Main Street - Room $CFC9
     org RoomState1MainStreet
     skip 20 : dw CustomPLMs_MainStreet
-    ;org $A1DF2F : db $00
 
     ; Ridley Mouth - Room $AF14
     org RoomState1RidleyMouth
     skip 20 : dw CustomPLMs_RidleyMouth
-    ;org $A1AD6B : db $00
 
     ; Moat - Room $95FF
     org RoomState1Moat
@@ -243,6 +235,10 @@ if !AREA == 1
     org RoomState2Croc
     skip 20 : dw CustomPLMs_Croc
 
+    ; Crab Shaft - Room $D08A
+    org RoomState1CrabShaft
+    skip 20 : dw CustomPLMs_CrabShaft
+
     ; Pre Kraid's Lair - Room $856B
     org $8F8A02
     skip 18
@@ -270,6 +266,13 @@ endif
 ;------------------------------------------------------------------------------
 ; Custom PLM lists ($AD-$CF are good values)
 ;------------------------------------------------------------------------------
+
+CustomPLMs_GreenHills:
+%CopyBytes($8F8664,24)            ; copy existing list
+skip -24 : dw $C826 : skip 10     ; open blue gate
+dw $C842 : db $1E,$06 : dw $9C30  ; flashing door cap
+skip 6
+dw $0000
 
 CustomPLMs_MainStreet:
 %CopyBytes($8FC42B,24)            ; copy existing list
@@ -337,6 +340,7 @@ dw $0000
 
 CustomPLMs_MaridiaEscape:
 %CopyBytes($8F8880,60)            ; copy existing list
+skip -30 : dw $C826 : skip 28     ; open green gate
 dw $C842 : db $2E,$36 : dw $9C74  ; flashing door cap
 dw $0000
 
@@ -353,6 +357,7 @@ dw $0000
 
 CustomPLMs_KraidEntryAndAboveKraid:
 %CopyBytes($8FC3E1,72)            ; copy existing list
+skip -12 : dw $C826 : skip 10     ; open green gate
 dw $C842 : db $0E,$16 : dw $9CB5  ; flashing door cap (Kraid Entry)
 dw $C842 : db $3E,$06 : dw $9CB5  ; flashing door cap (Above Kraid)
 dw $0000
@@ -394,6 +399,11 @@ CustomPLMs_Croc:
 skip -12
 dw $C854 : db $36,$02 : dw $9C4F  ; flashing door cap
 skip 6
+dw $0000
+
+CustomPLMs_CrabShaft:
+%CopyBytes($8FC48B,12)            ; copy existing list
+skip -12 : dw $C826 : skip 10     ; open green gate
 dw $0000
 
 ;------------------------------------------------------------------------------

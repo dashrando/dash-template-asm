@@ -237,3 +237,4 @@ RoomState1LavaDive = $8FAE81        ; fixed
 RoomState1RidleyMouth = $8FAF21     ; fixed
 RoomState1PreAqueduct = $8FD1B0     ; ok
 RoomState1Aqueduct = $8FD5B4        ; ok
+RoomState1CrabShaft = $8FD097       ; ok? (Pops added this for custom PLM use in plmlists.asm)

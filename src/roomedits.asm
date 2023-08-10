@@ -519,19 +519,22 @@ if !RECALL == 1
 endif
 
 if !AREA == 1
-    org $8FC48B ; Crab Shaft
-    dw $C826    ; Open gate
+    ;-------------------------------
+    ;THIS WAS MOVED TO PLMLISTS.ASM
+    ;-------------------------------
+    ;org $8FC48B ; Crab Shaft
+    ;dw $C826    ; Open gate
 
-    org $8F8664 ; Green Hills
-    dw $C826    ; Open gate
+    ;org $8F8664 ; Green Hills
+    ;dw $C826    ; Open gate
 
-    org $8F8880 ; Maridia Escape
-    skip 30
-    dw $C826    ; Open gate
+    ;org $8F8880 ; Maridia Escape
+    ;skip 30
+    ;dw $C826    ; Open gate
 
-    org $8FC3E1 ; East Tunnel
-    skip 60
-    dw $C826    ; Open gate
+    ;org $8FC3E1 ; East Tunnel
+    ;skip 60
+    ;dw $C826    ; Open gate
 endif
 
 pushpc ; Put no-op room patch at the end of the bank
