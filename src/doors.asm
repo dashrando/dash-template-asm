@@ -268,8 +268,8 @@ endif
 ;------------------------------------------------------------------------------
 
 CustomPLMs_GreenHills:
-%CopyBytes($8F8664,24)            ; copy existing list
-skip -24 : dw $C826 : skip 10     ; open blue gate
+%CopyBytes($8F8664+6,18)          ; copy existing minus blue gate
+skip -12
 dw $C842 : db $1E,$06 : dw $9C30  ; flashing door cap
 skip 6
 dw $0000
@@ -293,10 +293,7 @@ dw $B76F : db $0D,$29 : dw $0004  ; add save station
 dw $0000
 
 CustomPLMs_Aqueduct:
-%CopyBytes($8FC5FD,18)            ; copy existing list
-skip -18                          ; rewind to remove pink door
-dw NoopPLM : dw $0126 : dw $9C96  ; make save room door blue
-skip 12
+%CopyBytes($8FC5FD+6,12)          ; copy existing minus pink door 
 dw $C848 : db $01,$16 : dw $9C95  ; flashing door cap
 dw $0000
 
@@ -331,16 +328,14 @@ dw $C848 : db $01,$16 : dw $9C00  ; flashing door cap
 dw $0000
 
 CustomPLMs_RedTower:
-%CopyBytes($8F8854,24)            ; copy existing list
-skip -12                          ; rewind to remove green door to sloaters refill
-dw NoopPLM : dw $0196 : dw $9C38  ; Make green door blue
-skip 6
+%CopyBytes($8F8854,12)            ; copy existing list
+%CopyBytes($8F8854+18,6)          ; minus green door
 dw $C848 : db $01,$46 : dw $9C39  ; flashing door cap
 dw $0000
 
 CustomPLMs_MaridiaEscape:
-%CopyBytes($8F8880,60)            ; copy existing list
-skip -30 : dw $C826 : skip 28     ; open green gate
+%CopyBytes($8F8880,30)            ; copy existing list
+%CopyBytes($8F8880+36,24)         ; minus green gate
 dw $C842 : db $2E,$36 : dw $9C74  ; flashing door cap
 dw $0000
 
@@ -350,14 +345,13 @@ dw $C848 : db $01,$06 : dw $9C38  ; flashing door cap
 dw $0000
 
 CustomPLMs_MaridiaTube:
-%CopyBytes($8FC37D,96)            ; copy existing list
-skip -6                           ; rewind to remove pink door
+%CopyBytes($8FC37D,90)            ; copy existing minus pink door
 dw $C854 : db $06,$02 : dw $9C4C  ; flashing door cap
 dw $0000
 
 CustomPLMs_KraidEntryAndAboveKraid:
-%CopyBytes($8FC3E1,72)            ; copy existing list
-skip -12 : dw $C826 : skip 10     ; open green gate
+%CopyBytes($8FC3E1,60)            ; copy existing list
+%CopyBytes($8FC3E1+66,6)          ; minus green gate
 dw $C842 : db $0E,$16 : dw $9CB5  ; flashing door cap (Kraid Entry)
 dw $C842 : db $3E,$06 : dw $9CB5  ; flashing door cap (Above Kraid)
 dw $0000
@@ -389,21 +383,17 @@ dw $C848 : db $11,$06 : dw $9C4D  ; flashing door cap
 dw $0000
 
 CustomPLMs_CrocEntry:
-%CopyBytes($8F8B4E,54)            ; copy existing list
-skip -6                           ; rewind to replace green door
+%CopyBytes($8F8B4E,48)            ; copy existing minus green door 
 dw $C84E : db $C6,$2D : dw $9C4E  ; flashing door cap
 dw $0000
 
 CustomPLMs_Croc:
-%CopyBytes($8F8B9E,12)            ; copy existing list
-skip -12
 dw $C854 : db $36,$02 : dw $9C4F  ; flashing door cap
-skip 6
+%CopyBytes($8F8B9E+6,6)           ; copy existing minus upper door
 dw $0000
 
 CustomPLMs_CrabShaft:
-%CopyBytes($8FC48B,12)            ; copy existing list
-skip -12 : dw $C826 : skip 10     ; open green gate
+%CopyBytes($8FC48B+6,6)            ; copy existing minus green gate 
 dw $0000
 
 ;------------------------------------------------------------------------------
