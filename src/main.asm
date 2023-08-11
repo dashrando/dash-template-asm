@@ -95,6 +95,7 @@ org $8FE9A0
 incsrc rooms.asm
 incsrc doors.asm
 incsrc music.asm
+incsrc plmlists.asm
 warnpc $908000
 
 org $90F63A
