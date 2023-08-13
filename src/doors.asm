@@ -223,6 +223,8 @@ if !AREA == 1
     ; Back door WS - Room $CAF6
     org RoomState1WSShaft
     skip 20 : dw CustomPLMs_WSShaft
+    org RoomState2WSShaft
+    skip 20 : dw CustomPLMs_WSShaft
 
     ;----------------------------------
     ; Upper Norfair
@@ -280,7 +282,7 @@ if !AREA == 1
     ; Tourian - Room $A5ED
     org RoomState1Tourian
     skip 20 : dw CustomPLMs_Tourian
-    
+
     pullpc
 endif
 
