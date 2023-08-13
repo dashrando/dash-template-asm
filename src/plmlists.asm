@@ -55,7 +55,7 @@ dw $C842 : db $1E,$06 : dw $9C30  ; flashing door cap
 skip 6                            ; finish with vanilla plm
 dw $0000
 
-CustomPLMs_NoobBridge:          
+CustomPLMs_NoobBridge:
 dw $C842 : db $5E,$06 : dw $9C33  ; flashing door cap
 dw $0000
 
@@ -98,7 +98,7 @@ dw $C842 : db $3E,$06 : dw $9CB3  ; flashing door cap (Above Kraid)
 dw $0000
 
 ;----------------------------------
-; Maridia - East
+; Maridia - West
 ;----------------------------------
 CustomPLMs_MainStreet:
 %CopyBytes($8FC42B,24)            ; copy existing list
@@ -124,18 +124,18 @@ dw $C848 : db $01,$16 : dw $9CB6  ; flashing door cap
 dw $0000
 
 CustomPLMs_CrabShaft:
-%CopyBytes($8FC48B+6,6)            ; copy existing minus green gate 
+%CopyBytes($8FC48B+6,6)            ; copy existing minus green gate
 dw $0000
 
 ;----------------------------------
-; Maridia - West
+; Maridia - East
 ;----------------------------------
 CustomPLMs_Aqueduct:
-%CopyBytes($8FC5FD+6,12)          ; copy existing minus pink door 
+%CopyBytes($8FC5FD+6,12)          ; copy existing minus pink door
 dw $C848 : db $01,$16 : dw $9CB7  ; flashing door cap
 dw $0000
 
-CustomPLMs_Highway:               
+CustomPLMs_Highway:
 dw $C842 : db $0E,$06 : dw $9C0F  ; flashing door cap
 dw $0000
 
@@ -151,7 +151,7 @@ dw $0000
 ; Wrecked Ship
 ;----------------------------------
 CustomPLMs_Ocean:
-%CopyBytes($8F81DC,30)             ; copy existing list
+%CopyBytes($8F81DC,30)            ; copy existing list
 dw $C848 : db $01,$46 : dw $9CB8  ; flashing door cap
 dw $0000
 
@@ -180,12 +180,12 @@ dw $C842 : db $5E,$06 : dw $9CBC  ; flashing door cap
 dw $0000
 
 CustomPLMs_CrocEntry:
-%CopyBytes($8F8B4E,48)            ; copy existing minus green door 
+%CopyBytes($8F8B4E,48)            ; copy existing minus green door
 dw $C84E : db $C6,$2D : dw $9C4E  ; flashing door cap
 dw $0000
 
 CustomPLMs_LavaDive:
-%CopyBytes($8F8D1E,48)            ; copy existing minus orange door 
+%CopyBytes($8F8D1E,48)            ; copy existing minus orange door
 dw $C848 : db $11,$26 : dw $9C58  ; flashing door cap
 dw $0000
 
