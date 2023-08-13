@@ -468,4 +468,6 @@ JSR.w FixDoorBits
 org $84BE43
 LDA.w CustomGreyDoorList,y
 
+org $82EB7F
+JSL PreProcessRoomPLM
 pullpc

@@ -14,56 +14,75 @@
 ; Crateria
 ;----------------------------------
 CustomPLMs_Kago:
-%CopyBytes($8F8442,0)             ; copy existing list
 dw $C848 : db $01,$06 : dw $9CAD  ; flashing door cap
 dw $0000
 
 CustomPLMs_Moat:
-%CopyBytes($8F8248,6)             ; copy existing list
 dw $C842 : db $1E,$06 : dw $9CAE  ; flashing door cap
-dw $0000
+dw $0001,$0000,PLMList1Moat       ; run vanilla list
 
-CustomPLMs_G4:
-%CopyBytes($8F844C,36)            ; copy existing list
-dw $C842 : db $0E,$66 : dw $9C1E  ; flashing door cap
-dw $0000
+pushpc
+if !AREA == 1
+    ; Kago - Room $9969
+    org RoomState1Kago
+    skip 20 : dw CustomPLMs_Kago
 
-CustomPLMs_RetroPBs:
-%CopyBytes($8F86E6,108)           ; copy existing list
-skip -12
-dw $C848 : db $01,$26 : dw $9C31  ; flashing door cap
-skip 6
-dw $0000
+    ; Moat - Room $95FF
+    org RoomState1Moat
+    skip 20 : dw CustomPLMs_Moat
 
-CustomPLMs_Crabs:
-%CopyBytes($8F81FE,42)            ; copy existing list minus orange door
-dw $C84E : db $16,$2D : dw $9C0E  ; flashing door cap
-dw $0000
+    ; G4 portal - Room $99BD
+    org PLMList1G4
+    skip 36                           ; replace red cap with
+    dw $C842 : db $0E,$66 : dw $9C1E  ; flashing door cap
+
+    ; Retro PBs portal - Room $9E9F
+    org PLMList2RetroPBs
+    skip 96
+    dw $C848 : db $01,$26 : dw $9C31  ; flashing door cap
+
+    ; Crabs - Room $948C
+    org PLMList1Crabs
+    skip 42
+    dw $C84E : db $16,$2D : dw $9C0E  ; flashing door cap
+endif
+pullpc
 
 ;----------------------------------
 ; Green Brinstar
 ;----------------------------------
 CustomPLMs_GreenElevator:
-%CopyBytes($8F843A,6)             ; copy existing list
-dw $C842 : db $0E,$06 : dw $9CAF  ; flashing door cap
-dw $0000
+dw $C842 : db $0E,$06 : dw $9CAF      ; flashing door cap
+dw $0001,$0000,PLMList1GreenElevator  ; run vanilla list
 
-CustomPLMs_GreenHills:
-%CopyBytes($8F8664+6,18)          ; copy existing minus blue gate
-skip -12                          ; rewind to overwrite orange door
-dw $C842 : db $1E,$06 : dw $9C30  ; flashing door cap
-skip 6                            ; finish with vanilla plm
-dw $0000
+pushpc
+if !AREA == 1
+    ; Green Elevator - Room $9938
+    org RoomState1GreenElevator
+    skip 20 : dw CustomPLMs_GreenElevator
 
-CustomPLMs_NoobBridge:
-dw $C842 : db $5E,$06 : dw $9C33  ; flashing door cap
-dw $0000
+    ; Green Hills - Room $9E52
+    org PLMList1GreenHills            ; update vanilla PLM list
+    dw $0002 : skip 4                 ; remove the blue gate
+    skip 6                            ; replace yellow cap
+    dw $C842 : db $1E,$06 : dw $9C30  ; with flashing cap
 
-CustomPLMs_GreenTower:
-%CopyBytes($8F848E,36)             ; copy existing minus pink save door
-%CopyBytes($8F848E+42,18)          ; copy existing minus pink refill door
-%CopyBytes($8F848E+72,6)           ; copy the last of the existing list
-dw $0000
+    ; n00b bridge - Room $9FBA
+    org PLMList1NoobBridge            ; update vanilla PLM list
+    dw $C842 : db $5E,$06 : dw $9C33  ; flashing door cap
+endif
+
+; Green Tower - Room $9AD9
+org PLMList1GreenTower
+skip 36
+dw $0002 : skip 4                 ; remove the pink save door
+skip 18
+dw $0002 : skip 4                 ; remove the pink refill door
+
+; Green Brinstar Pre Map - Room $9B9D
+org PLMList1GreenBrinstarPreMap
+dw $0000                          ; remove grey door
+pullpc
 
 ;----------------------------------
 ; Red Brinstar
@@ -101,10 +120,9 @@ dw $0000
 ; Maridia - West
 ;----------------------------------
 CustomPLMs_MainStreet:
-%CopyBytes($8FC42B,24)            ; copy existing list
 dw $C84E : db $16,$7D : dw $9CB4  ; flashing door cap
 dw $B76F : db $18,$59 : dw $0005  ; add save station
-dw $0000
+dw $0001,$0000,PLMList1MainStreet ; run the vanilla list
 
 CustomPLMs_PreAqueduct:
 %CopyBytes($8FC4EF,18)            ; copy existing list
@@ -123,9 +141,19 @@ CustomPLMs_MaridiaMap:
 dw $C848 : db $01,$16 : dw $9CB6  ; flashing door cap
 dw $0000
 
-CustomPLMs_CrabShaft:
-%CopyBytes($8FC48B+6,6)            ; copy existing minus green gate
-dw $0000
+pushpc
+if !AREA == 1
+    ; Main Street - Room $CFC9
+    org RoomState1MainStreet
+    skip 20 : dw CustomPLMs_MainStreet
+endif
+
+if !AREA == 1 || !RECALL == 1
+    ; Crab Shaft - Room $D08A
+    org PLMList1CrabShaft
+    dw $0002 : skip 4                 ; gate always open
+endif
+pullpc
 
 ;----------------------------------
 ; Maridia - East
@@ -192,10 +220,21 @@ dw $0000
 ;----------------------------------
 ; Crocamire
 ;----------------------------------
-CustomPLMs_Croc:
-dw $C854 : db $36,$02 : dw $9C4F  ; flashing door cap
-%CopyBytes($8F8B9E+6,6)           ; copy existing minus upper door
-dw $0000
+pushpc
+; Croc - Room $A98D
+org PLMList1Croc
+if !AREA == 1
+    dw $C854 : db $36,$02 : dw $9C4F  ; flashing door cap
+elseif !RECALL == 1
+    dw $0002 : skip 4                 ; open top door
+endif
+
+if !RECALL == 1
+    ; Croc Green Gate - Room $AB64
+    org PLMList1CrocGreenGate
+    dw $0002 : skip 4                 ; gate always open
+endif
+pullpc
 
 ;----------------------------------
 ; Lower Norfair

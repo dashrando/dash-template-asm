@@ -244,3 +244,20 @@ RoomState1PreKraidsLair = $8FA578   ; ok? I don't know what these were checking
 RoomState1GreenTower = $8F9AE6      ; ok? I don't know what these were checking
 RoomState1Collosseum = $8FD737      ; ok? I don't know what these were checking
 RoomState1HighwayElevator = $8FD318 ; ok? I don't know what these were checking
+
+; PLM lists
+PLMList1Kago = $8F8442
+PLMList1Moat = $8F8248
+PLMList1G4 = $8F844C
+PLMList1RetroPBs = $8F867E
+PLMList2RetroPBs = $8F86E6
+PLMList1Crabs = $8F81FE
+PLMList1GreenElevator = $8F843A
+PLMList1GreenHills = $8F8664
+PLMList1NoobBridge = $8F87A6
+PLMList1GreenTower = $8F848E
+PLMList1GreenBrinstarPreMap = $8F84EC
+PLMList1MainStreet = $8FC42B
+PLMList1CrabShaft = $8FC48B
+PLMList1Croc = $8F8B9E
+PLMList1CrocGreenGate = $8F8C1C

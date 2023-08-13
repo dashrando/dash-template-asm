@@ -56,9 +56,6 @@ if !RECALL == 1
     org $8F8B4E         ; Norfair above Croc 8b96
     skip $48 : dw $0000 ; Make upper Croc door blue
 
-    org $8F8B9E ; Croc room
-    dw NoopPLM : dw $0000, $0000 ; Make top door blue
-
 endif
 
 if !AREA == 1
@@ -71,9 +68,6 @@ if !AREA == 1
     db $00,$05,$3E,$06,$03,$00
 	dw $8000,$0000
 endif
-
-org $8F84EC ; Green Brin pre-map
-dw $0000    ; Unlock grey door
 
 pullpc
 
@@ -101,48 +95,6 @@ if !AREA == 1
     pushpc
 
     ;----------------------------------
-    ; Crateria
-    ;----------------------------------
-    ; Kago - Room $9969
-    org RoomState1Kago
-    skip 20 : dw CustomPLMs_Kago
-
-    ; Moat - Room $95FF
-    org RoomState1Moat
-    skip 20 : dw CustomPLMs_Moat
-
-    ; G4 portal - Room $99BD
-    org RoomState1G4
-    skip 20 : dw CustomPLMs_G4
-
-    ; Retro PBs portal - Room $9E9F
-    org RoomState2RetroPBs
-    skip 20 : dw CustomPLMs_RetroPBs
-
-    ; Crabs - Room $948C
-    org RoomState1Crabs
-    skip 20 : dw CustomPLMs_Crabs
-
-    ;----------------------------------
-    ; Green Brinstar
-    ;----------------------------------
-    ; Green Elevator - Room $9938
-    org RoomState1GreenElevator
-    skip 20 : dw CustomPLMs_GreenElevator
-
-    ; Green Hills portal - Room $9E52
-    org RoomState1GreenHills
-    skip 20 : dw CustomPLMs_GreenHills
-
-    ; n00b bridge portal - Room $9FBA
-    org RoomState1NoobBridge
-    skip 20 : dw CustomPLMs_NoobBridge
-
-    ; Green Tower - Room $9AD9
-    org RoomState1GreenTower
-    skip 20 : dw CustomPLMs_GreenTower
-
-    ;----------------------------------
     ; Red Brinstar
     ;----------------------------------
     ; Red Tower - Room $A253
@@ -168,12 +120,8 @@ if !AREA == 1
     skip 20 : dw CustomPLMs_KraidEntryAndAboveKraid
 
     ;----------------------------------
-    ; Maridia - East
+    ; Maridia - West
     ;----------------------------------
-    ; Main Street - Room $CFC9
-    org RoomState1MainStreet
-    skip 20 : dw CustomPLMs_MainStreet
-
     ; PreAqueduct - Room $D1A3
     org RoomState1PreAqueduct
     skip 20 : dw CustomPLMs_PreAqueduct
@@ -186,12 +134,8 @@ if !AREA == 1
     org RoomState1MaridiaMap
     skip 20 : dw CustomPLMs_MaridiaMap
 
-    ; Crab Shaft - Room $D08A
-    org RoomState1CrabShaft
-    skip 20 : dw CustomPLMs_CrabShaft
-
     ;----------------------------------
-    ; Maridia - West
+    ; Maridia - East
     ;----------------------------------
     ; Aqueduct - Room $D5A7
     org RoomState1Aqueduct
@@ -244,15 +188,6 @@ if !AREA == 1
     ; Lava Dive - Room $AE74
     org RoomState1LavaDive
     skip 20 : dw CustomPLMs_LavaDive
-
-    ;----------------------------------
-    ; Crocamire
-    ;----------------------------------
-    ; Croc - Room $A98D
-    org RoomState1Croc
-    skip 20 : dw CustomPLMs_Croc
-    org RoomState2Croc
-    skip 20 : dw CustomPLMs_Croc
 
     ;----------------------------------
     ; Lower Norfair
