@@ -27,109 +27,17 @@ org $838C5C ; G4 Elevator
 dw PreOpenG4
 
 ;------------------------------------------------------------------------------
-; Door Edits
+; Connect West Sand Hall to Below Botwoon Energy Tank
 ;------------------------------------------------------------------------------
 
-org $8FCE9C         ; WS Save room header Phantoon alive
-skip $14 : dw $C2C9 ; Turn on save station
-
-if !RECALL == 1
-
-    org $8FCC39         ; WS E-tank room header Phantoon alive
-    skip $14 : dw $C337 ; Show WS E-tank item
-
-    org $8FCBE7         ; WS back room Phantoon alive
-    skip $14 : dw $C323 ; Add missile door back
-    
-    org $8F8B4E         ; Norfair above Croc 8b96
-    skip $48 : dw $0000 ; Make upper Croc door blue
-
-endif
-
 if !AREA == 1
-
-    org $8FCBE7         ; WS back room Phantoon alive
-    skip $14 : dw $C323 ; Add missile door back
-
     org $83A63C                 ; West Sand Hall left door 
     dw $D6FD                    ; Connect to Below Botwoon Energy Tank
     db $00,$05,$3E,$06,$03,$00
 	dw $8000,$0000
-
 endif
 
 pullpc
-
-if !AREA == 1
-    pushpc
-
-    ;----------------------------------
-    ; Wrecked Ship
-    ;----------------------------------
-    ; Ocean - Room $93FE
-    org RoomState1Ocean
-    skip 20 : dw CustomPLMs_Ocean
-
-    ; HighwayExit - Room $957D
-    org RoomState1HighwayExit
-    skip 20 : dw CustomPLMs_HighwayExit
-
-    ; Back door WS - Room $CAF6
-    org RoomState1WSShaft
-    skip 20 : dw CustomPLMs_WSShaft
-    org RoomState2WSShaft
-    skip 20 : dw CustomPLMs_WSShaft
-
-    ;----------------------------------
-    ; Upper Norfair
-    ;----------------------------------
-    ; Elevator Entry And Kraid Mouth - Room $A6A1
-    org RoomState1ElevatorEntry
-    skip 20 : dw CustomPLMs_ElevatorEntryAndKraidMouth
-
-    ; Single Chamber - Room $AD5E
-    org RoomState1SingleChamber
-    skip 20 : dw CustomPLMs_SingleChamber
-
-    ; Croc Entry (UN) - Room $A923
-    org RoomState1CrocEntry
-    skip 20 : dw CustomPLMs_CrocEntry
-
-    ; Lava Dive - Room $AE74
-    org RoomState1LavaDive
-    skip 20 : dw CustomPLMs_LavaDive
-
-    ;----------------------------------
-    ; Lower Norfair
-    ;----------------------------------
-    ; Muskateers - Room $B656
-    org RoomState1Muskateers
-    skip 20 : dw CustomPLMs_Muskateers
-
-    ; Ridley Mouth - Room $AF14
-    org RoomState1RidleyMouth
-    skip 20 : dw CustomPLMs_RidleyMouth
-
-    ;----------------------------------
-    ; Kraid's Lair
-    ;----------------------------------
-    ; Pre Kraid's Lair - Room $A56B
-    org RoomState1PreKraidsLair
-    skip 20 : dw CustomPLMs_PreKraidsLair
-
-    ; Kraid's Lair - Room $A471
-    org RoomState1KraidsLair
-    skip 20 : dw CustomPLMs_KraidsLair
-
-    ;----------------------------------
-    ; Tourian
-    ;----------------------------------
-    ; Tourian - Room $A5ED
-    org RoomState1Tourian
-    skip 20 : dw CustomPLMs_Tourian
-
-    pullpc
-endif
 
 ;------------------------------------------------------------------------------
 ; Logic to position Samus using misaligned door transitions

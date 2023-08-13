@@ -267,6 +267,40 @@ CustomPLMs_WSShaft:
 %CopyBytes($8FC247+48,6)           ; copy the rest of the existing list
 dw $0000
 
+pushpc
+org $8FCE9C         ; WS Save room header Phantoon alive
+skip $14 : dw $C2C9 ; Turn on save station
+
+if !RECALL == 1
+    org $8FCC39         ; WS E-tank room header Phantoon alive
+    skip $14 : dw $C337 ; Show WS E-tank item
+
+    org $8FCBE7         ; WS back room Phantoon alive
+    skip $14 : dw $C323 ; Add missile door back
+endif
+
+if !AREA == 1
+    org $8FCBE7         ; WS back room Phantoon alive
+    skip $14 : dw $C323 ; Add missile door back
+endif
+
+if !AREA == 1
+    ; Ocean - Room $93FE
+    org RoomState1Ocean
+    skip 20 : dw CustomPLMs_Ocean
+
+    ; HighwayExit - Room $957D
+    org RoomState1HighwayExit
+    skip 20 : dw CustomPLMs_HighwayExit
+
+    ; Back door WS - Room $CAF6
+    org RoomState1WSShaft
+    skip 20 : dw CustomPLMs_WSShaft
+    org RoomState2WSShaft
+    skip 20 : dw CustomPLMs_WSShaft
+endif
+pullpc
+
 ;------------------------------------------------------------------------------
 ; Upper Norfair
 ;------------------------------------------------------------------------------
@@ -290,6 +324,31 @@ CustomPLMs_LavaDive:
 %CopyBytes($8F8D1E,48)            ; copy existing minus orange door
 dw $C848 : db $11,$26 : dw $9C58  ; flashing door cap
 dw $0000
+
+pushpc
+if !RECALL == 1
+    org $8F8B4E         ; Norfair above Croc 8b96
+    skip $48 : dw $0000 ; Make upper Croc door blue
+endif
+
+if !AREA == 1
+    ; Elevator Entry And Kraid Mouth - Room $A6A1
+    org RoomState1ElevatorEntry
+    skip 20 : dw CustomPLMs_ElevatorEntryAndKraidMouth
+
+    ; Single Chamber - Room $AD5E
+    org RoomState1SingleChamber
+    skip 20 : dw CustomPLMs_SingleChamber
+
+    ; Croc Entry (UN) - Room $A923
+    org RoomState1CrocEntry
+    skip 20 : dw CustomPLMs_CrocEntry
+
+    ; Lava Dive - Room $AE74
+    org RoomState1LavaDive
+    skip 20 : dw CustomPLMs_LavaDive
+endif
+pullpc
 
 ;------------------------------------------------------------------------------
 ; Crocamire
@@ -323,6 +382,18 @@ CustomPLMs_RidleyMouth:
 dw $C842 : db $3E,$06 : dw $9CBE  ; flashing door cap
 dw $0000
 
+pushpc
+if !AREA == 1
+    ; Muskateers - Room $B656
+    org RoomState1Muskateers
+    skip 20 : dw CustomPLMs_Muskateers
+
+    ; Ridley Mouth - Room $AF14
+    org RoomState1RidleyMouth
+    skip 20 : dw CustomPLMs_RidleyMouth
+endif
+pullpc
+
 ;------------------------------------------------------------------------------
 ; Kraid's Lair
 ;------------------------------------------------------------------------------
@@ -330,6 +401,18 @@ CustomPLMs_PreKraidsLair:
 %CopyBytes($8F8A02,18)            ; copy existing list minus green door
 %CopyBytes($8F8A02+24,18)         ; copy the rest of the existing list
 dw $0000
+
+pushpc
+if !AREA == 1
+    ; Pre Kraid's Lair - Room $A56B
+    org RoomState1PreKraidsLair
+    skip 20 : dw CustomPLMs_PreKraidsLair
+
+    ; Kraid's Lair - Room $A471
+    org RoomState1KraidsLair
+    skip 20 : dw CustomPLMs_KraidsLair
+endif
+pullpc
 
 CustomPLMs_KraidsLair:
 %CopyBytes($8F8976,30)            ; copy existing list
@@ -343,3 +426,11 @@ CustomPLMs_Tourian:
 %CopyBytes($8FA83C,0)             ; copy existing list
 dw $C848 : db $01,$06 : dw $9CC0  ; flashing door cap
 dw $0000
+
+pushpc
+if !AREA == 1
+    ; Tourian - Room $A5ED
+    org RoomState1Tourian
+    skip 20 : dw CustomPLMs_Tourian
+endif
+pullpc
