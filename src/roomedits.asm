@@ -501,29 +501,9 @@ dw $1402,$0001
 db $00
 dw $FFFF
 
-
-;------------------------------------------------------------------------------
-; Room Edits
-;------------------------------------------------------------------------------
-; Smaller, non-patch room changes
-;------------------------------------------------------------------------------
-
-;if !AREA == 1
-    ;-------------------------------
-    ;THIS WAS MOVED TO PLMLISTS.ASM
-    ;-------------------------------
-    ;org $8F8880 ; Maridia Escape
-    ;skip 30
-    ;dw $C826    ; Open gate
-
-    ;org $8FC3E1 ; East Tunnel
-    ;skip 60
-    ;dw $C826    ; Open gate
-;endif
-
+; Indicator for no patch
 pushpc ; Put no-op room patch at the end of the bank
 org (bank(Room_Patches)<<16)+$FFFE
 NoPatch:
 dw $ffff
 pullpc
-

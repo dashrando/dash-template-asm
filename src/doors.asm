@@ -34,19 +34,7 @@ org $8FCE9C         ; WS Save room header Phantoon alive
 skip $14 : dw $C2C9 ; Turn on save station
 
 if !RECALL == 1
-    org $8FC571 ; Plasma Spark
-    dw NoopPLM : dw $0000, $0000 ; Plasma door blue
 
-    org $8FC773 ; Halfie Shaft
-    skip $26 : dw NoopPLM : dw $0000, $0000 ; Plasma door blue
-
-    org $8FC611 ; Back door to Draygon
-    dw $0000    ; Make door blue
-    ;dw NoopPLM : dw $0000, $0000 ; Crashes! but why?
-    
-    org $8F823E ; Forgotten Highway before elevator
-    dw $0000    ; Make door blue
-    
     org $8FCC39         ; WS E-tank room header Phantoon alive
     skip $14 : dw $C337 ; Show WS E-tank item
 
@@ -67,91 +55,13 @@ if !AREA == 1
     dw $D6FD                    ; Connect to Below Botwoon Energy Tank
     db $00,$05,$3E,$06,$03,$00
 	dw $8000,$0000
+
 endif
 
 pullpc
 
-;------------------------------------------------------------------------------
-; Lock doors for area
-;------------------------------------------------------------------------------
-
-WestSandHall_GreyDoor_PLM:
-dw $C842,$060E,$1000,$0000
-
-SandFalls_GreyDoor_PLM:
-dw $C842,$063E,$1000,$0000
-
 if !AREA == 1
     pushpc
-    org $8FD273
-    dw WestSandHall_GreyDoor_PLM
-
-    org $8FD71E
-    dw SandFalls_GreyDoor_PLM
-    pullpc
-endif
-
-if !AREA == 1
-    pushpc
-
-    ;----------------------------------
-    ; Red Brinstar
-    ;----------------------------------
-    ; Red Tower - Room $A253
-    org RoomState1RedTower
-    skip 20 : dw CustomPLMs_RedTower
-
-    ; Red Elevator - Room $962A
-    org RoomState1RedElevator
-    skip 20 : dw CustomPLMs_RedElevator
-
-    ; Maridia Escape - Room $A322
-    org RoomState1MaridiaEscape
-    skip 20 : dw CustomPLMs_MaridiaEscape
-
-    ; Maridia Tube - Room $CEFB
-    org RoomState1MaridiaTube
-    skip 20 : dw CustomPLMs_MaridiaTube
-    org RoomState2MaridiaTube
-    skip 20 : dw CustomPLMs_MaridiaTube
-
-    ; Kraid Entry And Above Kraid - Room $CF80
-    org RoomState1KraidEntry
-    skip 20 : dw CustomPLMs_KraidEntryAndAboveKraid
-
-    ;----------------------------------
-    ; Maridia - West
-    ;----------------------------------
-    ; PreAqueduct - Room $D1A3
-    org RoomState1PreAqueduct
-    skip 20 : dw CustomPLMs_PreAqueduct
-
-    ; Red Fish - Room $D104
-    org RoomState1RedFish
-    skip 20 : dw CustomPLMs_RedFish
-
-    ; Maridia Map - Room $D21C
-    org RoomState1MaridiaMap
-    skip 20 : dw CustomPLMs_MaridiaMap
-
-    ;----------------------------------
-    ; Maridia - East
-    ;----------------------------------
-    ; Aqueduct - Room $D5A7
-    org RoomState1Aqueduct
-    skip 20 : dw CustomPLMs_Aqueduct
-
-    ; Highway (Maridia) - Room $95A8
-    org RoomState1Highway
-    skip 20 : dw CustomPLMs_Highway
-
-    ; Collosseum - Room $D72A
-    org RoomState1Collosseum
-    skip 20 : dw CustomPLMs_Collosseum
-
-    ; Highway Maridia Elevator - Room $D30B
-    org RoomState1HighwayElevator
-    skip 20 : dw CustomPLMs_HighwayElevator
 
     ;----------------------------------
     ; Wrecked Ship
