@@ -255,62 +255,62 @@ dw Door_AboveKraid,DoorVectorToMaridiaMap,$0001,$0008,$0188
 dw Door_MaridiaMap,DoorVectorToAboveKraid,$0002,$03A0,$0088
 dw Door_KraidMouth,DoorVectorToKraidsLair,$0001,$0020,$0088
 dw Door_KraidsLair,DoorVectorToKraidMouth,$0002,$02A0,$0098
-dw Door_SingleChamber,DoorVectorToMuskateers,$0001,$0138,$0088
+dw Door_SingleChamber,DoorVectorToMuskateers,$0001,$0120,$0088
 dw Door_Muskateers,DoorVectorToSingleChamber,$0002,$05A4,$0088
-dw Door_RidleyMouth,DoorVectorToLavaDive,$0001,$0138,$0288
+dw Door_RidleyMouth,DoorVectorToLavaDive,$0001,$0120,$0288
 dw Door_LavaDive,DoorVectorToRidleyMouth,$0002,$03A0,$0088
 dw Door_PreAqueduct,DoorVectorToAqueduct,$0001,$0030,$0188
 dw Door_Aqueduct,DoorVectorToPreAqueduct,$0002,$01A0,$0388
 
 ; Up / Down Doors
 dw Door_Crabs,DoorVectorToRedElevator,$0003,$0060,$0058
-dw Door_RedElevator,DoorVectorToCrabs,$0004,$014F,$02B8
+dw Door_RedElevator,DoorVectorToCrabs,$0004,$0110,$02B8
 dw Door_MaridiaTube,DoorVectorToMainStreet,$0005,$00F0,$07A8
 dw Door_MainStreet,DoorVectorToMaridiaTube,$0006,$0044,$0078
 dw Door_CrocEntry,DoorVectorToCroc,$0007,$037E,$0098
 dw Door_Croc,DoorVectorToCrocEntry,$0008,$0C70,$02B8
 
 ; Boss Entry Doors (keep vanilla pairings first)
-dw DoorToKraidBoss,DoorVectorToKraidInBrinstar,$0001,$0030,$0188 ; good
-dw DoorToKraidBoss,DoorVectorToPhantoonInBrinstar,$0001,$0030,$00B8 ; good
-dw DoorToKraidBoss,DoorVectorToDraygonInBrinstar,$0002,$01A0,$0088 ; good
-dw DoorToKraidBoss,DoorVectorToRidleyInBrinstar,$0009,$0084,$0198 ; good
+dw DoorToKraidBoss,DoorVectorToKraidInBrinstar,$0001,$0030,$0188
+dw DoorToKraidBoss,DoorVectorToPhantoonInBrinstar,$0001,$0030,$00B8
+dw DoorToKraidBoss,DoorVectorToDraygonInBrinstar,$0002,$01A0,$0088
+dw DoorToKraidBoss,DoorVectorToRidleyInBrinstar,$0009,$0084,$0198
 
-dw DoorToPhantoonBoss,DoorVectorToPhantoonInWreckedShip,$0001,$0030,$00B8 ; good
-dw DoorToPhantoonBoss,DoorVectorToKraidInWreckedShip,$0001,$0030,$0188 ; good
-dw DoorToPhantoonBoss,DoorVectorToDraygonInWreckedShip,$0002,$01A0,$0088 ; good
-dw DoorToPhantoonBoss,DoorVectorToRidleyInWreckedShip,$000A,$0084,$0198 ; good
+dw DoorToPhantoonBoss,DoorVectorToPhantoonInWreckedShip,$0001,$0030,$00B8
+dw DoorToPhantoonBoss,DoorVectorToKraidInWreckedShip,$0001,$0030,$0188
+dw DoorToPhantoonBoss,DoorVectorToDraygonInWreckedShip,$0002,$01A0,$0088
+dw DoorToPhantoonBoss,DoorVectorToRidleyInWreckedShip,$000A,$0084,$0198
 
-dw DoorToDraygonBoss,DoorVectorToDraygonInMaridia,$0002,$01A0,$0088 ; good
-dw DoorToDraygonBoss,DoorVectorToKraidInMaridia,$0001,$0030,$0188 ; good
-dw DoorToDraygonBoss,DoorVectorToPhantoonInMaridia,$0001,$0030,$00B8 ; good
-dw DoorToDraygonBoss,DoorVectorToRidleyInMaridia,$0002,$0084,$0198 ; good
+dw DoorToDraygonBoss,DoorVectorToDraygonInMaridia,$0002,$01A0,$0088
+dw DoorToDraygonBoss,DoorVectorToKraidInMaridia,$0001,$0030,$0188
+dw DoorToDraygonBoss,DoorVectorToPhantoonInMaridia,$0001,$0030,$00B8
+dw DoorToDraygonBoss,DoorVectorToRidleyInMaridia,$0002,$0084,$0198
 
-dw DoorToRidleyBoss,DoorVectorToRidleyInNorfair,$0002,$0084,$0198 ; good
-dw DoorToRidleyBoss,DoorVectorToKraidInNorfair,$0001,$0030,$0188 ; good
-dw DoorToRidleyBoss,DoorVectorToPhantoonInNorfair,$0001,$0030,$00B8 ; good
-dw DoorToRidleyBoss,DoorVectorToDraygonInNorfair,$0002,$01A0,$0088 ; good
+dw DoorToRidleyBoss,DoorVectorToRidleyInNorfair,$0002,$0084,$0198
+dw DoorToRidleyBoss,DoorVectorToKraidInNorfair,$0001,$0030,$0188
+dw DoorToRidleyBoss,DoorVectorToPhantoonInNorfair,$0001,$0030,$00B8
+dw DoorToRidleyBoss,DoorVectorToDraygonInNorfair,$0002,$01A0,$0088
 
 ; Boss Exit Doors (keep vanilla pairings first)
-dw DoorFromKraidInBrinstar,DoorVectorToPreKraid,$0002,$01B0,$0188 ; good
-dw DoorFromPhantoonInBrinstar,DoorVectorToPreKraid,$0002,$01B0,$0188 ; good
-dw DoorFromDraygonInBrinstar,DoorVectorToPreKraid,$0001,$01B0,$0188 ; good
-dw DoorFromRidleyInBrinstar,DoorVectorToPreKraid,$0001,$01B0,$0188 ; good
+dw DoorFromKraidInBrinstar,DoorVectorToPreKraid,$0002,$01B0,$0188
+dw DoorFromPhantoonInBrinstar,DoorVectorToPreKraid,$0002,$01B0,$0188
+dw DoorFromDraygonInBrinstar,DoorVectorToPreKraid,$0001,$01B0,$0188
+dw DoorFromRidleyInBrinstar,DoorVectorToPreKraid,$0001,$01B0,$0188
 
-dw DoorFromPhantoonInWreckedShip,DoorVectorToPrePhantoon,$0002,$04C4,$0088 ; testing
-dw DoorFromKraidInWreckedShip,DoorVectorToPrePhantoon,$0002,$04C4,$0088 ; testing
-dw DoorFromDraygonInWreckedShip,DoorVectorToPrePhantoon,$0001,$04C4,$0088 ; testing
-dw DoorFromRidleyInWreckedShip,DoorVectorToPrePhantoon,$0001,$04C4,$0088 ; testing
+dw DoorFromPhantoonInWreckedShip,DoorVectorToPrePhantoon,$0002,$04BC,$0088
+dw DoorFromKraidInWreckedShip,DoorVectorToPrePhantoon,$0002,$04BC,$0088
+dw DoorFromDraygonInWreckedShip,DoorVectorToPrePhantoon,$0001,$04BC,$0088
+dw DoorFromRidleyInWreckedShip,DoorVectorToPrePhantoon,$0001,$04BC,$0088
 
-dw DoorFromDraygonInMaridia,DoorVectorToPreDraygon,$0001,$003C,$0288 ; good
-dw DoorFromKraidInMaridia,DoorVectorToPreDraygon,$0002,$003C,$0288 ; good
-dw DoorFromPhantoonInMaridia,DoorVectorToPreDraygon,$0002,$003C,$0288 ; good
-dw DoorFromRidleyInMaridia,DoorVectorToPreDraygon,$0001,$003C,$0288 ; good
+dw DoorFromDraygonInMaridia,DoorVectorToPreDraygon,$0001,$003C,$0288
+dw DoorFromKraidInMaridia,DoorVectorToPreDraygon,$0002,$003C,$0288
+dw DoorFromPhantoonInMaridia,DoorVectorToPreDraygon,$0002,$003C,$0288
+dw DoorFromRidleyInMaridia,DoorVectorToPreDraygon,$0001,$003C,$0288
 
-dw DoorFromRidleyInNorfair,DoorVectorToPreRidley,$0001,$0020,$0098 ; good
-dw DoorFromKraidInNorfair,DoorVectorToPreRidley,$0002,$0020,$0098 ; good
-dw DoorFromPhantoonInNorfair,DoorVectorToPreRidley,$0002,$0020,$0098 ; good
-dw DoorFromDraygonInNorfair,DoorVectorToPreRidley,$0001,$0020,$0098 ; good
+dw DoorFromRidleyInNorfair,DoorVectorToPreRidley,$0001,$0020,$0098
+dw DoorFromKraidInNorfair,DoorVectorToPreRidley,$0002,$0020,$0098
+dw DoorFromPhantoonInNorfair,DoorVectorToPreRidley,$0002,$0020,$0098
+dw DoorFromDraygonInNorfair,DoorVectorToPreRidley,$0001,$0020,$0098
 
 ; End
 dw $0000
