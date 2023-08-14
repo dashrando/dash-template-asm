@@ -1,5 +1,29 @@
 ;------------------------------------------------------------------------------
-; Custom PLM lists ($AD-$CF are good values)
+; PLM List Updates
+;------------------------------------------------------------------------------
+; Most of the changes in this file deal with opening doors/gates but
+; also include things like activating save stations.
+;
+; There are two primary ways to update the PLMs for a room:
+;   1) Update the entries in the vanilla PLM list
+;   2) Create a custom PLM list
+;
+; Because item locations are in the vanilla lists, it is important that
+; we always execute those PLMs. With that in mind, we added a special PLM
+; that jumps from one list to another. We can use that PLM ($0001) in our
+; custom lists to jump back to the vanilla list. Additionally, we added
+; a special PLM ($0002) for skipping a PLM.
+;
+; Custom PLM Notes:
+;   - Each PLM needs a variable assigned to it. This is placed in the
+;     lo byte so for $9CC0 the variable is $C0.
+;   - According to the online docs, $AD-$CF are unused PLM variables that
+;     we can use for this.
+;   - If replacing one door cap with another, we can reuse the variable
+;     from the original cap. When we do this, we avoid specifying the
+;     variable by using skip commands.
+;   - Sometimes we replace a gate with a door cap, but we are not
+;     reusing the gate variable for now. Maybe in the future.
 ;------------------------------------------------------------------------------
 
 ;------------------------------------------------------------------------------
@@ -199,10 +223,6 @@ pullpc
 ;------------------------------------------------------------------------------
 ; Maridia - East
 ;------------------------------------------------------------------------------
-CustomPLMs_Highway:
-dw $C842 : db $0E,$06 : dw $9CB6  ; flashing door cap
-dw $0000
-
 CustomPLMs_SandFalls:
 dw $C842,$063E,$1000              ; grey door
 dw $0000
@@ -218,9 +238,10 @@ else
 endif
 
 if !AREA == 1
-    ; Highway (Maridia) - Room $95A8
-    org RoomState1Highway
-    skip 20 : dw CustomPLMs_Highway
+    ; Highway Elbow (Maridia) - Room $95A8
+    org PLMList1HighwayElbow
+    dw $C842 : db $0E,$06 : skip 1 : db $9C ; flashing door cap
+                                            ; NOTE: reusing yellow cap variable
 
     ; Collosseum - Room $D72A
     org PLMList1Collosseum
@@ -236,6 +257,7 @@ if !AREA == 1
     skip 20 : dw CustomPLMs_SandFalls
 endif
 
+; TODO: Use labels
 if !RECALL == 1
     org $8FC571 ; Plasma Spark
     dw $0002 : skip 4 ; Plasma door blue
@@ -247,7 +269,8 @@ if !RECALL == 1
     org $8FC611 ; Back door to Draygon
     dw $0000    ; Make door blue
     
-    org $8F823E ; Forgotten Highway before elevator
+    ; Highway (Maridia) - Room $95A8
+    org PLMList1HighwayElbow
     dw $0000    ; Make door blue
 endif
 pullpc
@@ -256,11 +279,11 @@ pullpc
 ; Wrecked Ship
 ;------------------------------------------------------------------------------
 CustomPLMs_Ocean:
-dw $C848 : db $01,$46 : dw $9CB7  ; flashing door cap
+dw $C848 : db $01,$46 : dw $9CB6  ; flashing door cap
 dw $0001,$0000,PLMList1Ocean
 
 CustomPLMs_HighwayExit:
-dw $C848 : db $01,$16 : dw $9CB8  ; flashing door cap
+dw $C848 : db $01,$16 : dw $9CB7  ; flashing door cap
 dw $0001,$0000,PLMList1HighwayExit 
 
 pushpc
@@ -268,6 +291,7 @@ pushpc
 org RoomState1WreckedShipSave     ; update asleep room state
 skip $14 : dw $C2C9               ; turn on save station
 
+; TODO: Use labels
 if !RECALL == 1
     org $8FCC39         ; WS E-tank room header Phantoon alive
     skip $14 : dw $C337 ; Show WS E-tank item
@@ -301,12 +325,12 @@ pullpc
 ; Upper Norfair
 ;------------------------------------------------------------------------------
 CustomPLMs_ElevatorEntryAndKraidMouth:
-dw $C848 : db $01,$06 : dw $9CB9  ; flashing door cap (Elevator Entry)
-dw $C842 : db $2E,$06 : dw $9CBA  ; flashing door cap (Kraid Mouth)
+dw $C848 : db $01,$06 : dw $9CB8  ; flashing door cap (Elevator Entry)
+dw $C842 : db $2E,$06 : dw $9CB9  ; flashing door cap (Kraid Mouth)
 dw $0001,$0000,PLMList1KraidMouth ; run vanilla list
 
 CustomPLMs_SingleChamber:
-dw $C842 : db $5E,$06 : dw $9CBB      ; flashing door cap
+dw $C842 : db $5E,$06 : dw $9CBA      ; flashing door cap
 dw $0001,$0000,PLMList1SingleChamber  ; run vanilla list
 
 pushpc
@@ -360,11 +384,11 @@ pullpc
 ; Lower Norfair
 ;------------------------------------------------------------------------------
 CustomPLMs_Muskateers:
-dw $C848 : db $11,$06 : dw $9CBC  ; flashing door cap
+dw $C848 : db $11,$06 : dw $9CBB  ; flashing door cap
 dw $0001,$0000,PLMList1Muskateers ; run vanilla list
 
 CustomPLMs_RidleyMouth:
-dw $C842 : db $3E,$06 : dw $9CBD  ; flashing door cap
+dw $C842 : db $3E,$06 : dw $9CBC  ; flashing door cap
 dw $0000
 
 pushpc
@@ -383,7 +407,7 @@ pullpc
 ; Kraid's Lair
 ;------------------------------------------------------------------------------
 CustomPLMs_KraidsLair:
-dw $C848 : db $01,$06 : dw $9CBE    ; flashing door cap
+dw $C848 : db $01,$06 : dw $9CBD    ; flashing door cap
 dw $0001,$0000,PLMList1KraidsLair   ; run vanilla list
 
 pushpc
@@ -403,7 +427,7 @@ pullpc
 ; Tourian
 ;------------------------------------------------------------------------------
 CustomPLMs_Tourian:
-dw $C848 : db $01,$06 : dw $9CBF  ; flashing door cap
+dw $C848 : db $01,$06 : dw $9CBE  ; flashing door cap
 dw $0000
 
 pushpc
