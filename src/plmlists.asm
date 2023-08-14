@@ -106,9 +106,9 @@ endif
 
 if !AREA == 1
     ; Red Elevator - Room $962A
-    org PLMList1RedElevator           ; TODO: double check variable
-    skip 6                            ; overwrite yellow cap with
-    dw $C854 : db $06,$02 : dw $9C10  ; flashing door cap
+    org PLMList1RedElevator
+    skip 6                          ; overwrite yellow cap with
+    dw $C854 : skip 3 : db $9C      ; flashing door cap
 
     ; Maridia Escape - Room $A322
     org PLMList1MaridiaEscape
@@ -170,9 +170,9 @@ if !AREA == 1
     org RoomState1PreAqueduct
     skip 20 : dw CustomPLMs_PreAqueduct
 
-    org PLMList1PreAqueduct           ; TODO: verify variable
-    skip 12                           ; overwrite green cap with
-    dw $C842 : skip 2     : dw $9C8F  ; flashing door cap
+    org PLMList1PreAqueduct
+    skip 12                         ; overwrite green cap with
+    dw $C842 : skip 3 : db $9C      ; flashing door cap
 
     ; Red Fish - Room $D104
     org RoomState1RedFish
@@ -261,8 +261,9 @@ dw $C848 : db $01,$16 : dw $9CB9  ; flashing door cap
 dw $0001,$0000,PLMList1HighwayExit 
 
 pushpc
-org $8FCE9C         ; WS Save room header Phantoon alive
-skip $14 : dw $C2C9 ; Turn on save station
+; Wrecked Ship Save Room - Room $CE8A
+org RoomState1WreckedShipSave     ; update asleep room state
+skip $14 : dw $C2C9               ; turn on save station
 
 if !RECALL == 1
     org $8FCC39         ; WS E-tank room header Phantoon alive
@@ -286,9 +287,9 @@ if !AREA == 1
     org RoomState1HighwayExit
     skip 20 : dw CustomPLMs_HighwayExit
 
-    ; Back door WS - Room $CAF6
+    ; Wrecked Ship Main Shaft - Room $CAF6
     org PLMList1WSShaft
-    skip 42
+    skip 42                 ; open the back door
     dw $0002 : skip 4
 endif
 pullpc
@@ -297,30 +298,19 @@ pullpc
 ; Upper Norfair
 ;------------------------------------------------------------------------------
 CustomPLMs_ElevatorEntryAndKraidMouth:
-%CopyBytes($8F8A5C,108)           ; copy existing list
 dw $C848 : db $01,$06 : dw $9CBA  ; flashing door cap (Elevator Entry)
 dw $C842 : db $2E,$06 : dw $9CBB  ; flashing door cap (Kraid Mouth)
-dw $0000
+dw $0001,$0000,PLMList1KraidMouth ; run vanilla list
 
 CustomPLMs_SingleChamber:
-%CopyBytes($8F8C8A,36)            ; copy existing list
-dw $C842 : db $5E,$06 : dw $9CBC  ; flashing door cap
-dw $0000
-
-CustomPLMs_CrocEntry:
-%CopyBytes($8F8B4E,48)            ; copy existing minus green door
-dw $C84E : db $C6,$2D : dw $9C4E  ; flashing door cap
-dw $0000
-
-CustomPLMs_LavaDive:
-%CopyBytes($8F8D1E,48)            ; copy existing minus orange door
-dw $C848 : db $11,$26 : dw $9C58  ; flashing door cap
-dw $0000
+dw $C842 : db $5E,$06 : dw $9CBC      ; flashing door cap
+dw $0001,$0000,PLMList1SingleChamber  ; run vanilla list
 
 pushpc
 if !RECALL == 1
-    org $8F8B4E         ; Norfair above Croc 8b96
-    skip $48 : dw $0000 ; Make upper Croc door blue
+    ; Croc Entry (UN) - Room $A923
+    org PLMList1CrocEntry
+    skip 72 : dw $0000 ; Make upper Croc door blue
 endif
 
 if !AREA == 1
@@ -333,12 +323,14 @@ if !AREA == 1
     skip 20 : dw CustomPLMs_SingleChamber
 
     ; Croc Entry (UN) - Room $A923
-    org RoomState1CrocEntry
-    skip 20 : dw CustomPLMs_CrocEntry
+    org PLMList1CrocEntry
+    skip 72                         ; overwrite green door with
+    dw $C84E : skip 3 : db $9C      ; flashing door cap
 
     ; Lava Dive - Room $AE74
-    org RoomState1LavaDive
-    skip 20 : dw CustomPLMs_LavaDive
+    org PLMList1LavaDive
+    skip 48                         ; overwrite orange door with
+    dw $C848 : skip 3 : db $9C      ; flashing door cap
 endif
 pullpc
 
@@ -347,17 +339,17 @@ pullpc
 ;------------------------------------------------------------------------------
 pushpc
 ; Croc - Room $A98D
-org PLMList1Croc
+org PLMList1Croc                    ; overwrite boss kill door with
 if !AREA == 1
-    dw $C854 : db $36,$02 : dw $9C4F  ; flashing door cap
+    dw $C854 : skip 3 : db $9C      ; flashing door cap
 elseif !RECALL == 1
-    dw $0002 : skip 4                 ; open top door
+    dw $0002 : skip 4               ; nothing!
 endif
 
 if !RECALL == 1
     ; Croc Green Gate - Room $AB64
     org PLMList1CrocGreenGate
-    dw $0002 : skip 4                 ; gate always open
+    dw $0002 : skip 4               ; gate always open
 endif
 pullpc
 
@@ -365,12 +357,10 @@ pullpc
 ; Lower Norfair
 ;------------------------------------------------------------------------------
 CustomPLMs_Muskateers:
-%CopyBytes($8F90D0,54)            ; copy existing list
 dw $C848 : db $11,$06 : dw $9CBD  ; flashing door cap
-dw $0000
+dw $0001,$0000,PLMList1Muskateers ; run vanilla list
 
 CustomPLMs_RidleyMouth:
-%CopyBytes($8F8D7E,0)             ; copy existing list (none)
 dw $C842 : db $3E,$06 : dw $9CBE  ; flashing door cap
 dw $0000
 
@@ -389,16 +379,16 @@ pullpc
 ;------------------------------------------------------------------------------
 ; Kraid's Lair
 ;------------------------------------------------------------------------------
-CustomPLMs_PreKraidsLair:
-%CopyBytes($8F8A02,18)            ; copy existing list minus green door
-%CopyBytes($8F8A02+24,18)         ; copy the rest of the existing list
-dw $0000
+CustomPLMs_KraidsLair:
+dw $C848 : db $01,$06 : dw $9CBF    ; flashing door cap
+dw $0001,$0000,PLMList1KraidsLair   ; run vanilla list
 
 pushpc
 if !AREA == 1
-    ; Pre Kraid's Lair - Room $A56B
-    org RoomState1PreKraidsLair
-    skip 20 : dw CustomPLMs_PreKraidsLair
+    ; Kraid Eye Door Room - Room $A56B
+    org PLMList1KraidEyeDoorRoom
+    skip 18                         ; overwrite green door with
+    dw $0002 : skip 4               ; nothing!
 
     ; Kraid's Lair - Room $A471
     org RoomState1KraidsLair
@@ -406,16 +396,10 @@ if !AREA == 1
 endif
 pullpc
 
-CustomPLMs_KraidsLair:
-%CopyBytes($8F8976,30)            ; copy existing list
-dw $C848 : db $01,$06 : dw $9CBF  ; flashing door cap
-dw $0000
-
 ;------------------------------------------------------------------------------
 ; Tourian
 ;------------------------------------------------------------------------------
 CustomPLMs_Tourian:
-%CopyBytes($8FA83C,0)             ; copy existing list
 dw $C848 : db $01,$06 : dw $9CC0  ; flashing door cap
 dw $0000
 

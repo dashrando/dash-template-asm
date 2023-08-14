@@ -246,6 +246,8 @@ RoomState1GreenTower = $8F9AE6      ; ok? I don't know what these were checking
 RoomState1Collosseum = $8FD737      ; ok? I don't know what these were checking
 RoomState1HighwayElevator = $8FD318 ; ok? I don't know what these were checking
 RoomState1SandFalls = $8FD70A
+RoomState1WreckedShipSave = $8FCE9C
+RoomState2WreckedShipSave = $8FCEB6
 
 ; PLM lists
 PLMList1Kago = $8F8442
@@ -277,3 +279,12 @@ PLMList1HighwayExit = $8F823C
 PLMList1WSShaft = $8FC247
 PLMList1Croc = $8F8B9E
 PLMList1CrocGreenGate = $8F8C1C
+PLMList1KraidMouth = $8F8A5C
+PLMList1SingleChamber = $8F8C8A
+PLMList1CrocEntry = $8F8B4E
+PLMList1LavaDive = $8F8D1E
+PLMList1Muskateers = $8F90D0
+PLMList1RidleyMouth = $8F8D7E
+PLMList1KraidEyeDoorRoom = $8F8A02
+PLMList1KraidsLair = $8F8976
+PLMList1Tourian = $8FA83C
