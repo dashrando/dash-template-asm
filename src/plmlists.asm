@@ -253,19 +253,12 @@ pullpc
 ; Wrecked Ship
 ;------------------------------------------------------------------------------
 CustomPLMs_Ocean:
-%CopyBytes($8F81DC,30)            ; copy existing list
 dw $C848 : db $01,$46 : dw $9CB8  ; flashing door cap
-dw $0000
+dw $0001,$0000,PLMList1Ocean
 
 CustomPLMs_HighwayExit:
-%CopyBytes($8F823C,0)             ; copy existing list
 dw $C848 : db $01,$16 : dw $9CB9  ; flashing door cap
-dw $0000
-
-CustomPLMs_WSShaft:
-%CopyBytes($8FC247,42)             ; copy existing list minus grey door
-%CopyBytes($8FC247+48,6)           ; copy the rest of the existing list
-dw $0000
+dw $0001,$0000,PLMList1HighwayExit 
 
 pushpc
 org $8FCE9C         ; WS Save room header Phantoon alive
@@ -279,7 +272,7 @@ if !RECALL == 1
     skip $14 : dw $C323 ; Add missile door back
 endif
 
-if !AREA == 1
+if !AREA == 1 ; TODO: Do we need this?
     org $8FCBE7         ; WS back room Phantoon alive
     skip $14 : dw $C323 ; Add missile door back
 endif
@@ -294,10 +287,9 @@ if !AREA == 1
     skip 20 : dw CustomPLMs_HighwayExit
 
     ; Back door WS - Room $CAF6
-    org RoomState1WSShaft
-    skip 20 : dw CustomPLMs_WSShaft
-    org RoomState2WSShaft
-    skip 20 : dw CustomPLMs_WSShaft
+    org PLMList1WSShaft
+    skip 42
+    dw $0002 : skip 4
 endif
 pullpc
 
