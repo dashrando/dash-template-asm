@@ -34,18 +34,18 @@ if !AREA == 1
 
     ; G4 portal - Room $99BD
     org PLMList1G4
-    skip 36                           ; replace red cap with
-    dw $C842 : db $0E,$66 : dw $9C1E  ; flashing door cap
+    skip 36                         ; replace red cap with
+    dw $C842 : skip 3 : db $9C      ; flashing door cap
 
     ; Retro PBs portal - Room $9E9F
     org PLMList2RetroPBs
-    skip 96
-    dw $C848 : db $01,$26 : dw $9C31  ; flashing door cap
+    skip 96                         ; replace enemy kill cap with
+    dw $C848 : skip 3 : db $9C      ; flashing door cap
 
     ; Crabs - Room $948C
     org PLMList1Crabs
-    skip 42
-    dw $C84E : db $16,$2D : dw $9C0E  ; flashing door cap
+    skip 42                         ; replace yellow cap with
+    dw $C84E : skip 3 : db $9C      ; flashing door cap
 endif
 pullpc
 
@@ -64,14 +64,14 @@ if !AREA == 1
     skip 20 : dw CustomPLMs_GreenElevator
 
     ; Green Hills - Room $9E52
-    org PLMList1GreenHills            ; update vanilla PLM list
-    dw $0002 : skip 4                 ; remove the blue gate
-    skip 6                            ; replace yellow cap
-    dw $C842 : db $1E,$06 : dw $9C30  ; with flashing cap
+    org PLMList1GreenHills
+    dw $0002 : skip 4               ; remove the blue gate
+    skip 6                          ; overwrite yellow cap with
+    dw $C842 : skip 3 : db $9C      ; flashing door cap
 
     ; n00b bridge - Room $9FBA
-    org PLMList1NoobBridge            ; update vanilla PLM list
-    dw $C842 : db $5E,$06 : dw $9C33  ; flashing door cap
+    org PLMList1NoobBridge          ; overwrite green cap with
+    dw $C842 : skip 3 : db $9C      ; flashing door cap
 endif
 
 ; Green Tower - Room $9AD9
@@ -91,17 +91,18 @@ pullpc
 ;------------------------------------------------------------------------------
 
 CustomPLMs_KraidEntryAndAboveKraid:
-dw $C842 : db $0E,$16 : dw $9CB2  ; flashing door cap (Kraid Entry)
+dw $C842 : db $0E,$16 : dw $9CB0  ; flashing door cap (Kraid Entry)
 dw $0001,$0000,PLMList1KraidEntry
 
 pushpc
 ; Red Tower - Room $A253
 org PLMList1RedTower
-skip 12                           ; overwrite green cap with
+skip 12                                 ; overwrite green cap with
 if !AREA == 1
-dw $C848 : db $01,$46 : dw $9C38  ; flashing door cap (reusing 38 from the green door PLM variable)
+dw $C848 : db $01,$46 : skip 1 : db $9C ; flashing door cap
+                                        ; NOTE: reusing refill room variable
 else
-dw $0002 : skip 4                 ; nothing!
+dw $0002 : skip 4                       ; nothing!
 endif
 
 if !AREA == 1
@@ -113,16 +114,17 @@ if !AREA == 1
     ; Maridia Escape - Room $A322
     org PLMList1MaridiaEscape
     skip 30                           ; overwrite green gate with
-    dw $C842 : db $2E,$36 : dw $9CB0  ; flashing door cap
+    dw $C842 : db $2E,$36 : dw $9CB1  ; flashing door cap
 endif
 
 ; Maridia Tube - Room $CEFB
-org PLMList1MaridiaTube           ; TODO: reuse variable
-skip 90                           ; replace pink cap with
+org PLMList1MaridiaTube
+skip 90                                 ; replace pink cap with
 if !AREA == 1
-dw $C854 : db $06,$02 : dw $9CB1  ; flashing door cap
+dw $C854 : db $06,$02 : skip 1 : db $9C ; flashing door cap
+                                        ; NOTE: reusing save room variable
 else
-dw $0002 : skip 4                 ; nothing! 
+dw $0002 : skip 4                       ; nothing! 
 endif
 
 if !AREA == 1
@@ -131,8 +133,8 @@ if !AREA == 1
     skip 20 : dw CustomPLMs_KraidEntryAndAboveKraid
 
     org PLMList1KraidEntry
-    skip 60
-    dw $C842 : db $3E,$06 : dw $9CB3  ; flashing door cap (Above Kraid)
+    skip 60                             ; overwrite green gate with
+    dw $C842 : db $3E,$06 : dw $9CB2    ; flashing door cap (Above Kraid)
 endif
 pullpc
 
@@ -140,7 +142,7 @@ pullpc
 ; Maridia - West
 ;------------------------------------------------------------------------------
 CustomPLMs_MainStreet:
-dw $C84E : db $16,$7D : dw $9CB4  ; flashing door cap
+dw $C84E : db $16,$7D : dw $9CB3  ; flashing door cap
 dw $B76F : db $18,$59 : dw $0005  ; add save station
 dw $0001,$0000,PLMList1MainStreet ; run the vanilla list
 
@@ -149,11 +151,11 @@ dw $B76F : db $0D,$29 : dw $0004  ; add save station
 dw $0001,$0000,PLMList1PreAqueduct
 
 CustomPLMs_RedFish:
-dw $C848 : db $01,$06 : dw $9CB5  ; flashing door cap
+dw $C848 : db $01,$06 : dw $9CB4  ; flashing door cap
 dw $0001,$0000,PLMList1RedFish
 
 CustomPLMs_MaridiaMap:
-dw $C848 : db $01,$16 : dw $9CB6  ; flashing door cap
+dw $C848 : db $01,$16 : dw $9CB5  ; flashing door cap
 dw $0001,$0000,PLMList1MaridiaMap
 
 CustomPLMs_WestSandHallTunnel:
@@ -198,7 +200,7 @@ pullpc
 ; Maridia - East
 ;------------------------------------------------------------------------------
 CustomPLMs_Highway:
-dw $C842 : db $0E,$06 : dw $9C0F  ; flashing door cap
+dw $C842 : db $0E,$06 : dw $9CB6  ; flashing door cap
 dw $0000
 
 CustomPLMs_SandFalls:
@@ -207,11 +209,12 @@ dw $0000
 
 pushpc
 ; Aqueduct - Room $D5A7
-org PLMList1Aqueduct                  ; overwrite pink door with
+org PLMList1Aqueduct                        ; overwrite pink door with
 if !AREA == 1
-    dw $C848 : db $01,$16 : dw $9CB7  ; flashing door cap TODO: reuse variable
+    dw $C848 : db $01,$16 : skip 1 : db $9C ; flashing door cap
+                                            ; NOTE: reusing save door variable
 else
-    dw $0002 : skip 4                 ; nothing!
+    dw $0002 : skip 4                       ; nothing!
 endif
 
 if !AREA == 1
@@ -253,11 +256,11 @@ pullpc
 ; Wrecked Ship
 ;------------------------------------------------------------------------------
 CustomPLMs_Ocean:
-dw $C848 : db $01,$46 : dw $9CB8  ; flashing door cap
+dw $C848 : db $01,$46 : dw $9CB7  ; flashing door cap
 dw $0001,$0000,PLMList1Ocean
 
 CustomPLMs_HighwayExit:
-dw $C848 : db $01,$16 : dw $9CB9  ; flashing door cap
+dw $C848 : db $01,$16 : dw $9CB8  ; flashing door cap
 dw $0001,$0000,PLMList1HighwayExit 
 
 pushpc
@@ -298,12 +301,12 @@ pullpc
 ; Upper Norfair
 ;------------------------------------------------------------------------------
 CustomPLMs_ElevatorEntryAndKraidMouth:
-dw $C848 : db $01,$06 : dw $9CBA  ; flashing door cap (Elevator Entry)
-dw $C842 : db $2E,$06 : dw $9CBB  ; flashing door cap (Kraid Mouth)
+dw $C848 : db $01,$06 : dw $9CB9  ; flashing door cap (Elevator Entry)
+dw $C842 : db $2E,$06 : dw $9CBA  ; flashing door cap (Kraid Mouth)
 dw $0001,$0000,PLMList1KraidMouth ; run vanilla list
 
 CustomPLMs_SingleChamber:
-dw $C842 : db $5E,$06 : dw $9CBC      ; flashing door cap
+dw $C842 : db $5E,$06 : dw $9CBB      ; flashing door cap
 dw $0001,$0000,PLMList1SingleChamber  ; run vanilla list
 
 pushpc
@@ -357,11 +360,11 @@ pullpc
 ; Lower Norfair
 ;------------------------------------------------------------------------------
 CustomPLMs_Muskateers:
-dw $C848 : db $11,$06 : dw $9CBD  ; flashing door cap
+dw $C848 : db $11,$06 : dw $9CBC  ; flashing door cap
 dw $0001,$0000,PLMList1Muskateers ; run vanilla list
 
 CustomPLMs_RidleyMouth:
-dw $C842 : db $3E,$06 : dw $9CBE  ; flashing door cap
+dw $C842 : db $3E,$06 : dw $9CBD  ; flashing door cap
 dw $0000
 
 pushpc
@@ -380,7 +383,7 @@ pullpc
 ; Kraid's Lair
 ;------------------------------------------------------------------------------
 CustomPLMs_KraidsLair:
-dw $C848 : db $01,$06 : dw $9CBF    ; flashing door cap
+dw $C848 : db $01,$06 : dw $9CBE    ; flashing door cap
 dw $0001,$0000,PLMList1KraidsLair   ; run vanilla list
 
 pushpc
@@ -400,7 +403,7 @@ pullpc
 ; Tourian
 ;------------------------------------------------------------------------------
 CustomPLMs_Tourian:
-dw $C848 : db $01,$06 : dw $9CC0  ; flashing door cap
+dw $C848 : db $01,$06 : dw $9CBF  ; flashing door cap
 dw $0000
 
 pushpc
