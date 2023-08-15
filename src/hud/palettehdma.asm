@@ -38,19 +38,16 @@ ActivateHDMA:
 RTS
 
 SetupPaletteTransfer:
-        SEP #$30
-
-        LDA.b #$03 : STA.w $4300
-        LDA.b #$21 : STA.w $4301
-        REP #$20
+        LDX.b #$03 : STX.w $4300
+        LDX.b #$21 : STX.w $4301
         LDA.w #HUDHDMAWRAM : STA.w $4302
+        LDX.b #HUDHDMAWRAM>>16 : STX.w $4304
         SEP #$20
-        LDA.b #HUDHDMAWRAM>>16 : STA.w $4304
         LDA.b #$01 : ORA.b HDMAChannels : STA.b HDMAChannels
+        REP #$20
 
         LDX.b HDMAChannels : STX.w $420C
 
-        REP #$20
         LDA.l PaletteBuffer+$02 : STA.l HUDHDMAWRAM+$2B
         LDA.l PaletteBuffer+$0A : STA.l HUDHDMAWRAM+$3A
         LDA.l PaletteBuffer+$0C : STA.l HUDHDMAWRAM+$35
@@ -237,40 +234,6 @@ RTL
 SetHDMAPointerEnding:
         LDA.w #ActivateHDMA : STA.w HUDHDMAPtr
         LDA.w #$0027 : STA.w GameState ; What we wrote over
-RTL
-
-MessageBoxHDMA:
-                LDA.b #$03 : STA.w $4300
-                LDA.b #$21 : STA.w $4301
-                REP #$20
-                LDA.w #HUDHDMAWRAM : STA.w $4302
-                SEP #$20
-                LDA.b #HUDHDMAWRAM>>16 : STA.w $4304
-                LDA.b #$41 : STA.w $420C ; What we wrote over
-RTL
-
-MessageBoxInitHDMA:
-                LDA.w #$0BB1 : STA.l HUDHDMAWRAM+$4E ; Set message box vanilla palette colors
-                LDA.w #$001F : STA.l HUDHDMAWRAM+$53 ; Could also make affected tiles use palette 7?
-                SEP #$20 ; What we wrote over
-                LDA.b #$03 : STA.w $4300
-                LDA.b #$21 : STA.w $4301
-                REP #$20
-                LDA.w #HUDHDMAWRAM : STA.w $4302
-                SEP #$20
-                LDA.b #HUDHDMAWRAM>>16 : STA.w $4304
-                LDA.b #$01 : STA.w $420C ; What we wrote over
-RTL
-
-MessageBoxCloseHDMA:
-                SEP #$20 ; What we wrote over
-                LDA.b #$03 : STA.w $4300
-                LDA.b #$21 : STA.w $4301
-                REP #$20
-                LDA.w #HUDHDMAWRAM : STA.w $4302
-                SEP #$20
-                LDA.b #HUDHDMAWRAM>>16 : STA.w $4304
-                LDA.b #$01 : STA.w $420C ; What we wrote over
 RTL
 
 FindChannel:

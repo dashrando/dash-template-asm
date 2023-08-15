@@ -105,6 +105,7 @@ CopyClearCursor = $7E19B5            ; File copy/clear menu selection
 CopyClearSource = $7E19B7            ; File copy source slot / file clear slot
 CopyDestination = $7E19B9            ; File copy destination slot
 PLMIds = $7E1C37                     ;
+HDMAChannelsCached = $7E33EA         ; HDMA channels to enable. Cached during message boxes
 
 ;------------------------------------------------------------------------------
 ; Unmirrored WRAM
