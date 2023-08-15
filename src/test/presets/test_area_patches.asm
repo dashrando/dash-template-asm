@@ -90,8 +90,8 @@ InitializeForTesting: {
 
         %Setup(RedTower,RedElevator)
         %Setup(RedElevator,MaridiaTube)
-        %Setup(CrocEntry,MaridiaTube)
-        %Setup(MaridiaTube,Crabs)
+        %Setup(MaridiaTube,CrocEntry)
+        %Setup(CrocEntry,Crabs)
         %Setup(Crabs,GreenHills)
 
         ; shows garbage in ridley mouth room

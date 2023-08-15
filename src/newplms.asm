@@ -299,6 +299,26 @@ DecrementTankCount:
         PLX
 RTS
 
+FlashingDoor:
+        PHY : PHX
+        JMP $BE0B
+CustomGreyDoorList:
+        %CopyBytes($84BE4B,14)
+        dw FlashingDoor
+
+PreProcessRoomPLM:
+        CMP.w #2        ; skip?
+        BEQ .done
+        CMP.w #1        ; jump?
+        BEQ .jump
+        JML $84846A
+        .jump:
+        LDA.w $0004,X
+        SEC : SBC.w #6
+        TAX
+        .done:
+RTL
+
 pushpc
 org $84D0E8
 dw BrokenTurretBlock ; Replace Draygon grapple turret block instruction

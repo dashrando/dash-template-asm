@@ -501,42 +501,9 @@ dw $1402,$0001
 db $00
 dw $FFFF
 
-
-;------------------------------------------------------------------------------
-; Room Edits
-;------------------------------------------------------------------------------
-; Smaller, non-patch room changes
-;------------------------------------------------------------------------------
-if !RECALL == 1
-    pushpc
-    org $8FC48B ; Crab Shaft
-    dw $C826    ; Open gate
-
-    org $8F8C1C ; Green gate under croc
-    dw $C826    ; Open gate
-    pullpc
-
-endif
-
-if !AREA == 1
-    org $8FC48B ; Crab Shaft
-    dw $C826    ; Open gate
-
-    org $8F8664 ; Green Hills
-    dw $C826    ; Open gate
-
-    org $8F8880 ; Maridia Escape
-    skip 30
-    dw $C826    ; Open gate
-
-    org $8FC3E1 ; East Tunnel
-    skip 60
-    dw $C826    ; Open gate
-endif
-
+; Indicator for no patch
 pushpc ; Put no-op room patch at the end of the bank
 org (bank(Room_Patches)<<16)+$FFFE
 NoPatch:
 dw $ffff
 pullpc
-

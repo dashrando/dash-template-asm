@@ -4,7 +4,7 @@
 
 macro SetupVariaSuit(areaName,areaIndex,roomIndex,variable)
 RoomHeaderVariaSuitIn<areaName>:
-      %CopyBytes($8FA6E2,$8FA709)
+      %CopyRange($8FA6E2,$8FA709)
 .doors:
       dw DoorVectorToKraidFromVariaSuitIn<areaName>
 .item_plm:
@@ -24,7 +24,7 @@ endmacro
 
 macro SetupKraid(areaName,areaIndex,roomIndex,exitRoom)
 RoomHeaderKraidIn<areaName>:
-      %CopyBytes($8FA59F,$8FA5E5)
+      %CopyRange($8FA59F,$8FA5E5)
 .doors:
 DoorFromKraidIn<areaName>:
       dw DoorVectorTo<exitRoom>,DoorVectorToVariaSuitIn<areaName>
@@ -39,7 +39,7 @@ endmacro
 
 macro SetupPhantoon(areaName,areaIndex,roomIndex,exitRoom)
 RoomHeaderPhantoonIn<areaName>:
-      %CopyBytes($8FCD13,$8FCD59)
+      %CopyRange($8FCD13,$8FCD59)
 .doors:
 DoorFromPhantoonIn<areaName>:
       dw DoorVectorTo<exitRoom>
@@ -54,7 +54,7 @@ endmacro
 
 macro SetupSpaceJump(areaName,areaIndex,roomIndex,variable)
 RoomHeaderSpaceJumpIn<areaName>:
-      %CopyBytes($8FD9AA,$8FD9D1)
+      %CopyRange($8FD9AA,$8FD9D1)
 .doors:
       dw DoorVectorToDraygonFromSpaceJumpIn<areaName>
 .item_plm:
@@ -74,7 +74,7 @@ endmacro
 
 macro SetupDraygon(areaName,areaIndex,roomIndex,exitRoom)
 RoomHeaderDraygonIn<areaName>:
-      %CopyBytes($8FDA60,$8FDAA6)
+      %CopyRange($8FDA60,$8FDAA6)
 .doors:
 DoorFromDraygonIn<areaName>:
       dw DoorVectorTo<exitRoom>,DoorVectorToSpaceJumpIn<areaName>
@@ -89,7 +89,7 @@ endmacro
 
 macro SetupRidleyTank(areaName,areaIndex,roomIndex,variable)
 RoomHeaderRidleyTankIn<areaName>:
-      %CopyBytes($8FB698,$8FB6BF)
+      %CopyRange($8FB698,$8FB6BF)
 .doors:
       dw DoorVectorToRidleyFromTankIn<areaName>
 .item_plm:
@@ -109,7 +109,7 @@ endmacro
 
 macro SetupRidley(areaName,areaIndex,roomIndex,exitRoom)
 RoomHeaderRidleyIn<areaName>:
-      %CopyBytes($8FB32E,$8FB374)
+      %CopyRange($8FB32E,$8FB374)
 .doors:
       dw DoorVectorToRidleyTankIn<areaName>
 DoorFromRidleyIn<areaName>:
