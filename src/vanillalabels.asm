@@ -48,6 +48,7 @@ NoopPLM = $84B6F7 ; Skips PLM. Also zero out overwrite x/y coordinates and room 
 DrawItemFrame1 = $84E04F
 DrawItemFrame2 = $84E067
 ShowMessage = $858080 ; long
+MessageBoxWaitForLagFrame = $858136
 HDMAObjectHandler = $8884B9 ; long
 ChargeBeamTiles = $898B00
 ClearBGObjects = $8B95CE ; long

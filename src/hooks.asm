@@ -340,11 +340,9 @@ org $A7AA7C : NOP #4
 org $A7CE24 : NOP #4
 org $A98809 : NOP #4
 
-org $8583BF
-JSL.l MessageBoxHDMA : NOP
-org $85814B
-JSL.l MessageBoxInitHDMA : NOP
-org $85865C : NOP #3
+org $8583C1 : JSR.w MessageBoxHDMA
+org $85814D : JSR.w MessageBoxInitHDMA
+org $85865C : JSR.w MessageBoxCloseHDMA
 
 ; HUD HDMA command pointer hooks
 org $828106
