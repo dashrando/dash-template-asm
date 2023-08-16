@@ -241,21 +241,6 @@ endif
 org PLMList1Colosseum   ; overwrite pink door with
 dw $0002 : skip 4       ; nothing!
 
-if !AREA == 1
-    ; Highway Elbow (Maridia) - Room $95A8
-    org PLMList1HighwayElbow
-    dw $C842 : db $0E,$06 : skip 1 : db $9C ; flashing door cap
-                                            ; NOTE: reusing yellow cap variable
-
-    ; Highway Maridia Elevator - Room $D30B
-    org PLMList1HighwayElevator
-    dw $0002 : skip 4
-
-    ; Sand Falls - Room $D6FD
-    org RoomState1SandFalls
-    skip 20 : dw CustomPLMs_SandFalls
-endif
-
 ; TODO: Use labels
 if !RECALL == 1
     ; Plasma Spark - Room $D340
@@ -275,6 +260,22 @@ if !RECALL == 1
     org PLMList1HighwayElbow
     dw $0000    ; Make door blue
 endif
+
+if !AREA == 1
+    ; Highway Elbow (Maridia) - Room $95A8
+    org PLMList1HighwayElbow
+    dw $C842 : db $0E,$06 : skip 1 : db $9C ; flashing door cap
+                                            ; NOTE: reusing yellow cap variable
+
+    ; Highway Maridia Elevator - Room $D30B
+    org PLMList1HighwayElevator
+    dw $0002 : skip 4
+
+    ; Sand Falls - Room $D6FD
+    org RoomState1SandFalls
+    skip 20 : dw CustomPLMs_SandFalls
+endif
+
 pullpc
 
 ;------------------------------------------------------------------------------
