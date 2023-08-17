@@ -269,6 +269,7 @@ if !AREA == 1
 
     ; Highway Maridia Elevator - Room $D30B
     org PLMList1HighwayElevator
+    skip 6
     dw $0002 : skip 4
 
     ; Sand Falls - Room $D6FD
