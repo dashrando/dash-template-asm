@@ -72,9 +72,17 @@ db $1c,$00,$00,$00,$00,$5c
 dw $ffff
 
 Room_Moat_Patch_01:
-dw $061f,$0001
-db $c0
-dw $ffff
+dw $059F,$0001
+db $C0
+dw $05DE,$0002
+db $BE,$D0
+dw $061F,$0001
+db $C0
+dw $0AD0,$0001
+db $02
+dw $0AF0,$0001
+db $FF
+dw $FFFF
 
 Room_PreSpazer_Patch_01:
 dw $018e,$0002
