@@ -7,12 +7,16 @@
 ;------------------------------------------------------------------------------
 
 if !RECALL == 1
+   !Waterway_Patch = Room_Waterway_Patch_01
    !WS_Reserve_Patch = Room_WreckedShipReserve_Patch_02
+   !BotwoonHallway_Patch = Room_PreBotwoon_Patch_01
    !Plasma_Patch = Room_Plasma_Patch_01
    !Pants_Room_Patch = Room_PreShaktool_Patch_01
    !Shaktool_Patch = Room_Shaktool_Patch_01
 else
+   !Waterway_Patch = NoPatch
    !WS_Reserve_Patch = NoPatch
+   !BotwoonHallway_Patch = NoPatch
    !Plasma_Patch = NoPatch
    !Pants_Room_Patch = NoPatch
    !Shaktool_Patch = NoPatch
@@ -113,7 +117,7 @@ endif
 %RoomEntry(Brinstar, $14,  !Area_GreenBrinstar, $00,  NoPatch) ; Etecoons Supers
 %RoomEntry(Brinstar, $15,  !Area_GreenBrinstar, $00,  NoPatch) ; Dachora Refill
 %RoomEntry(Brinstar, $16,  !Area_GreenBrinstar, $00,  NoPatch) ; Big Pink Supers Hallway
-%RoomEntry(Brinstar, $17,  !Area_GreenBrinstar, $20,  Room_Waterway_Patch_01) ; Waterway
+%RoomEntry(Brinstar, $17,  !Area_GreenBrinstar, $20,  !Waterway_Patch) ; Waterway
 %RoomEntry(Brinstar, $18,  !Area_Crateria,      $20,  NoPatch) ; Blue Brinstar Missiles
 %RoomEntry(Brinstar, $19,  !Area_GreenBrinstar, $20,  NoPatch) ; Big Pink Wave Gate
 %RoomEntry(Brinstar, $1A,  !Area_GreenBrinstar, $20,  NoPatch) ; Big Pink E-tank
@@ -296,7 +300,7 @@ endif
 %RoomEntry(Maridia, $20,  !Area_EastMaridia,  $00,  NoPatch) ; Aqueduct Quicksand Right
 %RoomEntry(Maridia, $21,  !Area_EastMaridia,  $00,  !Aqueduct_Patch) ; Aqueduct
 %RoomEntry(Maridia, $22,  !Area_EastMaridia,  $20,  NoPatch) ; Butterfly
-%RoomEntry(Maridia, $23,  !Area_EastMaridia,  $00,  Room_PreBotwoon_Patch_01) ; Pre Botwoon
+%RoomEntry(Maridia, $23,  !Area_EastMaridia,  $00,  !BotwoonHallway_Patch) ; Pre Botwoon
 %RoomEntry(Maridia, $24,  !Area_EastMaridia,  $20,  !Pants_Room_Patch) ; Pants Room 1
 %RoomEntry(Maridia, $25,  !Area_EastMaridia,  $20,  !Pants_Room_Patch) ; Pants Room 2
 %RoomEntry(Maridia, $26,  !Area_EastMaridia,  $20,  NoPatch) ; Spring Ball
