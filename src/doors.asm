@@ -44,8 +44,10 @@ pullpc
 ;------------------------------------------------------------------------------
 
 TeleportSamus:
+        ; Jump to the end if nothing to do
         LDA.w DoorMisaligned : BEQ .done
 
+        ; Jump to iframes code if doors are ok
         PHA : BIT.w #$4000 : BEQ .iframes
 
         ; Reset position in the room
@@ -57,19 +59,22 @@ TeleportSamus:
         STA.w SamusYPos
         PLX
 
-        ; Reset pose variables
+        ; Cancel movement
+        STZ.w SamusYSubSpeed : STZ.w SamusYSpeed
+        STZ.w SamusXRunSpeed : STZ.w SamusXRunSubSpeed
+        STZ.w SamusXMomentum : STZ.w SamusXSubMomentum
+        STZ.w SamusDoorSpeed : STZ.w SamusDoorSubSpeed
+
+        ; Force Samus to elevator pose
         STZ $0A1C : STZ $0A1E
         STZ $0A20 : STZ $0A22
         STZ $0A24 : STZ $0A26
 
-        ; Reset speed variables
-        STZ $0B2C : STZ $0B2E
-        STZ $0B42 : STZ $0B44
-        STZ $0B46 : STZ $0B48
-
+        ; Set pose transition values to FFFF
         LDA.w #$FFFF
         STA $0A2A : STA $0A2C : STA $0A2E
 
+        ; Reset animation timer
         STZ.w SamusAnimationFrame
 
         ; Shinesparking? TODO: clear out remaining frames
@@ -92,7 +97,10 @@ TeleportSamus:
 
         .cleanup:
         STZ.w DoorMisaligned
-        STZ.w CREBitset
+        
+        ; TODO: Remove this? Added when we were always blacking out the screen
+        ;STZ.w CREBitset
+
         .done:
         ; Clear this flag to avoid graphics issues when leaving Crocomire
         STZ.w RequestEnemyBG2Tilemap
@@ -235,82 +243,82 @@ endmacro
 DoorDirectionTable:
 
 ; Left / Right Doors
-dw Door_GreenHills,DoorVectorToRetroPBs,$0001,$0020,$0288
-dw Door_RetroPBs,DoorVectorToGreenHills,$0002,$01A0,$0088
-dw Door_Moat,DoorVectorToOcean,$0001,$0024,$0488
-dw Door_Ocean,DoorVectorToMoat,$0002,$01A0,$0088
-dw Door_G4,DoorVectorToTourian,$0001,$0010,$0088
-dw Door_Tourian,DoorVectorToG4,$0002,$00A0,$0688
-dw Door_GreenElevator,DoorVectorToKago,$0001,$0020,$0088
-dw Door_Kago,DoorVectorToGreenElevator,$0002,$00A0,$0088
-dw Door_Highway,DoorVectorToHighwayExit,$0001,$0022,$0188
-dw Door_HighwayExit,DoorVectorToHighway,$0002,$00A0,$0088
-dw Door_NoobBridge,DoorVectorToRedTower,$0001,$0028,$0488
-dw Door_RedTower,DoorVectorToNoobBridge,$0002,$05B0,$0088
-dw Door_MaridiaEscape,DoorVectorToRedFish,$0001,$0020,$0088
-dw Door_RedFish,DoorVectorToMaridiaEscape,$0002,$02A0,$0388
-dw Door_KraidEntry,DoorVectorToElevatorEntry,$0001,$0037,$0088
-dw Door_ElevatorEntry,DoorVectorToKraidEntry,$0002,$00A0,$0188
-dw Door_AboveKraid,DoorVectorToMaridiaMap,$0001,$0008,$0188
-dw Door_MaridiaMap,DoorVectorToAboveKraid,$0002,$03A0,$0088
-dw Door_KraidMouth,DoorVectorToKraidsLair,$0001,$0020,$0088
-dw Door_KraidsLair,DoorVectorToKraidMouth,$0002,$02A0,$0098
-dw Door_SingleChamber,DoorVectorToMuskateers,$0001,$0120,$0088
-dw Door_Muskateers,DoorVectorToSingleChamber,$0002,$05A4,$0088
-dw Door_RidleyMouth,DoorVectorToLavaDive,$0001,$0120,$0288
-dw Door_LavaDive,DoorVectorToRidleyMouth,$0002,$03A0,$0088
-dw Door_PreAqueduct,DoorVectorToAqueduct,$0001,$0030,$0188
-dw Door_Aqueduct,DoorVectorToPreAqueduct,$0002,$01A0,$0388
+dw Door_GreenHills,DoorVectorToRetroPBs,$0001,$0034,$0288
+dw Door_RetroPBs,DoorVectorToGreenHills,$0002,$01C7,$0088
+dw Door_Moat,DoorVectorToOcean,$0001,$0034,$0488
+dw Door_Ocean,DoorVectorToMoat,$0002,$01CF,$0088
+dw Door_G4,DoorVectorToTourian,$0001,$0034,$0088
+dw Door_Tourian,DoorVectorToG4,$0002,$00CC,$0688
+dw Door_GreenElevator,DoorVectorToKago,$0001,$0036,$0088
+dw Door_Kago,DoorVectorToGreenElevator,$0002,$00CC,$0088
+dw Door_Highway,DoorVectorToHighwayExit,$0001,$0034,$0188
+dw Door_HighwayExit,DoorVectorToHighway,$0002,$00D1,$0088
+dw Door_NoobBridge,DoorVectorToRedTower,$0001,$002F,$0488
+dw Door_RedTower,DoorVectorToNoobBridge,$0002,$05CE,$0088
+dw Door_MaridiaEscape,DoorVectorToRedFish,$0001,$0034,$0088
+dw Door_RedFish,DoorVectorToMaridiaEscape,$0002,$02CD,$0388
+dw Door_KraidEntry,DoorVectorToElevatorEntry,$0001,$0034,$0088
+dw Door_ElevatorEntry,DoorVectorToKraidEntry,$0002,$00CE,$0188
+dw Door_AboveKraid,DoorVectorToMaridiaMap,$0001,$0028,$0188
+dw Door_MaridiaMap,DoorVectorToAboveKraid,$0002,$03C6,$0088
+dw Door_KraidMouth,DoorVectorToKraidsLair,$0001,$0034,$0088
+dw Door_KraidsLair,DoorVectorToKraidMouth,$0002,$02C7,$0098
+dw Door_SingleChamber,DoorVectorToMuskateers,$0001,$0134,$0088
+dw Door_Muskateers,DoorVectorToSingleChamber,$0002,$05CF,$0088
+dw Door_RidleyMouth,DoorVectorToLavaDive,$0001,$0134,$0288
+dw Door_LavaDive,DoorVectorToRidleyMouth,$0002,$03D0,$0088
+dw Door_PreAqueduct,DoorVectorToAqueduct,$0001,$0034,$0188
+dw Door_Aqueduct,DoorVectorToPreAqueduct,$0002,$01CA,$0388
 
 ; Up / Down Doors
-dw Door_Crabs,DoorVectorToRedElevator,$0003,$0060,$0058
-dw Door_RedElevator,DoorVectorToCrabs,$0004,$0110,$02B8
-dw Door_MaridiaTube,DoorVectorToMainStreet,$0005,$00F0,$07A8
-dw Door_MainStreet,DoorVectorToMaridiaTube,$0006,$0044,$0078
-dw Door_CrocEntry,DoorVectorToCroc,$0007,$037E,$0098
-dw Door_Croc,DoorVectorToCrocEntry,$0008,$0C70,$02B8
+dw Door_Crabs,DoorVectorToRedElevator,$0003,$0080,$0058
+dw Door_RedElevator,DoorVectorToCrabs,$0004,$014C,$02B8
+dw Door_MaridiaTube,DoorVectorToMainStreet,$0005,$014A,$07A8
+dw Door_MainStreet,DoorVectorToMaridiaTube,$0006,$0081,$0078
+dw Door_CrocEntry,DoorVectorToCroc,$0007,$0383,$0098
+dw Door_Croc,DoorVectorToCrocEntry,$0008,$0C57,$02B8
 
 ; Boss Entry Doors (keep vanilla pairings first)
-dw DoorToKraidBoss,DoorVectorToKraidInBrinstar,$0001,$0030,$0188
-dw DoorToKraidBoss,DoorVectorToPhantoonInBrinstar,$0001,$0030,$00B8
-dw DoorToKraidBoss,DoorVectorToDraygonInBrinstar,$0002,$01A0,$0088
-dw DoorToKraidBoss,DoorVectorToRidleyInBrinstar,$0009,$0084,$0198
+dw DoorToKraidBoss,DoorVectorToKraidInBrinstar,$0001,$0034,$0188
+dw DoorToKraidBoss,DoorVectorToPhantoonInBrinstar,$0001,$002E,$00B8
+dw DoorToKraidBoss,DoorVectorToDraygonInBrinstar,$0002,$01C8,$0088
+dw DoorToKraidBoss,DoorVectorToRidleyInBrinstar,$0009,$00BF,$0198
 
-dw DoorToPhantoonBoss,DoorVectorToPhantoonInWreckedShip,$0001,$0030,$00B8
-dw DoorToPhantoonBoss,DoorVectorToKraidInWreckedShip,$0001,$0030,$0188
-dw DoorToPhantoonBoss,DoorVectorToDraygonInWreckedShip,$0002,$01A0,$0088
-dw DoorToPhantoonBoss,DoorVectorToRidleyInWreckedShip,$000A,$0084,$0198
+dw DoorToPhantoonBoss,DoorVectorToPhantoonInWreckedShip,$0001,$002E,$00B8
+dw DoorToPhantoonBoss,DoorVectorToKraidInWreckedShip,$0001,$0034,$0188
+dw DoorToPhantoonBoss,DoorVectorToDraygonInWreckedShip,$0002,$01C8,$0088
+dw DoorToPhantoonBoss,DoorVectorToRidleyInWreckedShip,$000A,$00BF,$0198
 
-dw DoorToDraygonBoss,DoorVectorToDraygonInMaridia,$0002,$01A0,$0088
-dw DoorToDraygonBoss,DoorVectorToKraidInMaridia,$0001,$0030,$0188
-dw DoorToDraygonBoss,DoorVectorToPhantoonInMaridia,$0001,$0030,$00B8
-dw DoorToDraygonBoss,DoorVectorToRidleyInMaridia,$0002,$0084,$0198
+dw DoorToDraygonBoss,DoorVectorToDraygonInMaridia,$0002,$01C8,$0088
+dw DoorToDraygonBoss,DoorVectorToKraidInMaridia,$0001,$0034,$0188
+dw DoorToDraygonBoss,DoorVectorToPhantoonInMaridia,$0001,$002E,$00B8
+dw DoorToDraygonBoss,DoorVectorToRidleyInMaridia,$0002,$00BF,$0198
 
-dw DoorToRidleyBoss,DoorVectorToRidleyInNorfair,$0002,$0084,$0198
-dw DoorToRidleyBoss,DoorVectorToKraidInNorfair,$0001,$0030,$0188
-dw DoorToRidleyBoss,DoorVectorToPhantoonInNorfair,$0001,$0030,$00B8
-dw DoorToRidleyBoss,DoorVectorToDraygonInNorfair,$0002,$01A0,$0088
+dw DoorToRidleyBoss,DoorVectorToRidleyInNorfair,$0002,$00BF,$0198
+dw DoorToRidleyBoss,DoorVectorToKraidInNorfair,$0001,$0034,$0188
+dw DoorToRidleyBoss,DoorVectorToPhantoonInNorfair,$0001,$002E,$00B8
+dw DoorToRidleyBoss,DoorVectorToDraygonInNorfair,$0002,$01C8,$0088
 
 ; Boss Exit Doors (keep vanilla pairings first)
-dw DoorFromKraidInBrinstar,DoorVectorToPreKraid,$0002,$01B0,$0188
-dw DoorFromPhantoonInBrinstar,DoorVectorToPreKraid,$0002,$01B0,$0188
-dw DoorFromDraygonInBrinstar,DoorVectorToPreKraid,$0001,$01B0,$0188
-dw DoorFromRidleyInBrinstar,DoorVectorToPreKraid,$0001,$01B0,$0188
+dw DoorFromKraidInBrinstar,DoorVectorToPreKraid,$0002,$01CD,$0188
+dw DoorFromPhantoonInBrinstar,DoorVectorToPreKraid,$0002,$01CD,$0188
+dw DoorFromDraygonInBrinstar,DoorVectorToPreKraid,$0001,$01CD,$0188
+dw DoorFromRidleyInBrinstar,DoorVectorToPreKraid,$0001,$01CD,$0188
 
-dw DoorFromPhantoonInWreckedShip,DoorVectorToPrePhantoon,$0002,$04BC,$0088
-dw DoorFromKraidInWreckedShip,DoorVectorToPrePhantoon,$0002,$04BC,$0088
-dw DoorFromDraygonInWreckedShip,DoorVectorToPrePhantoon,$0001,$04BC,$0088
-dw DoorFromRidleyInWreckedShip,DoorVectorToPrePhantoon,$0001,$04BC,$0088
+dw DoorFromPhantoonInWreckedShip,DoorVectorToPrePhantoon,$0002,$049F,$00B8
+dw DoorFromKraidInWreckedShip,DoorVectorToPrePhantoon,$0002,$049F,$00B8
+dw DoorFromDraygonInWreckedShip,DoorVectorToPrePhantoon,$0001,$049F,$00B8
+dw DoorFromRidleyInWreckedShip,DoorVectorToPrePhantoon,$0001,$049F,$00B8
 
-dw DoorFromDraygonInMaridia,DoorVectorToPreDraygon,$0001,$003C,$0288
-dw DoorFromKraidInMaridia,DoorVectorToPreDraygon,$0002,$003C,$0288
-dw DoorFromPhantoonInMaridia,DoorVectorToPreDraygon,$0002,$003C,$0288
-dw DoorFromRidleyInMaridia,DoorVectorToPreDraygon,$0001,$003C,$0288
+dw DoorFromDraygonInMaridia,DoorVectorToPreDraygon,$0001,$0034,$0288
+dw DoorFromKraidInMaridia,DoorVectorToPreDraygon,$0002,$0034,$0288
+dw DoorFromPhantoonInMaridia,DoorVectorToPreDraygon,$0002,$0034,$0288
+dw DoorFromRidleyInMaridia,DoorVectorToPreDraygon,$0001,$0034,$0288
 
-dw DoorFromRidleyInNorfair,DoorVectorToPreRidley,$0001,$0020,$0098
-dw DoorFromKraidInNorfair,DoorVectorToPreRidley,$0002,$0020,$0098
-dw DoorFromPhantoonInNorfair,DoorVectorToPreRidley,$0002,$0020,$0098
-dw DoorFromDraygonInNorfair,DoorVectorToPreRidley,$0001,$0020,$0098
+dw DoorFromRidleyInNorfair,DoorVectorToPreRidley,$0001,$002E,$0098
+dw DoorFromKraidInNorfair,DoorVectorToPreRidley,$0002,$002E,$0098
+dw DoorFromPhantoonInNorfair,DoorVectorToPreRidley,$0002,$002E,$0098
+dw DoorFromDraygonInNorfair,DoorVectorToPreRidley,$0001,$002E,$0098
 
 ; End
 dw $0000
