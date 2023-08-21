@@ -56,14 +56,13 @@ LavaDamage: ; Never reached if gravity equipped
                 LDA.w PeriodicDamage+$02       : ADC.w #$0000 : STA.w PeriodicDamage+$02
                 JMP.w AnimateSamusLavaAcid
         +
-        LDA.w PeriodicDamage     : ADC.w #$4000 : STA.w PeriodicDamage
+        LDA.w PeriodicDamage     : ADC.w #$2000 : STA.w PeriodicDamage
         LDA.w PeriodicDamage+$02 : ADC.w #$0000 : STA.w PeriodicDamage+$02
 JMP.w AnimateSamusLavaAcid
 
 AcidDamage:
-        LDA.w VanillaItemsEquipped : AND.w #$0021 : CMP.w #$0021 : BEQ .3_4
+        LDA.w VanillaItemsEquipped : BIT.w #$0001 : BNE .1_4
                                      BIT.w #$0020 : BNE .half
-                                     BIT.w #$0001 : BNE .half
                 .full
                 LDA.w PeriodicDamage     : CLC : ADC.w #$8000 : STA.w PeriodicDamage
                 LDA.w PeriodicDamage+$02       : ADC.w #$0001 : STA.w PeriodicDamage+$02
@@ -72,37 +71,37 @@ AcidDamage:
                 LDA.w PeriodicDamage     : CLC : ADC.w #$C000 : STA.w PeriodicDamage
                 LDA.w PeriodicDamage+$02       : ADC.w #$0000 : STA.w PeriodicDamage+$02
                 JMP.w AnimateSamusLavaAcid
-        .3_4
+        .1_4
         LDA.w PeriodicDamage     : CLC : ADC.w #$6000 : STA.w PeriodicDamage
         LDA.w PeriodicDamage+$02       : ADC.w #$0000 : STA.w PeriodicDamage+$02
 JMP.w AnimateSamusLavaAcid
 
 SpikeDamage:
         STZ.w DoubleJumpFlag
-        LDA.w VanillaItemsEquipped : AND.w #$0021 : BEQ .full
-                                     CMP.w #$0021 : BEQ .1_4
+        LDA.w VanillaItemsEquipped : BIT.w #$0001 : BNE .1_4
+                                     BIT.w #$0020 : BNE .half
+                .full
+                LDA.w PeriodicDamage+$02 : CLC : ADC.w #$003C
+                RTL
+                .half
                 LDA.w PeriodicDamage+$02 : CLC : ADC.w #$001E
-                BRA .done
-                .1_4
-                LDA.w PeriodicDamage+$02 : CLC : ADC.w #$000F
-                BRA .done
-        .full
-        LDA.w PeriodicDamage+$02 : CLC : ADC.w #$003C
-        .done
+                RTL
+        .1_4
+        LDA.w PeriodicDamage+$02 : CLC : ADC.w #$000F
 RTL
 
 SmallSpikeDamage:
         STZ.w DoubleJumpFlag
-        LDA.w VanillaItemsEquipped : AND.w #$0021 : BEQ .full
-                                     CMP.w #$0021 : BEQ .1_4
+        LDA.w VanillaItemsEquipped : BIT.w #$0001 : BNE .1_4
+                                     BIT.w #$0020 : BNE .half
+                .full
+                LDA.w PeriodicDamage+$02 : CLC : ADC.w #$0010
+                RTL
+                .half
                 LDA.w PeriodicDamage+$02 : CLC : ADC.w #$0008
-                BRA .done
-                .1_4
-                LDA.w PeriodicDamage+$02 : CLC : ADC.w #$0004
-                BRA .done
-        .full
-        LDA.w PeriodicDamage+$02 : CLC : ADC.w #$0010
-        .done
+                RTL
+        .1_4
+        LDA.w PeriodicDamage+$02 : CLC : ADC.w #$0004
 RTL
 
 
