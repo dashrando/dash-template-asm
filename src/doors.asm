@@ -18,7 +18,8 @@ RTS
 
 ; Custom door list for Sand Falls ($D6FD) to add new door
 SandFallsCustomDoorList:
-dw $A7D4,$A534
+dw $A7D4    ; Door Vector to Aqueduct ($D5A7)
+dw $A534    ; Door Vector to West Sand Hall ($D461)
 
 pushpc
 ;------------------------------------------------------------------------------
