@@ -186,6 +186,10 @@ CustomPLMs_WestSandHallTunnel:
 dw $C842,$060E,$1000              ; grey door
 dw $0000
 
+CustomPLMs_WestSandHall:
+dw $C848 : db $01,$06 : dw $9CB6  ; flashing door cap
+dw $0000
+
 pushpc
 if !AREA == 1
     ; Main Street - Room $CFC9
@@ -211,6 +215,10 @@ if !AREA == 1
     ; West Sand Hall Tunnel - Room $D252
     org RoomState1WestSandHallTunnel
     skip 20 : dw CustomPLMs_WestSandHallTunnel
+
+    ; West Sand Hall - Room $D461
+    org RoomState1WestSandHall
+    skip 20 : dw CustomPLMs_WestSandHall
 endif
 
 if !AREA == 1 || !RECALL == 1
@@ -224,7 +232,7 @@ pullpc
 ; Maridia - East
 ;------------------------------------------------------------------------------
 CustomPLMs_SandFalls:
-dw $C842,$063E,$90B6              ; grey door
+dw $C842,$063E,$9CB7              ; flashing door cap
 dw $0000
 
 pushpc
@@ -283,11 +291,11 @@ pullpc
 ; Wrecked Ship
 ;------------------------------------------------------------------------------
 CustomPLMs_Ocean:
-dw $C848 : db $01,$46 : dw $9CB7  ; flashing door cap
+dw $C848 : db $01,$46 : dw $9CB8  ; flashing door cap
 dw $0001,$0000,PLMList1Ocean
 
 CustomPLMs_HighwayExit:
-dw $C848 : db $01,$16 : dw $9CB8  ; flashing door cap
+dw $C848 : db $01,$16 : dw $9CB9  ; flashing door cap
 dw $0001,$0000,PLMList1HighwayExit 
 
 pushpc
@@ -329,12 +337,12 @@ pullpc
 ; Upper Norfair
 ;------------------------------------------------------------------------------
 CustomPLMs_ElevatorEntryAndKraidMouth:
-dw $C848 : db $01,$06 : dw $9CB9  ; flashing door cap (Elevator Entry)
-dw $C842 : db $2E,$06 : dw $9CBA  ; flashing door cap (Kraid Mouth)
+dw $C848 : db $01,$06 : dw $9CBA  ; flashing door cap (Elevator Entry)
+dw $C842 : db $2E,$06 : dw $9CBB  ; flashing door cap (Kraid Mouth)
 dw $0001,$0000,PLMList1KraidMouth ; run vanilla list
 
 CustomPLMs_SingleChamber:
-dw $C842 : db $5E,$06 : dw $9CBB      ; flashing door cap
+dw $C842 : db $5E,$06 : dw $9CBC      ; flashing door cap
 dw $0001,$0000,PLMList1SingleChamber  ; run vanilla list
 
 pushpc
@@ -388,11 +396,11 @@ pullpc
 ; Lower Norfair
 ;------------------------------------------------------------------------------
 CustomPLMs_Muskateers:
-dw $C848 : db $11,$06 : dw $9CBC  ; flashing door cap
+dw $C848 : db $11,$06 : dw $9CBD  ; flashing door cap
 dw $0001,$0000,PLMList1Muskateers ; run vanilla list
 
 CustomPLMs_RidleyMouth:
-dw $C842 : db $3E,$06 : dw $9CBD  ; flashing door cap
+dw $C842 : db $3E,$06 : dw $9CBE  ; flashing door cap
 dw $0000
 
 pushpc
@@ -411,7 +419,7 @@ pullpc
 ; Kraid's Lair
 ;------------------------------------------------------------------------------
 CustomPLMs_KraidsLair:
-dw $C848 : db $01,$06 : dw $9CBE    ; flashing door cap
+dw $C848 : db $01,$06 : dw $9CBF    ; flashing door cap
 dw $0001,$0000,PLMList1KraidsLair   ; run vanilla list
 
 pushpc
@@ -431,7 +439,7 @@ pullpc
 ; Tourian
 ;------------------------------------------------------------------------------
 CustomPLMs_Tourian:
-dw $C848 : db $01,$06 : dw $9CBF  ; flashing door cap
+dw $C848 : db $01,$06 : dw $9CC0  ; flashing door cap
 dw $0000
 
 pushpc

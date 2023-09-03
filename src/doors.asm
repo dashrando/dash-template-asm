@@ -16,6 +16,9 @@ WakeUpZebes:
 .exit
 RTS
 
+SandFallsDoorList:
+dw $A7D4,$A534
+
 pushpc
 ;------------------------------------------------------------------------------
 ; Door ASM Pointers
@@ -35,6 +38,9 @@ if !AREA == 1
     dw $D6FD                    ; Connect to Below Botwoon Energy Tank
     db $00,$05,$3E,$06,$03,$00
 	dw $8000,$0000
+
+    org $8FD6FD
+    skip 9 : dw SandFallsDoorList
 endif
 
 pullpc
@@ -147,7 +153,7 @@ org RoomHeaderPreRidley
 skip 8 : db $02
 
 ;------------------------------------------------------------------------------
-; Create door vectors for entering a room from an unexpected direction
+; Create door vectors for new rooms
 ;------------------------------------------------------------------------------
 org $83AD70
 
