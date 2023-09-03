@@ -16,7 +16,8 @@ WakeUpZebes:
 .exit
 RTS
 
-SandFallsDoorList:
+; Custom door list for Sand Falls ($D6FD) to add new door
+SandFallsCustomDoorList:
 dw $A7D4,$A534
 
 pushpc
@@ -39,8 +40,9 @@ if !AREA == 1
     db $00,$05,$3E,$06,$03,$00
 	dw $8000,$0000
 
-    org $8FD6FD
-    skip 9 : dw SandFallsDoorList
+    org $8FD6FD                 ; Room header - Room $D6FD
+    skip 9                      ; skip to the door list pointer
+    dw SandFallsCustomDoorList  ; point to custom door list
 endif
 
 pullpc
