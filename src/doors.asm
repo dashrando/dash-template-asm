@@ -16,6 +16,11 @@ WakeUpZebes:
 .exit
 RTS
 
+; Custom door list for Sand Falls ($D6FD) to add new door
+SandFallsCustomDoorList:
+dw $A7D4    ; Door Vector to Aqueduct ($D5A7)
+dw $A534    ; Door Vector to West Sand Hall ($D461)
+
 pushpc
 ;------------------------------------------------------------------------------
 ; Door ASM Pointers
@@ -35,6 +40,10 @@ if !AREA == 1
     dw $D6FD                    ; Connect to Below Botwoon Energy Tank
     db $00,$05,$3E,$06,$03,$00
 	dw $8000,$0000
+
+    org $8FD6FD                 ; Room header - Room $D6FD
+    skip 9                      ; skip to the door list pointer
+    dw SandFallsCustomDoorList  ; point to custom door list
 endif
 
 pullpc
@@ -147,7 +156,7 @@ org RoomHeaderPreRidley
 skip 8 : db $02
 
 ;------------------------------------------------------------------------------
-; Create door vectors for entering a room from an unexpected direction
+; Create door vectors for new rooms
 ;------------------------------------------------------------------------------
 org $83AD70
 

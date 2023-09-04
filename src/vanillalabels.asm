@@ -228,6 +228,7 @@ RoomState1ElevatorEntry = $8FA6AE
 RoomState1AboveKraid = $8FCF8D
 RoomState1MaridiaMap = $8FD229
 RoomState1WestSandHallTunnel = $8FD25F
+RoomState1WestSandHall = $8FD46E
 RoomState1KraidMouth = $8FA6AE
 RoomState1KraidsLair = $8FA47E
 RoomState1CrocEntry = $8FA930
