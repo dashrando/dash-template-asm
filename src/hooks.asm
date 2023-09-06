@@ -468,4 +468,6 @@ LDA.w CustomGreyDoorList,y
 
 org $82EB7F
 JSL PreProcessRoomPLM
+org $82E8C9
+JSL PreProcessRoomPLM
 pullpc
