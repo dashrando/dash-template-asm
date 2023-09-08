@@ -141,4 +141,7 @@ print "  //           0x04 = Area    0x08 = Dash Items"
 %PrintLabelAddress(HUDBitField)
 print "  // Fanfare: 0x0000 = On  0x0001 = Off"
 %PrintLabelAddress(NoFanfare)
+print "  // LN Chozo Trigger: 0x0000 = Require Space Jump"
+print "  //                   0x0001 = Nothing Required"
+%PrintLabelAddress(LNChozoTrigger)
 print "};"
