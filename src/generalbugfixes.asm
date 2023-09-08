@@ -45,8 +45,4 @@ org $91B629 : db $01
 org $AAC91C
 BRA $3F
 
-; Remove space jump requirement for LN chozo
-org $84D195
-NOP #2
-
 pullpc

@@ -424,11 +424,12 @@ LDA.w #1
 ;------------------------------------------------------------------------------
 ; Misc
 ;------------------------------------------------------------------------------
-org $80AE29
-JSR.w FixDoorBG1Scroll
+org $80AE29 : JSR.w FixDoorBG1Scroll
 
-org $89AC62
-LDA.w FxAreaIndex
+org $89AC62 : LDA.w FxAreaIndex
+
+; PLM $D6DA - LN Chozo
+org $84D18F : JSR.w MaybeActivateLNChozo : BRA + : NOP : +
 
 ;------------------------------------------------------------------------------
 ; Ridley Fixes (assume always in Norfair)

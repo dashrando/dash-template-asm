@@ -87,9 +87,13 @@ HeatDamageTable: ; $4000 - full heat damage
 .heatshield_ln: dw $2000
 .varia: dw $0000
 
-org $DF8B18 ; 0x2F8B16
+org $DF8B18 ; 0x2F8B18
 BossTable: ; Values and indexes are both according to vanilla boss order KPDR.
 dw $0000   ;
 dw $0001   ;
 dw $0002   ;
 dw $0003   ;
+
+org $DF8B20 ; 0x2F8B20
+LNChozoTrigger:
+dw $0001  ; $00 - require space jump | $01 - require nothing

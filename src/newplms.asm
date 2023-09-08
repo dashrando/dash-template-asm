@@ -319,6 +319,12 @@ PreProcessRoomPLM:
         .done:
 RTL
 
+MaybeActivateLNChozo:
+        LDA.l LNChozoTrigger : BNE .done
+                LDA.w VanillaItemsCollected : AND.w #$0200
+        .done
+RTS
+
 pushpc
 org $84D0E8
 dw BrokenTurretBlock ; Replace Draygon grapple turret block instruction
