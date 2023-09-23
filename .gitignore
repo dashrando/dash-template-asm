@@ -1,4 +1,5 @@
 /src/debugmode.asm
+/src/test/classic/interface.js
 /build/dash_*.bps
 /build/interface.js
 **/*.swp
@@ -6,3 +7,4 @@
 **/*.srm
 **/*.sym
 **/*.bp
+/run_*.bat

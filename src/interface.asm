@@ -1,5 +1,13 @@
-macro PrintAddress(varName,address)
+macro PrintRomAddress(varName,address)
     print "  <varName>: 0x",hex(snestopc(<address>)),","
+endmacro
+
+macro PrintSnesAddress(varName,address)
+    print "  <varName>: 0x",hex(<address>),","
+endmacro
+
+macro LabelAddressSNES(label)
+    %PrintSnesAddress(<label>,<label>)
 endmacro
 
 macro PrintHexByte(varName,varValue)
@@ -7,7 +15,7 @@ macro PrintHexByte(varName,varValue)
 endmacro
 
 macro PrintLabelAddress(label)
-    %PrintAddress(<label>,<label>)
+    %PrintRomAddress(<label>,<label>)
 endmacro
 
 print "export const BOSS_DOORS = {"
@@ -116,20 +124,20 @@ print "};"
 print ""
 print "export const BOSS_ITEMS = {"
 print "  // Varia Suit Location"
-%PrintAddress(VariaSuitInBrinstar,$8F8ACA)
-%PrintAddress(VariaSuitInWreckedShip,RoomHeaderVariaSuitInWreckedShip_item_plm)
-%PrintAddress(VariaSuitInMaridia,RoomHeaderVariaSuitInMaridia_item_plm)
-%PrintAddress(VariaSuitInNorfair,RoomHeaderVariaSuitInNorfair_item_plm)
+%PrintRomAddress(VariaSuitInBrinstar,$8F8ACA)
+%PrintRomAddress(VariaSuitInWreckedShip,RoomHeaderVariaSuitInWreckedShip_item_plm)
+%PrintRomAddress(VariaSuitInMaridia,RoomHeaderVariaSuitInMaridia_item_plm)
+%PrintRomAddress(VariaSuitInNorfair,RoomHeaderVariaSuitInNorfair_item_plm)
 print "  // Space Jump Location"
-%PrintAddress(SpaceJumpInBrinstar,RoomHeaderSpaceJumpInBrinstar_item_plm)
-%PrintAddress(SpaceJumpInWreckedShip,RoomHeaderSpaceJumpInWreckedShip_item_plm)
-%PrintAddress(SpaceJumpInMaridia,$8FC7A7)
-%PrintAddress(SpaceJumpInNorfair,RoomHeaderSpaceJumpInNorfair_item_plm)
+%PrintRomAddress(SpaceJumpInBrinstar,RoomHeaderSpaceJumpInBrinstar_item_plm)
+%PrintRomAddress(SpaceJumpInWreckedShip,RoomHeaderSpaceJumpInWreckedShip_item_plm)
+%PrintRomAddress(SpaceJumpInMaridia,$8FC7A7)
+%PrintRomAddress(SpaceJumpInNorfair,RoomHeaderSpaceJumpInNorfair_item_plm)
 print "  // Ridley Tank Location"
-%PrintAddress(RidleyTankInBrinstar,RoomHeaderRidleyTankInBrinstar_item_plm)
-%PrintAddress(RidleyTankInWreckedShip,RoomHeaderRidleyTankInWreckedShip_item_plm)
-%PrintAddress(RidleyTankInMaridia,RoomHeaderRidleyTankInMaridia_item_plm)
-%PrintAddress(RidleyTankInNorfair,$8F9108)
+%PrintRomAddress(RidleyTankInBrinstar,RoomHeaderRidleyTankInBrinstar_item_plm)
+%PrintRomAddress(RidleyTankInWreckedShip,RoomHeaderRidleyTankInWreckedShip_item_plm)
+%PrintRomAddress(RidleyTankInMaridia,RoomHeaderRidleyTankInMaridia_item_plm)
+%PrintRomAddress(RidleyTankInNorfair,$8F9108)
 print "};"
 print ""
 print "export const TABLE_FLAGS = {"
@@ -144,4 +152,38 @@ print "  // Fanfare: 0x0000 = On  0x0001 = Off"
 print "  // LN Chozo Trigger: 0x0000 = Require Space Jump"
 print "  //                   0x0001 = Nothing Required"
 %PrintLabelAddress(LNChozoTrigger)
+print "};"
+print ""
+print "export const PATCHES = {"
+%LabelAddressSNES(Room_Waterway_Patch_01)
+%LabelAddressSNES(Room_WreckedShipReserve_Patch_01)
+%LabelAddressSNES(Room_WreckedShipReserve_Patch_02)
+%LabelAddressSNES(Room_PreBotwoon_Patch_01)
+print "};"
+print ""
+print "export const ROOM_PATCH_ADDR = {"
+%PrintRomAddress("Waterway",BrinstarRooms_room_patches+($17*2))
+%PrintRomAddress("WreckedShipReserve",WreckedShipRooms_room_patches+($00*2))
+%PrintRomAddress("PreBotwoon",MaridiaRooms_room_patches+($23*2))
+print "};"
+print ""
+print "export const DASH_CLASSIC_PATCHES = ["
+print "  {"
+print "    room: ROOM_PATCH_ADDR.Waterway,"
+print "    patch: PATCHES.Room_Waterway_Patch_01"
+print "  },"
+print "  {"
+print "    room: ROOM_PATCH_ADDR.WreckedShipReserve,"
+print "    patch: PATCHES.Room_WreckedShipReserve_Patch_01"
+print "  },"
+print "  {"
+print "    room: ROOM_PATCH_ADDR.PreBotwoon,"
+print "    patch: PATCHES.Room_PreBotwoon_Patch_01"
+print "  },"
+print "];"
+print ""
+print "export const PatchRoom = (romBytes,roomPatchAddress,patchAddress) => {"
+print "  const patch = patchAddress & 0xFFFF;"
+print "  romBytes[roomPatchAddress] = patch & 0xFF;"
+print "  romBytes[roomPatchAddress+1] = (patch >> 8) & 0xFF;"
 print "};"
