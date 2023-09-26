@@ -78,6 +78,7 @@ HyperBeamFlag = $7E0A76              ;
 TimeFrozenFlag = $7E0A78             ;
 DoorAdjustFlag = $7E0AA4             ; Set when doors being adjusted before scrolling (for timing.)
 SamusAnimationFrame = $7E0A96        ;
+SamusAnimationFrameBuffer = $7E0A9C  ;
 LiquidPhysicsType = $7E0AD2          ; $00 = Air | $01 = Water | $02 = Lava/Acid
 SamusXPos = $7E0AF6                  ; Samus X position
 SamusXSubPos = $7E0AF8               ; Samus X subposition

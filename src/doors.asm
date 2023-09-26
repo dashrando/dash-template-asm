@@ -114,6 +114,10 @@ TeleportSamus:
         ; Clear this flag to avoid graphics issues when leaving Crocomire
         STZ.w RequestEnemyBG2Tilemap
 
+        ; Clear this flag to avoid keeping water animation when going to
+        ; Tourian from rooms with water physics
+        STZ.w SamusAnimationFrameBuffer
+
         ; We over wrote to call this routine
         PLB : PLP
 RTL
