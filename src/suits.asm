@@ -104,7 +104,6 @@ SmallSpikeDamage:
         LDA.w PeriodicDamage+$02 : CLC : ADC.w #$0004
 RTL
 
-
 pushpc
 
 org $A3EECE ; Unused code

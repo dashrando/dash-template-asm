@@ -61,6 +61,9 @@ FireBeam = $90B887
 FireBeam_charge_equipped = $90B91C
 AnimateSamusGeneral = $90F084 ; long
 ReceiveDamageSamus = $91DF51
+SamusHandleTurnaround = $91F624
+SamusHandleTurnaround_check_previous_direction = $91F63A
+SamusHandleTurnaround_not_wall_jumping = $91F67F
 InitializeProjectile = $938000
 ProjectilePointers = $9383C1
 
