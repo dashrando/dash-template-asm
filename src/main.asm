@@ -101,9 +101,10 @@ warnpc $908000
 org $90F63A
 incsrc newitems.asm
 incsrc suits.asm
-incsrc animations.asm
+;incsrc animations.asm
 incsrc beams.asm
 incsrc stats/stats_weapons.asm
+incsrc spritesomething.asm
 warnpc $918000
 
 org $99EE21
