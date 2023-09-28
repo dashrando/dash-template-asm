@@ -5,23 +5,22 @@ SpriteSomethingFix:
         .fix:
 
         ; Quit if the code is unmodified
-        LDA.l $91F635
+        LDA.w $F635
         CMP.w #$0001 : BEQ .quit
 
-        ; Quit if PV is not equipped
-        LDA.w DashItemsEquipped
-        BIT.w #$0020 : BEQ .quit
+        ; Setup the mask for gravity/PV
+        LDA.w #$0020
 
-        ; Quit if gravity is equipped
-        LDA.w VanillaItemsEquipped
-        BIT.w #$0020 : BNE .quit
+        ; Quit if gravity has been collected
+        BIT.w VanillaItemsCollected : BNE .quit
+
+        ; Quit if PV is not equipped
+        BIT.w DashItemsEquipped : BEQ .quit
 
         ; Temporarily mark that we have gravity for the animation
-        PHA
-        ORA.w #$0020 : STA.w VanillaItemsEquipped
+        TSB.w VanillaItemsEquipped
         JSL $9B8000 ; Custom SpriteSomething code is here
-        PLA
-        STA.w VanillaItemsEquipped
+        LDA.w #$0020 : TRB.w VanillaItemsEquipped
 
         ; Return back to the calling function
         JML $91F63A
