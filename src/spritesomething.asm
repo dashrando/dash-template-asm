@@ -1,6 +1,6 @@
 SpriteSomethingFix:
         CMP.w #$0003 : BEQ .fix
-        CMP.w #$0014 : BNE .fix
+        CMP.w #$0014 : BEQ .fix
                JML $91F67F
         .fix:
 
