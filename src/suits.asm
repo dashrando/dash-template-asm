@@ -34,10 +34,11 @@ HeatDamage:
         .gravity
         LDX.w  #$0002 : BRA .applydamage
         .heatshield
-        LDA.w SubAreaIndex : CMP.w !Area_LowerNorfair : BEQ .lowernorfair
-                LDX.w #$0004 : BRA .applydamage
-        .lowernorfair
-        LDX.w #$0006 : BRA .applydamage
+        LDA.w SubAreaIndex : CMP.w !Area_UpperNorfair : BEQ .uppernorfair
+                             CMP.w !Area_Crocomire : BEQ .uppernorfair
+                LDX.w #$0006 : BRA .applydamage
+        .uppernorfair
+        LDX.w #$0004 : BRA .applydamage
         .fulldamage
         LDX.w #$0000
         .applydamage
