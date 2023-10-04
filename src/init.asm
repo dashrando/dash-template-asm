@@ -8,8 +8,8 @@
 InitGameState:
         LDA.w GameState : CMP.w #$001F : BNE .ret
         .main
-        LDA.l FreshFileMarker : CMP.w #$07 : BEQ .ret
-                LDA.l FreshFileMarker : ORA.w #$0004 : STA.l FreshFileMarker
+        LDA.l FreshFileMarker : BIT.w #$04 : BNE .ret
+                ORA.w #$0004 : STA.l FreshFileMarker
                 ; Construction zone and red tower elevator doors
                 LDA.l DoorBitArray+$06 : ORA.w #$0004 : STA.l DoorBitArray+$06
                 LDA.l DoorBitArray+$02 : ORA.w #$0001 : STA.l DoorBitArray+$02

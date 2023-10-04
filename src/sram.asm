@@ -95,9 +95,8 @@ MajorCounters: skip 26               ; Area item counters indexed by sub-area. I
                                      ; game and decremented on item pickup.
 TankCounters: skip 26                ;
 GoalComplete: skip 2                 ; Set when goal complete (ie, pressing down on the ship.)
-FreshFileMarker: skip 2              ; - - - - - i g s
-                                     ; s = opened new save file   | g = pressed "START GAME" on game options
-                                     ; i = initialized game state
+FreshFileMarker: skip 2              ; - - - - - i g -
+                                     ; i = initialized game state | g = pressed "START GAME" on game options
 warnpc $7FFF00
 base off
 

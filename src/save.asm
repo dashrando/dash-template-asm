@@ -29,7 +29,6 @@ LoadSaveExpanded:
         JSR.w ClearExtendedBuffers ; We've read from uninitialized SRAM
         JSR.w InitHUDHDMATables
         JSR.w SetBootTest
-        LDA.l FreshFileMarker : ORA.w #$0001 : STA.l FreshFileMarker
         STZ.w AreaMapFlag
 RTS
 
