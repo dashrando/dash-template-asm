@@ -164,6 +164,13 @@ dw $08FF, $0B66, $0B67, $0B68, $0B69, $0B6A, $0B6B, $0B6C, $0B6D
 DoubleJumpTileMap:
 dw $08FF, $0B6E, $0B6F, $0B70, $0B71, $0B72, $0B73, $0B74, $08D4
 
+SetHUDFlagMenu:
+        LDA.b $8F : BIT.w #$0080 : BEQ + ; Check for button press
+                INC.w HUDDrawFlag
+        +
+        JSR.w MenuCheckButton ; What we wrote over
+RTS
+
 pushpc
 org $B6F200
 DashMenuTiles:

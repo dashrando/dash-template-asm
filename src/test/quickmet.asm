@@ -10,6 +10,8 @@
 ;------------------------------------------------------------------------------
 
 !pre_kraid = $A56B,$0050,$0088,$ff,$ff,$01,$01
+!pre_phantoon = $CC6F,$04CC,$008B,$ff,$ff,$04,$00
+!pre_draygon = $D78F,$0040,$0088,$ff,$ff,$00,$02
 !pre_shaktool = $D646,$0030,$0088,$ff,$ff,$00,$03
 !pre_plasma = $D340,$00b0,$0088,$ff,$ff,$02,$01
 !plasma = $D2AA,$0030,$0088,$ff,$ff,$00,$00
@@ -20,6 +22,9 @@
 !wrecked_ship_reserve = $C98E,$00B0,$0078,$ff,$ff,$05,$02
 !outside_ws_reserve = $93FE,$00a0,$0088,$ff,$ff,$07,$01
 !crab_tunnel = $D08A,$00B0,$00A8,$ff,$ff,$00,$00
+!sandfalls = $D6FD,$0020,$00A8,$ff,$ff,$03,$00
+!green_hills = $9E52,$01C0,$0088,$FF,$FF,$01,$00
+!single_chamber = $AD5E,$05A4,$0088,$FF,$FF,$00,$00
 
 ; Room scrolls when you jump (needs to be fixed)
 !big_pink_next_to_charge = $9D19,$0070,$0076,$ff,$ff,$02,$07
@@ -39,12 +44,6 @@ pushpc
 !decompressionSource    = $47
 !decompressionDest      = $4C
 !tempDoorEntry          = $02A0
-!doorPointer            = $078D
-!specialGfxBitflag      = $07B3
-!gameState              = $0998
-!doorTransitionFunction = $099C
-!samusX                 = $0AF6
-!samusY                 = $0AFA
 !creTileTable           = $7EA000
 
 
@@ -78,13 +77,13 @@ PHK : PLB
 SEI
 
 ; Set game state to door transition
-LDA #$000B : STA !gameState
+LDA #$000B : STA GameState
 
 ; Skip waiting for sounds to finish and screen to fade out
-LDA #$E2F7 : STA !doorTransitionFunction
+LDA #$E2F7 : STA DoorTransitionPtr
 
 ; Set up a door entry in RAM
-LDA #!tempDoorEntry : STA !doorPointer
+LDA #!tempDoorEntry : STA DoorPointer
 LDX #$000A
 
 -
@@ -115,12 +114,12 @@ LDA #$A09D : STA !decompressionSource
 JSL $80B0FF : dl !creTileTable
 
 ; Set Samus' position
-LDA #!samusX_start : STA !samusX
-LDA #!samusY_start : STA !samusY
+LDA #!samusX_start : STA SamusXPos
+LDA #!samusY_start : STA SamusYPos
 
 ; Make sure Samus has some health
-LDA.w #402 : STA $7e09C2
-LDA.w #599 : STA $7e09C4
+LDA.w #402 : STA CurrentHealth
+LDA.w #599 : STA MaxHealth
 
 ; Call our custom code to initialize the game state
 JSL.l InitGameState_main
@@ -133,10 +132,10 @@ SEP #$20
 LDA #$0F : STA $51
 
 ; Load HUD
-JSL $809A79
+JSR.w InitHUDForPreset : NOP
 
 ; Load special GFX bitflag
-LDX doorEntry : LDA $8F0008,x : STA !specialGfxBitflag
+LDX doorEntry : LDA $8F0008,x : STA CREBitset
 
 JSL $8483AD ; Enable PLMs
 JSL $868000 ; Enable enemy projectiles
@@ -155,6 +154,7 @@ RTL
 ; Padding I guess
 dl $000000, $000000
 
+
 doorEntry:
 dw !roomId  ; Destination room
 db $00      ; Flags
@@ -167,6 +167,16 @@ dw $03F0    ; Distance from door
 dw $0000    ; Door ASM
 
 }
+
+InitHUDForPreset:
+       ; Load HUD
+       JSL.l $809A79
+       PHA : PHX
+       REP #$20
+       JSL.l InitRightHUDTiles
+       SEP #$20
+       PLX : PLA
+       RTS
 warnpc $8b9b19
 
 pullpc

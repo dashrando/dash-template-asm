@@ -3,6 +3,12 @@
 ;------------------------------------------------------------------------------
 ; Small fixes, "common" Super Meroid randomizer patches.
 ;------------------------------------------------------------------------------
+
+FixDoorBG1Scroll:
+        LDA.w BG1XScroll : AND.w #$FF00
+        SEC
+RTS
+
 pushpc
 
 ; Disable Space/Time select in menu
@@ -38,9 +44,5 @@ org $91B629 : db $01
 ; Disable GT Code
 org $AAC91C
 BRA $3F
-
-; Remove space jump requirement for LN chozo
-org $84D195
-NOP #2
 
 pullpc

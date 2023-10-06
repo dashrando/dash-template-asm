@@ -96,9 +96,11 @@ WordTable:
 InfoStr:
     db "TOURNAMENT SEED!"
 
-OnLoadGame: ; Pressing "START GAME"
-        LDA.l GoalComplete : BNE .skip
+OnStartGame: ; Pressing "START GAME"
+        LDA.l FreshFileMarker : BNE .skip
                 LDA.w #$0001 : STA.l FreshFileMarker
+                DEC
+                STA.l NMIFrames : STA.l NMIFrames+$02
+                STA.l MenuFrames : STA.l MenuFrames+$02
         .skip
-        STZ.w ScreenFadeCounter ; What we wrote over
 RTS

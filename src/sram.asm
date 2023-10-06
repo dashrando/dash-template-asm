@@ -27,6 +27,8 @@ CurrentSupers = $7E09CA              ; Current and max super missiles.
 MaxSupers = $7E09CC                  ;
 CurrentPBs = $7E09CE                 ; Current and max power bombs.
 MaxPBs = $7E09D0                     ;
+MaxReserves = $7E09D4                ; Current and max reserves.
+CurrentReserves = $7E09D6            ;
 DashItemsCollected = $7E09EC         ; Word-length bitfields used for new items, similar to the
 DashItemsEquipped = $7E09EE          ; vanilla item bitfields.
                                      ; - - - - - - d -  - - q - - - - h
@@ -46,13 +48,19 @@ DoorBitArray = $7ED8B0               ; Opened door bit array. Bit set if door op
 ;------------------------------------------------------------------------------
 ; Bank $7F
 ;------------------------------------------------------------------------------
-; $7FFB00-$7FFCFF reserved for file save data.
+; $7FFA10-$7FFEFF is our primary extended save data buffer in WRAM. We separate
+; out stats from general save data because we save and load them separately in
+; some instances. $200 is allocated for stats and the rest is general-purpose.
+; $7FFF00-FFFF is allocated for ephemeral, general purpose memory we may want
+; to put in bank $7F (primarily because $7F is not zero-initialized on boot like
+; all of bank $7E.)
 ;------------------------------------------------------------------------------
 ;------------------------------------------------------------------------------
 ; Stats Block
 ;------------------------------------------------------------------------------
-base $7FFB00                         ;
-StatsBlock:                          ; $100 bytes. $7FFB00-$7FFBFF
+base $7FFA10                         ;
+ExtendedSaveWRAM:                    ;
+StatsBlock:                          ;
 NMIFrames: skip 4                    ;
 LagFrames: skip 4                    ;
 MenuFrames: skip 4                   ;
@@ -76,34 +84,46 @@ MissilesFired: skip 2                ;
 SupersFired: skip 2                  ;
 PowerBombsLaid: skip 2               ;
 BombsLaid: skip 2                    ;
-GoalComplete: skip 2                 ;
-FreshFileMarker: skip 2              ; $00 = File not active | $01 = Have started game
-                                     ;
+warnpc StatsBlock+$1FF
+
+;------------------------------------------------------------------------------
+; Data Block
+;------------------------------------------------------------------------------
+base $7FFC10
+DataBlock:
+MajorCounters: skip 26               ; Area item counters indexed by sub-area. Initialized on new
+                                     ; game and decremented on item pickup.
+TankCounters: skip 26                ;
+GoalComplete: skip 2                 ; Set when goal complete (ie, pressing down on the ship.)
+FreshFileMarker: skip 2              ; - - - - - - i g
+                                     ; i = initialized game state | g = pressed "START GAME" on game options
+warnpc $7FFF00
 base off
 
-CreditsScrollSpeed = $7FFFE8
 
 ;------------------------------------------------------------------------------
 ; Extended Cartridge SRAM
 ;------------------------------------------------------------------------------
-; We allocate $500 bytes per slot for general use, then slot-agnostic data we
+; We allocate $1000 bytes per slot for general use, then slot-agnostic data we
 ; may want to save (such as the most recent save slot played.)
+; Our main WRAM save buffer in bank $7F is smaller than $1000 but there is some
+; free space in bank $7E where an additional save data buffer could be allocated.
 ;------------------------------------------------------------------------------
 base $702000
 ExpandedSRAM:                        ;
 SlotOneExtendedSRAM:                 ;
-SlotOneStatsSRAM: skip $500          ; Stat block. $100 bytes.
+SlotOneStatsSRAM: skip $200          ; Stat block.
+SlotOneDataSRAM: skip $E00           ; Data block. 
                                      ;
 SlotTwoExtendedSRAM:                 ;
-SlotTwoStatsSRAM: skip $500          ; Stat block. $100 bytes.
+SlotTwoStatsSRAM: skip $200          ; Stat block.
+SlotTwoDataSRAM: skip $E00           ; Data block.
                                      ;
 SlotThreeExtendedSRAM:               ;
-SlotThreeStatsSRAM: skip $500        ; Stat block. $100 bytes.
+SlotThreeStatsSRAM: skip $200        ; Stat block.
+SlotThreeDataSRAM: skip $E00         ; Data block.
                                      ;
 CurrentSaveSlotSRAM: skip 2          ; Same index as the game uses + 1. No previous game if zero.
-
-
-
 
 base off
 pullpc

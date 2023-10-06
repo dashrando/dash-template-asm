@@ -1,7 +1,9 @@
 lorom
 
 !DEBUG ?= 0
-!STD ?= 0
+!INTERFACE ?= 0
+!RECALL ?= 0
+!AREA ?= 0
 
 org $808000 ; Reserved
 dw $8001    ;
@@ -19,8 +21,6 @@ incsrc vanillalabels.asm
 incsrc defines.asm
 incsrc hooks.asm
 
-incsrc generalbugfixes.asm
-
 org $81EF1A : fillbyte $FF : fill $10E5 ; Sorry Genji
 org $DF8000 : fillbyte $FF : fill $7FFF
 
@@ -36,7 +36,9 @@ org $80CD90
 incsrc init.asm
 incsrc framehook.asm
 incsrc stats/stats.asm
-incsrc newhud.asm
+incsrc hud/newhud.asm
+incsrc hud/palettehdma.asm
+incsrc generalbugfixes.asm
 warnpc $80FFC0 ; SNES ROM Header
 
 org $81EF1A
@@ -50,6 +52,7 @@ incsrc menu.asm
 incsrc subareas.asm
 incsrc roompatching.asm
 incsrc stats/stats_doors.asm
+incsrc doortransition.asm
 warnpc $838000
 
 org $84EFE0
@@ -76,25 +79,32 @@ warnpc $8C8000
 
 org $8CE1E9+(32*10)
 incbin data/titlelogo.pal
-org $8DC696
-incsrc data/logofadeobject.asm
 org $8CF3E9
 incsrc titlelogo.asm
 warnpc $8D8000
 
+org $8DC696
+incsrc data/logofadeobject.asm
+
 org $8EE600
 CreditsCharacters:
 incbin data/slash_char.bin
+warnpc $8F8000
 
 org $8FE9A0
+incsrc rooms.asm
 incsrc doors.asm
+incsrc music.asm
+incsrc plmlists.asm
 warnpc $908000
 
 org $90F63A
 incsrc newitems.asm
 incsrc suits.asm
+;incsrc animations.asm
 incsrc beams.asm
 incsrc stats/stats_weapons.asm
+incsrc spritesomething.asm
 warnpc $918000
 
 org $99EE21
@@ -108,6 +118,10 @@ org $9AB5C0
 incbin ../data/pbicon.bin
 org $9AB691
 incbin ../data/missileicon.bin
+org $9AB300
+incbin data/hudtiles_alphabet_1.bin ; $200 bytes or 32 2bpp tiles
+org $9AB800
+incbin data/hudtiles_icons.bin ; $200 bytes or 32 2bpp tiles
 
 org $A0F7D3
 incsrc enemies.asm
@@ -127,6 +141,10 @@ incsrc tables.asm ; Keep this first
 incsrc roomtables.asm
 incsrc credits/credits_data.asm
 warnpc $E08000
+
+if !INTERFACE == 1
+    incsrc interface.asm
+endif
 
 if !DEBUG == 1
     incsrc debugmode.asm

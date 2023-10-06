@@ -6,24 +6,48 @@
 ; room_patches (word.) 
 ;------------------------------------------------------------------------------
 
-if !STD == 1
-   !WS_Reserve_Patch = Room_WreckedShipReserve_Patch_01
-   !Plasma_Patch = NoPatch
-   !Pants_Room_Patch = NoPatch
-   !Shaktool_Patch = NoPatch
-else
+if !RECALL == 1
+   !Waterway_Patch = Room_Waterway_Patch_01
    !WS_Reserve_Patch = Room_WreckedShipReserve_Patch_02
+   !BotwoonHallway_Patch = Room_PreBotwoon_Patch_01
    !Plasma_Patch = Room_Plasma_Patch_01
    !Pants_Room_Patch = Room_PreShaktool_Patch_01
    !Shaktool_Patch = Room_Shaktool_Patch_01
+else
+   !Waterway_Patch = NoPatch
+   !WS_Reserve_Patch = NoPatch
+   !BotwoonHallway_Patch = NoPatch
+   !Plasma_Patch = NoPatch
+   !Pants_Room_Patch = NoPatch
+   !Shaktool_Patch = NoPatch
+endif
+
+if !AREA == 1
+   !Aqueduct_Patch = Room_Aqueduct_Patch_01
+   !BelowBotwoonEnergyTank_Patch = Room_BelowBotwoonEnergyTank_Patch_01
+   !CrabTunnel_Patch = Room_CrabTunnel_Patch_01
+   !EastTunnel_Patch = Room_EastTunnel_Patch_01
+   !GreenHills_Patch = Room_GreenHills_Patch_02
+   !RedElevator_Patch = Room_RedBrinstarElevator_Patch_01
+   !SingleChamber_Patch = Room_SingleChamber_Patch_02
+   !WS_Exit_Patch = Room_WreckedShipBackExit_Patch_01
+else
+   !Aqueduct_Patch = NoPatch
+   !BelowBotwoonEnergyTank_Patch = NoPatch 
+   !CrabTunnel_Patch = NoPatch
+   !EastTunnel_Patch = NoPatch
+   !GreenHills_Patch = NoPatch
+   !RedElevator_Patch = NoPatch
+   !SingleChamber_Patch = NoPatch
+   !WS_Exit_Patch = NoPatch
 endif
 
 ; Creates column-major table named <area>Rooms:
 %AreaRoomTable(Crateria, $33)
-%AreaRoomTable(Brinstar, $37)
-%AreaRoomTable(Norfair, $4C)
-%AreaRoomTable(WreckedShip, $11)
-%AreaRoomTable(Maridia, $37)
+%AreaRoomTable(Brinstar, $3D)
+%AreaRoomTable(Norfair, $52)
+%AreaRoomTable(WreckedShip, $16)
+%AreaRoomTable(Maridia, $3D)
 %AreaRoomTable(Tourian, $12)
 
 ;------------------------------------------------------------------------------
@@ -33,39 +57,40 @@ endif
 
 ; Crateria
 ;          Area      index  sub_areas      room_flags  room_patches
-%RoomEntry(Crateria, $00,  !Area_Crateria,    $00,  NoPatch) ; Landing Site
-%RoomEntry(Crateria, $01,  !Area_Crateria,    $00,  NoPatch) ; Gauntlet Front
-%RoomEntry(Crateria, $02,  !Area_Crateria,    $00,  NoPatch) ; Parlor
-%RoomEntry(Crateria, $03,  !Area_Crateria,    $00,  NoPatch) ; Landing Site PBs
-%RoomEntry(Crateria, $04,  !Area_Crateria,    $00,  NoPatch) ; Parlor Save
-%RoomEntry(Crateria, $05,  !Area_WreckedShip, $20,  NoPatch) ; Wrecked Ship Front
-%RoomEntry(Crateria, $06,  !Area_WreckedShip, $20,  NoPatch) ; Pre-Bowling Pancake Room
-%RoomEntry(Crateria, $07,  !Area_Crateria,    $00,  NoPatch) ; Right Side Junction
-%RoomEntry(Crateria, $08,  !Area_EastMaridia, $00,  NoPatch) ; Maridia Elevator Top
-%RoomEntry(Crateria, $09,  !Area_WreckedShip, $20,  NoPatch) ; Wrecked Ship Back Exit
-%RoomEntry(Crateria, $0A,  !Area_WreckedShip, $00,  NoPatch) ; Wrecked Ship Back Tunnel
-%RoomEntry(Crateria, $0B,  !Area_WreckedShip, $20,  NoPatch) ; Wrecked Ship Back Maze
-%RoomEntry(Crateria, $0C,  !Area_EastMaridia, $00,  NoPatch) ; East Maridia Back Corner
-%RoomEntry(Crateria, $0D,  !Area_Crateria,    $20,  NoPatch) ; Tunnel Right of Ship
-%RoomEntry(Crateria, $0E,  !Area_Crateria,    $20,  Room_Moat_Patch_01) ; Moat
-%RoomEntry(Crateria, $0F,  !Area_Crateria,    $00,  NoPatch) ; Red Brinstar Elevator
-%RoomEntry(Crateria, $10,  !Area_Crateria,    $00,  NoPatch) ; Gauntlet E-Tank
-%RoomEntry(Crateria, $11,  !Area_WreckedShip, $00,  NoPatch) ; Lonely Crab
-%RoomEntry(Crateria, $12,  !Area_Crateria,    $00,  NoPatch) ; Climb
-%RoomEntry(Crateria, $13,  !Area_Crateria,    $00,  NoPatch) ; Old Tourian
-%RoomEntry(Crateria, $14,  !Area_Crateria,    $00,  NoPatch) ; Blue Brinstar Elevator
-%RoomEntry(Crateria, $15,  !Area_Crateria,    $00,  NoPatch) ; Bomb Torizo
-%RoomEntry(Crateria, $16,  !Area_Crateria,    $00,  NoPatch) ; Bomb Torizo Hallway
-%RoomEntry(Crateria, $17,  !Area_Crateria,    $00,  NoPatch) ; Crateria Map Hallway
-%RoomEntry(Crateria, $18,  !Area_Crateria,    $00,  NoPatch) ; Terminator
-%RoomEntry(Crateria, $1A,  !Area_Crateria,    $00,  NoPatch) ; Mushroom Room
-%RoomEntry(Crateria, $1B,  !Area_Crateria,    $00,  NoPatch) ; Crateria Map
-%RoomEntry(Crateria, $1C,  !Area_Crateria,    $00,  NoPatch) ; Gauntlet Missiles
-%RoomEntry(Crateria, $1D,  !Area_Crateria,    $00,  NoPatch) ; Climb Supers
-%RoomEntry(Crateria, $1E,  !Area_Crateria,    $00,  NoPatch) ; 230 Missiles Tunnel
-%RoomEntry(Crateria, $1F,  !Area_Crateria,    $00,  NoPatch) ; 230 Missiles
-%RoomEntry(Crateria, $30,  !Area_Tourian,     $00,  NoPatch) ; Tourian Hallway
-%RoomEntry(Crateria, $33,  !Area_Tourian,     $20,  NoPatch) ; Tourian Elevator Top
+%RoomEntry(Crateria, $00,  !Area_Crateria,      $00,  NoPatch) ; Landing Site
+%RoomEntry(Crateria, $01,  !Area_Crateria,      $00,  NoPatch) ; Gauntlet Front
+%RoomEntry(Crateria, $02,  !Area_Crateria,      $00,  NoPatch) ; Parlor
+%RoomEntry(Crateria, $03,  !Area_Crateria,      $00,  NoPatch) ; Landing Site PBs
+%RoomEntry(Crateria, $04,  !Area_Crateria,      $00,  NoPatch) ; Parlor Save
+%RoomEntry(Crateria, $05,  !Area_WreckedShip,   $20,  NoPatch) ; Wrecked Ship Front
+%RoomEntry(Crateria, $06,  !Area_WreckedShip,   $20,  NoPatch) ; Pre-Bowling Pancake Room
+%RoomEntry(Crateria, $07,  !Area_Crateria,      $00,  NoPatch) ; Right Side Junction
+%RoomEntry(Crateria, $08,  !Area_EastMaridia,   $00,  NoPatch) ; Maridia Elevator Top
+%RoomEntry(Crateria, $09,  !Area_WreckedShip,   $20,  !WS_Exit_Patch) ; Wrecked Ship Back Exit
+%RoomEntry(Crateria, $0A,  !Area_WreckedShip,   $00,  NoPatch) ; Wrecked Ship Back Tunnel
+%RoomEntry(Crateria, $0B,  !Area_WreckedShip,   $20,  NoPatch) ; Wrecked Ship Back Maze
+%RoomEntry(Crateria, $0C,  !Area_EastMaridia,   $00,  NoPatch) ; East Maridia Back Corner
+%RoomEntry(Crateria, $0D,  !Area_Crateria,      $20,  NoPatch) ; Tunnel Right of Ship
+%RoomEntry(Crateria, $0E,  !Area_Crateria,      $20,  Room_Moat_Patch_01) ; Moat
+%RoomEntry(Crateria, $0F,  !Area_RedBrinstar,   $00,  NoPatch) ; Red Brinstar Elevator
+%RoomEntry(Crateria, $10,  !Area_Crateria,      $00,  NoPatch) ; Gauntlet E-Tank
+%RoomEntry(Crateria, $11,  !Area_WreckedShip,   $00,  NoPatch) ; Lonely Crab
+%RoomEntry(Crateria, $12,  !Area_Crateria,      $00,  NoPatch) ; Climb
+%RoomEntry(Crateria, $13,  !Area_Crateria,      $00,  NoPatch) ; Old Tourian
+%RoomEntry(Crateria, $14,  !Area_Crateria,      $00,  NoPatch) ; Blue Brinstar Elevator
+%RoomEntry(Crateria, $15,  !Area_Crateria,      $00,  NoPatch) ; Bomb Torizo
+%RoomEntry(Crateria, $16,  !Area_Crateria,      $00,  NoPatch) ; Bomb Torizo Hallway
+%RoomEntry(Crateria, $17,  !Area_Crateria,      $00,  NoPatch) ; Crateria Map Hallway
+%RoomEntry(Crateria, $18,  !Area_Crateria,      $00,  NoPatch) ; Terminator
+%RoomEntry(Crateria, $19,  !Area_GreenBrinstar, $00,  NoPatch) ; Green Brinstar Elevator Top
+%RoomEntry(Crateria, $1A,  !Area_Crateria,      $00,  NoPatch) ; Mushroom Room
+%RoomEntry(Crateria, $1B,  !Area_Crateria,      $00,  NoPatch) ; Crateria Map
+%RoomEntry(Crateria, $1C,  !Area_Crateria,      $00,  NoPatch) ; Gauntlet Missiles
+%RoomEntry(Crateria, $1D,  !Area_Crateria,      $00,  NoPatch) ; Climb Supers
+%RoomEntry(Crateria, $1E,  !Area_Crateria,      $00,  NoPatch) ; 230 Missiles Tunnel
+%RoomEntry(Crateria, $1F,  !Area_Crateria,      $00,  NoPatch) ; 230 Missiles
+%RoomEntry(Crateria, $30,  !Area_Tourian,       $00,  NoPatch) ; Tourian Hallway
+%RoomEntry(Crateria, $33,  !Area_Tourian,       $20,  NoPatch) ; Tourian Elevator Top
 
 ; Brinstar
 ;          Area      index  sub_areas      room_flags  room_patches
@@ -82,7 +107,7 @@ endif
 %RoomEntry(Brinstar, $0A,  !Area_GreenBrinstar, $00,  NoPatch) ; Pre Spore Spawn
 %RoomEntry(Brinstar, $0B,  !Area_GreenBrinstar, $00,  NoPatch) ; Spore Spawn
 %RoomEntry(Brinstar, $0C,  !Area_GreenBrinstar, $00,  Room_MissionImpossible_Patch_01) ; Mission Impossible
-%RoomEntry(Brinstar, $0D,  !Area_GreenBrinstar, $00,  NoPatch) ; Green Hills
+%RoomEntry(Brinstar, $0D,  !Area_GreenBrinstar, $00,  !GreenHills_Patch) ; Green Hills
 %RoomEntry(Brinstar, $0E,  !Area_Crateria,      $00,  NoPatch) ; Morph Ball Room
 %RoomEntry(Brinstar, $0F,  !Area_Crateria,      $00,  NoPatch) ; Construction Zone
 %RoomEntry(Brinstar, $10,  !Area_Crateria,      $00,  NoPatch) ; Ceiling E-Tank
@@ -92,7 +117,7 @@ endif
 %RoomEntry(Brinstar, $14,  !Area_GreenBrinstar, $00,  NoPatch) ; Etecoons Supers
 %RoomEntry(Brinstar, $15,  !Area_GreenBrinstar, $00,  NoPatch) ; Dachora Refill
 %RoomEntry(Brinstar, $16,  !Area_GreenBrinstar, $00,  NoPatch) ; Big Pink Supers Hallway
-%RoomEntry(Brinstar, $17,  !Area_GreenBrinstar, $20,  Room_Waterway_Patch_01) ; Waterway
+%RoomEntry(Brinstar, $17,  !Area_GreenBrinstar, $20,  !Waterway_Patch) ; Waterway
 %RoomEntry(Brinstar, $18,  !Area_Crateria,      $20,  NoPatch) ; Blue Brinstar Missiles
 %RoomEntry(Brinstar, $19,  !Area_GreenBrinstar, $20,  NoPatch) ; Big Pink Wave Gate
 %RoomEntry(Brinstar, $1A,  !Area_GreenBrinstar, $20,  NoPatch) ; Big Pink E-tank
@@ -105,7 +130,7 @@ endif
 %RoomEntry(Brinstar, $21,  !Area_RedBrinstar,   $00,  NoPatch) ; Pre X-Ray
 %RoomEntry(Brinstar, $22,  !Area_RedBrinstar,   $00,  NoPatch) ; X-Ray
 %RoomEntry(Brinstar, $23,  !Area_RedBrinstar,   $00,  NoPatch) ; Red Tower Spike Hallway
-%RoomEntry(Brinstar, $24,  !Area_RedBrinstar,   $00,  NoPatch) ; Red Tower Upper Right
+%RoomEntry(Brinstar, $24,  !Area_RedBrinstar,   $00,  !RedElevator_Patch) ; Red Tower Upper Right
 %RoomEntry(Brinstar, $25,  !Area_RedBrinstar,   $00,  NoPatch) ; Red Tower PBs Upper
 %RoomEntry(Brinstar, $26,  !Area_RedBrinstar,   $00,  NoPatch) ; Red Tower PBs Lower
 %RoomEntry(Brinstar, $27,  !Area_RedBrinstar,   $20,  NoPatch) ; Red Brinstar Bottom Left
@@ -123,6 +148,11 @@ endif
 %RoomEntry(Brinstar, $35,  !Area_Kraid,         $00,  NoPatch) ; Varia Suit
 %RoomEntry(Brinstar, $36,  !Area_Kraid,         $00,  NoPatch) ; Kraid Save
 %RoomEntry(Brinstar, $37,  !Area_RedBrinstar,   $00,  NoPatch) ; Red Tower Save
+%RoomEntry(Brinstar, $38,  $39,                 $00,  NoPatch) ; Phantoon
+%RoomEntry(Brinstar, $39,  $49,                 $00,  NoPatch) ; Draygon
+%RoomEntry(Brinstar, $3A,  $49,                 $00,  NoPatch) ; Space Jump
+%RoomEntry(Brinstar, $3B,  $29,                 $00,  NoPatch) ; Ridley
+%RoomEntry(Brinstar, $3C,  $29,                 $00,  NoPatch) ; Ridley E-Tank
 
 ; Norfair
 ;          Area      index  sub_areas      room_flags  room_patches
@@ -155,7 +185,7 @@ endif
 %RoomEntry(Norfair, $1A,  !Area_UpperNorfair,  $00,  NoPatch) ; Bubble Mountain
 %RoomEntry(Norfair, $1B,  !Area_UpperNorfair,  $00,  NoPatch) ; Speed Speedway
 %RoomEntry(Norfair, $1C,  !Area_UpperNorfair,  $00,  NoPatch) ; Speed Booster
-%RoomEntry(Norfair, $1D,  !Area_UpperNorfair,  $00,  NoPatch) ; Wave Hallway
+%RoomEntry(Norfair, $1D,  !Area_UpperNorfair,  $00,  !SingleChamber_Patch) ; Wave Hallway
 %RoomEntry(Norfair, $1E,  !Area_UpperNorfair,  $00,  NoPatch) ; Wave Missiles
 %RoomEntry(Norfair, $1F,  !Area_UpperNorfair,  $00,  NoPatch) ; Wave Beam
 %RoomEntry(Norfair, $20,  !Area_UpperNorfair,  $00,  NoPatch) ; East Spike Lava Room
@@ -202,6 +232,11 @@ endif
 %RoomEntry(Norfair, $4A,  !Area_LowerNorfair,  $00,  NoPatch) ; Screw Attack
 %RoomEntry(Norfair, $4B,  !Area_LowerNorfair,  $00,  NoPatch) ; Firefleas
 %RoomEntry(Norfair, $4C,  !Area_LowerNorfair,  $00,  NoPatch) ; Ridley Save
+%RoomEntry(Norfair, $4D,  $1B,                 $00,  NoPatch) ; Kraid
+%RoomEntry(Norfair, $4E,  $1B,                 $00,  NoPatch) ; Varia Suit
+%RoomEntry(Norfair, $4F,  $3B,                 $00,  NoPatch) ; Phantoon
+%RoomEntry(Norfair, $50,  $4B,                 $00,  NoPatch) ; Draygon
+%RoomEntry(Norfair, $51,  $4B,                 $00,  NoPatch) ; Space Jump
 
 ; Wrecked Ship
 ;          Area       index     sub_areas      room_flags  room_patches
@@ -221,17 +256,23 @@ endif
 %RoomEntry(WreckedShip, $0D,  !Area_WreckedShip,  $00,  NoPatch) ; Wrecked Ship Right Supers
 %RoomEntry(WreckedShip, $0E,  !Area_WreckedShip,  $00,  NoPatch) ; Gravity Suit
 %RoomEntry(WreckedShip, $0F,  !Area_WreckedShip,  $00,  NoPatch) ; Wrecked Ship Save
+%RoomEntry(WreckedShip, $10,  $13,                $00,  NoPatch) ; Kraid
+%RoomEntry(WreckedShip, $11,  $13,                $00,  NoPatch) ; Varia Suit
+%RoomEntry(WreckedShip, $12,  $43,                $00,  NoPatch) ; Draygon
+%RoomEntry(WreckedShip, $13,  $43,                $00,  NoPatch) ; Space Jump
+%RoomEntry(WreckedShip, $14,  $23,                $00,  NoPatch) ; Ridley
+%RoomEntry(WreckedShip, $15,  $23,                $00,  NoPatch) ; Ridley E-Tank
 
 ; Maridia
 ;          Area    index     sub_areas      room_flags  room_patches
 %RoomEntry(Maridia, $00,  !Area_RedBrinstar,  $20,  NoPatch) ; Tube Save
 %RoomEntry(Maridia, $01,  !Area_RedBrinstar,  $20,  NoPatch) ; Glass Tube
 %RoomEntry(Maridia, $02,  !Area_RedBrinstar,  $20,  NoPatch) ; Red Brinstar Tunnel Left
-%RoomEntry(Maridia, $03,  !Area_RedBrinstar,  $20,  NoPatch) ; Red Brinstar Tunnel Right
+%RoomEntry(Maridia, $03,  !Area_RedBrinstar,  $20,  !EastTunnel_Patch) ; Red Brinstar Tunnel Right
 %RoomEntry(Maridia, $04,  !Area_WestMaridia,  $20,  NoPatch) ; Main Street
 %RoomEntry(Maridia, $05,  !Area_WestMaridia,  $20,  NoPatch) ; Fish Tank
 %RoomEntry(Maridia, $06,  !Area_WestMaridia,  $20,  NoPatch) ; Mama Turtle
-%RoomEntry(Maridia, $07,  !Area_WestMaridia,  $20,  NoPatch) ; Crab Tunnel
+%RoomEntry(Maridia, $07,  !Area_WestMaridia,  $20,  !CrabTunnel_Patch) ; Crab Tunnel
 %RoomEntry(Maridia, $08,  !Area_WestMaridia,  $20,  NoPatch) ; Everest
 %RoomEntry(Maridia, $09,  !Area_WestMaridia,  $20,  NoPatch) ; Lonely Fish
 %RoomEntry(Maridia, $0A,  !Area_WestMaridia,  $20,  NoPatch) ; Watering Hole
@@ -257,13 +298,13 @@ endif
 %RoomEntry(Maridia, $1E,  !Area_EastMaridia,  $00,  NoPatch) ; Right Sand Pit
 %RoomEntry(Maridia, $1F,  !Area_EastMaridia,  $00,  NoPatch) ; Aqueduct Quicksand Left
 %RoomEntry(Maridia, $20,  !Area_EastMaridia,  $00,  NoPatch) ; Aqueduct Quicksand Right
-%RoomEntry(Maridia, $21,  !Area_EastMaridia,  $00,  NoPatch) ; Aqueduct
+%RoomEntry(Maridia, $21,  !Area_EastMaridia,  $00,  !Aqueduct_Patch) ; Aqueduct
 %RoomEntry(Maridia, $22,  !Area_EastMaridia,  $20,  NoPatch) ; Butterfly
-%RoomEntry(Maridia, $23,  !Area_EastMaridia,  $00,  Room_PreBotwoon_Patch_01) ; Pre Botwoon
+%RoomEntry(Maridia, $23,  !Area_EastMaridia,  $00,  !BotwoonHallway_Patch) ; Pre Botwoon
 %RoomEntry(Maridia, $24,  !Area_EastMaridia,  $20,  !Pants_Room_Patch) ; Pants Room 1
 %RoomEntry(Maridia, $25,  !Area_EastMaridia,  $20,  !Pants_Room_Patch) ; Pants Room 2
 %RoomEntry(Maridia, $26,  !Area_EastMaridia,  $20,  NoPatch) ; Spring Ball
-%RoomEntry(Maridia, $27,  !Area_EastMaridia,  $00,  NoPatch) ; Aqueduct East Landing
+%RoomEntry(Maridia, $27,  !Area_EastMaridia,  $00,  !BelowBotwoonEnergyTank_Patch) ; Aqueduct East Landing
 %RoomEntry(Maridia, $28,  !Area_EastMaridia,  $00,  NoPatch) ; Coliseum
 %RoomEntry(Maridia, $29,  !Area_EastMaridia,  $00,  NoPatch) ; Aqueduct Save
 %RoomEntry(Maridia, $2A,  !Area_EastMaridia,  $00,  NoPatch) ; Precious
@@ -280,6 +321,11 @@ endif
 %RoomEntry(Maridia, $35,  !Area_EastMaridia,  $00,  NoPatch) ; Cactus Alley West
 %RoomEntry(Maridia, $36,  !Area_EastMaridia,  $00,  NoPatch) ; Cactus Alley East
 %RoomEntry(Maridia, $37,  !Area_EastMaridia,  $00,  NoPatch) ; Draygon
+%RoomEntry(Maridia, $38,  $14,                $00,  NoPatch) ; Kraid
+%RoomEntry(Maridia, $39,  $14,                $00,  NoPatch) ; Varia Suit
+%RoomEntry(Maridia, $3A,  $34,                $00,  NoPatch) ; Phantoon
+%RoomEntry(Maridia, $3B,  $24,                $00,  NoPatch) ; Ridley
+%RoomEntry(Maridia, $3C,  $24,                $00,  NoPatch) ; Ridley E-Tank
 
 ; Tourian
 ;          Area    index     sub_areas room_flags  room_patches

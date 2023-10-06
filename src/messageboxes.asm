@@ -66,3 +66,46 @@ MessageBoxTimer:
         +
         LDX.w #$000A
 RTS
+
+MessageBoxPostLagFrame:
+        JSR.w MessageBoxCloseHDMA
+        JSR.w MessageBoxWaitForLagFrame
+RTS
+
+MessageBoxHDMA:
+                LDA.b #$03 : STA.w $4300
+                LDA.b #$21 : STA.w $4301
+                REP #$20
+                LDA.w #HUDHDMAWRAM : STA.w $4302
+                SEP #$20
+                LDA.b #HUDHDMAWRAM>>16 : STA.w $4304
+                LDA.b #$41 : STA.w $420C ; What we wrote over
+RTS
+
+MessageBoxInitHDMA:
+                LDX.w #$2103 : STX.w $4300
+                LDX.w #HUDHDMAWRAM : STX.w $4302
+                LDA.b #HUDHDMAWRAM>>16 : STA.w $4304
+                LDA.b #$01 : STA.w $420C ; What we wrote over
+
+                REP #$20
+                LDA.w #$0BB1 : STA.l HUDHDMAWRAM+$4E ; Set message box vanilla palette colors
+                LDA.w #$001F : STA.l HUDHDMAWRAM+$53 ; Could also make affected tiles use palette 7?
+                SEP #$20
+
+RTS
+
+MessageBoxCloseHDMA:
+                LDA.b #$03 : STA.w $4300
+                LDA.b #$21 : STA.w $4301
+                LDX.w #HUDHDMAWRAM : STX.w $4302
+                LDA.b #HUDHDMAWRAM>>16 : STA.w $4304
+
+                LDA.l HDMAChannelsCached : ORA.b #$01
+                STA.w $420C ; What we wrote over
+
+                REP #$20
+                LDA.l PaletteBuffer+$32 : STA.l HUDHDMAWRAM+$4E
+                LDA.l PaletteBuffer+$34 : STA.l HUDHDMAWRAM+$53
+                SEP #$20
+RTS

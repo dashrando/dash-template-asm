@@ -1,8 +1,10 @@
 /src/debugmode.asm
-/build/dash_working.bps
-/build/dash_std.bps
+/src/test/classic/interface.js
+/build/dash_*.bps
+/build/interface.js
 **/*.swp
 **/*.sfc
 **/*.srm
 **/*.sym
 **/*.bp
+/run_*.bat

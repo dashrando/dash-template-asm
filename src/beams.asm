@@ -9,20 +9,21 @@ BeamDamagePointers:
 ; Vanilla
 dw vanilla_1x, vanilla_3x, vanilla_3x, vanilla_3x
 dw vanilla_3x, vanilla_3x, vanilla_3x, vanilla_3x
-; Starter Charge (Legacy)
+; Starter Charge + 1 Upgrade
 dw vanilla_1x, vanilla_1x, vanilla_3x, vanilla_3x
 dw vanilla_3x, vanilla_3x, vanilla_3x, vanilla_3x
 ; Progressive
 dw balance_1x, balance_1x, balance_2x, balance_3x
 dw balance_4x, balance_5x, balance_5x, balance_5x
-; Placeholder
-dw balance_1x, balance_2x, balance_3x, balance_3x
-dw balance_3x, balance_3x, balance_3x, balance_3x
+; Starter Charge + 2 Upgrades
+dw vanilla_1x, vanilla_1x, vanilla_2x, vanilla_3x
+dw vanilla_3x, vanilla_3x, vanilla_3x, vanilla_3x
 
 
 ; Beam damage tables
 BeamDamageTables:
 vanilla_1x: %beam_dmg( 20, 30, 40, 50, 60, 60, 70,100,150,200,250,300)
+vanilla_2x: %beam_dmg( 40, 60, 80,100,120,120,140,200,300,400,500,600)
 vanilla_3x: %beam_dmg( 60, 90,120,150,180,180,210,300,450,600,750,900)
 
 balance_1x: %beam_dmg( 20, 30, 40, 50, 50, 60, 80,100,100,100,100,100)

@@ -25,4 +25,3 @@
 !end = $f6fe, $99fe
 !blank = $1fc0
 !row = $0040
-

@@ -38,8 +38,8 @@ org $82EED9 : LDA.w #$001F ; Skip intro
 org $82ECBB
 JSR.w DrawFileSelectHash
 
-org $82EEEB
-JSR.w OnLoadGame
+org $82EDB1
+JSR.w OnStartGame : BRA + : NOP #7 : +
 
 ;------------------------------------------------------------------------------
 ; Decompression
@@ -181,6 +181,12 @@ LDA.w #$C062 : JSR.w CheckEquipmentBitmask
 org $82B542
 LDA.w #$C062 : JSR.w CheckEquipmentBitmask
 
+org $82AFD3
+JSR.w SetHUDFlagMenu
+org $82B0CD
+JSR.w SetHUDFlagMenu
+org $82B15B
+JSR.w SetHUDFlagMenu
 
 ;------------------------------------------------------------------------------
 ; Credits
@@ -256,6 +262,8 @@ JSL.l OnCompleteGoal
 ; Loading save after file selection, transition to game options screen.
 org $81A24A
 JSR.w LoadSaveExpanded : BRA FileSelect_Done
+org $81916C
+JSR.w LoadSaveExpanded : NOP
 
 org $818006
 JSL.l OnWriteSave : NOP
@@ -280,20 +288,18 @@ org $809AE0
 NOP #4
 
 ; Max ammo display
-org $809b0d
+org $809B0D
 dw InitHUDAmmoExpanded_missiles
-org $809b1b
+org $809B1B
 dw InitHUDAmmoExpanded_supers
-org $809b29
+org $809B29
 dw InitHUDAmmoExpanded_pbs
-org $809c00
+org $809C00
 JSR.w NewHUDAmmo
 
 ; Charge damage display
-org $809ab1
-JSR.w InitHUDCharge
-org $809bfb
-JSR.w NewHUDCharge
+org $809BFB
+JSR.w DrawNewHUD
 
 ; Max ammo tile changes
 org $858851
@@ -308,6 +314,61 @@ org $858A4F
 db $0F,$28,$0F,$28
 org $858a8f
 db $36,$30,$37,$30
+
+; Item counts
+org $848983
+JMP.w DecrementTankCount
+;org $8489A6
+;JMP.w DecrementTankCount
+org $8488F0
+JMP.w DecrementMajorCountHUDBeam
+org $84893E
+JMP.w DecrementMajorCountHUDBeam
+org $848965
+JMP.w DecrementMajorCountHUDBeam
+
+org $809AF3 : NOP #4 ; Skip mini map initialization
+org $90E734 : NOP #4 ; Skip mini map update
+org $90E801 : NOP #4
+org $90E873 : NOP #4
+org $90E8E5 : NOP #4
+org $90E8F8 : NOP #4
+org $A48A7F : NOP #4 ; Skip mini map boss rooms
+org $A586F7 : NOP #4
+org $A6A122 : NOP #4
+org $A7AA7C : NOP #4
+org $A7CE24 : NOP #4
+org $A98809 : NOP #4
+
+org $8583C1 : JSR.w MessageBoxHDMA
+org $85814D : JSR.w MessageBoxInitHDMA
+org $85865C : JSR.w MessageBoxCloseHDMA
+
+; HUD HDMA command pointer hooks
+org $828106
+JSL.l SetHDMAPointerLoad : NOP #2
+;org $82E309
+;JSL.l SetHDMAPointerDoorStart : NOP #2
+;org $82E729
+;JSL.l SetHDMAPointerDoorFadeIn : NOP #2
+;org $82E764
+;JSL.l SetHDMAPointerDoorEnd : NOP #2
+org $828CE7
+JSL.l SetHDMAPointerPause : NOP #2
+org $829343
+JSL.l SetHDMAPointerUnpause : NOP #2
+;org $9493B5
+;JSL.l SetHDMAPointerDoorFadeOut : NOP #2
+;org $82E367
+;JSL.l SetHDMAPointerDoorDark : NOP #2
+org $828500
+JSL.l SetHDMAPointerEnding : NOP #2
+
+org $8095DE
+JSR.w HUDHDMACommand
+
+org $91E601 ; Samus acquiring Hyper Beam
+JSL.l UpdateHUDHyperBeam : NOP #2
 
 ;------------------------------------------------------------------------------
 ; Message Boxes
@@ -348,8 +409,66 @@ JSR.w HandleRoomMusicPickup : NOP #4
 org $8488DE
 JSR.w HandleRoomMusicPickup : NOP #4
 
+;------------------------------------------------------------------------------
+; Setup DASH Logo
+;------------------------------------------------------------------------------
 org $8B9CAF
 JSL.l LoadTitleLogo
 
+;------------------------------------------------------------------------------
+; Disable Demo
+;------------------------------------------------------------------------------
+org $8B9F29
+LDA.w #1
 
+;------------------------------------------------------------------------------
+; Misc
+;------------------------------------------------------------------------------
+org $80AE29 : JSR.w FixDoorBG1Scroll
+
+org $89AC62 : LDA.w FxAreaIndex
+
+; PLM $D6DA - LN Chozo
+org $84D18F : JSR.w MaybeActivateLNChozo : BRA + : NOP : +
+
+;------------------------------------------------------------------------------
+; Ridley Fixes (assume always in Norfair)
+;------------------------------------------------------------------------------
+org $A6A15C : LDA.w #2
+org $A6A369 : LDY.w #2
+org $A6A424 : LDA.w #2
+org $A6A469 : LDA.w #2
+org $A6A478 : LDA.w #2
+org $A6D914 : LDA.w #2
+org $A6D93B : LDA.w #2
+org $A6DF8A : LDA.w #2
+org $A6E4D2 : LDA.w #2
+
+;------------------------------------------------------------------------------
+; Door Transitions
+;------------------------------------------------------------------------------
+org $9493A7
+JSR.w HandleEnterDoor : NOP
+org $9493EA
+JSR.w HandleEnterDoor : NOP
+
+org $8FE8BA
+JMP.w TeleportSamus
+
+org $82DE32
+JSR.w FixDoorBits
+
+;org $82DE0C
+;JSR.w FixTransitionFX
+
+;------------------------------------------------------------------------------
+; Flashing Doors
+;------------------------------------------------------------------------------
+org $84BE43
+LDA.w CustomGreyDoorList,y
+
+org $82EB7F
+JSL PreProcessRoomPLM
+org $82E8C9
+JSL PreProcessRoomPLM
 pullpc

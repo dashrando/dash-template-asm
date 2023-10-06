@@ -3,7 +3,7 @@ OnCompleteGoal:
         LDA.l NMIFrames : SEC : SBC.w #$013D : STA.l NMIFrames ; Down press to this code running
         LDA.l NMIFrames+$02 : SBC.w #$0000 : STA.l NMIFrames+$02
         LDA.l CurrentSaveSlotSRAM : DEC
-        JSL.l WriteStats
+        JSL.l WriteExtendedSave
         PHK : PLB
 
         ; Calculate RTA seconds now for post-credits big samus tile upload

@@ -211,9 +211,11 @@ CollectEquipment:
                 LDA.w #$0168
                 JSL.l PlayRoomMusic
         +
+        JSR.w DecrementMajorCount
         JSL.l SetRoomFlags
         LDA.w $0002,Y : AND.w #$00FF : TAX
         JSL.l ShowMessage
+        INC.w HUDDrawFlag
         INY #3
 RTS
 
@@ -221,6 +223,7 @@ VanillaEquipmentPickup:
         PHA : PHX
         STA.w VanillaItemsEquipped ; What we wrote over
         EOR.w #$FFFF : AND.w DashItemsEquipped : STA.w DashItemsEquipped ; Unequip overlapping DASH items
+        JSR.w DecrementMajorCount
         JSL.l SetRoomFlags
         PLX : PLA
 RTS
@@ -237,8 +240,10 @@ CollectBeam:
                 LDA.w #$0168
                 JSL.l PlayRoomMusic
         +
+        JSR.w DecrementMajorCount
         LDA.w $0002,Y : AND.w #$00FF : TAX
         JSL.l ShowMessage
+        INC.w HUDDrawFlag
         INY #3
 RTS
 
@@ -268,6 +273,56 @@ MaybeEquipSpazer:
         BEQ +
                 LSR : TRB.w BeamsEquipped
         +
+RTS
+
+DecrementMajorCount:
+        LDA.w SubAreaIndex : ASL : TAX
+        LDA.l MajorCounters,X : DEC : STA.l MajorCounters,X
+        INC.w HUDDrawFlag
+RTS
+
+DecrementMajorCountHUDBeam:
+        PHX
+        LDA.w SubAreaIndex : ASL : TAX
+        LDA.l MajorCounters,X : DEC : STA.l MajorCounters,X
+        INC.w HUDDrawFlag
+        INY #2
+        PLX
+RTS
+
+DecrementTankCount:
+        PHX
+        LDA.w SubAreaIndex : ASL : TAX
+        LDA.l TankCounters,X : DEC : STA.l TankCounters,X
+        INC.w HUDDrawFlag
+        INY #2
+        PLX
+RTS
+
+FlashingDoor:
+        PHY : PHX
+        JMP $BE0B
+CustomGreyDoorList:
+        %CopyBytes($84BE4B,14)
+        dw FlashingDoor
+
+PreProcessRoomPLM:
+        CMP.w #2        ; skip?
+        BEQ .done
+        CMP.w #1        ; jump?
+        BEQ .jump
+        JML $84846A
+        .jump:
+        LDA.w $0004,X
+        SEC : SBC.w #6
+        TAX
+        .done:
+RTL
+
+MaybeActivateLNChozo:
+        LDA.l LNChozoTrigger : BNE .done
+                LDA.w VanillaItemsCollected : AND.w #$0200
+        .done
 RTS
 
 pushpc

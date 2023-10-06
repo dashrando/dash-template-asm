@@ -11,13 +11,15 @@ db $00, $01, $02, $03
 
 org $DF8004 ; 0x2F8004
 ChargeMode:
-if !STD == 1
-    db $01  ; 0 = vanilla, 1 = starter, 2 = balance
-    db $00  ; 0 = no hud, 1 = charge damage on HUD
-else
-    db $02  ; 0 = vanilla, 1 = starter, 2 = balance
-    db $01  ; 0 = no hud, 1 = charge damage on HUD
-endif
+db $01 ; 0 = vanilla, 1 = starter, 2 = balance
+
+org $DF8005 ; 0x2F8005
+HUDBitField:
+db #%00001101  ; HUD Bits:
+               ; 0 = charge damage
+               ; 1 = item counts
+               ; 2 = subarea
+               ; 3 = dash items
 
 org $DF8006 ; 0x2F8006
 SpaceJumpPhysics:
@@ -52,20 +54,20 @@ dw $0000 ; 0x2F8035  Charge Upgrade 5
 dw $DEAD
 
 org $DF8039  ; Item counts for each area
-AreaCounts:
-dw $0000 ; 0x2F8039  Crateria / Blue Brinstar
-dw $0000 ; 0x2F803B  Pink & Green Brinstar
-dw $0000 ; 0x2F803D  Upper Norfair
-dw $0000 ; 0x2F803F  Wrecked Ship
-dw $0000 ; 0x2F8041  East Maridia
+AreaItemCounts: ; High byte = tanks | Low byte = majors
+dw $0302 ; 0x2F8039  Crateria / Blue Brinstar
+dw $0401 ; 0x2F803B  Pink & Green Brinstar
+dw $0204 ; 0x2F803D  Upper Norfair
+dw $0201 ; 0x2F803F  Wrecked Ship
+dw $0203 ; 0x2F8041  East Maridia
 dw $0000 ; 0x2F8043  Tourian
 dw $0000 ; 0x2F8045  Ceres
 dw $0000 ; 0x2F8047  Debug
-dw $0000 ; 0x2F8049  Red Brinstar
-dw $0000 ; 0x2F804B  Kraid
-dw $0000 ; 0x2F804D  West Maridia
-dw $0000 ; 0x2F804F  Lower Norfair
-dw $0000 ; 0x2F8051  Crocomire
+dw $0002 ; 0x2F8049  Red Brinstar
+dw $0101 ; 0x2F804B  Kraid
+dw $0100 ; 0x2F804D  West Maridia
+dw $0201 ; 0x2F804F  Lower Norfair
+dw $0101 ; 0x2F8051  Crocomire
 
 org $DF8B00  ; 0x2F8B00
 SeedFlags:   ; Reserve 96-bits (12 bytes) for the website 
@@ -78,3 +80,20 @@ NoFanfare:  ; $00 = Fanfare | $01 = No fanfare
 dw $0000
 
 org $DF8B0E ; 0x2F8B0E
+HeatDamageTable: ; $4000 - full heat damage
+.suitless: dw $4000
+.gravity: dw $3000
+.heatshield_un: dw $0000
+.heatshield_ln: dw $2000
+.varia: dw $0000
+
+org $DF8B18 ; 0x2F8B18
+BossTable: ; Values and indexes are both according to vanilla boss order KPDR.
+dw $0000   ;
+dw $0001   ;
+dw $0002   ;
+dw $0003   ;
+
+org $DF8B20 ; 0x2F8B20
+LNChozoTrigger:
+dw $0001  ; $00 - require space jump | $01 - require nothing

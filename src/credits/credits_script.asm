@@ -111,7 +111,8 @@ CreditsScript:
     %row2(224,225) ; papaschmo
     %row2(226,227) ; tgderp
     %row2(230,231) ; kupppo
-    %row2(160,161) ; rumbleminze
+    ;%row2(160,161) ; rumbleminze
+    %blank_row() : %blank_row()
 
     %blank_row() : %blank_row()
     %row1(140)     ; --- additional programming ---

@@ -40,7 +40,9 @@ CheckWaterPhysics:
         +
         PHB : PHK : PLB
         LDA.w AreaIndex : ASL : TAX
-        JSR.w (AquaHandlers,X)
+        LDA.w AquaHandlers,X
+        ADC.w RoomIndex : TAX
+        LDA.l $DF0000,X : AND #$0020
         PLB          ; Restore original bank before making physics bit test
         BIT.w #$0020
 RTS
@@ -98,32 +100,10 @@ RTS
 ;------------------------------------------------------------------------------
 
 AquaHandlers:
-dw .crateria
-dw .onlywater
-dw .norfair
-dw .onlywater
-dw .maridia
-dw .nowater
-
-.crateria
-        LDA.w RoomIndex : TAX
-        LDA.l CrateriaRooms_room_flags,X
-        AND.w #$0020
-RTS
-.maridia:
-        LDA.w RoomIndex : TAX
-        LDA.l MaridiaRooms_room_flags,X
-        AND.w #$0020
-RTS
-.norfair:
-        LDA.w RoomIndex : TAX
-        LDA.l NorfairRooms_room_flags,X
-        AND.w #$0020
-RTS
-.onlywater:
-        LDA.w #$0020
-RTS
-.nowater:
-        LDA.w #$0000
-RTS
+dw CrateriaRooms_room_flags
+dw BrinstarRooms_room_flags
+dw NorfairRooms_room_flags
+dw WreckedShipRooms_room_flags
+dw MaridiaRooms_room_flags
+dw TourianRooms_room_flags
 

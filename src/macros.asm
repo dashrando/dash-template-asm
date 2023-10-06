@@ -67,6 +67,36 @@ macro DefineCustomDigits(palette,colorSwap)
         endif
 endmacro
 
+macro CopyBytes(start,length)
+        !pos = 0
+        while !pos < <length>
+                db read1(<start>+!pos)
+                !pos #= !pos+1
+        endif
+endmacro
+
+macro CopyRange(start,end)
+        !pos = <start>
+        while !pos < <end>
+                db read1(!pos)
+                !pos #= !pos+1
+        endif
+endmacro
+
+macro UpdateItem(label)
+      pushpc
+      org <label> : skip 33
+      dw <label>_item_plm
+      pullpc
+endmacro
+
+macro UpdateRoom(label,roomIndex,areaIndex)
+      pushpc
+      org <label> : db <roomIndex>,<areaIndex>
+      skip 7 : dw <label>_doors
+      pullpc
+endmacro
+
 ; Macro for defining a beam damage table.
 macro beam_dmg(n,i,s,w,is,iw,ws,iws,p,ip,wp,iwp)
    dw <n>   ; None (aka Power)

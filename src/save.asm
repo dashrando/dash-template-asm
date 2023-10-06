@@ -9,23 +9,26 @@
 LoadSaveExpanded:
 ; In: A - Save index
         TAX
-        LDA.l ColdBootFlag : BNE .loadstats
+        LDA.l ColdBootFlag : BNE .loadext
         TXA : INC : CMP.l CurrentSaveSlotSRAM : BEQ +
-                .loadstats
+                .loadext
                 TXA : INC : STA.l CurrentSaveSlotSRAM
                 DEC
-                JSL.l LoadStats
-                PHK : PLB
+                JSL.l LoadExtendedStats
         +
-        JSR.w SetBootTest
-        
+        LDA.l CurrentSaveSlotSRAM : DEC
+        JSR.w LoadExtendedData
+        PHK : PLB
         LDA.w FileSelectCursor
         JSL.l LoadSave : BCS .newfile  ; What we wrote over
-                JSL.l LoadMapMirror
+                JSR.w SetBootTest
+                JSR.w InitHUDHDMATables
                 RTS
         .newfile
         JSR.w NewSaveFile
         JSR.w ClearExtendedBuffers ; We've read from uninitialized SRAM
+        JSR.w InitHUDHDMATables
+        JSR.w SetBootTest
         STZ.w AreaMapFlag
 RTS
 
@@ -38,7 +41,8 @@ SetBootTest:
 RTS
 
 OnWriteSave:
-        JSL.l WriteStats
+        JSR.w UpdateSaveSlot
+        JSL.l WriteExtendedSave
         INC : STA.l CurrentSaveSlotSRAM : DEC
         PEA.w $7E00 : PLB : PLB ; What we wrote over
 RTL
@@ -52,17 +56,15 @@ ClearExtendedBuffers:
         STZ.w $09FC : STZ.w $09FE
         STZ.w $0A00
         
-        PEA.w StatsBlock>>8 : PLB : PLB
-        LDX.w #$003E
+        PEA.w ExtendedSaveWRAM>>8 : PLB : PLB
+        LDX.w #$00FE
         -
-                STZ.w $FB00,X ; Stats block
-                STZ.w $FB40,X
-                STZ.w $FB80,X
-                STZ.w $FBC0,X
+                STZ.w $FA00,X
+                STZ.w $FB00,X
                 STZ.w $FC00,X
-                STZ.w $FC40,X
-                STZ.w $FC80,X
-                STZ.w $FCC0,X
+                STZ.w $FD00,X
+                STZ.w $FE00,X
+                STZ.w $FF00,X
                 DEX #2
         BPL -
         PHK : PLB
@@ -76,9 +78,9 @@ ClearExtendedSRAM:
         +
         TXA
         ASL : TAX
-        LDA.w StatsSRAMOffsets,X : TAX
+        LDA.w ExtendedSRAMOffsets,X : TAX
         PEA $7000 : PLB : PLB
-        LDY.w #$04FE ; $500 bytes allocated per slot
+        LDY.w #$0FFE ; $1000 bytes allocated per slot
         -
                 STZ.w $0000,X
                 INX #2
@@ -92,10 +94,10 @@ RTS
 CopyExtendedBuffers:
         PHX : PHY
         LDA.w CopyClearSource : ASL : TAX
-        LDA.w StatsSRAMOffsets,X : STA.b $00
+        LDA.w ExtendedSRAMOffsets,X : STA.b $00
         LDA.w CopyDestination : ASL : TAX
-        LDA.w StatsSRAMOffsets,X : STA.b $03
-        LDY.w #$0000 : LDX.w #$04FE ; $500 bytes allocated per slot
+        LDA.w ExtendedSRAMOffsets,X : STA.b $03
+        LDY.w #$0000 : LDX.w #$0FFE ; $1000 bytes allocated per slot
         -
                 LDA.b [$00],Y : STA.b [$03],Y
                 INY #2
@@ -105,15 +107,32 @@ CopyExtendedBuffers:
         JSR.w LoadMenuTileMap ; What we wrote over
 RTS
 
-WriteStats:
+WriteExtendedSave:
 ; In: A - Save index
         PHA
         ASL : TAX
         PHK : PLB
-        LDA.w StatsSRAMOffsets,X : STA.b $00
+        LDA.w ExtendedSRAMOffsets,X : STA.b $00
         LDA.w #$0070 : STA.b $02
-        LDY.w #$0000 ; Stats block $100 bytes
-        LDX.w #$00FE
+        LDY.w #$0000
+        LDX.w #$05EE
+        PEA.w ExtendedSaveWRAM>>8 : PLB : PLB
+        -
+                 LDA.w ExtendedSaveWRAM,Y : STA.b [$00],Y
+                 INY #2
+                 DEX #2
+        BPL -
+        PLA
+RTL
+
+WriteExtendedStats:
+; In: A - Save index
+        PHA
+        ASL : TAX
+        LDA.l StatsSRAMOffsets,X : STA.b $00
+        LDA.w #$0070 : STA.b $02
+        LDY.w #$0000
+        LDX.w #$01FE
         PEA.w StatsBlock>>8 : PLB : PLB
         -
                  LDA.w StatsBlock,Y : STA.b [$00],Y
@@ -123,14 +142,27 @@ WriteStats:
         PLA
 RTL
 
-LoadStats:
-        PHA
+LoadExtendedData:
         ASL : TAX
-        PHK : PLB
-        LDA.w StatsSRAMOffsets,X : STA.b $00
+        LDA.l DataSRAMOffsets,X : STA.b $00
         LDA.w #$0070 : STA.b $02
         LDY.w #$0000
-        LDX.w #$00FE
+        LDX.w #$02EE ; Size of data block in bank $7F
+        PEA.w DataBlock>>8 : PLB : PLB
+        -
+                 LDA.b [$00],Y : STA.w DataBlock,Y
+                 INY #2
+                 DEX #2
+        BPL -
+RTS
+
+LoadExtendedStats:
+        PHA
+        ASL : TAX
+        LDA.l StatsSRAMOffsets,X : STA.b $00
+        LDA.w #$0070 : STA.b $02
+        LDY.w #$0000
+        LDX.w #$01FE ; Size of stats block in bank $7F
         PEA.w StatsBlock>>8 : PLB : PLB
         -
                  LDA.b [$00],Y : STA.w StatsBlock,Y
@@ -140,7 +172,64 @@ LoadStats:
         PLA
 RTL
 
+InitHUDHDMATables:
+        LDX.w #$0054
+        -
+                LDA.l HUDHDMAOne,X : STA.l HUDHDMAWRAM,X
+                DEX #2
+        BPL -
+RTS
+
+ExtendedSRAMOffsets:
+dw SlotOneExtendedSRAM
+dw SlotTwoExtendedSRAM
+dw SlotThreeExtendedSRAM
+
 StatsSRAMOffsets:
 dw SlotOneStatsSRAM
 dw SlotTwoStatsSRAM
 dw SlotThreeStatsSRAM
+
+DataSRAMOffsets:
+dw SlotOneDataSRAM
+dw SlotTwoDataSRAM
+dw SlotThreeDataSRAM
+
+UpdateSaveSlot:
+        PHX : PHA
+
+        ; Load the bitmask for the seleted slot
+        ASL : TAX : LDA.l GenericBitmasks,X
+
+        ; Selected slot unused? Use it
+        BIT.w SaveSlotPresence : BEQ .done
+
+        ; Move to the next slot
+        AND.w #$0003
+        STA $01,S
+
+        ; Update non-slot SRAM
+        STA.w SaveSlotSelected
+        STA.l $701FEC
+        EOR.w #$FFFF
+        STA.l $701FEE
+        
+        ; Load the bitmask for the new slot
+        LDA $01,S
+        ASL : TAX : LDA.l GenericBitmasks,X
+
+        .done:
+        ; Note save slot has been used
+        ORA.w SaveSlotPresence : STA.w SaveSlotPresence
+        PLA : PLX
+RTS
+
+;------------------------------------------------------------------------------
+; New Save Stations
+;------------------------------------------------------------------------------
+
+pushpc
+org $80C917 : skip 14*4                         ; Maridia Save Stations
+dw $D1A3,$A468,$0000,$0000,$0200,$0078,$0060    ; slot #4
+dw $CFC9,$A3D8,$0000,$0100,$0500,$0078,$0010    ; slot #5
+pullpc
