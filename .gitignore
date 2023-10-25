@@ -2,6 +2,7 @@
 /src/test/classic/interface.js
 /build/dash_*.bps
 /build/interface.js
+/build/interface.ts
 **/*.swp
 **/*.sfc
 **/*.srm
