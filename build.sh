@@ -20,6 +20,13 @@ esac
 
 debug=""
 vanilla=./build/SuperMetroid.sfc
+if [ ! -f $vanilla ]; then
+    vanilla=./build/supermetroid.sfc
+fi
+if [ ! -f $vanilla ]; then
+    echo "Could not find SuperMetroid.sfc or supermetroid.sfc"
+    exit 1
+fi
 
 while getopts ":d" opt; do
     case $opt in
