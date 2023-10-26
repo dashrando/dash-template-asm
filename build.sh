@@ -1,14 +1,20 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 case "$(uname -s)" in
     Linux*)
         asar=./bin/linux/asar
         flips=./bin/linux/flips-linux
     ;;
-    #Darwin*)    machine=Mac;;
-    MSYS_NT*) ;&
-    MINGW*) ;&
-    CYGWIN*)
+    Darwin*)
+        arch="$(uname -m)"
+        asar=./bin/macos/asar
+        if [ "$arch" == "arm64" ]; then
+            flips=./bin/macos/flips-aarch64
+        else
+            flips=./bin/macos/flips-x64
+        fi
+    ;;
+    MSYS_NT*|MINGW*|CYGWIN*)
         asar=./bin/windows/asar.exe
         flips=./bin/windows/flips.exe
     ;;

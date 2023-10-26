@@ -1,7 +1,7 @@
 # Overview
 
-This is the base rom source code for the [DASH Randomizer](https://dashrando.github.io/) which
-is used to build base rom patches for the higher-level randomizer ([source](https://github.com/dashrando/dashrando.github.io/tree/development))
+This is the base rom source code for the [DASH Randomizer](https://www.dashrando.net/) which
+is used to build base rom patches for the higher-level randomizer ([source](https://github.com/dashrando/dash-randomizer/))
 All SNES code for the randomizer goes here and the randomizer makes data writes.
 
 # Building
@@ -10,11 +10,15 @@ Building requires putting your dump of the Super Metroid ROM in the `build/` dir
 ROM should be named `supermetroid.sfc`. The build scripts will produce a Recall and a Standard base
 rom (.sfc) and patch (.bps).
 
-**Linux**: Run build.sh in a bash shell
+**Linux** and **Mac**:
+```sh
+./build.sh
+```
 
-**Windows**: Run build.bat
-
-**Mac**: Currently no build script for MacOS, but an asar binary is included in the `bin/` directory.
+**Windows**:
+```sh
+build.bat
+```
 
 # Acknowledgements
 
