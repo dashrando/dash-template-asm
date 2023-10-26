@@ -10,7 +10,7 @@ Building requires putting your dump of the Super Metroid ROM in the `build/` dir
 ROM should be named `supermetroid.sfc`. The build scripts will produce a Recall and a Standard base
 rom (.sfc) and patch (.bps).
 
-**Linux**:
+**Linux** and **Mac**:
 ```sh
 ./build.sh
 ```
@@ -18,11 +18,6 @@ rom (.sfc) and patch (.bps).
 **Windows**:
 ```sh
 build.bat
-```
-
-**Mac**:
-```sh
-./build-macos.sh
 ```
 
 # Acknowledgements
