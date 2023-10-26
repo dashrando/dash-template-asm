@@ -14,9 +14,7 @@ case "$(uname -s)" in
             flips=./bin/macos/flips-x64
         fi
     ;;
-    MSYS_NT*) ;&
-    MINGW*) ;&
-    CYGWIN*)
+    MSYS_NT*|MINGW*|CYGWIN*)
         asar=./bin/windows/asar.exe
         flips=./bin/windows/flips.exe
     ;;
