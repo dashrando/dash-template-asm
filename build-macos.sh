@@ -4,9 +4,9 @@ bin=./bin/macos
 arc="$(uname -m)"
 flips=""
 if [ "$arc" == "arm64" ]; then
-    flips=flips-m1
+    flips=flips-aaarch64
 else
-    flips=flips-intel
+    flips=flips-x86
 fi
 debug=""
 
