@@ -1,7 +1,32 @@
 #!/usr/bin/bash
 
-bin=./bin/linux
+case "$(uname -s)" in
+    Linux*)
+        asar=./bin/linux/asar
+        flips=./bin/linux/flips-linux
+    ;;
+    #Darwin*)    machine=Mac;;
+    MSYS_NT*) ;&
+    MINGW*) ;&
+    CYGWIN*)
+        asar=./bin/windows/asar.exe
+        flips=./bin/windows/flips.exe
+    ;;
+    *)
+        echo "Unknown OS"
+        exit 1
+    ;;
+esac
+
 debug=""
+vanilla=./build/SuperMetroid.sfc
+if [ ! -f $vanilla ]; then
+    vanilla=./build/supermetroid.sfc
+fi
+if [ ! -f $vanilla ]; then
+    echo "Could not find SuperMetroid.sfc or supermetroid.sfc"
+    exit 1
+fi
 
 while getopts ":d" opt; do
     case $opt in
@@ -11,30 +36,43 @@ while getopts ":d" opt; do
     esac
 done
 
-root=build/dash_standard
-rm -f $root.sfc $root.bps
-cp build/supermetroid.sfc $root.sfc
+function build {
+    root=build/$1
+    opts=$2
 
-$bin/asar --symbols=wla $debug src/main.asm $root.sfc
-$bin/flips-linux -c --bps build/supermetroid.sfc $root.sfc $root.bps
+    rm -f $root.cpu.sym $root.smp.sym $root.sym $root.srm
+    rm -f $root.sfc $root.bps
+    cp $vanilla $root.sfc
 
-root=build/dash_standard_area
-rm -f $root.sfc $root.bps
-cp build/supermetroid.sfc $root.sfc
+    $asar --symbols=wla $opts $debug src/main.asm $root.sfc
+    $flips -c --bps $vanilla $root.sfc $root.bps
 
-$bin/asar --symbols=wla -DAREA=1 $debug src/main.asm $root.sfc
-$bin/flips-linux -c --bps build/supermetroid.sfc $root.sfc $root.bps
+    # Generate the JS interface file
+    root=build/interface_$1
+    rm -f $root.sfc $root.js
+    cp $vanilla $root.sfc
+    $asar -DINTERFACE=1 $opts src/main.asm $root.sfc > $root.js
+    rm -f $root.sfc
 
-root=build/dash_recall
-rm -f $root.sfc $root.bps
-cp build/supermetroid.sfc $root.sfc
+    # Verify all configurations build the same interface file
+    if [ -f build/interface.js ]; then
+        diff -q ${root}.js build/interface.js > /dev/null
+        if [ $? -ne 0 ]; then
+            echo "ERROR! interface.js and ${root}.js do not match"
+            exit 1
+        else
+            rm -f $root.js
+        fi
+    else
+        mv $root.js build/interface.js
+    fi
+}
 
-$bin/asar --symbols=wla -DRECALL=1 $debug src/main.asm $root.sfc
-$bin/flips-linux -c --bps build/supermetroid.sfc $root.sfc $root.bps
+rm -f build/interface.js build/interface.ts
 
-root=build/dash_recall_area
-rm -f $root.sfc $root.bps
-cp build/supermetroid.sfc $root.sfc
+build dash_standard
+build dash_standard_area "-DAREA=1"
+build dash_recall "-DRECALL=1"
+build dash_recall_area "-DRECALL=1 -DAREA=1"
 
-$bin/asar --symbols=wla -DRECALL=1 -DAREA=1 $debug src/main.asm $root.sfc
-$bin/flips-linux -c --bps build/supermetroid.sfc $root.sfc $root.bps
+cp build/interface.js build/interface.ts
