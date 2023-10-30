@@ -124,7 +124,6 @@ SlotThreeStatsSRAM: skip $200        ; Stat block.
 SlotThreeDataSRAM: skip $E00         ; Data block.
                                      ;
 CurrentSaveSlotSRAM: skip 2          ; Same index as the game uses + 1. No previous game if zero.
-print pc
 
 base off
 pullpc
