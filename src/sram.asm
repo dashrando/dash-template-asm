@@ -84,6 +84,7 @@ MissilesFired: skip 2                ;
 SupersFired: skip 2                  ;
 PowerBombsLaid: skip 2               ;
 BombsLaid: skip 2                    ;
+GoalComplete: skip 2                 ; Set when goal complete (ie, pressing down on the ship.)
 warnpc StatsBlock+$1FF
 
 ;------------------------------------------------------------------------------
@@ -94,7 +95,6 @@ DataBlock:
 MajorCounters: skip 26               ; Area item counters indexed by sub-area. Initialized on new
                                      ; game and decremented on item pickup.
 TankCounters: skip 26                ;
-GoalComplete: skip 2                 ; Set when goal complete (ie, pressing down on the ship.)
 FreshFileMarker: skip 2              ; - - - - - - i g
                                      ; i = initialized game state | g = pressed "START GAME" on game options
 warnpc $7FFF00
