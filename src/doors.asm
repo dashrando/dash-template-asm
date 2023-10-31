@@ -21,6 +21,18 @@ SandFallsCustomDoorList:
 dw $A7D4    ; Door Vector to Aqueduct ($D5A7)
 dw $A534    ; Door Vector to West Sand Hall ($D461)
 
+FixRidleyQuake:
+; Sets the quake timer to disable quake sound. Vanilla handles the case where Ridley
+; is in Norfair.
+        LDA.w RoomPointer
+        CMP.w #RoomHeaderRidleyInBrinstar : BEQ .quake
+        CMP.w #RoomHeaderRidleyInWreckedShip : BEQ .quake
+        CMP.w #RoomHeaderRidleyInMaridia : BEQ .quake
+                RTL
+        .quake
+        LDX.w #$FFFF : STX.w QuakeSoundTimer
+RTL
+
 pushpc
 ;------------------------------------------------------------------------------
 ; Door ASM Pointers
