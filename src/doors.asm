@@ -24,6 +24,7 @@ dw $A534    ; Door Vector to West Sand Hall ($D461)
 FixRidleyQuake:
 ; Sets the quake timer to disable quake sound. Vanilla handles the case where Ridley
 ; is in Norfair.
+        STZ.w QuakeSoundIndex : STZ.w QuakeSoundTimer ; What we wrote over
         LDA.w RoomPointer
         CMP.w #RoomHeaderRidleyInBrinstar : BEQ .quake
         CMP.w #RoomHeaderRidleyInWreckedShip : BEQ .quake

@@ -44,6 +44,7 @@ PowerBombStatus = $7E0592            ; $4000 = pending | $8000 = exploding/cf
 NMIRequestFlag = $7E05B4             ;
 NMICounter = $7E05B8                 ;
 DoorTransitionVRAMFlag = $7E05BC     ;
+QuakeSoundIndex = $7E0607            ;
 QuakeSoundTimer = $7E0609            ;
 MusicQueue = $7E0619                 ; Word-length music queue entries. $0F bytes
 MusicQueueTimers = $7E0629           ; Word-length queue timers. $0F bytes
