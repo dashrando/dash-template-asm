@@ -335,4 +335,15 @@ dw $2C0F, $3462, $2863 ; Double Jump
 pushpc
 org $80988B
 incsrc data/hudtoprow.asm
+
+org $90AA92         ; Reclaimed segment of mini map draw code
+MaybeMarkTileAbove: ; Needed to mark fractional diagonal tiles as visited.
+        INY #4
+        LDA.b [$03], Y : AND.w #$00FF : CMP.w #$0028 : BNE +
+                JSR.w MarkTileAboveSamus
+        +
+        PLP
+RTL
+warnpc $90AB5F
+
 pullpc

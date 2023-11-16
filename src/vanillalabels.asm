@@ -55,6 +55,7 @@ ClearBGObjects = $8B95CE ; long
 AnimateSamusLavaAcid = $90824C
 MakeSamusJump = $9098BC ; long
 SpaceJumpEligible = $90A488
+MarkTileAboveSamus = $90AB5F
 HudSelectionHandler = $90B80D
 HudSelectionHandler_charge = $90B82D
 FireBeam = $90B887

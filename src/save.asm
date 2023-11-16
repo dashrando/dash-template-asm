@@ -23,6 +23,7 @@ LoadSaveExpanded:
         JSL.l LoadSave : BCS .newfile  ; What we wrote over
                 JSR.w SetBootTest
                 JSR.w InitHUDHDMATables
+                JSL.l LoadMapMirror
                 RTS
         .newfile
         JSR.w NewSaveFile
