@@ -256,7 +256,13 @@ org $8095DE : JSR.w HUDHDMACommand
 
 org $91E601 : JSL.l UpdateHUDHyperBeam : NOP #2
 
-org $90A7EE : BRA $90A80A ; Skip mini map tile update in boss rooms
+org $A48A7F : NOP #4 ; Skip map auto update for boss rooms
+org $A586F7 : NOP #4
+org $A6A122 : NOP #4
+org $A7AA7C : NOP #4
+org $A7CE24 : NOP #4
+org $A98809 : NOP #4
+org $90A7EE : BRA + : skip $1A : + ; Skip boss tilemap update
 ;------------------------------------------------------------------------------
 ; Message Boxes
 ;------------------------------------------------------------------------------
