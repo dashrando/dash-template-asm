@@ -349,4 +349,40 @@ dw DoorFromDraygonInNorfair,DoorVectorToPreRidley,$0001,$002E,$0098
 ; End
 dw $0000
 
+; Area transition door property bits
+if !AREA == 1
+    org DoorVectorToRetroPBs+$02 : db $40
+    org DoorVectorToGreenHills+$02 : db $40
+    org DoorVectorToMoat+$02 : db $40
+    org DoorVectorToOcean+$02 : db $40
+    org DoorVectorToG4+$02 : db $40
+    org DoorVectorToTourian+$02 : db $40
+    org DoorVectorToKago+$02 : db $40
+    org DoorVectorToGreenElevator+$02 : db $40
+    org DoorVectorToCrabs+$02 : db $40
+    org DoorVectorToRedElevator+$02 : db $40
+    org DoorVectorToHighwayExit+$02 : db $40
+    org DoorVectorToHighway+$02 : db $40
+    org DoorVectorToNoobBridge+$02 : db $40
+    org DoorVectorToRedTower+$02 : db $40
+    org DoorVectorToMaridiaEscape+$02 : db $40
+    org DoorVectorToRedFish+$02 : db $40
+    org DoorVectorToMaridiaTube+$02 : db $40
+    org DoorVectorToMainStreet+$02 : db $40
+    org DoorVectorToKraidEntry+$02 : db $40
+    org DoorVectorToElevatorEntry+$02 : db $40
+    org DoorVectorToAboveKraid+$02 : db $40
+    org DoorVectorToMaridiaMap+$02 : db $40
+    org DoorVectorToKraidMouth+$02 : db $40
+    org DoorVectorToKraidsLair+$02 : db $40
+    org DoorVectorToCrocEntry+$02 : db $40
+    org DoorVectorToCroc+$02 : db $40
+    org DoorVectorToSingleChamber+$02 : db $40
+    org DoorVectorToMuskateers+$02 : db $40
+    org DoorVectorToLavaDive+$02 : db $40
+    org DoorVectorToRidleyMouth+$02 : db $40
+    org DoorVectorToPreAqueduct+$02 : db $40
+    org DoorVectorToAqueduct+$02 : db $40
+endif
+
 pullpc
