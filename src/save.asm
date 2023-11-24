@@ -232,5 +232,6 @@ RTS
 pushpc
 org $80C917 : skip 14*4                         ; Maridia Save Stations
 dw $D1A3,$A468,$0000,$0000,$0200,$0078,$0060    ; slot #4
-dw $CFC9,$A3D8,$0000,$0100,$0500,$0078,$0010    ; slot #5
+dw $CFC9,$A3D8,$0000,$0100,$0500,$0078,$0010    ; slot #5 main street
+dw $D104,$A42C,$0000,$0200,$0000,$0078,$0050    ; slot #6 red fish
 pullpc

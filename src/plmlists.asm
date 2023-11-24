@@ -176,6 +176,7 @@ dw $0001,$0000,PLMList1PreAqueduct
 
 CustomPLMs_RedFish:
 dw $C848 : db $01,$06 : dw $9CB4  ; flashing door cap
+dw $B76F : db $8C,$07 : dw $0006  ; save station
 dw $0001,$0000,PLMList1RedFish
 
 CustomPLMs_MaridiaMap:
