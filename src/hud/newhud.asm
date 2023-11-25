@@ -65,38 +65,45 @@ RTS
         JSR.w MissilesHundredsDigit
         JSR.w DivideByFive
         ASL #2 : TAX
-        LDA.w #$1000 : STA.b $18
-        LDA.w HUDItemIndex : CMP.w #$0001 : BEQ +
-                LDA.b $18 : ORA.w #$0400 : STA.b $18
-        +
-        LDA.b $0E : ORA.b $18 : STA.l $7EC61C
-        LDA.w MaxAmmoDigits,X : ORA.b $18 : STA.l $7EC61E
+        LDA.w HUDItemIndex : CMP.w #$0001 : BEQ ..green
+                LDA.b $0E : STA.l $7EC61C
+                LDA.w MaxAmmoDigits,X : STA.l $7EC61E
+                INX #2
+                LDA.w MaxAmmoDigits,X : STA.l $7EC620
+                RTS
+        ..green
+        LDA.b $0E : SBC.w #$0400 : STA.l $7EC61C
+        LDA.w MaxAmmoDigits,X : SBC.w #$0400 : STA.l $7EC61E
         INX #2
-        LDA.w MaxAmmoDigits,X : ORA.b $18 : STA.l $7EC620
+        LDA.w MaxAmmoDigits,X : SBC.w #$0400 : STA.l $7EC620
 RTS
 
 .supers
         JSR.w DivideByFive
         ASL #2 : TAX
-        LDA.w #$1000 : STA.b $18
-        LDA.w HUDItemIndex : CMP.w #$0002 : BEQ +
-                LDA.b $18 : ORA.w #$0400 : STA.b $18
-        +
-        LDA.w MaxAmmoDigits,X : ORA.b $18 : STA.l $7EC624
+        LDA.w HUDItemIndex : CMP.w #$0002 : BEQ ..green
+                LDA.w MaxAmmoDigits,X : STA.l $7EC624
+                INX #2
+                LDA.w MaxAmmoDigits,X : STA.l $7EC626
+                RTS
+        ..green
+        LDA.w MaxAmmoDigits,X : SBC.w #$0400 : STA.l $7EC624
         INX #2
-        LDA.w MaxAmmoDigits,X : ORA.b $18 : STA.l $7EC626
+        LDA.w MaxAmmoDigits,X : SBC.w #$0400 : STA.l $7EC626
 RTS
 
 .pbs
         JSR.w DivideByFive
         ASL #2 : TAX
-        LDA.w #$1000 : STA.b $18
-        LDA.w HUDItemIndex : CMP.w #$0003 : BEQ +
-                LDA.b $18 : ORA.w #$0400 : STA.b $18
-        +
-        LDA.w MaxAmmoDigits,X : ORA.b $18 : STA.l $7EC62A
+        LDA.w HUDItemIndex : CMP.w #$0003 : BEQ ..green
+                LDA.w MaxAmmoDigits,X : STA.l $7EC62A
+                INX #2
+                LDA.w MaxAmmoDigits,X : STA.l $7EC62C
+                RTS
+        ..green
+        LDA.w MaxAmmoDigits,X : SBC.w #$0400 : STA.l $7EC62A
         INX #2
-        LDA.w MaxAmmoDigits,X : ORA.b $18 : STA.l $7EC62C
+        LDA.w MaxAmmoDigits,X : SBC.w #$0400 : STA.l $7EC62C
 RTS
 
 MissilesHundredsDigit:
@@ -107,21 +114,21 @@ MissilesHundredsDigit:
         CMP.w #0300 : BCS .300
         CMP.w #0200 : BCS .200
         CMP.w #0100 : BCS .100
-                LDA.w #$0045 : STA.b $0E
+                LDA.w #$1445 : STA.b $0E
                 TXA
                 RTS
         .300
-        LDA.w #$003E : STA.b $0E
+        LDA.w #$143E : STA.b $0E
         TXA
         SBC.w #0300
         RTS
         .200
-        LDA.w #$003D : STA.b $0E
+        LDA.w #$143D : STA.b $0E
         TXA
         SBC.w #0200
         RTS
         .100
-        LDA.w #$003C : STA.b $0E
+        LDA.w #$143C : STA.b $0E
         TXA
         SBC.w #0100
 RTS
@@ -143,26 +150,26 @@ DivideByFive:
 RTS
 
 MaxAmmoDigits:
-dw $0045, $0045
-dw $0045, $0040
-dw $003C, $0045
-dw $003C, $0040
-dw $003D, $0045
-dw $003D, $0040
-dw $003E, $0045
-dw $003E, $0040
-dw $003F, $0045
-dw $003F, $0040
-dw $0040, $0045
-dw $0040, $0040
-dw $0041, $0045
-dw $0041, $0040
-dw $0042, $0045
-dw $0042, $0040
-dw $0043, $0045
-dw $0043, $0040
-dw $0044, $0045
-dw $0044, $0040
+dw $1445, $1445
+dw $1445, $1440
+dw $143C, $1445
+dw $143C, $1440
+dw $143D, $1445
+dw $143D, $1440
+dw $143E, $1445
+dw $143E, $1440
+dw $143F, $1445
+dw $143F, $1440
+dw $1440, $1445
+dw $1440, $1440
+dw $1441, $1445
+dw $1441, $1440
+dw $1442, $1445
+dw $1442, $1440
+dw $1443, $1445
+dw $1443, $1440
+dw $1444, $1445
+dw $1444, $1440
 
 DrawNewHUD:
         LDA.w HUDDrawFlag : BEQ .done
