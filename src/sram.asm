@@ -35,6 +35,9 @@ DashItemsEquipped = $7E09EE          ; vanilla item bitfields.
 BeamUpgrades = $7E0A00               ; Number of beam upgrades collected minus one. First beam upgrade
                                      ; is counted as a charge beam in BeamsCollected.
                                      ; d = Double Jump | h = Heat Shield | q = Pressure Valve
+PreviousMaxMissiles = $7E0DF4        ;
+PreviousMaxSupers = $7E0DF6          ;
+PreviousMaxPBs = $7E0DF8             ;
 EventFlags = $7ED820                 ;
 BossFlagsVanilla = $7ED828           ; Boss bitflags indexed by area. 8 bytes.
                                      ; 1: Area boss (Kraid, Phantoon, Draygon, both Ridleys)

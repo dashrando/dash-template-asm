@@ -6,33 +6,55 @@
 
 InitHUDAmmoExpanded:
         .missiles
-        JSR.w HUDDrawThreeDigits
+        PHP : PHB : PHX : PHY
+        PHK : PLB
+        REP #$30
         LDA.w MaxMissiles : LDX.w #$0014
         JSR.w HUDDrawThreeDigits
-        RTS
+        LDA.l $7EC65C : CMP.w #$2C0F : BNE +
+                LDA.w #$3449 : STA.l $7EC65C
+                LDA.w #$344A : STA.l $7EC65E
+                LDA.w #$344B : STA.l $7EC660
+        +
+        PLY : PLX : PLB : PLP
+        RTL
         .supers
-        JSR.w HUDDrawTwoDigits
+        PHP : PHB : PHX : PHY
+        PHK : PLB
+        REP #$30
         LDA.w MaxSupers : LDX.w #$001C
         JSR.w HUDDrawTwoDigits
-        RTS
+        LDA.l $7EC664 : CMP.w #$2C0F : BNE +
+                LDA.w #$3434 : STA.l $7EC664
+                LDA.w #$3435 : STA.l $7EC666
+        +
+        PLY : PLX : PLB : PLP
+        RTL
         .pbs
-        JSR.w HUDDrawTwoDigits
+        PHP : PHB : PHX : PHY
+        PHK : PLB
+        REP #$30
         LDA.w MaxPBs : LDX.w #$0022
         JSR.w HUDDrawTwoDigits
-RTS
+        LDA.l $7EC66A : CMP.w #$2C0F : BNE +
+                LDA.w #$3436 : STA.l $7EC66A
+                LDA.w #$3437 : STA.l $7EC66C
+        +
+        PLY : PLX : PLB : PLP
+RTL
 
 NewHUDAmmo:
         PHA : PHX : PHY 
-        LDA.w MaxMissiles
-        BEQ +
+        LDA.w MaxMissiles : CMP.w PreviousMaxMissiles : BEQ +
+                STA.w PreviousMaxMissiles
                 JSR.w .missiles
         +
-        LDA.w MaxSupers
-        BEQ +
+        LDA.w MaxSupers : CMP.w PreviousMaxSupers : BEQ +
+                STA.w PreviousMaxSupers
                 JSR.w .supers
         +
-        LDA.w MaxPBs
-        BEQ +
+        LDA.w MaxPBs : CMP.w PreviousMaxPBs : BEQ +
+                STA.w PreviousMaxPBs
                 JSR.w .pbs
         +
         PLY : PLX : PLA
@@ -51,9 +73,6 @@ RTS
         LDA.w MaxAmmoDigits,X : ORA.b $18 : STA.l $7EC61E
         INX #2
         LDA.w MaxAmmoDigits,X : ORA.b $18 : STA.l $7EC620
-        LDA.w #$0049 : ORA.b $18 : STA.l $7EC65C
-        LDA.w #$004A : ORA.b $18 : STA.l $7EC65E
-        LDA.w #$004B : ORA.b $18 : STA.l $7EC660
 RTS
 
 .supers
@@ -66,8 +85,6 @@ RTS
         LDA.w MaxAmmoDigits,X : ORA.b $18 : STA.l $7EC624
         INX #2
         LDA.w MaxAmmoDigits,X : ORA.b $18 : STA.l $7EC626
-        LDA.w #$0034 : ORA.b $18 : STA.l $7EC664
-        LDA.w #$0035 : ORA.b $18 : STA.l $7EC666
 RTS
 
 .pbs
@@ -80,8 +97,6 @@ RTS
         LDA.w MaxAmmoDigits,X : ORA.b $18 : STA.l $7EC62A
         INX #2
         LDA.w MaxAmmoDigits,X : ORA.b $18 : STA.l $7EC62C
-        LDA.w #$0036 : ORA.b $18 : STA.l $7EC66A
-        LDA.w #$0037 : ORA.b $18 : STA.l $7EC66C
 RTS
 
 MissilesHundredsDigit:

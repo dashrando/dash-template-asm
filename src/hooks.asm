@@ -18,6 +18,8 @@ org $82894B : JSL.l FrameHook
 org $82897A : JSL.l PostFrameHook
 org $809590 : JSL.l NMIHook
 org $8095F7 : JSL.l PostNMIHook : NOP
+; NOP out spare CPU debug feature. We reclaim a flag used by this routine at $0DF4
+org $828976 : BRA + : NOP #2 : +
 
 ;------------------------------------------------------------------------------
 ; Game State Initialization (doors, etc)
@@ -206,17 +208,17 @@ org $819D1A : JSR.w ClearExtendedSRAM
 ;------------------------------------------------------------------------------
 ; New HUD
 ;------------------------------------------------------------------------------
-org $8099E1 : BRA HUDMissiles_bottomrow
+; Missile/super/pb tile initialization
+org $809ACE : JSL.l InitHUDAmmoExpanded_missiles
+org $809AD7 : JSL.l InitHUDAmmoExpanded_supers
+org $809AE0 : JSL.l InitHUDAmmoExpanded_pbs
 
-; NOP out vanilla missile/super/pb tile initialization
-org $809ACE : NOP #4
-org $809AD7 : NOP #4
-org $809AE0 : NOP #4
+; Handle tile maps on ammo pickup
+org $8489BD : JSL.l InitHUDAmmoExpanded_missiles
+org $8489E6 : JSL.l InitHUDAmmoExpanded_supers
+org $848A0F : JSL.l InitHUDAmmoExpanded_pbs
 
-; Max ammo display
-org $809B0D : dw InitHUDAmmoExpanded_missiles
-org $809B1B : dw InitHUDAmmoExpanded_supers
-org $809B29 : dw InitHUDAmmoExpanded_pbs
+; Draw max ammo digits
 org $809C00 : JSR.w NewHUDAmmo
 
 ; Charge damage display
