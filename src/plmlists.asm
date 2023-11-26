@@ -108,6 +108,7 @@ dw $0002 : skip 4                 ; remove the pink refill door
 ; Green Brinstar Pre Map - Room $9B9D
 org PLMList1GreenBrinstarPreMap
 dw $0000                          ; remove grey door
+
 pullpc
 
 ;------------------------------------------------------------------------------
@@ -160,6 +161,7 @@ if !AREA == 1
     skip 60                             ; overwrite green gate with
     dw $C842 : db $3E,$06 : dw $9CB2    ; flashing door cap (Above Kraid)
 endif
+
 pullpc
 
 ;------------------------------------------------------------------------------
@@ -227,6 +229,7 @@ if !AREA == 1 || !RECALL == 1
     org PLMList1CrabShaft
     dw $0002 : skip 4                 ; gate always open
 endif
+
 pullpc
 
 ;------------------------------------------------------------------------------
@@ -286,6 +289,15 @@ if !AREA == 1
     skip 20 : dw CustomPLMs_SandFalls
 endif
 
+; Draygon's Boss Room - Room $DA60
+org $8FC7BB
+skip 4
+dw $809E                ; Set FRONT door as always solid grey so each version
+                        ; of the boss room is locked for true boss rando.
+skip 4
+dw $809F                ; Set BACK door as always solid grey so each version
+                        ; of the boss room is locked for true boss rando.
+
 pullpc
 
 ;------------------------------------------------------------------------------
@@ -332,6 +344,14 @@ if !AREA == 1
     skip 42                 ; open the back door
     dw $0002 : skip 4
 endif
+
+; Phantoon's Boss Room - Room $CD13
+org $8FC2B3
+skip 4
+dw $8086                ; Set door as always solid grey so each version
+                        ; of the boss room is locked for true boss rando.
+dw $0000
+    
 pullpc
 
 ;------------------------------------------------------------------------------
@@ -372,6 +392,7 @@ if !AREA == 1
     skip 48                         ; overwrite orange door with
     dw $C848 : skip 3 : db $9C      ; flashing door cap
 endif
+
 pullpc
 
 ;------------------------------------------------------------------------------
@@ -391,6 +412,7 @@ if !RECALL == 1
     org PLMList1CrocGreenGate
     dw $0002 : skip 4               ; gate always open
 endif
+
 pullpc
 
 ;------------------------------------------------------------------------------
@@ -414,6 +436,17 @@ if !AREA == 1
     org RoomState1RidleyMouth
     skip 20 : dw CustomPLMs_RidleyMouth
 endif
+
+; Ridley's Boss Room - Room $B32E
+org $8F8E98
+skip 4                  
+dw $805A                ; Set FRONT door as always solid grey so each version
+                        ; of the boss room is locked for true boss rando.
+skip 4
+dw $805B                ; Set BACK door as always solid grey so each version
+                        ; of the boss room is locked for true boss rando.
+dw $0000
+
 pullpc
 
 ;------------------------------------------------------------------------------
@@ -434,6 +467,17 @@ if !AREA == 1
     org RoomState1KraidsLair
     skip 20 : dw CustomPLMs_KraidsLair
 endif
+
+; Kraid's Boss Room - Room $A59F
+org $8F8A2E
+skip 4                  
+dw $8046                ; Set BACK door as always solid grey so each version
+                        ; of the boss room is locked for true boss rando.
+skip 4
+dw $8047                ; Set FRONT door as always solid grey so each version
+                        ; of the boss room is locked for true boss rando.
+dw $0000
+
 pullpc
 
 ;------------------------------------------------------------------------------
@@ -449,4 +493,5 @@ if !AREA == 1
     org RoomState1Tourian
     skip 20 : dw CustomPLMs_Tourian
 endif
+
 pullpc
