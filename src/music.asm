@@ -31,5 +31,8 @@ skip 4 : db $15,$05
 org RoomState1LavaDive
 skip 4 : db $15,$05
 
+org RoomState1HighwayElbow
+skip 4 : db $09,$05
+
 pullpc
 endif
