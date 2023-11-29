@@ -350,7 +350,6 @@ org $8FC2B3
 skip 4
 dw $8086                ; Set door as always solid grey so each version
                         ; of the boss room is locked for true boss rando.
-dw $0000
     
 pullpc
 
@@ -445,7 +444,6 @@ dw $805A                ; Set FRONT door as always solid grey so each version
 skip 4
 dw $805B                ; Set BACK door as always solid grey so each version
                         ; of the boss room is locked for true boss rando.
-dw $0000
 
 pullpc
 
@@ -476,7 +474,6 @@ dw $8046                ; Set BACK door as always solid grey so each version
 skip 4
 dw $8047                ; Set FRONT door as always solid grey so each version
                         ; of the boss room is locked for true boss rando.
-dw $0000
 
 pullpc
 
