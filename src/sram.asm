@@ -32,9 +32,9 @@ CurrentReserves = $7E09D6            ;
 DashItemsCollected = $7E09EC         ; Word-length bitfields used for new items, similar to the
 DashItemsEquipped = $7E09EE          ; vanilla item bitfields.
                                      ; - - - - - - d -  - - q - - - - h
+                                     ; d = Double Jump | h = Heat Shield | q = Pressure Valve
 BeamUpgrades = $7E0A00               ; Number of beam upgrades collected minus one. First beam upgrade
                                      ; is counted as a charge beam in BeamsCollected.
-                                     ; d = Double Jump | h = Heat Shield | q = Pressure Valve
 PreviousMaxMissiles = $7E0DF4        ;
 PreviousMaxSupers = $7E0DF6          ;
 PreviousMaxPBs = $7E0DF8             ;
