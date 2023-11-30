@@ -242,6 +242,9 @@ org $848965 : JMP.w DecrementMajorCountHUDBeam
 org $8583C1 : JSR.w MessageBoxHDMA
 org $85814D : JSR.w MessageBoxInitHDMA
 org $85865C : JSR.w MessageBoxCloseHDMA
+; Skip vanilla message box palette configuration
+org $858150 : BRA + : NOP #23 : +
+org $858671 : BRA + : NOP #31 : +
 
 ; HUD HDMA command pointer hooks
 org $828106 : JSL.l SetHDMAPointerLoad : NOP #2

@@ -89,10 +89,28 @@ MessageBoxInitHDMA:
                 LDA.b #$01 : STA.w $420C ; What we wrote over
 
                 REP #$20
-                LDA.w #$0BB1 : STA.l HUDHDMAWRAM+$4E ; Set message box vanilla palette colors
-                LDA.w #$001F : STA.l HUDHDMAWRAM+$53 ; Could also make affected tiles use palette 7?
+                LDA.w #$0BB1 : STA.l HUDHDMAWRAM+3+(5*8) ; Set message box vanilla palette colors
+                LDA.w #$001F : STA.l HUDHDMAWRAM+3+(5*9) ; Could also make affected tiles use palette 7?
                 SEP #$20
+                LDA.b #$05 : STA.w $2121
+                LDA.b #$0F : STA.w $2122
+                LDA.b #$70 : STA.w $2122
 
+                LDA.b #$06 : STA.w $2121
+                LDA.b #$FF : STA.w $2122
+                LDA.b #$7F : STA.w $2122
+
+                LDA.b #$19 : STA.w $2121
+                LDA.b #$87 : STA.w $2122
+                LDA.b #$36 : STA.w $2122
+
+                LDA.b #$1A : STA.w $2121
+                LDA.b #$FF : STA.w $2122
+                LDA.b #$7F : STA.w $2122
+
+                LDA.b #$1E : STA.w $2121
+                LDA.b #$FF : STA.w $2122
+                LDA.b #$7F : STA.w $2122
 RTS
 
 MessageBoxCloseHDMA:
@@ -105,7 +123,7 @@ MessageBoxCloseHDMA:
                 STA.w $420C ; What we wrote over
 
                 REP #$20
-                LDA.l PaletteBuffer+$32 : STA.l HUDHDMAWRAM+$4E
-                LDA.l PaletteBuffer+$34 : STA.l HUDHDMAWRAM+$53
+                LDA.l PaletteBuffer+$32 : STA.l HUDHDMAWRAM+3+(5*8)
+                LDA.l PaletteBuffer+$34 : STA.l HUDHDMAWRAM+3+(5*9)
                 SEP #$20
 RTS
