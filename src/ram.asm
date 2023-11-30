@@ -151,7 +151,7 @@ BootTest: skip 4                     ; Used to determine cold boot vs soft reset
 BootTestInverse: skip 4              ;
 ColdBootFlag: skip 2                 ;
 CreditsScrollSpeed: skip 2           ;
-HUDHDMAWRAM: skip $56                ;
+HUDHDMAWRAM: skip $34                ;
 warnpc $800000
 base off
 

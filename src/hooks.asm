@@ -16,7 +16,7 @@ org $808490 : JMP.w InitRAM ; Jump because we're overwriting the stack
 ;--------------------------------------------------------------------------------
 org $82894B : JSL.l FrameHook
 org $82897A : JSL.l PostFrameHook
-org $809590 : JSL.l NMIHook
+org $809596 : JSR.w NMIHook
 org $8095F7 : JSL.l PostNMIHook : NOP
 ; NOP out spare CPU debug feature. We reclaim a flag used by this routine at $0DF4
 org $828976 : BRA + : NOP #2 : +
@@ -245,13 +245,8 @@ org $85865C : JSR.w MessageBoxCloseHDMA
 
 ; HUD HDMA command pointer hooks
 org $828106 : JSL.l SetHDMAPointerLoad : NOP #2
-;org $82E309 : JSL.l SetHDMAPointerDoorStart : NOP #2
-;org $82E729 : JSL.l SetHDMAPointerDoorFadeIn : NOP #2
-;org $82E764 : JSL.l SetHDMAPointerDoorEnd : NOP #2
 org $828CE7 : JSL.l SetHDMAPointerPause : NOP #2
 org $829343 : JSL.l SetHDMAPointerUnpause : NOP #2
-;org $9493B5 : JSL.l SetHDMAPointerDoorFadeOut : NOP #2
-;org $82E367 : JSL.l SetHDMAPointerDoorDark : NOP #2
 org $828500 : JSL.l SetHDMAPointerEnding : NOP #2
 
 org $8095DE : JSR.w HUDHDMACommand
@@ -265,6 +260,7 @@ org $A7AA7C : NOP #4
 org $A7CE24 : NOP #4
 org $A98809 : NOP #4
 org $90A7EE : BRA + : skip $1A : + ; Skip boss tilemap update
+
 ;------------------------------------------------------------------------------
 ; Message Boxes
 ;------------------------------------------------------------------------------

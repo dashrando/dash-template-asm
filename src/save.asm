@@ -174,7 +174,7 @@ LoadExtendedStats:
 RTL
 
 InitHUDHDMATables:
-        LDX.w #$0054
+        LDX.w #$0032
         -
                 LDA.l HUDHDMAOne,X : STA.l HUDHDMAWRAM,X
                 DEX #2

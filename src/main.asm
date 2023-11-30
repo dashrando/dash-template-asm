@@ -112,16 +112,18 @@ DashLogoSprite:
 incbin data/logosprite.bin
 warnpc $9A8000
 
-org $9AB542
-incbin ../data/supericon.bin
+org $9AB200
+incbin data/numbertiles.2bpp
 org $9AB5C0
-incbin ../data/pbicon.bin
+incbin data/numbertiles_inverted.2bpp
+org $9AB542
+incbin data/superpbicons.2bpp
 org $9AB691
-incbin ../data/missileicon.bin
+incbin data/missileicon.2bpp
 org $9AB300
-incbin data/hudtiles_alphabet_1.bin ; $200 bytes or 32 2bpp tiles
+incbin data/hudtiles_alphabet_1.2bpp
 org $9AB800
-incbin data/hudtiles_icons.bin ; $200 bytes or 32 2bpp tiles
+incbin data/hudtiles_icons.2bpp
 
 org $A0F7D3
 incsrc enemies.asm
