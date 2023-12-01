@@ -151,3 +151,5 @@ endif
 if !DEBUG == 1
     incsrc debugmode.asm
 endif
+
+incsrc test/presets/test_area_patches.asm

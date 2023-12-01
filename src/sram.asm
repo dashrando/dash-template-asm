@@ -55,8 +55,7 @@ DoorBitArray = $7ED8B0               ; Opened door bit array. Bit set if door op
 ; out stats from general save data because we save and load them separately in
 ; some instances. $200 is allocated for stats and the rest is general-purpose.
 ; $7FFF00-FFFF is allocated for ephemeral, general purpose memory we may want
-; to put in bank $7F (primarily because $7F is not zero-initialized on boot like
-; all of bank $7E.)
+; to put in bank $7F.
 ;------------------------------------------------------------------------------
 ;------------------------------------------------------------------------------
 ; Stats Block

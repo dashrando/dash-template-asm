@@ -22,13 +22,11 @@ LoadSaveExpanded:
         LDA.w FileSelectCursor
         JSL.l LoadSave : BCS .newfile  ; What we wrote over
                 JSR.w SetBootTest
-                JSR.w InitHUDHDMATables
                 JSL.l LoadMapMirror
                 RTS
         .newfile
         JSR.w NewSaveFile
         JSR.w ClearExtendedBuffers ; We've read from uninitialized SRAM
-        JSR.w InitHUDHDMATables
         JSR.w SetBootTest
         STZ.w AreaMapFlag
 RTS
@@ -65,7 +63,6 @@ ClearExtendedBuffers:
                 STZ.w $FC00,X
                 STZ.w $FD00,X
                 STZ.w $FE00,X
-                STZ.w $FF00,X
                 DEX #2
         BPL -
         PHK : PLB
@@ -172,14 +169,6 @@ LoadExtendedStats:
         BPL -
         PLA
 RTL
-
-InitHUDHDMATables:
-        LDX.w #$0032
-        -
-                LDA.l HUDHDMAOne,X : STA.l HUDHDMAWRAM,X
-                DEX #2
-        BPL -
-RTS
 
 ExtendedSRAMOffsets:
 dw SlotOneExtendedSRAM
