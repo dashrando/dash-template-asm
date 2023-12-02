@@ -251,9 +251,9 @@ endmacro
 
 ;---
 
-macro RidleyVector(area,cre_bitset)
+macro RidleyVector(area,screen_y)
 DoorVectorToRidleyIn<area>:
-dw RoomHeaderRidleyIn<area> : db $40,$05,$0E,$06,$00,<cre_bitset> : dw $8000,$0000
+dw RoomHeaderRidleyIn<area> : db $40,$05,$0E,$06,$00,<screen_y> : dw $8000,$0000
 endmacro
 
 %RidleyVector(Brinstar,$01)

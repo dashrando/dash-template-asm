@@ -42,7 +42,7 @@ InitializeForTesting: {
         pushpc
 
         ; Disable fanfare
-        org NoFanfare : dw $0001 ; Disable fanfares
+        org NoFanfare : dw $0001
 
         ;---- Round Trip 0 ----
         org DoorToKraidBoss : dw DoorVectorToDraygonInMaridia
@@ -53,6 +53,10 @@ InitializeForTesting: {
         org DoorFromKraidInBrinstar : dw DoorVectorToPreRidley
         org DoorToRidleyBoss : dw DoorVectorToPhantoonInWreckedShip
         org DoorFromPhantoonInWreckedShip : dw DoorVectorToPreKraid
+
+        ;---- Round Trip 1 ----
+        ;org DoorToKraidBoss : dw DoorVectorToRidleyInNorfair
+        ;TODO: add the other bosses
 
         pullpc
         ; ---- End bosses ----

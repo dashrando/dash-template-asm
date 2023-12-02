@@ -33,10 +33,10 @@ InitializeForTesting: {
         LDA.l EventFlags : ORA.w #$0001 : STA.l EventFlags
 
         ; Kill bosses
-        ;LDA.l BossFlagsVanilla   : ORA.w #$0100 : STA.l BossFlagsVanilla ; Brinstar
-        ;LDA.l BossFlagsVanilla+2 : ORA.w #$0100 : STA.l BossFlagsVanilla+2 ; Wrecked Ship
-        ;LDA.l BossFlagsVanilla+4 : ORA.w #$0001 : STA.l BossFlagsVanilla+4 ; Maridia
-        ;LDA.l BossFlagsVanilla+2 : ORA.w #$0001 : STA.l BossFlagsVanilla+2 ; Norfair
+        LDA.l BossFlagsVanilla   : ORA.w #$0100 : STA.l BossFlagsVanilla ; Brinstar
+        LDA.l BossFlagsVanilla+2 : ORA.w #$0100 : STA.l BossFlagsVanilla+2 ; Wrecked Ship
+        LDA.l BossFlagsVanilla+4 : ORA.w #$0001 : STA.l BossFlagsVanilla+4 ; Maridia
+        LDA.l BossFlagsVanilla+2 : ORA.w #$0001 : STA.l BossFlagsVanilla+2 ; Norfair
 
         ; ---- Setup bosses ----
         pushpc
@@ -56,7 +56,7 @@ InitializeForTesting: {
         org DoorFrom<boss>InNorfair : dw DoorVectorToPreKraid
         endmacro
 
-        %BossRoundTrip(Kraid)
+        %BossRoundTrip(Ridley)
 
         ; Testing Kraid in LN
         ;org DoorFromKraidInBrinstar : dw DoorVectorToPreRidley

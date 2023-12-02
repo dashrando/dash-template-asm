@@ -331,7 +331,7 @@ org $9493EA : JSR.w HandleEnterDoor : NOP
 org $8FE8BA : JMP.w TeleportSamus
 
 org $82DE32 : JSR.w FixDoorBits
-
+org $82DE46 : JSR.w FixScreenPosition
 ;org $82DE0C : JSR.w FixTransitionFX
 
 ;------------------------------------------------------------------------------

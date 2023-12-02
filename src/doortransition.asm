@@ -22,6 +22,28 @@ FixDoorBits:
         PLA
 RTS
 
+;------------------------------------------------------------
+; Certain misaligned door transitions require that we update
+; the screen coordinates. At the moment, transitioning to
+; vanilla Ridley is the only one so we handle it explicitly.
+;
+; Register states when called:
+;   A = Screen Y position from ROM
+;   X = Room address
+;------------------------------------------------------------
+FixScreenPosition:
+        STA.w ScreenYPos ; What we over wrote
+
+        ; Check for misaligned doors
+        LDA.w DoorMisaligned : BIT.w #$4000 : BEQ .done
+                ; Check to see if this is vanilla Ridley
+                CPX.w #DoorVectorToRidleyInNorfair : BNE +
+                        ; Fix the screen position
+                        LDA.w #$0100 : STA.w ScreenYPos
+                +
+        .done
+RTS
+
 pushpc
 org $94DC00
 HandleEnterDoor:
