@@ -219,6 +219,8 @@ RTS
 ;------------------------------------------------------------------------------
 
 pushpc
+org $80C5CF : skip 14*5                         ; Maridia Save Stations
+dw $A253,$8F0A,$0000,$0000,$0300,$0068,$FFC0    ; slot #5
 org $80C917 : skip 14*4                         ; Maridia Save Stations
 dw $D1A3,$A468,$0000,$0000,$0200,$0078,$0060    ; slot #4
 dw $D08A,$A3A8,$0000,$0000,$0000,$00B8,$0000    ; slot #5 crab tunnel
