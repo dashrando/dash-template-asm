@@ -341,4 +341,10 @@ org $84BE43 : LDA.w CustomGreyDoorList,y
 
 org $82EB7F : JSL PreProcessRoomPLM
 org $82E8C9 : JSL PreProcessRoomPLM
+
+;------------------------------------------------------------------------------
+; Enemies
+;------------------------------------------------------------------------------
+org $A0A120 : JSL.l EnemyCollisionCheck
+
 pullpc

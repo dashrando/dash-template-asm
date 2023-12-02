@@ -82,6 +82,7 @@ DoubleJumpFlag = $7E0A14             ; Zeroed when Samus lands. Unused(?) debug 
 HUDFlags = $7E0A1A                   ; Word-length bitfield.
 SamusPose = $7E0A1C                  ;
 SamusMovementType = $7E0A1F          ;
+SamusCollisionPtr = $7E0A44          ;
 DamageFlashCounter = $7E0A48         ; Samus hurt flash counter
 SamusPaletteFlags = $7E0A4A          ; Super special Samus palette flags.
 SamusSubDamage = $7E0A4C             ; Only affected by SamusPeriodicDamage.

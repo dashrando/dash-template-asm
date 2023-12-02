@@ -325,6 +325,38 @@ MaybeActivateLNChozo:
         .done
 RTS
 
+SaveStationMini:
+.entry
+dw $B5EE, .instruction_list
+
+.instruction_list
+dw $0001, .draw_one
+dw $86B4
+dw $8CF1, .used
+dw $B00E
+dw $8C07 : db $2E
+dw $874E : db $15
+.timer
+dw $0004, .draw_three
+dw $0004, .draw_two
+dw $873F, .timer
+dw $B024
+.used
+dw $B030
+dw $8724, .instruction_list
+
+.draw_one
+dw $0002, $B859, $8C59
+dw $0000 ; Termination
+
+.draw_two
+dw $0002, $8859, $8C59
+dw $0000
+
+.draw_three
+dw $0002, $885A, $8C5A
+dw $0000
+
 pushpc
 org $84D0E8
 dw BrokenTurretBlock ; Replace Draygon grapple turret block instruction

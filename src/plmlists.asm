@@ -169,16 +169,19 @@ pullpc
 ;------------------------------------------------------------------------------
 CustomPLMs_MainStreet:
 dw $C84E : db $16,$7D : dw $9CB3  ; flashing door cap
-dw $B76F : db $18,$59 : dw $0005  ; add save station
 dw $0001,$0000,PLMList1MainStreet ; run the vanilla list
+
+CustomPLMs_CrabTunnel:
+dw SaveStationMini_entry : db $07,$0D : dw $0005  ; add save station
+dw $0001,$0000,PLMList1CrabTunnel
 
 CustomPLMs_PreAqueduct:
 dw $B76F : db $0D,$29 : dw $0004  ; add save station
 dw $0001,$0000,PLMList1PreAqueduct
 
 CustomPLMs_RedFish:
-dw $C848 : db $01,$06 : dw $9CB4  ; flashing door cap
-dw $B76F : db $8C,$07 : dw $0006  ; save station
+dw $C848                 : db $01,$06 : dw $9CB4  ; flashing door cap
+dw SaveStationMini_entry : db $8C,$07 : dw $0006  ; save station
 dw $0001,$0000,PLMList1RedFish
 
 CustomPLMs_MaridiaMap:
@@ -198,6 +201,10 @@ if !AREA == 1
     ; Main Street - Room $CFC9
     org RoomState1MainStreet
     skip 20 : dw CustomPLMs_MainStreet
+
+    ; Crab Tunnel - Room $D08a
+    org RoomState1CrabTunnel
+    skip 20 : dw CustomPLMs_CrabTunnel
 
     ; PreAqueduct - Room $D1A3
     org RoomState1PreAqueduct
