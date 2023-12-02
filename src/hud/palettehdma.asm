@@ -200,24 +200,26 @@ RTS
 
 HUDPaletteNMITransfer:
 ; We do these at the end of NMI where we hopefully have some more time compared to the frame
-        LDX.b #$05 : STX.w $2121
-        LDX.b #$0F : STX.w $2122
-        LDX.b #$70 : STX.w $2122
+        LDA.w HUDHDMAPtr : CMP.w #ActivateHDMA : BEQ .skip
+                LDX.b #$05 : STX.w $2121
+                LDX.b #$0F : STX.w $2122
+                LDX.b #$70 : STX.w $2122
 
-        LDX.b #$06 : STX.w $2121
-        LDX.b #$FF : STX.w $2122
-        LDX.b #$7F : STX.w $2122
+                LDX.b #$06 : STX.w $2121
+                LDX.b #$FF : STX.w $2122
+                LDX.b #$7F : STX.w $2122
 
-        LDX.b #$19 : STX.w $2121
-        LDX.b #$87 : STX.w $2122
-        LDX.b #$36 : STX.w $2122
+                LDX.b #$19 : STX.w $2121
+                LDX.b #$87 : STX.w $2122
+                LDX.b #$36 : STX.w $2122
 
-        LDX.b #$1A : STX.w $2121
-        LDX.b #$FF : STX.w $2122
-        LDX.b #$7F : STX.w $2122
+                LDX.b #$1A : STX.w $2121
+                LDX.b #$FF : STX.w $2122
+                LDX.b #$7F : STX.w $2122
 
-        LDX.b #$1E : STX.w $2121
-        LDX.b #$FF : STX.w $2122
-        LDX.b #$7F : STX.w $2122
+                LDX.b #$1E : STX.w $2121
+                LDX.b #$FF : STX.w $2122
+                LDX.b #$7F : STX.w $2122
+        .skip
 RTS
 
