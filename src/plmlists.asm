@@ -124,8 +124,8 @@ pushpc
 org PLMList1RedTower
 skip 12                                 ; overwrite green cap with
 if !AREA == 1
-dw $C848 : db $01,$46 : skip 1   : db $9C ; flashing door cap
-dw $B76F : db $03,$38 : dw $0005          ; add save station
+dw $C848                 : db $01,$46 : skip 1   : db $9C ; flashing door cap
+dw SaveStationMini_entry : db $0C,$77 : dw $0005          ; add save station
 else
 dw $0002 : skip 4                       ; nothing!
 endif

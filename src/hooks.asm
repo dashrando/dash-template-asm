@@ -39,6 +39,7 @@ org $82EDB1 : JSR.w OnStartGame : BRA + : NOP #7 : +
 ; Decompression
 ;------------------------------------------------------------------------------
 org $82EAA9 : JSR.w PostRoomDecompression
+org $82E801 : JSR.w PostRoomDecompression
 
 ;------------------------------------------------------------------------------
 ; PLMs
