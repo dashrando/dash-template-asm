@@ -323,6 +323,10 @@ pushpc
 org RoomState1WreckedShipSave     ; update asleep room state
 skip $14 : dw $C2C9               ; turn on save station
 
+; Wrecked Ship Pre Phantoon - Room $CC6F
+org RoomState2PrePhantoon
+skip 20 : dw $C291                ; Use list with gadora
+
 ; TODO: Use labels
 if !RECALL == 1
     org $8FCC39         ; WS E-tank room header Phantoon alive

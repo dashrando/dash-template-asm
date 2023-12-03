@@ -260,6 +260,8 @@ RoomState1HighwayElevator = $8FD318
 RoomState1SandFalls = $8FD70A
 RoomState1WreckedShipSave = $8FCE9C
 RoomState2WreckedShipSave = $8FCEB6
+RoomState1PrePhantoon = $8FCC81
+RoomState2PrePhantoon = $8FCC9B
 
 ; PLM lists
 PLMList1Kago = $8F8442
