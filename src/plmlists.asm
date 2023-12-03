@@ -119,18 +119,24 @@ CustomPLMs_KraidEntryAndAboveKraid:
 dw $C842 : db $0E,$16 : dw $9CB0  ; flashing door cap (Kraid Entry)
 dw $0001,$0000,PLMList1KraidEntry
 
+CustomPLMs_RedTower:
+dw SaveStationMini_entry : db $0C,$77 : dw $0005
+dw $0001,$0000,PLMList1RedTower
+
 pushpc
 ; Red Tower - Room $A253
 org PLMList1RedTower
-skip 12                                 ; overwrite green cap with
+skip 12                                     ; overwrite green cap with
 if !AREA == 1
-dw $C848                 : db $01,$46 : skip 1   : db $9C ; flashing door cap
-dw SaveStationMini_entry : db $0C,$77 : dw $0005          ; add save station
+    dw $C848 : db $01,$46 : skip 1 : db $9C ; flashing door cap
 else
-dw $0002 : skip 4                       ; nothing!
+    dw $0002 : skip 4                       ; nothing!
 endif
 
 if !AREA == 1
+    org RoomState1RedTower
+    skip 20 : dw CustomPLMs_RedTower
+
     ; Red Elevator - Room $962A
     org PLMList1RedElevator
     skip 6                          ; overwrite yellow cap with
