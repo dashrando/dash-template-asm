@@ -219,10 +219,10 @@ RTS
 ;------------------------------------------------------------------------------
 
 pushpc
-org $80C5CF : skip 14*5                         ; Maridia Save Stations
-dw $A253,$90F6,$0000,$0000,$0700,$0058,$0050    ; slot #5
+org $80C5CF : skip 14*5                         ; Brinstar Save Stations
+dw $A253,$90F6,$0000,$0000,$0700,$0058,$0050    ; slot #5 red tower
 org $80C917 : skip 14*4                         ; Maridia Save Stations
-dw $D1A3,$A468,$0000,$0000,$0200,$0078,$0060    ; slot #4
+dw $D1A3,$A468,$0000,$0000,$0200,$0078,$0060    ; slot #4 pre aqueduct
 dw $D08A,$A3A8,$0000,$0000,$0000,$00B8,$0000    ; slot #5 crab tunnel
 dw $D104,$A42C,$0000,$0200,$0000,$0078,$0050    ; slot #6 red fish
 pullpc
