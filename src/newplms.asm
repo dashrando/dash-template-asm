@@ -306,6 +306,20 @@ CustomGreyDoorList:
         %CopyBytes($84BE4B,14)
         dw FlashingDoor
 
+;------------------------------------------------------------
+; Handles processing of special meta PLM values which are
+; processed prior to other PLMs.
+;
+; Meta PLMs Supported:
+;   1 = Jump to another PLM list by loading the address
+;       of the next list into X
+;   2 = Skip this PLM without calling any other code
+;       associated with PLMs
+;      
+; Register states when called:
+;   A = PLM identifier
+;   X = Address of the PLM within the PLM list
+;------------------------------------------------------------
 PreProcessRoomPLM:
         CMP.w #2        ; skip?
         BEQ .done
