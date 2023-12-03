@@ -262,6 +262,10 @@ RoomState1WreckedShipSave = $8FCE9C
 RoomState2WreckedShipSave = $8FCEB6
 RoomState1PrePhantoon = $8FCC81
 RoomState2PrePhantoon = $8FCC9B
+RoomState1WreckedShipBack = $8FCBE7
+RoomState2WreckedShipBack = $8FCC01
+RoomState1WreckedShipEtank = $8FCC39
+RoomState2WreckedShipEtank = $8FCC53
 
 ; PLM lists
 PLMList1Kago = $8F8442

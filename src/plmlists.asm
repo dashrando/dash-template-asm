@@ -324,21 +324,17 @@ org RoomState1WreckedShipSave     ; update asleep room state
 skip $14 : dw $C2C9               ; turn on save station
 
 ; Wrecked Ship Pre Phantoon - Room $CC6F
-org RoomState2PrePhantoon
-skip 20 : dw $C291                ; Use list with gadora
+org RoomState2PrePhantoon         ; update awake room state
+skip 20 : dw $C291                ; use list with gadora
 
-; TODO: Use labels
+; Wrecked Ship Back Room - Room $CBD5
+org RoomState1WreckedShipBack    ; update asleep room state
+skip 20 : dw $C323               ; use list with red door cap
+
 if !RECALL == 1
-    org $8FCC39         ; WS E-tank room header Phantoon alive
-    skip $14 : dw $C337 ; Show WS E-tank item
-
-    org $8FCBE7         ; WS back room Phantoon alive
-    skip $14 : dw $C323 ; Add missile door back
-endif
-
-if !AREA == 1 ; TODO: Do we need this?
-    org $8FCBE7         ; WS back room Phantoon alive
-    skip $14 : dw $C323 ; Add missile door back
+    ; Wrecked Ship Etank Room - Room $CC27
+    org RoomState1WreckedShipEtank  ; update asleep room state
+    skip 20 : dw $C337              ; use list with WS E-tank item
 endif
 
 if !AREA == 1
