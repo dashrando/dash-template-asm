@@ -315,6 +315,9 @@ CustomGreyDoorList:
 ;       of the next list into X
 ;   2 = Skip this PLM without calling any other code
 ;       associated with PLMs
+;   3 = Skip the next set of PLMs if the value at the
+;       specified 24-bit address is zero. The number of
+;       PLMs to skip is 1 byte at the end.
 ;      
 ; Register states when called:
 ;   A = PLM identifier
@@ -325,11 +328,38 @@ PreProcessRoomPLM:
         BEQ .done
         CMP.w #1        ; jump?
         BEQ .jump
+        CMP.w #3        ; conditional skip?
+        BEQ .condition
         JML $84846A
+
+        .condition:
+        ; Load the 24-bit address
+        LDA.w $0002,X : STA.w $00
+        LDA.w $0004,X : STA.w $02
+
+        ; Load the value at that 24-bit address
+        LDA [$00]
+
+        ; Do nothing if the value is non-zero
+        BNE .done
+
+        ; Skip the specified number of PLMs
+        LDA $02 : XBA : AND.w #$00FF
+        .condition_loop:
+                BEQ .done
+                PHA : TXA : CLC : ADC.w #6 : TAX : PLA
+                DEC
+                BRA .condition_loop
+
         .jump:
+        ; Load the new PLM list
         LDA.w $0004,X
-        SEC : SBC.w #6
-        TAX
+
+        ; Subtract 6 from the address of the new list and
+        ; place that value in the X register to offset the
+        ; adding of 6 that will happen when we return
+        SEC : SBC.w #6 : TAX
+
         .done:
 RTL
 
