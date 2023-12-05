@@ -97,3 +97,11 @@ dw $0003   ;
 org $DF8B20 ; 0x2F8B20
 LNChozoTrigger:
 dw $0001  ; $00 - require space jump | $01 - require nothing
+
+org $DF8B22 ; 0x2F8B22
+EnableAreaMods:
+if !AREA == 1
+dw $0001
+else
+dw $0000
+endif
