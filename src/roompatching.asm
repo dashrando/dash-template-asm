@@ -7,7 +7,9 @@
 PostRoomDecompression: 
         LDA.l AreaIndex : ASL : TAX
         JSR.w (PatchOffsets,X)
-        JSR.w PatchRoom 
+        CMP.w #NoPatch : BEQ .skip
+                JSR.w PatchRoom
+        .skip
         LDA.w $0000
 RTS
 
@@ -45,82 +47,65 @@ dw .tourian
         RTS
 
 PatchRoom:
-php
-tax
-; Loop for processing patch hunks
-.loop: {
-
-   ; If no hunks left, jump to the end
-   lda.l bank(Room_Patches)<<16,x
-   cmp.w #$ffff
-   beq .ret
-
-   ; Move the destination address to Y
-   tay
-
-   ; Load the number bytes to write
-   inx #2
-   lda.l bank(Room_Patches)<<16,x
-   inx #2
-
-   ; Check the first bit of the length (0 = copy, 1 = repeat)
-   bit #$8000
-
-   ; If copying bytes, jump to that section
-   beq .copy_bytes
-
-   ; Clear the first bit and store the length in Y
-   and #$7fff
-
-   ; Jump to the repeating bytes section
-   bra .repeat_byte
-
-   .copy_bytes: {
-
-      ; Check to see if we are done or only have one byte left
-   -  cmp.w #$0001
-      bcc .loop
-      beq .repeat_byte
-
-      ; Copy the specified number of bytes two at a time
-      pha
-      lda.l bank(Room_Patches)<<16,x
-      sta $0000,y
-      pla
-
-      dec #2
-      inx #2
-      iny #2
-      bra -
-   }
-
-   .repeat_byte: {
-      
-      phx
-      pha
-
-      ; Load the byte that will be repeated
-      lda.l bank(Room_Patches)<<16,x
-
-      plx
-
-      ; Switch to 8-bit mode for the accumulator
-      sep #$20
-
-      ; Write the byte the specified number of times
-   -  sta $0000,y
-      iny
-      dex
-      bne -
-
-      ; Restore 16-bit mode and move to the next hunk
-      rep #$20
-      plx
-      inx
-      bra .loop
-   }
-}
-
-.ret:
-   PLP
-   RTS
+; In: A - 16-bit pointer to this room's patches
+; See documentation of binary patch format in roomedits.asm
+        PHP
+        TAX
+        .room_loop
+        LDA.l Room_Patches&$FF0000,X : BMI .ret
+                STA.b $00
+                INX #2
+                LDA.l Room_Patches&$FF0000,X : BIT #$4000 : BEQ .byte_width
+                        BMI .word_repeat
+                                .word_copy
+                                AND.w #$00FF : TAY
+                                ..loop
+                                        INX #2
+                                        LDA.l Room_Patches&$FF0000,X : STA.b ($00)
+                                        INC.b $00 : INC.b $00
+                                        DEY
+                                BPL ..loop
+                                INX #2
+                                BRA .room_loop
+                        .word_repeat
+                        AND.w #$00FF : TAY
+                        INX #2
+                        LDA.l Room_Patches&$FF0000,X
+                        ..loop
+                                STA.b ($00)
+                                INC.b $00 : INC.b $00
+                                DEY
+                        BPL ..loop
+                        INX #2
+                        BRA .room_loop
+                .byte_width
+                BMI .byte_repeat
+                        .byte_copy
+                        AND.w #$00FF : TAY
+                        SEP #$20
+                        INX
+                        ..loop
+                                INX
+                                LDA.l Room_Patches&$FF0000,X : STA.b ($00)
+                                INC.b $00
+                                DEY
+                        BPL ..loop
+                        REP #$20
+                        INX
+                        BRA .room_loop
+                .byte_repeat
+                AND.w #$00FF : TAY
+                SEP #$20
+                INX #2
+                LDA.l Room_Patches&$FF0000,X
+                ..loop
+                        STA.b ($00)
+                        INC.b $00 : INC.b $00
+                        DEY
+                BPL ..loop
+                REP #$20
+                INX
+                BRA .room_loop
+        .ret
+        PLP
+RTS
