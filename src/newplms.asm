@@ -324,14 +324,18 @@ CustomGreyDoorList:
 ;   X = Address of the PLM within the PLM list
 ;------------------------------------------------------------
 PreProcessRoomPLM:
-        CMP.w #2        ; skip?
-        BEQ .done
-        CMP.w #1        ; jump?
-        BEQ .jump
-        CMP.w #3        ; conditional skip?
-        BEQ .condition
-        JML $84846A
+        ; Run the PLM if not a meta PLM
+        CMP.w #4 : BCC +
+                JML $84846A
+        +
 
+        ; Skip this PLM?
+        CMP.w #2 : BEQ .done
+
+        ; Jump to a different PLM list?
+        CMP.w #1 : BEQ .jump
+
+        ; Otherwise, it is a conditional skip
         .condition:
         ; Load the 24-bit address
         LDA.w $0002,X : STA.w $00
