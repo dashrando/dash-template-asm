@@ -53,55 +53,55 @@ PatchRoom:
         TAX
         .room_loop
         LDA.l Room_Patches&$FF0000,X : BMI .ret
-                STA.b $00
+                TAY
                 INX #2
                 LDA.l Room_Patches&$FF0000,X : BIT #$4000 : BEQ .byte_width
                         BMI .word_repeat
                                 .word_copy
-                                AND.w #$00FF : TAY
+                                AND.w #$00FF : STA.b $00
                                 ..loop
                                         INX #2
-                                        LDA.l Room_Patches&$FF0000,X : STA.b ($00)
-                                        INC.b $00 : INC.b $00
-                                        DEY
+                                        LDA.l Room_Patches&$FF0000,X : STA.w $0000,Y
+                                        INY #2
+                                        DEC.b $00
                                 BPL ..loop
                                 INX #2
                                 BRA .room_loop
                         .word_repeat
-                        AND.w #$00FF : TAY
+                        AND.w #$00FF : STA.b $00
                         INX #2
                         LDA.l Room_Patches&$FF0000,X
                         ..loop
-                                STA.b ($00)
-                                INC.b $00 : INC.b $00
-                                DEY
+                                STA.w $0000,Y
+                                INY #2
+                                DEC.b $00
                         BPL ..loop
                         INX #2
                         BRA .room_loop
                 .byte_width
                 BMI .byte_repeat
                         .byte_copy
-                        AND.w #$00FF : TAY
+                        AND.w #$00FF : STA.b $00
                         SEP #$20
                         INX
                         ..loop
                                 INX
-                                LDA.l Room_Patches&$FF0000,X : STA.b ($00)
-                                INC.b $00
-                                DEY
+                                LDA.l Room_Patches&$FF0000,X : STA.w $0000,Y
+                                INY
+                                DEC.b $00
                         BPL ..loop
                         REP #$20
                         INX
                         BRA .room_loop
                 .byte_repeat
-                AND.w #$00FF : TAY
+                AND.w #$00FF : STA.b $00
                 SEP #$20
                 INX #2
                 LDA.l Room_Patches&$FF0000,X
                 ..loop
-                        STA.b ($00)
-                        INC.b $00 : INC.b $00
-                        DEY
+                        STA.w $0000,Y
+                        INY
+                        DEC.b $00
                 BPL ..loop
                 REP #$20
                 INX
