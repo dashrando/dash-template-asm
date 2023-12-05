@@ -1,33 +1,30 @@
 ;------------------------------------------------------------------------------
 ; HUD HDMA
 ;------------------------------------------------------------------------------
-; Our HUD palette works in two phases using two pointers in mirrored WRAM
-; (HUDHDMAPtr and HUDColorsPtr.) First we need to hook into vanilla on various
-; game state changes to set both these pointers to routines in this module and
-; bank ($80.) 
+; Our HUD palette works in two phases. First we set our HUDHDMAPtr in WRAM which points
+; to a routine that sets up our HDMA. Then we run a routine in our post-NMI hook that
+; places all of our initial new HUD colors but one into CGRAM by interacting directly
+; with the CGADD and CGDATA registers.
 ;
-; 1. Our HUDHDMAPtr routine is called where the vanilla NMI writes to $420C. This
-;    routine is responsible for selecting the appropriate channels for the situation.
-;    We need to select two channels that will not interfere with vanilla effects
-;    including but not limited to: power bombs, X-ray, liquid effects and scrolling,
-;    and message boxes. This routine is also responsible for updating the HUD
-;    palette HDMA table in WRAM for the next frame.
+; Our HUDHDMAPtr routine is called where the vanilla NMI writes to $420C. This
+; routine is responsible for selecting the appropriate channels for the situation.
+; If we're not using HDMA during the next frame, we point it to #ActivateHDMA instead.
+; We need to select two channels that will not interfere with vanilla effects
+; including but not limited to: power bombs, X-ray, liquid effects and scrolling,
+; and message boxes. This routine is also responsible for updating the HUD
+; palette HDMA table in WRAM for the next frame.
 ;
-;    The HDMA table should restore the vanilla palettes before the final scanline
-;    of the HUD (31.) If using fading palettes, get the color from the main vanilla
-;    palette buffer at $7EC000 (PaletteBuffer.) Otherwise, we may set them statically.
-;
-; 2. Our HUDColorsPtr routine is called in our post-NMI hook before the return
-;    from interrupt. This routine is responsible for putting our new colors into
-;    CGRAM during v-blank. For the most part we should use the CGADD and CGDATA
-;    registers directly unless we are transferring larger batches at once.
-;
-; We have to have one HDMA on scanline 0 per channel on every frame it's used,
-; so we should use that to set one of our original colors in order to save as
-; much time as possible during v-blank.
-;
+; The HDMA table should restore the vanilla palettes before the final scanline
+; of the HUD (31.) If using fading palettes, get the color from the main vanilla
+; palette buffer at $7EC000 (PaletteBuffer.) Otherwise, we may set them statically.
+; We always use scanline 0 to set one of our initial new HUD colors instead of
+; setting that color during NMI because one HDMA must trigger on that scanline.
 ; When modifying our HDMA table in RAM the address is notated HUDHDMAWRAM+3+(5*r) where
 ; r = the row in the table.
+;
+; If the HDMA table is modified be sure to check the message box HDMA routines in
+; messsageboxes.asm and update them accordingly if necessary. Message boxes do their
+; own palette HDMA setup and tear down.
 ;------------------------------------------------------------------------------
 HUDHDMACommand:
         LDA.w HUDHDMAPtr : BEQ .return
