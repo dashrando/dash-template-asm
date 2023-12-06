@@ -36,7 +36,7 @@ dw $046C, $0008
 db $99, $03, $88, $03, $89, $03, $8A, $03
 db $8B
 dw $04AC, $4004
-dw $038F, $00FF, $038C, $038D, $00FF 
+dw $038F, $00FF, $038C, $038D, $00FF
 dw $04DC, $0002
 db $9C, $03, $8B
 dw $04EC, $4004
@@ -110,7 +110,7 @@ dw $FFFF
 Room_PreHiJump_Patch_01:
 dw $015D, $0000
 db $C5
-dw $02C5, $0004
+dw $02B5, $0004
 db $C3, $6B, $83, $6B, $C3
 dw $1402, $0000
 db $00
@@ -119,8 +119,8 @@ dw $FFFF
 Room_FirstHeated_Patch_01:
 dw $03AC, $4000
 dw $00FF
-db $FF, $4004
-dw $040C, $0006, $8106, $00FF, $00FF
+dw $040C, $4002
+dw $8106, $00FF, $00FF
 dw $0DD7, $0000
 db $00
 dw $0E09, $0000
@@ -276,7 +276,6 @@ dw $FFFF
 Room_BigPink_Patch_01:
 dw $02B2, $C009
 dw $8B28
-dw $8B28, $8B28
 dw $02C6, $4000
 dw $8B29
 dw $0352, $C00A
@@ -289,6 +288,7 @@ dw $0542, $4000
 dw $00FF
 dw $FFFF
 
+; Room $AD5E: Lower Norfair -> Bubble Norfair
 Room_SingleChamber_Patch_01:
 dw $05E0, $C001
 dw $00FF
@@ -299,9 +299,9 @@ dw $00FF
 dw $32F1, $4000
 dw $0000
 dw $3351, $4000
-dw $00, $00
+dw $0000
 dw $33B1, $4000
-dw $00, $00
+dw $0000
 dw $7802, $0001
 db $00
 dw $FFFF
