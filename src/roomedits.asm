@@ -306,7 +306,12 @@ dw $7802, $0001
 db $00
 dw $FFFF
 
+;-------------------------------------------------
 ; Room $AD5E: Lower Norfair -> Bubble Norfair
+;-------------------------------------------------
+; Opens the back door to LN from within the
+; Single Chamber room
+;-------------------------------------------------
 Room_SingleChamber_Patch_02:
 dw $05E0, $C001
 dw $00FF
@@ -366,7 +371,12 @@ dw $2802, $0000
 db $00
 dw $FFFF
 
+;-------------------------------------------------
 ; Room $A322: Red Brinstar -> Crateria elevator
+;-------------------------------------------------
+; Open the back entry to Maridia on the right
+; wall near the elevator
+;-------------------------------------------------
 Room_RedBrinstarElevator_Patch_01:
 dw $142C, $4000
 dw $00FF
@@ -400,7 +410,12 @@ dw $37CC, $4000
 dw $00FF
 dw $FFFF
 
+;-------------------------------------------------
 ; Room $9E52: Brinstar diagonal room
+;-------------------------------------------------
+; Flatten the ledge at the top of the room to
+; allow easy access without HJB
+;-------------------------------------------------
 Room_GreenHills_Patch_02:
 dw $0A2A, $4001
 dw $00FF, $856C
@@ -418,7 +433,12 @@ dw $09CF, $4000
 dw $92D2
 dw $FFFF
 
+;-------------------------------------------------
 ; Room $94FD: Wrecked Ship back door
+;-------------------------------------------------
+; Add platforms to allow access to the ledge on
+; the top right with just HJB
+;-------------------------------------------------
 Room_WreckedShipBackExit_Patch_01:
 dw $4506, $4003
 dw $8100, $8101, $8501, $8500
@@ -436,7 +456,12 @@ dw $D202, $0000
 db $00
 dw $FFFF
 
+;-------------------------------------------------
 ; Room $D5A7: Snail room
+;-------------------------------------------------
+; Allow screw attack and bombs to break the
+; blocks near the front door of Aqueduct 
+;-------------------------------------------------
 Room_Aqueduct_Patch_01:
 dw $1691, $0000
 db $F0
