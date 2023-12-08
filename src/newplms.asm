@@ -312,7 +312,9 @@ CustomGreyDoorList:
 ;
 ; Meta PLMs Supported:
 ;   1 = Jump to another PLM list by loading the address
-;       of the next list into X
+;       of the next list into X, if the second value
+;       is non-zero, just run a PLM at a different
+;       address and return.
 ;   2 = Skip this PLM without calling any other code
 ;       associated with PLMs
 ;      
@@ -327,6 +329,14 @@ PreProcessRoomPLM:
         BEQ .jump
         JML $84846A
         .jump:
+        LDA.w $0002,X : BEQ +
+                PHX
+                LDA.w $0004,X
+                TAX
+                JSL $84846A
+                PLX
+                RTL
+        +
         LDA.w $0004,X
         SEC : SBC.w #6
         TAX

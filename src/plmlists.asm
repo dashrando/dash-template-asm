@@ -505,3 +505,6 @@ if !AREA == 1
 endif
 
 pullpc
+
+; Reserved the last 800 bytes
+warnpc $8FFFFF-799
