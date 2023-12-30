@@ -22,12 +22,11 @@ LoadSaveExpanded:
         LDA.w FileSelectCursor
         JSL.l LoadSave : BCS .newfile  ; What we wrote over
                 JSR.w SetBootTest
-                JSR.w InitHUDHDMATables
+                JSL.l LoadMapMirror
                 RTS
         .newfile
         JSR.w NewSaveFile
         JSR.w ClearExtendedBuffers ; We've read from uninitialized SRAM
-        JSR.w InitHUDHDMATables
         JSR.w SetBootTest
         STZ.w AreaMapFlag
 RTS
@@ -64,7 +63,6 @@ ClearExtendedBuffers:
                 STZ.w $FC00,X
                 STZ.w $FD00,X
                 STZ.w $FE00,X
-                STZ.w $FF00,X
                 DEX #2
         BPL -
         PHK : PLB
@@ -172,14 +170,6 @@ LoadExtendedStats:
         PLA
 RTL
 
-InitHUDHDMATables:
-        LDX.w #$0054
-        -
-                LDA.l HUDHDMAOne,X : STA.l HUDHDMAWRAM,X
-                DEX #2
-        BPL -
-RTS
-
 ExtendedSRAMOffsets:
 dw SlotOneExtendedSRAM
 dw SlotTwoExtendedSRAM
@@ -229,7 +219,10 @@ RTS
 ;------------------------------------------------------------------------------
 
 pushpc
+org $80C5CF : skip 14*5                         ; Brinstar Save Stations
+dw $A253,$90F6,$0000,$0000,$0700,$0058,$0050    ; slot #5 red tower
 org $80C917 : skip 14*4                         ; Maridia Save Stations
-dw $D1A3,$A468,$0000,$0000,$0200,$0078,$0060    ; slot #4
-dw $CFC9,$A3D8,$0000,$0100,$0500,$0078,$0010    ; slot #5
+dw $D1A3,$A468,$0000,$0000,$0200,$0078,$0060    ; slot #4 pre aqueduct
+dw $D08A,$A3A8,$0000,$0000,$0000,$00B8,$0000    ; slot #5 crab tunnel
+dw $D104,$A42C,$0000,$0200,$0000,$0078,$0050    ; slot #6 red fish
 pullpc

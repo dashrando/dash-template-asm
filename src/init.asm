@@ -69,6 +69,11 @@ InitRAM:
                 DEX #2
         BPL -
         LDA.w #$0001 : STA.l ColdBootFlag
+        LDX.w #$0032
+        -
+                LDA.l HUDHDMAOne,X : STA.l HUDHDMAWRAM,X
+                DEX #2
+        BPL -
         .done
         PHK : PLB
 JMP.w $84B1

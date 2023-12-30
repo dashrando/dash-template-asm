@@ -1,6 +1,13 @@
 ;------------------------------------------------------------------------------
 ; Enemies
 ;------------------------------------------------------------------------------
+EnemyCollisionCheck:
+        LDA.w SamusCollisionPtr : CMP.w #SamusHandlerInitialFanfare : BEQ .no_collision
+                                  CMP.w #SamusHandlerLocked         : BEQ .no_collision
+                JSL.l ExecuteEnemyTouch
+        .no_collision
+RTL
+
 pushpc
 if !RECALL == 1
 ; Plasma Room Green Pirates

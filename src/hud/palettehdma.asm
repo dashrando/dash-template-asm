@@ -1,30 +1,30 @@
 ;------------------------------------------------------------------------------
 ; HUD HDMA
 ;------------------------------------------------------------------------------
-; Our HUD palette works in two phases using two pointers in mirrored WRAM
-; (HUDHDMAPtr and HUDColorsPtr.) First we need to hook into vanilla on various
-; game state changes to set both these pointers to routines in this module and
-; bank ($80.) 
+; Our HUD palette works in two phases. First we set our HUDHDMAPtr in WRAM which points
+; to a routine that sets up our HDMA. Then we run a routine in our post-NMI hook that
+; places all of our initial new HUD colors but one into CGRAM by interacting directly
+; with the CGADD and CGDATA registers.
 ;
-; 1. Our HUDHDMAPtr routine is called where the vanilla NMI writes to $420C. This
-;    routine is responsible for selecting the appropriate channels for the situation.
-;    We need to select two channels that will not interfere with vanilla effects
-;    including but not limited to: power bombs, X-ray, liquid effects and scrolling,
-;    and message boxes. This routine is also responsible for updating the HUD
-;    palette HDMA table in WRAM for the next frame.
+; Our HUDHDMAPtr routine is called where the vanilla NMI writes to $420C. This
+; routine is responsible for selecting the appropriate channels for the situation.
+; If we're not using HDMA during the next frame, we point it to #ActivateHDMA instead.
+; We need to select two channels that will not interfere with vanilla effects
+; including but not limited to: power bombs, X-ray, liquid effects and scrolling,
+; and message boxes. This routine is also responsible for updating the HUD
+; palette HDMA table in WRAM for the next frame.
 ;
-;    The HDMA table should restore the vanilla palettes before the final scanline
-;    of the HUD (31.) If using fading palettes, get the color from the main vanilla
-;    palette buffer at $7EC000 (PaletteBuffer.) Otherwise, we may set them statically.
+; The HDMA table should restore the vanilla palettes before the final scanline
+; of the HUD (31.) If using fading palettes, get the color from the main vanilla
+; palette buffer at $7EC000 (PaletteBuffer.) Otherwise, we may set them statically.
+; We always use scanline 0 to set one of our initial new HUD colors instead of
+; setting that color during NMI because one HDMA must trigger on that scanline.
+; When modifying our HDMA table in RAM the address is notated HUDHDMAWRAM+3+(5*r) where
+; r = the row in the table.
 ;
-; 2. Our HUDColorsPtr routine is called in our post-NMI hook before the return
-;    from interrupt. This routine is responsible for putting our new colors into
-;    CGRAM during v-blank. For the most part we should use the CGADD and CGDATA
-;    registers directly unless we are transferring larger batches at once.
-;
-; We have to have one HDMA on scanline 0 per channel on every frame it's used,
-; so we should use that to set two of our original colors in order to save as
-; much time as possible during v-blank.
+; If the HDMA table is modified be sure to check the message box HDMA routines in
+; messsageboxes.asm and update them accordingly if necessary. Message boxes do their
+; own palette HDMA setup and tear down.
 ;------------------------------------------------------------------------------
 HUDHDMACommand:
         LDA.w HUDHDMAPtr : BEQ .return
@@ -47,37 +47,14 @@ SetupPaletteTransfer:
         REP #$20
 
         LDX.b HDMAChannels : STX.w $420C
-
-        LDA.l PaletteBuffer+$02 : STA.l HUDHDMAWRAM+$2B
-        LDA.l PaletteBuffer+$0A : STA.l HUDHDMAWRAM+$3A
-        LDA.l PaletteBuffer+$0C : STA.l HUDHDMAWRAM+$35
-        LDA.l PaletteBuffer+$0E : STA.l HUDHDMAWRAM+$44
-        LDA.l PaletteBuffer+$32 : STA.l HUDHDMAWRAM+$4E
-        LDA.l PaletteBuffer+$34 : STA.l HUDHDMAWRAM+$53
-        LDA.l PaletteBuffer+$3C : STA.l HUDHDMAWRAM+$49
+        LDA.l PaletteBuffer+$02 : STA.l HUDHDMAWRAM+3+(5*1)
+        LDA.l PaletteBuffer+$0A : STA.l HUDHDMAWRAM+3+(5*4)
+        LDA.l PaletteBuffer+$0C : STA.l HUDHDMAWRAM+3+(5*3)
+        LDA.l PaletteBuffer+$0E : STA.l HUDHDMAWRAM+3+(5*6)
+        LDA.l PaletteBuffer+$32 : STA.l HUDHDMAWRAM+3+(5*8)
+        LDA.l PaletteBuffer+$34 : STA.l HUDHDMAWRAM+3+(5*9)
+        LDA.l PaletteBuffer+$3C : STA.l HUDHDMAWRAM+3+(5*7)
         .done
-RTS
-
-.door_fade
-        SEP #$30
-        LDA.b #$03 : STA.w $4300
-        LDA.b #$21 : STA.w $4301
-        REP #$20
-        LDA.w #HUDHDMAWRAM : STA.w $4302
-        SEP #$20
-        LDA.b #HUDHDMAWRAM>>16 : STA.w $4304
-        LDA.b #$01 : ORA.b HDMAChannels : STA.b HDMAChannels
-
-        LDX.b HDMAChannels : STX.w $420C
-
-        REP #$20
-        LDA.l PaletteBuffer+$02 : STA.l HUDHDMAWRAM+$26
-        LDA.l PaletteBuffer+$0A : STA.l HUDHDMAWRAM+$08
-        LDA.l PaletteBuffer+$0C : STA.l HUDHDMAWRAM+$30
-        LDA.l PaletteBuffer+$0E : STA.l HUDHDMAWRAM+$35
-        LDA.l PaletteBuffer+$32 : STA.l HUDHDMAWRAM+$3A
-        LDA.l PaletteBuffer+$34 : STA.l HUDHDMAWRAM+$44
-        LDA.l PaletteBuffer+$3C : STA.l HUDHDMAWRAM+$38
 RTS
 
 .door
@@ -138,36 +115,27 @@ RTS
         LDA.b HDMAChannels : STA.w $420C
 
         REP #$30
-        LDA.l PaletteBuffer+$02 : STA.l HUDHDMAWRAM+$2B
-        LDA.l PaletteBuffer+$0A : STA.l HUDHDMAWRAM+$3A
-        LDA.l PaletteBuffer+$0C : STA.l HUDHDMAWRAM+$35
-        LDA.l PaletteBuffer+$0E : STA.l HUDHDMAWRAM+$44
-        LDA.l PaletteBuffer+$32 : STA.l HUDHDMAWRAM+$4E
-        LDA.l PaletteBuffer+$34 : STA.l HUDHDMAWRAM+$53
-        LDA.l PaletteBuffer+$3C : STA.l HUDHDMAWRAM+$49
+        LDA.l PaletteBuffer+$02 : STA.l HUDHDMAWRAM+3+(5*1)
+        LDA.l PaletteBuffer+$0A : STA.l HUDHDMAWRAM+3+(5*4)
+        LDA.l PaletteBuffer+$0C : STA.l HUDHDMAWRAM+3+(5*3)
+        LDA.l PaletteBuffer+$0E : STA.l HUDHDMAWRAM+3+(5*6)
+        LDA.l PaletteBuffer+$32 : STA.l HUDHDMAWRAM+3+(5*8)
+        LDA.l PaletteBuffer+$34 : STA.l HUDHDMAWRAM+3+(5*9)
+        LDA.l PaletteBuffer+$3C : STA.l HUDHDMAWRAM+3+(5*7)
 RTL
 
-; $700F - purple
-; $2873 - pink
 HUDHDMAOne:
-db 01 : dw $0101 : dw $03DD ; Scanline 0  ; $00 | Area Code Yellow
-db 01 : dw $0505 : dw $700F ; Scanline 1  ; $05 | Major Count Purple
-db 01 : dw $0606 : dw $7FFF ; Scanline 2  ; $0A | Count White
-db 01 : dw $0707 : dw $0000 ; Scanline 3  ; $0F | Count Black
-db 01 : dw $1919 : dw $3687 ; Scanline 4  ; $14 | M/E Icons Muted Green
-db 01 : dw $1A1A : dw $7FFF ; Scanline 5  ; $19 | Pessure Valve White
-db 07 : dw $1E1E : dw $7FFF ; Scanline 6  ; $1E | Heat Shield White
-db 01 : dw $0F0F : dw $0000 ; Scanline 13 ; $23 | Reserved Write
-db 01 : dw $0101 : dw $02DF ; Scanline 14 ; $28 | Vanilla Write
-db 06 : dw $0505 : dw $1C3B ; Scanline 15 ; $2D | Major Count Red
-db 01 : dw $0606 : dw $2D08 ; Scanline 21 ; $32 | Vanilla Write
-db 01 : dw $0505 : dw $41AD ; Scanline 22 ; $37 | Vanilla Write
-db 05 : dw $1919 : dw $71C7 ; Scanline 23 ; $3C | Pressure Valve Blue
-db 01 : dw $0707 : dw $1863 ; Scanline 28 ; $41 | Vanilla Write
-db 01 : dw $1E1E : dw $001F ; Scanline 29 ; $46 | Vanilla Write
-db 01 : dw $1919 : dw $5AD6 ; Scanline 30 ; $4B | Vanilla Write
-db 01 : dw $1A1A : dw $4A52 ; Scanline 31 ; $50 | Vanilla Write
-db 00                                     ; $55 | Termination Byte
+db 14 : dw $0101 : dw $03DD ; Scanline 0  ; $00 | Area Code Yellow (Required write)
+db 01 : dw $0101 : dw $02DF ; Scanline 14 ; $05 | Vanilla Write
+db 06 : dw $0505 : dw $1C3B ; Scanline 15 ; $0A | Major Count Red
+db 01 : dw $0606 : dw $2D08 ; Scanline 21 ; $0F | Vanilla Write
+db 01 : dw $0505 : dw $41AD ; Scanline 22 ; $14 | Vanilla Write
+db 05 : dw $1919 : dw $71C7 ; Scanline 23 ; $19 | Pressure Valve Blue
+db 01 : dw $0707 : dw $1863 ; Scanline 28 ; $1E | Vanilla Write
+db 01 : dw $1E1E : dw $001F ; Scanline 29 ; $23 | Vanilla Write
+db 01 : dw $1919 : dw $5AD6 ; Scanline 30 ; $28 | Vanilla Write
+db 01 : dw $1A1A : dw $4A52 ; Scanline 31 ; $2D | Vanilla Write
+dw 00                                     ; $32 | Termination Byte
 
 HUDHDMATwo: ; Reserved
 db 01 : dw $0000 : dw $0000 ; Scanline 0  ; $00
@@ -196,26 +164,6 @@ SetHDMAPointerLoad:
         LDA.w #$0007 : STA.w GameState ; What we wrote over
 RTL
 
-SetHDMAPointerDoorFadeOut:
-        LDA.w #SetupPaletteTransfer : STA.w HUDHDMAPtr
-        LDA.w #$0009 : STA.w GameState ; What we wrote over
-RTL
-
-SetHDMAPointerDoorFadeIn:
-        LDA.w #SetupPaletteTransfer_door_fade : STA.w HUDHDMAPtr
-        LDA.w #$E737 : STA.w DoorTransitionPtr ; What we wrote over
-RTL
-
-SetHDMAPointerDoorStart:
-        LDA.w #SetupPaletteTransfer_done : STA.w HUDHDMAPtr
-        LDA.w #$E310 : STA.w DoorTransitionPtr ; What we wrote over
-RTL
-
-SetHDMAPointerDoorEnd:
-        LDA.w #SetupPaletteTransfer : STA.w HUDHDMAPtr
-        LDA.w #$0008 : STA.w GameState
-RTL
-
 SetHDMAPointerPause:
         LDA.w #SetupPaletteTransfer : STA.w HUDHDMAPtr
         STZ.w ScreenFadeCounter : INC.w GameState ; What we wrote over
@@ -224,11 +172,6 @@ RTL
 SetHDMAPointerUnpause:
         LDA.w #SetupPaletteTransfer : STA.w HUDHDMAPtr
         STZ.w ScreenFadeCounter : INC.w GameState ; What we wrote over
-RTL
-
-SetHDMAPointerDoorDark:
-        LDA.w #SetupPaletteTransfer_door_transition : STA.w HUDHDMAPtr
-        LDA.w #$E36E : STA.w DoorTransitionPtr ; What we wrote over
 RTL
 
 SetHDMAPointerEnding:
@@ -250,5 +193,30 @@ FindChannel:
         TYA : ASL #4
         CLC : ADC.b $10 : STA.b $10
         SEP #$30
+RTS
+
+HUDPaletteNMITransfer:
+; We do these at the end of NMI where we hopefully have some more time compared to the frame
+        LDA.w HUDHDMAPtr : CMP.w #ActivateHDMA : BEQ .skip
+                LDX.b #$05 : STX.w $2121
+                LDX.b #$0F : STX.w $2122
+                LDX.b #$70 : STX.w $2122
+
+                LDX.b #$06 : STX.w $2121
+                LDX.b #$FF : STX.w $2122
+                LDX.b #$7F : STX.w $2122
+
+                LDX.b #$19 : STX.w $2121
+                LDX.b #$87 : STX.w $2122
+                LDX.b #$36 : STX.w $2122
+
+                LDX.b #$1A : STX.w $2121
+                LDX.b #$FF : STX.w $2122
+                LDX.b #$7F : STX.w $2122
+
+                LDX.b #$1E : STX.w $2121
+                LDX.b #$FF : STX.w $2122
+                LDX.b #$7F : STX.w $2122
+        .skip
 RTS
 

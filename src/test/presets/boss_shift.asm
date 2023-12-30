@@ -18,15 +18,15 @@ InitializeForTesting: {
         %setup_controller()
 
         ; Add equipment and beams
-        %add_items(!MorphingBall,!Bombs,!SpaceJump,!ScrewAttack,!GravitySuit,!VariaSuit)
-        %add_beams(!PlasmaBeam,!WaveBeam,!IceBeam,!SpazerBeam)
+        %add_items(!MorphingBall,!Bombs,!SpaceJump,!ScrewAttack,!GravitySuit,!VariaSuit,!XrayScope)
+        %add_beams(!PlasmaBeam,!WaveBeam,!IceBeam,!SpazerBeam,!ChargeBeam)
         %unequip_beams(!SpazerBeam)
 
         ; Add some ammo
-        LDA.w #50
+        LDA.w #80
         STA.w CurrentPBs : STA.w MaxPBs
         STA.w CurrentSupers : STA.w MaxSupers
-        LDA.w #40
+        LDA.w #100
         STA.w CurrentMissiles : STA.w MaxMissiles
 
         ; Make sure Zebes is awake

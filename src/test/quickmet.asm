@@ -174,6 +174,7 @@ InitHUDForPreset:
        PHA : PHX
        REP #$20
        JSL.l InitRightHUDTiles
+       LDA.w #SetupPaletteTransfer : STA.w HUDHDMAPtr
        SEP #$20
        PLX : PLA
        RTS

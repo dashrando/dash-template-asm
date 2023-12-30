@@ -108,6 +108,7 @@ dw $0002 : skip 4                 ; remove the pink refill door
 ; Green Brinstar Pre Map - Room $9B9D
 org PLMList1GreenBrinstarPreMap
 dw $0000                          ; remove grey door
+
 pullpc
 
 ;------------------------------------------------------------------------------
@@ -118,18 +119,24 @@ CustomPLMs_KraidEntryAndAboveKraid:
 dw $C842 : db $0E,$16 : dw $9CB0  ; flashing door cap (Kraid Entry)
 dw $0001,$0000,PLMList1KraidEntry
 
+CustomPLMs_RedTower:
+dw SaveStationMini_entry : db $0C,$77 : dw $0005
+dw $0001,$0000,PLMList1RedTower
+
 pushpc
 ; Red Tower - Room $A253
 org PLMList1RedTower
-skip 12                                 ; overwrite green cap with
+skip 12                                     ; overwrite green cap with
 if !AREA == 1
-dw $C848 : db $01,$46 : skip 1 : db $9C ; flashing door cap
-                                        ; NOTE: reusing refill room variable
+    dw $C848 : db $01,$46 : skip 1 : db $9C ; flashing door cap
 else
-dw $0002 : skip 4                       ; nothing!
+    dw $0002 : skip 4                       ; nothing!
 endif
 
 if !AREA == 1
+    org RoomState1RedTower
+    skip 20 : dw CustomPLMs_RedTower
+
     ; Red Elevator - Room $962A
     org PLMList1RedElevator
     skip 6                          ; overwrite yellow cap with
@@ -160,6 +167,7 @@ if !AREA == 1
     skip 60                             ; overwrite green gate with
     dw $C842 : db $3E,$06 : dw $9CB2    ; flashing door cap (Above Kraid)
 endif
+
 pullpc
 
 ;------------------------------------------------------------------------------
@@ -167,15 +175,19 @@ pullpc
 ;------------------------------------------------------------------------------
 CustomPLMs_MainStreet:
 dw $C84E : db $16,$7D : dw $9CB3  ; flashing door cap
-dw $B76F : db $18,$59 : dw $0005  ; add save station
 dw $0001,$0000,PLMList1MainStreet ; run the vanilla list
+
+CustomPLMs_CrabTunnel:
+dw SaveStationMini_entry : db $07,$0D : dw $0005  ; add save station
+dw $0001,$0000,PLMList1CrabTunnel
 
 CustomPLMs_PreAqueduct:
 dw $B76F : db $0D,$29 : dw $0004  ; add save station
 dw $0001,$0000,PLMList1PreAqueduct
 
 CustomPLMs_RedFish:
-dw $C848 : db $01,$06 : dw $9CB4  ; flashing door cap
+dw $C848                 : db $01,$06 : dw $9CB4  ; flashing door cap
+dw SaveStationMini_entry : db $8C,$07 : dw $0006  ; save station
 dw $0001,$0000,PLMList1RedFish
 
 CustomPLMs_MaridiaMap:
@@ -195,6 +207,10 @@ if !AREA == 1
     ; Main Street - Room $CFC9
     org RoomState1MainStreet
     skip 20 : dw CustomPLMs_MainStreet
+
+    ; Crab Tunnel - Room $D08a
+    org RoomState1CrabTunnel
+    skip 20 : dw CustomPLMs_CrabTunnel
 
     ; PreAqueduct - Room $D1A3
     org RoomState1PreAqueduct
@@ -226,6 +242,7 @@ if !AREA == 1 || !RECALL == 1
     org PLMList1CrabShaft
     dw $0002 : skip 4                 ; gate always open
 endif
+
 pullpc
 
 ;------------------------------------------------------------------------------
@@ -285,6 +302,15 @@ if !AREA == 1
     skip 20 : dw CustomPLMs_SandFalls
 endif
 
+; Draygon's Boss Room - Room $DA60
+org $8FC7BB
+skip 4
+dw $809E                ; Set FRONT door as always solid grey so each version
+                        ; of the boss room is locked for true boss rando.
+skip 4
+dw $809F                ; Set BACK door as always solid grey so each version
+                        ; of the boss room is locked for true boss rando.
+
 pullpc
 
 ;------------------------------------------------------------------------------
@@ -303,18 +329,18 @@ pushpc
 org RoomState1WreckedShipSave     ; update asleep room state
 skip $14 : dw $C2C9               ; turn on save station
 
-; TODO: Use labels
+; Wrecked Ship Pre Phantoon - Room $CC6F
+org RoomState2PrePhantoon         ; update awake room state
+skip 20 : dw $C291                ; use list with gadora
+
+; Wrecked Ship Back Room - Room $CBD5
+org RoomState1WreckedShipBack    ; update asleep room state
+skip 20 : dw $C323               ; use list with red door cap
+
 if !RECALL == 1
-    org $8FCC39         ; WS E-tank room header Phantoon alive
-    skip $14 : dw $C337 ; Show WS E-tank item
-
-    org $8FCBE7         ; WS back room Phantoon alive
-    skip $14 : dw $C323 ; Add missile door back
-endif
-
-if !AREA == 1 ; TODO: Do we need this?
-    org $8FCBE7         ; WS back room Phantoon alive
-    skip $14 : dw $C323 ; Add missile door back
+    ; Wrecked Ship Etank Room - Room $CC27
+    org RoomState1WreckedShipEtank  ; update asleep room state
+    skip 20 : dw $C337              ; use list with WS E-tank item
 endif
 
 if !AREA == 1
@@ -331,6 +357,13 @@ if !AREA == 1
     skip 42                 ; open the back door
     dw $0002 : skip 4
 endif
+
+; Phantoon's Boss Room - Room $CD13
+org $8FC2B3
+skip 4
+dw $8086                ; Set door as always solid grey so each version
+                        ; of the boss room is locked for true boss rando.
+    
 pullpc
 
 ;------------------------------------------------------------------------------
@@ -371,6 +404,7 @@ if !AREA == 1
     skip 48                         ; overwrite orange door with
     dw $C848 : skip 3 : db $9C      ; flashing door cap
 endif
+
 pullpc
 
 ;------------------------------------------------------------------------------
@@ -390,6 +424,7 @@ if !RECALL == 1
     org PLMList1CrocGreenGate
     dw $0002 : skip 4               ; gate always open
 endif
+
 pullpc
 
 ;------------------------------------------------------------------------------
@@ -413,6 +448,16 @@ if !AREA == 1
     org RoomState1RidleyMouth
     skip 20 : dw CustomPLMs_RidleyMouth
 endif
+
+; Ridley's Boss Room - Room $B32E
+org $8F8E98
+skip 4                  
+dw $805A                ; Set FRONT door as always solid grey so each version
+                        ; of the boss room is locked for true boss rando.
+skip 4
+dw $805B                ; Set BACK door as always solid grey so each version
+                        ; of the boss room is locked for true boss rando.
+
 pullpc
 
 ;------------------------------------------------------------------------------
@@ -433,6 +478,16 @@ if !AREA == 1
     org RoomState1KraidsLair
     skip 20 : dw CustomPLMs_KraidsLair
 endif
+
+; Kraid's Boss Room - Room $A59F
+org $8F8A2E
+skip 4                  
+dw $8046                ; Set BACK door as always solid grey so each version
+                        ; of the boss room is locked for true boss rando.
+skip 4
+dw $8047                ; Set FRONT door as always solid grey so each version
+                        ; of the boss room is locked for true boss rando.
+
 pullpc
 
 ;------------------------------------------------------------------------------
@@ -448,4 +503,8 @@ if !AREA == 1
     org RoomState1Tourian
     skip 20 : dw CustomPLMs_Tourian
 endif
+
 pullpc
+
+; Reserved the last 800 bytes
+warnpc $8FFFFF-799

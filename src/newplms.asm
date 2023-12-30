@@ -306,6 +306,22 @@ CustomGreyDoorList:
         %CopyBytes($84BE4B,14)
         dw FlashingDoor
 
+;------------------------------------------------------------
+; Handles processing of special meta PLM values which are
+; processed prior to other PLMs.
+;
+; Meta PLMs Supported:
+;   1 = Jump to another PLM list by loading the address
+;       of the next list into X, if the second value
+;       is non-zero, just run a PLM at a different
+;       address and return.
+;   2 = Skip this PLM without calling any other code
+;       associated with PLMs
+;      
+; Register states when called:
+;   A = PLM identifier
+;   X = Address of the PLM within the PLM list
+;------------------------------------------------------------
 PreProcessRoomPLM:
         CMP.w #2        ; skip?
         BEQ .done
@@ -313,6 +329,14 @@ PreProcessRoomPLM:
         BEQ .jump
         JML $84846A
         .jump:
+        LDA.w $0002,X : BEQ +
+                PHX
+                LDA.w $0004,X
+                TAX
+                JSL $84846A
+                PLX
+                RTL
+        +
         LDA.w $0004,X
         SEC : SBC.w #6
         TAX
@@ -324,6 +348,38 @@ MaybeActivateLNChozo:
                 LDA.w VanillaItemsCollected : AND.w #$0200
         .done
 RTS
+
+SaveStationMini:
+.entry
+dw $B5EE, .instruction_list
+
+.instruction_list
+dw $0001, .draw_one
+dw $86B4
+dw $8CF1, .used
+dw $B00E
+dw $8C07 : db $2E
+dw $874E : db $15
+.timer
+dw $0004, .draw_three
+dw $0004, .draw_two
+dw $873F, .timer
+dw $B024
+.used
+dw $B030
+dw $8724, .instruction_list
+
+.draw_one
+dw $0002, $B859, $8C59
+dw $0000 ; Termination
+
+.draw_two
+dw $0002, $8859, $8C59
+dw $0000
+
+.draw_three
+dw $0002, $885A, $8C5A
+dw $0000
 
 pushpc
 org $84D0E8

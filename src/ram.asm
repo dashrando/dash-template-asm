@@ -56,12 +56,25 @@ ScreenFadeDelay = $7E0723            ;
 ScreenFadeCounter = $7E0725          ;
 AreaMapFlag = $7E0789                ;
 DoorPointer = $7E078D                ;
+DoorBTS = $7E078F                    ; Possibly unused
 DoorDirection = $7E0791              ;
 RoomPointer = $7E079B                ;
 RoomIndex = $7E079D                  ;
 AreaIndex = $7E079F                  ;
 CREBitset = $7E07B3                  ; $0001 = Disable BG1 | $0002 = Reload CRE | $0003 = Load extra large tileset
 DoorMisaligned = $7E07D3             ; Misaligned door (0x1 | 0x2)
+BG1XSubPos = $7E090F                 ;
+BG1XPos = $7E0911                    ;
+BG1YSubPos = $7E0913                 ;
+BG1YPos = $7E0915                    ;
+BG2XPos = $7E0917                    ;
+BG2YPos = $7E0919                    ;
+BG1XOffset = $7E091D                 ;
+BG1YOffset = $7E091F                 ;
+BG2XOffset = $7E0921                 ;
+BG2YOffset = $7E0923                 ;
+ScreenXPos = $7E0927                 ;
+ScreenYPos = $7E0929                 ;
 FileSelectCursor = $7E0952           ;
 SaveSlotPresence = $7E0954           ;
 GameState = $7E0998                  ;
@@ -71,6 +84,7 @@ DoubleJumpFlag = $7E0A14             ; Zeroed when Samus lands. Unused(?) debug 
 HUDFlags = $7E0A1A                   ; Word-length bitfield.
 SamusPose = $7E0A1C                  ;
 SamusMovementType = $7E0A1F          ;
+SamusCollisionPtr = $7E0A44          ;
 DamageFlashCounter = $7E0A48         ; Samus hurt flash counter
 SamusPaletteFlags = $7E0A4A          ; Super special Samus palette flags.
 SamusSubDamage = $7E0A4C             ; Only affected by SamusPeriodicDamage.
@@ -91,14 +105,14 @@ SamusYPos = $7E0AFA                  ; Samus Y position
 SamusYSubPos = $7E0AFC               ; Samus Y subposition
 SamusXRadius = $7E0AFE               ; Samus X radius
 SamusYRadius = $7E0B00               ; Samus Y radius
-SamusYSubSpeed = $7E0B2C
-SamusYSpeed = $7E0B2E
-SamusXRunSpeed = $7E0B42
-SamusXRunSubSpeed = $7E0B44
-SamusXMomentum = $7E0B46
-SamusXSubMomentum = $7E0B48
-SamusDoorSubSpeed = $7E092B
-SamusDoorSpeed = $7E092D
+SamusYSubSpeed = $7E0B2C             ;
+SamusYSpeed = $7E0B2E                ;
+SamusXRunSpeed = $7E0B42             ;
+SamusXRunSubSpeed = $7E0B44          ;
+SamusXMomentum = $7E0B46             ;
+SamusXSubMomentum = $7E0B48          ;
+SamusDoorSubSpeed = $7E092B          ;
+SamusDoorSpeed = $7E092D             ;
 RTASeconds = $7E0B08                 ; RTA timer in seconds. Written during pre-credits stats prep.
 SpeedStepCounter = $7E0B3E           ; Animation counter for speed booster
 SpeedCounter = $7E0B3F               ;
@@ -140,7 +154,7 @@ BootTest: skip 4                     ; Used to determine cold boot vs soft reset
 BootTestInverse: skip 4              ;
 ColdBootFlag: skip 2                 ;
 CreditsScrollSpeed: skip 2           ;
-HUDHDMAWRAM: skip $56                ;
+HUDHDMAWRAM: skip $34                ;
 warnpc $800000
 base off
 
