@@ -36,6 +36,10 @@ InitializeForTesting: {
         org $8F860E : dw $EFEC  ; Beam Upgrade at Charge Missiles
         org $8F8608 : dw $EFEC  ; Beam Upgrade at Big Pink Missiles
         org $8F8614 : dw $F040  ; Beam Upgrade at Charge Beam
+
+        ; Test different charge modes
+        ; [ 0 = vanilla, 1 = starter, 2 = balance, 3 = starter+ ]
+        org ChargeMode : db $01
         pullpc
 
         RTL
