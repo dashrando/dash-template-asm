@@ -10,13 +10,13 @@ BeamDamagePointers:
 dw vanilla_1x, vanilla_3x, vanilla_3x, vanilla_3x
 dw vanilla_3x, vanilla_3x, vanilla_3x, vanilla_3x
 ; Starter Charge + 1 Upgrade
-dw vanilla_1x, vanilla_1x, vanilla_1x, vanilla_3x
+dw vanilla_1x, vanilla_1x, vanilla_3x, vanilla_3x
 dw vanilla_3x, vanilla_3x, vanilla_3x, vanilla_3x
 ; Progressive
-dw balance_1x, balance_1x, balance_1x, balance_2x
-dw balance_3x, balance_4x, balance_5x, balance_5x
+dw balance_1x, balance_1x, balance_2x, balance_3x
+dw balance_4x, balance_5x, balance_5x, balance_5x
 ; Starter Charge + 2 Upgrades
-dw vanilla_1x, vanilla_1x, vanilla_1x, vanilla_2x
+dw vanilla_1x, vanilla_1x, vanilla_2x, vanilla_3x
 dw vanilla_3x, vanilla_3x, vanilla_3x, vanilla_3x
 
 
@@ -50,20 +50,12 @@ LoadBeamDamage:
         LDA.l ChargeMode : AND.w #$0003
         ASL #4 : TAX
         CPY.w #$0000 : BEQ +
-                ;--- new --
-                ;move y to a
-                ;add BeamUpgrades to a
-                ;double it
-                ;put x in $06
-                ;add $06 to a
-                ;move a to x
-                ;--- old ---
-                INX #2
-                LDA.w BeamsEquipped : BIT.w #$1000 : BEQ +
-                        INX #2 : STX.b $06
-                        LDA.w BeamUpgrades : ASL : CLC : ADC.b $06
-                        TAX
-                ;-----------
+                ; Start at the 2nd entry in the table
+                CLC : ADC.w #2
+                ; Move to the entry which corresponds with
+                ; the number of beam upgrades
+                ADC.w BeamUpgrades : ADC.w BeamUpgrades
+                TAX
         +
         LDA.l BeamDamagePointers,X : STA.b $06
         LDA.w BeamsEquipped : AND.w #$00FF
@@ -86,7 +78,7 @@ UpdateUnchargedDamage:
         LDY.w #0000
         JSR.w LoadBeamDamage
         STA.w ProjectileDamage,X
-        JSR.w PrepareForChargeCheck
+        LDA.w BeamsEquipped
 RTS
 
 
