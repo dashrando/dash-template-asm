@@ -142,7 +142,7 @@ print "};"
 print ""
 print "export const TABLE_FLAGS = {"
 print "  // Charge Modes: 0x00 = Vanilla  0x01 = Starter,"
-print "  //               0x02 = Recall   0x03 = New"
+print "  //               0x02 = Recall   0x03 = Starter+"
 %PrintLabelAddress(ChargeMode)
 print "  // HUD bits: 0x01 = Charge  0x02 = Item Counts,"
 print "  //           0x04 = Area    0x08 = Dash Items"

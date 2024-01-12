@@ -229,10 +229,7 @@ VanillaEquipmentPickup:
 RTS
 
 BeamUpgradePickup:
-        LDA.l ChargeMode : AND.w #$000F : BEQ +
-            LDA.w BeamsCollected : BIT.w #$1000 : BEQ +
-                    INC.w BeamUpgrades
-        +
+        INC.w BeamUpgrades
 CollectBeam:
         LDA.w $0000,Y : ORA.w BeamsCollected : STA.w BeamsCollected
         LDA.w $0000,Y : ORA.w BeamsEquipped  : STA.w BeamsEquipped
