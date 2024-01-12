@@ -12,7 +12,7 @@ InitGameState:
                 ORA.w #$0002 : STA.l FreshFileMarker
 
                 ; Equip charge beam if needed
-                LDA.l ChargeMode : BEQ + 
+                LDA.l ChargeMode : AND.w #$0003 : BEQ + 
                         LDA.w BeamsCollected : ORA.w #$1000 : STA.w BeamsCollected
                         LDA.w BeamsEquipped : ORA.w #$1000 : STA.w BeamsEquipped
                 +
