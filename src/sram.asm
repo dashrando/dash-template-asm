@@ -126,6 +126,12 @@ SlotThreeStatsSRAM: skip $200        ; Stat block.
 SlotThreeDataSRAM: skip $E00         ; Data block.
                                      ;
 CurrentSaveSlotSRAM: skip 2          ; Same index as the game uses + 1. No previous game if zero.
-
+SRAMInitialized: skip 4              ; \ We assume SRAM has not been zero initialized if these are not
+SRAMInitializedInverse: skip 4       ; / $5A5A5A5A and $A5A5A5A5 respectively then initialize it on
+                                     ;   first save file init.
 base off
+
+PrivateUseBlock = $707A00            ; $707A00 - $707EFF reserved for private, third party use.
+                                     ; $707F00 - $707FFF reserved for metadata.
+
 pullpc
