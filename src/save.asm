@@ -65,25 +65,6 @@ ClearExtendedBuffers:
                 STZ.w $FE00,X
                 DEX #2
         BPL -
-
-        PEA.w $7000 : PLB : PLB
-        LDA.w SRAMInitialized+$00 : EOR.w SRAMInitializedInverse+$00 : CMP.w #$FFFF : BNE .init_sram
-        LDA.w SRAMInitialized+$02 : EOR.w SRAMInitializedInverse+$02 : CMP.w #$FFFF : BNE .init_sram
-        BRA .done
-        .init_sram
-        LDX.w #$0FFE
-        -
-                STZ.w $2000,X
-                STZ.w $3000,X
-                STZ.w $4000,X
-                STZ.w $5000,X
-                STZ.w $6000,X
-                STZ.w $7000,X
-                DEX #2
-        BPL -
-        LDA.w #$5A5A : STA.w SRAMInitialized+$00 : STA.w SRAMInitialized+$02
-        LDA.w #$A5A5 : STA.w SRAMInitializedInverse+$00 : STA.w SRAMInitializedInverse+$02
-        .done
         PHK : PLB
 RTS
 
