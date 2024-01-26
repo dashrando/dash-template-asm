@@ -32,16 +32,6 @@ balance_3x: %beam_dmg( 60, 90,120,150,150,180,250,300,300,300,300,300)
 balance_4x: %beam_dmg( 80,120,160,200,200,240,360,400,400,400,400,400)
 balance_5x: %beam_dmg(100,150,200,250,250,300,450,500,500,500,500,500)
 
-; Routine that loads either the equipped beams or $1000 based on the charge
-; mode because the next instructions checks to see if charge is equipped.
-PrepareForChargeCheck:
-        LDA.l ChargeMode : AND.w #$000F : BEQ +
-                LDA.w #$1000
-                RTS
-        +
-        LDA.w BeamsEquipped
-RTS
-
 ; Routine that loads the charge damage from another
 ; bank. Used when drawing on the HUD.
 ExternalLoadChargeDamage:
@@ -60,11 +50,12 @@ LoadBeamDamage:
         LDA.l ChargeMode : AND.w #$0003
         ASL #4 : TAX
         CPY.w #$0000 : BEQ +
-                INX #2
-                LDA.w BeamsEquipped : BIT.w #$1000 : BEQ +
-                        INX #2 : STX.b $06
-                        LDA.w BeamUpgrades : ASL : CLC : ADC.b $06
-                        TAX
+                ; Start at the 2nd entry in the table
+                CLC : ADC.w #2
+                ; Move to the entry which corresponds with
+                ; the number of beam upgrades
+                ADC.w BeamUpgrades : ADC.w BeamUpgrades
+                TAX
         +
         LDA.l BeamDamagePointers,X : STA.b $06
         LDA.w BeamsEquipped : AND.w #$00FF
@@ -87,7 +78,7 @@ UpdateUnchargedDamage:
         LDY.w #0000
         JSR.w LoadBeamDamage
         STA.w ProjectileDamage,X
-        JSR.w PrepareForChargeCheck
+        LDA.w BeamsEquipped
 RTS
 
 

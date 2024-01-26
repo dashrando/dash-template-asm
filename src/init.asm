@@ -10,6 +10,12 @@ InitGameState:
         .main
         LDA.l FreshFileMarker : BIT.w #$0002 : BNE .ret
                 ORA.w #$0002 : STA.l FreshFileMarker
+
+                ; Equip charge beam if needed
+                LDA.l ChargeMode : AND.w #$0003 : BEQ + 
+                        LDA.w BeamsCollected : ORA.w #$1000 : STA.w BeamsCollected
+                        LDA.w BeamsEquipped : ORA.w #$1000 : STA.w BeamsEquipped
+                +
                 ; Construction zone and red tower elevator doors
                 LDA.l DoorBitArray+$06 : ORA.w #$0004 : STA.l DoorBitArray+$06
                 LDA.l DoorBitArray+$02 : ORA.w #$0001 : STA.l DoorBitArray+$02
