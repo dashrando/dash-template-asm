@@ -11,7 +11,7 @@ db $00, $01, $02, $03
 
 org $DF8004 ; 0x2F8004
 ChargeMode:
-db $01 ; 0 = vanilla, 1 = starter, 2 = balance
+db $01 ; 0 = vanilla, 1 = starter, 2 = balance, 3 = starter+
 
 org $DF8005 ; 0x2F8005
 HUDBitField:

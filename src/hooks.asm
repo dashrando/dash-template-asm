@@ -120,8 +120,6 @@ org $91D9B2 : LDA.w RoomFlags : BIT.w #$0020
 ;------------------------------------------------------------------------------
 ; Beams
 ;------------------------------------------------------------------------------
-; HUD Handler / timer
-org $90B81B : JSR.w PrepareForChargeCheck
 ; Fire Charged Beam (called after projectile initialized)
 org $90B9E6 : JSR.w UpdateChargeDamage
 ; Fire Uncharged Beam (called after projectile initialized)
