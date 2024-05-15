@@ -147,6 +147,9 @@ print "  //               0x02 = Recall   0x03 = Starter+"
 print "  // HUD bits: 0x01 = Charge  0x02 = Item Counts,"
 print "  //           0x04 = Area    0x08 = Dash Items"
 %PrintLabelAddress(HUDBitField)
+print "  // Seed flags: reserved block for seed flags"
+%PrintLabelAddress(SeedFlags)
+print "  SeedFlagsSize: ",dec(NoFanfare-SeedFlags),","
 print "  // Fanfare: 0x0000 = On  0x0001 = Off"
 %PrintLabelAddress(NoFanfare)
 print "  // LN Chozo Trigger: 0x0000 = Require Space Jump"
