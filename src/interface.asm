@@ -141,6 +141,8 @@ print "  // Ridley Tank Location"
 print "};"
 print ""
 print "export const TABLE_FLAGS = {"
+print "  // File Select Code: 4 bytes"
+%PrintLabelAddress(FileSelectCode)
 print "  // Charge Modes: 0x00 = Vanilla  0x01 = Starter,"
 print "  //               0x02 = Recall   0x03 = Starter+"
 %PrintLabelAddress(ChargeMode)
@@ -152,6 +154,8 @@ print "  // Seed flags: reserved block for seed flags"
 print "  SeedFlagsSize: ",dec(NoFanfare-SeedFlags),","
 print "  // Fanfare: 0x0000 = On  0x0001 = Off"
 %PrintLabelAddress(NoFanfare)
+print "  // Gravity Heat Damage:"
+%PrintRomAddress("GravityHeatDamage",HeatDamageTable_gravity)
 print "  // LN Chozo Trigger: 0x0000 = Require Space Jump"
 print "  //                   0x0001 = Nothing Required"
 %PrintLabelAddress(LNChozoTrigger)
