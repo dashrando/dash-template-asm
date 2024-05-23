@@ -195,7 +195,7 @@ dw $C848 : db $01,$16 : dw $9CB5  ; flashing door cap
 dw $0001,$0000,PLMList1MaridiaMap
 
 CustomPLMs_WestSandHallTunnel:
-dw $C842,$060E,$1000              ; grey door
+dw $C842,$060E,$10C1              ; grey door
 dw $0000
 
 CustomPLMs_WestSandHall:
