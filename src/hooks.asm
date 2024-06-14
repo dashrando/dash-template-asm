@@ -84,6 +84,7 @@ org $8DE379 : JML.l HeatDamage : NOP #2
 org $948EAF : JSL.l SpikeDamage : NOP #2
 org $948EEA : JSL.l SmallSpikeDamage : NOP #2 ; Kraid Spikes
 org $948F25 : JSL.l SmallSpikeDamage : NOP #2 ; Draygon broken turrets
+org $949886 : JSL.l SmallSpikeDamage : NOP #2 ; "Air spikes" e.g. in red tower
 org $A9B5E1 : JSR.w MotherBrainDamage : NOP
 
 ; Double Jump
