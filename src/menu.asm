@@ -134,35 +134,32 @@ SelectMenuTiles: {
 }
 
 ; Loads the custom Dash tiles into the top of $4000 in VRAM
-LoadMenuTiles: {
-   LDA #$02
-   STA $420B
-   LDA #$00
-   STA $2116
-   LDA #$36
-   STA $2117
-   LDA #$80
-   STA $2115
-   JSL $8091A9
-   db $01,$01,$18
-   dl DashMenuTiles
-   dw $2A0
-   LDA #$02
-   STA $420B
-   RTS
-}
+LoadMenuTiles:
+        SEP #$20
+        LDA.b #$00 : STA.w $2116
+        LDA.b #$2D : STA.w $2117
+        LDA.b #$80 : STA.w $2115
+        JSL $8091A9
+        db $01,$01,$18
+        dl DashMenuTiles
+        dw $2A0
+        LDA.b #$02 : STA.w $420B
+        REP #$20
+        JSR.w LoadReserveHealthTilemap ; What we wrote over
+RTS
+
 
 ; oHEAT SHIELD
 HeatShieldTileMap:
-dw $08FF, $0B60, $0B61, $0B62, $0B63, $0B64, $0B65, $08D4, $08D4
+dw $08FF, $0AD0, $0AD1, $0AD2, $0AD3, $0AD4, $0AD5, $08D4, $08D4
 
 ; oPRESSURE VALVE
 PressureValveTileMap:
-dw $08FF, $0B66, $0B67, $0B68, $0B69, $0B6A, $0B6B, $0B6C, $0B6D
+dw $08FF, $0AD6, $0AD7, $0AD8, $0AD9, $0ADA, $0ADB, $0ADC, $0ADD
 
 ; oDOUBLE JUMP
 DoubleJumpTileMap:
-dw $08FF, $0B6E, $0B6F, $0B70, $0B71, $0B72, $0B73, $0B74, $08D4
+dw $08FF, $0ADE, $0ADF, $0AE0, $0AE1, $0AE2, $0AE3, $0AE4, $08D4
 
 SetHUDFlagMenu:
         LDA.b $8F : BIT.w #$0080 : BEQ + ; Check for button press
