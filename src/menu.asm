@@ -133,20 +133,28 @@ SelectMenuTiles: {
    RTS
 }
 
-; Loads the custom Dash tiles into the top of $4000 in VRAM
+; Loads the custom Dash tiles at $3600 in VRAM
 LoadMenuTiles: {
-   LDA #$02
-   STA $420B
+   LDA #$02 : STA $420B ; What we wrote over
+   
+   ; VRAM address lo byte = 0x00
    LDA #$00
    STA $2116
+
+   ; VRAM address hi by = 0x36
    LDA #$36
    STA $2117
+
+   ; Write 128 bytes in one row
    LDA #$80
    STA $2115
+
    JSL $8091A9
    db $01,$01,$18
    dl DashMenuTiles
    dw $2A0
+
+   ; Start a DMA transfer on channel 1
    LDA #$02
    STA $420B
    RTS
@@ -154,15 +162,18 @@ LoadMenuTiles: {
 
 ; oHEAT SHIELD
 HeatShieldTileMap:
-dw $08FF, $0B60, $0B61, $0B62, $0B63, $0B64, $0B65, $08D4, $08D4
+;dw $08FF, $0B60, $0B61, $0B62, $0B63, $0B64, $0B65, $08D4, $08D4
+dw $08FF, $0903, $0904, $08D4, $08D4, $08D4, $08D4, $08D4, $08D4
 
 ; oPRESSURE VALVE
 PressureValveTileMap:
-dw $08FF, $0B66, $0B67, $0B68, $0B69, $0B6A, $0B6B, $0B6C, $0B6D
+;dw $08FF, $0B66, $0B67, $0B68, $0B69, $0B6A, $0B6B, $0B6C, $0B6D
+dw $08FF, $0928, $0929, $08D4, $08D4, $08D4, $08D4, $08D4, $08D4
 
 ; oDOUBLE JUMP
 DoubleJumpTileMap:
-dw $08FF, $0B6E, $0B6F, $0B70, $0B71, $0B72, $0B73, $0B74, $08D4
+;dw $08FF, $0B6E, $0B6F, $0B70, $0B71, $0B72, $0B73, $0B74, $08D4
+dw $08FF, $092A, $092B, $08D4, $08D4, $08D4, $08D4, $08D4, $08D4
 
 SetHUDFlagMenu:
         LDA.b $8F : BIT.w #$0080 : BEQ + ; Check for button press
@@ -175,4 +186,34 @@ pushpc
 org $B6F200
 DashMenuTiles:
 incbin ../data/menu_tiles.bin
+
+org $B6A064
+dw $FFB6,$FFB5,$FF84,$FFB7,$FFB4
+
+org $B6A084
+dw $FF3F,$FFFF,$FF3F,$FFBF,$FF7F
+
+org $B6A4E4
+dw $FFFF,$FF7F,$FF7F,$FF7F,$FFFF
+
+org $B6A504
+dw $FF8D,$FFB5,$FF8D,$FFBD,$FFBE
+
+org $B6A524
+dw $FFBF,$FFBF,$FFBF,$FF7F,$FFFF
+
+org $B6A544
+dw $FF8E,$FFB7,$FFB7,$FFB5,$FF8E
+
+org $B6A564
+dw $FF3F,$FFBF,$FFBF,$FFBF,$FF7F
+
+; oVARIA SUIT
+org $82BF64 :            dw $08FF, $0900, $0901, $0902, $08D4, $08D4, $08D4, $08D4, $08D4
+
+; oGRAVITY SUIT
+org $82BF76 :            dw $08FF, $08D0, $08D1, $08D2, $08D3, $08D4, $08D4, $08D4, $08D4
+
+; oSPEED BOOSTER
+org $82BFF6 :            dw $08FF, $0924, $0925, $0926, $0927, $08D4, $08D4, $08D4, $08D4
 pullpc
