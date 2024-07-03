@@ -136,7 +136,7 @@ org $82A240 : JSR.w IsMenuItemCollected
 org $82A20F : JSR.w IsMenuItemEquipped
 org $82A260 : JSR.w IsMenuItemEquipped
 org $82A288 : JSR.w SelectMenuTiles
-;org $82AC43 : JSR.w LoadMenuTiles : NOP #2
+org $828F6B : JSR.w LoadMenuTiles
 org $82B5A6 : JMP.w HandleMenuItemToggle
 
 ; Menu cursor movement
