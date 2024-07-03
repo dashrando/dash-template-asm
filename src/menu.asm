@@ -133,7 +133,7 @@ SelectMenuTiles: {
    RTS
 }
 
-; Loads the custom Dash tiles into the top of $4000 in VRAM
+; Loads the custom Dash tiles at $2D00 in VRAM
 LoadMenuTiles:
         SEP #$20
         LDA.b #$00 : STA.w $2116
