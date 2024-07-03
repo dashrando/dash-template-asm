@@ -28,6 +28,7 @@ NewSaveFile = $81B2CB
 LoadMenuTileMap = $81B3E2
 LoadStandardBG3 = $8282E2
 LoadPauseMenuTiles = $828E75
+LoadReserveHealthTilemap = $828F70
 ClearSamusBeamTiles = $82A2BE
 PlasmaSpazerMenuCheck = $82B068
 MenuCheckButton = $82B568
