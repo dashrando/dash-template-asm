@@ -256,38 +256,46 @@ NewHUDArea:
 RTS
 
 NewHUDItems:
-        LDA.w DashItemsCollected : BEQ .none
-                LDA.w #$0020 : LDX.w #HUDItemTiles+$00 ; PV
-                BIT.w DashItemsCollected : BEQ +
-                        INX #2
-                +
-                BIT.w DashItemsEquipped : BEQ +
-                        INX #2
-                +
-                LDA.w $0000,X : STA.l RightHUDThree+$02
+        LDX.w #HUDItemTiles+$00 ; PV
+        LDA.l SeedFlags+$04 : BIT #$00C0 : BNE .skip_heat
+                BIT #$4000 : BEQ .skip_heat
+                        LDA.w #$0020 ; PV
+                        BIT.w VanillaItemsCollected : BEQ +
+                                INX #2
+                        +
+                        BIT.w VanillaItemsEquipped : BEQ +
+                                INX #2
+                        +
+                        BRA FirstHUDIcon
+        .skip_heat
+        LDA.w #$0020 ; PV
+        BIT.w DashItemsCollected : BEQ +
+                INX #2
+        +
+        BIT.w DashItemsEquipped : BEQ +
+                INX #2
+        +
+        FirstHUDIcon:
+        LDA.w $0000,X : STA.l RightHUDThree+$02
 
-                LDA.w #$0001 : LDX.w #HUDItemTiles+$06 ; HS
-                BIT.w DashItemsCollected : BEQ +
-                        INX #2
-                +
-                BIT.w DashItemsEquipped : BEQ +
-                        INX #2
-                +
-                LDA.w $0000,X : STA.l RightHUDThree+$04
+        LDA.w #$0001 : LDX.w #HUDItemTiles+$06 ; HS
+        BIT.w DashItemsCollected : BEQ +
+                INX #2
+        +
+        BIT.w DashItemsEquipped : BEQ +
+                INX #2
+        +
+        LDA.w $0000,X : STA.l RightHUDThree+$04
 
-                LDA.w #$0200 : LDX.w #HUDItemTiles+$0C ; DJ
-                BIT.w DashItemsCollected : BEQ +
-                        INX #2
-                +
-                BIT.w DashItemsEquipped : BEQ +
-                        INX #2
-                +
-                LDA.w $0000,X : STA.l RightHUDThree+$06
-                RTS
-        .none
-        LDA.w #$2C0F : STA.l RightHUDThree+$02
-        LDA.w #$2C0F : STA.l RightHUDThree+$06
-        LDA.w #$2C0F : STA.l RightHUDThree+$04
+        LDA.w #$0200 : LDX.w #HUDItemTiles+$0C ; DJ
+        BIT.w DashItemsCollected : BEQ +
+                INX #2
+        +
+        BIT.w DashItemsEquipped : BEQ +
+                INX #2
+        +
+        LDA.w $0000,X : STA.l RightHUDThree+$06
+        RTS
 RTS
 
 UpdateHUDHyperBeam:
