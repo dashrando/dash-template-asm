@@ -257,9 +257,11 @@ RTS
 
 NewHUDItems:
         LDX.w #HUDItemTiles+$00 ; PV
+        ; Is there a PV in the game?
         LDA.l SeedFlags+$04 : BIT #$00C0 : BNE .skip_heat
+                ; Is Gravity Heat Reduction enabled?
                 BIT #$4000 : BEQ .skip_heat
-                        LDA.w #$0020 ; PV
+                        LDA.w #$0020 ; Gravity
                         BIT.w VanillaItemsCollected : BEQ +
                                 INX #2
                         +
