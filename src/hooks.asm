@@ -92,6 +92,7 @@ org $90A46E : JSR.w CheckEligibleJump : NOP #3
 org $90A490 : JSR.w CheckJumpPhysics
 org $90A4BF : JSR.w CheckDoubleJump
 org $91F0A5 : JSR.w ClearJumpFlag
+org $91F443 : JSR.w HandleWallJumpForDoubleJump
 
 ; Pressure Valve
 org $82936A : JSR.w SetRoomFlagsUnpause

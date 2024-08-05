@@ -15,14 +15,21 @@ CheckDoubleJump:
                 RTS
         +
         LDA.w VanillaItemsEquipped : BIT.w #$0200 : BNE .done
-                LDA.w DoubleJumpFlag : BNE .nojump
-                        LDA.w SamusAnimationFrame
-                        AND.w #$000F : CMP.w #$000B : BEQ + ; Handle wall jumping
-                                INC.w DoubleJumpFlag
-                        +
+                ; Always increment the double jump flag
+                INC.w DoubleJumpFlag
+
+                ; Note that we should decrement the double jump flag
+                ; if we are transitioning to a wall jump
+                INC.w SubtractWallJump
+
+                ; We are good to jump again if the incremented double
+                ; jump flag is exactly equal to one
+                LDA.w DoubleJumpFlag : CMP.w #$0001 : BEQ +
+                        SEP #$02
                         RTS
-        .nojump
-        SEP #$02
+                +
+                REP #$02
+                RTS
 .done
 RTS
 
@@ -67,6 +74,23 @@ ClearJumpFlag:
         LDA.w $079F ; What we wrote over
 RTS
 warnpc $91A834
+;------------------------------------------------------------------------------
+org $91FC42
+HandleWallJumpForDoubleJump:
+        PHA
+        STA.w $0A1E ; What we wrote over
+
+        ; If transitioning to wall jump
+        AND #$FF00 : CMP #$1400 : BNE +
+                ; Should we decrement the double jump flag
+                LDA.w SubtractWallJump : BEQ +
+                        DEC.w DoubleJumpFlag
+                +
+        +
+        STZ.w SubtractWallJump
+        PLA
+RTS
+warnpc $91FC66
 ;------------------------------------------------------------------------------
 org $82E675
 SetRoomFlags:
