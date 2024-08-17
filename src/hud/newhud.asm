@@ -313,7 +313,7 @@ NewHUDHeatReduction:
         LDA.w DashItemsEquipped : BIT.w #$0001 : BNE .noHeatReduction ; If heat shield is equipped
 
         ; Then check if heat reduction is turned on 
-        LDA.l HeatDamageTable_gravity CMP.l HeatDamageTable_suitless : BEQ .noHeatReduction ; If grav's heat damage is -25%
+        LDA.l HeatDamageTable_gravity : CMP.l HeatDamageTable_suitless : BEQ .noHeatReduction ; If grav's heat damage is -25%
                 INX #2 ; Use the non-grey icon instead
         
         .noHeatReduction
