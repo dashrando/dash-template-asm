@@ -185,6 +185,9 @@ DrawNewHUD:
                 LDA.w #%00001000 : BIT.w HUDFlags : BEQ +
                         JSR.w NewHUDItems
                 +
+                LDA.w #%00100000 : BIT.w VanillaItemsCollected : BEQ +
+                        JSR.w NewHUDHeatReduction
+                +
                 STZ.w HUDDrawFlag
         .done:
         LDA.w #$9DD3 ; What we wrote over
@@ -257,38 +260,65 @@ RTS
 
 NewHUDItems:
         LDA.w DashItemsCollected : BEQ .none
-                LDA.w #$0020 : LDX.w #HUDItemTiles+$00 ; PV
+                LDA.w #$0020 : LDX.w #HUDItemTiles_pressure_valve
                 BIT.w DashItemsCollected : BEQ +
-                        INX #2
+                        INX #2 ; Go to greyed out icon
                 +
                 BIT.w DashItemsEquipped : BEQ +
-                        INX #2
+                        INX #2 ; Go to full icon
                 +
-                LDA.w $0000,X : STA.l RightHUDThree+$02
+                LDA.w $0000,X : STA.l RightHUDThree+$06
 
-                LDA.w #$0001 : LDX.w #HUDItemTiles+$06 ; HS
+                LDA.w #$0001 : LDX.w #HUDItemTiles_heat_shield
                 BIT.w DashItemsCollected : BEQ +
-                        INX #2
+                        INX #2 ; Go to greyed out icon
                 +
                 BIT.w DashItemsEquipped : BEQ +
-                        INX #2
+                        INX #2 ; Go to full icon
                 +
                 LDA.w $0000,X : STA.l RightHUDThree+$04
 
-                LDA.w #$0200 : LDX.w #HUDItemTiles+$0C ; DJ
+                LDA.w #$0200 : LDX.w #HUDItemTiles_double_jump
                 BIT.w DashItemsCollected : BEQ +
-                        INX #2
+                        INX #2 ; Go to greyed out icon
                 +
                 BIT.w DashItemsEquipped : BEQ +
-                        INX #2
+                        INX #2 ; Go to full icon
                 +
-                LDA.w $0000,X : STA.l RightHUDThree+$06
+                LDA.w $0000,X : STA.l RightHUDThree+$02
+                
                 RTS
         .none
+        ;Set all icons to be blank
         LDA.w #$2C0F : STA.l RightHUDThree+$02
         LDA.w #$2C0F : STA.l RightHUDThree+$06
         LDA.w #$2C0F : STA.l RightHUDThree+$04
 RTS
+
+NewHUDHeatReduction:
+        ; Entering this code means that grav has been collected.
+        PHX 
+
+        ; Check equipped items first
+        LDA.w VanillaItemsEquipped : BIT.w #$0020 : BEQ .noHeatReduction ; If Grav isn't equipped
+                                     BIT.w #$0001 : BNE .noHeatReduction ; If Varia is equipped
+        LDA.w DashItemsEquipped : BIT.w #$0001 : BNE .noHeatReduction ; If heat shield is equipped
+
+        ; Then check if heat reduction is turned on 
+        LDA.l HeatDamageTable_gravity : CMP.l HeatDamageTable_suitless : BEQ .noHeatReduction ; If grav's heat damage is -25%
+                LDX.w #HUDItemTiles_heat_reduction+$04
+                LDA.w $0000,X
+                STA.l RightHUDTwo+$02
+                PLX
+        RTS
+        
+        .noHeatReduction
+        ; Set icon to be greyed out
+        LDX.w #HUDItemTiles_heat_reduction+$02
+        LDA.w $0000,X
+        STA.l RightHUDTwo+$02
+        PLX 
+RTS      
 
 UpdateHUDHyperBeam:
         LDA.w #$8000 : STA.w HyperBeamFlag ; What we wrote over
@@ -350,9 +380,18 @@ dw $2001, $2008 ; 29
 dw $2002, $2009 ; 30
 
 HUDItemTiles:
+;  Not Collected | Unequipped | Equipped
+.pressure_valve
 dw $2C0F, $3460, $3861 ; Pressure Valve
+
+.heat_shield
 dw $2C0F, $3464, $3C65 ; Heat Shield
+
+.double_jump
 dw $2C0F, $3462, $2863 ; Double Jump
+
+.heat_reduction
+dw $2C0F, $346B, $1C6C ; Heat Reduction Icon
 
 pushpc
 org $80988B
