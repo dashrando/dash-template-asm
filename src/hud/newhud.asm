@@ -185,7 +185,7 @@ DrawNewHUD:
                 LDA.w #%00001000 : BIT.w HUDFlags : BEQ +
                         JSR.w NewHUDItems
                 +
-                LDA.w #%00100000 : BIT.w VanillaItemsCollected : BEQ +
+                LDA.w #%00010000 : BIT.w HUDFlags : BEQ +
                         JSR.w NewHUDHeatReduction
                 +
                 STZ.w HUDDrawFlag
@@ -296,8 +296,16 @@ NewHUDItems:
 RTS
 
 NewHUDHeatReduction:
-        ; Entering this code means that grav has been collected.
-        PHX 
+        ; Simply return if Gravity is not collected
+        LDA.w VanillaItemsCollected : BIT.w #$0020 : BNE +
+                ; Set the icon to be blank
+                LDA.w #$2C0F : STA.l RightHUDTwo+$02
+                RTS
+        +
+
+        ; Initially assume the icon will be greyed out
+        PHX
+        LDX.w #HUDItemTiles_heat_reduction+$02
 
         ; Check equipped items first
         LDA.w VanillaItemsEquipped : BIT.w #$0020 : BEQ .noHeatReduction ; If Grav isn't equipped
@@ -305,16 +313,10 @@ NewHUDHeatReduction:
         LDA.w DashItemsEquipped : BIT.w #$0001 : BNE .noHeatReduction ; If heat shield is equipped
 
         ; Then check if heat reduction is turned on 
-        LDA.l HeatDamageTable_gravity : CMP.l HeatDamageTable_suitless : BEQ .noHeatReduction ; If grav's heat damage is -25%
-                LDX.w #HUDItemTiles_heat_reduction+$04
-                LDA.w $0000,X
-                STA.l RightHUDTwo+$02
-                PLX
-        RTS
+        LDA.l HeatDamageTable_gravity CMP.l HeatDamageTable_suitless : BEQ .noHeatReduction ; If grav's heat damage is -25%
+                INX #2 ; Use the non-grey icon instead
         
         .noHeatReduction
-        ; Set icon to be greyed out
-        LDX.w #HUDItemTiles_heat_reduction+$02
         LDA.w $0000,X
         STA.l RightHUDTwo+$02
         PLX 
