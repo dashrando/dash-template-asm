@@ -82,6 +82,8 @@ DoorTransitionPtr = $7E099C          ;
 HUDItemIndex = $7E09D2               ;
 DoubleJumpFlag = $7E0A14             ; Zeroed when Samus lands. Unused(?) debug value.
 HUDFlags = $7E0A1A                   ; Word-length bitfield.
+SubtractWallJump = $7E0A70           ; Special flag noting that we need to subtract one from
+                                     ; the double jump flag if we transition to a wall jump
 SamusPose = $7E0A1C                  ;
 SamusMovementType = $7E0A1F          ;
 SamusCollisionPtr = $7E0A44          ;
@@ -98,6 +100,7 @@ SamusAnimationTimer = $7E0A94        ;
 SamusAnimationFrame = $7E0A96        ;
 SamusAnimationFrameBuffer = $7E0A9C  ;
 SamusAnimationFrameSkip = $7E0A9A    ;
+SamusPreviousMovementType = $7E0A23  ;
 LiquidPhysicsType = $7E0AD2          ; $00 = Air | $01 = Water | $02 = Lava/Acid
 SamusXPos = $7E0AF6                  ; Samus X position
 SamusXSubPos = $7E0AF8               ; Samus X subposition
