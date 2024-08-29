@@ -15,11 +15,12 @@ db $01 ; 0 = vanilla, 1 = starter, 2 = balance, 3 = starter+
 
 org $DF8005 ; 0x2F8005
 HUDBitField:
-db #%00001101  ; HUD Bits:
+db #%00011101  ; HUD Bits:
                ; 0 = charge damage
                ; 1 = item counts
                ; 2 = subarea
                ; 3 = dash items
+               ; 4 = gravity heat reduction
 
 org $DF8006 ; 0x2F8006
 SpaceJumpPhysics:
