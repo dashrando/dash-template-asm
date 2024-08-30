@@ -114,6 +114,8 @@ warnpc $9A8000
 
 org $9AB200
 incbin data/numbertiles.2bpp
+org $9AB2E0
+incbin data/hudtiles_2.nes ; For the one tile after the "Energ" tile.
 org $9AB5C0
 incbin data/numbertiles_inverted.2bpp
 org $9AB542
@@ -143,6 +145,8 @@ incsrc tables.asm ; Keep this first
 incsrc roomtables.asm
 incsrc credits/credits_data.asm
 warnpc $E08000
+
+incsrc test/presets/test_charge_hud.asm
 
 if !INTERFACE == 1
     incsrc interface.asm

@@ -17,7 +17,8 @@ InitializeForTesting: {
         %setup_controller()
 
         ; Add equipment and beams
-        %add_items(!MorphingBall,!Bombs,!SpaceJump)
+        %add_items(!MorphingBall,!Bombs,!SpaceJump,!GravitySuit)
+        %add_dash_items(!DoubleJump,!HeatShield,!PressureValve)
         %add_beams(!PlasmaBeam,!WaveBeam,!IceBeam,!SpazerBeam)
         %unequip_beams(!SpazerBeam)
 
@@ -33,13 +34,15 @@ InitializeForTesting: {
 
         ; Place Dash items for collecting
         pushpc
-        org $8F860E : dw $EFEC  ; Beam Upgrade at Charge Missiles
+        org $8F860E : dw $EF07  ; Beam Upgrade at Charge Missiles
         org $8F8608 : dw $EFEC  ; Beam Upgrade at Big Pink Missiles
         org $8F8614 : dw $F040  ; Beam Upgrade at Charge Beam
 
         ; Test different charge modes
         ; [ 0 = vanilla, 1 = starter, 2 = balance, 3 = starter+ ]
-        org ChargeMode : db $01
+        org ChargeMode : db $03
+
+        ;org HUDBitField : db #%00001111
         pullpc
 
         RTL
