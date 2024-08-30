@@ -146,8 +146,6 @@ incsrc roomtables.asm
 incsrc credits/credits_data.asm
 warnpc $E08000
 
-incsrc test/presets/test_charge_hud.asm
-
 if !INTERFACE == 1
     incsrc interface.asm
 endif
