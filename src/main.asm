@@ -112,18 +112,20 @@ DashLogoSprite:
 incbin data/logosprite.bin
 warnpc $9A8000
 
+; 
 org $9AB200
 incbin data/numbertiles.2bpp
-org $9AB2E0
-incbin data/hudtiles_2.nes ; For the one tile after the "Energ" tile.
+org $9AB300
+incbin data/hudtiles_alphabet_1.2bpp
 org $9AB5C0
 incbin data/numbertiles_inverted.2bpp
 org $9AB542
 incbin data/superpbicons.2bpp
+org $9AB750
+incbin data/hudtiles_2.nes ; For the one tile after the "Energ" tile.
 org $9AB691
 incbin data/missileicon.2bpp
-org $9AB300
-incbin data/hudtiles_alphabet_1.2bpp
+
 org $9AB800
 incbin data/hudtiles_icons.2bpp
 

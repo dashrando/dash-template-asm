@@ -252,7 +252,7 @@ dw #$0C7F, #$0C6E;|   40 & 42   ||    250     |
 dw #$0C68, #$0C6E;|   44 & 46   ||    450     |
 dw #$0C69, #$0C6E;|   48 & 4A   ||    750     |
 
-dw #$0C0E, #$0C6D;|   4C & 4E   ||    120     |
+dw #$0C57, #$0C6D;|   4C & 4E   ||    120     |
 dw #$0C2D, #$0C6F;|   50 & 52   ||    140     |
 dw #$0C2E, #$0C6F;|   54 & 56   ||    180     |
 
@@ -381,7 +381,7 @@ NewHUDItems:
                 BIT.w DashItemsEquipped : BEQ +
                         INX #2 ; Go to full icon
                 +
-                LDA.w $0000,X : STA.l RightHUDThree+$02
+                LDA.w $0000,X : STA.l RightHUDThree+$04
 
                 LDA.w #$0001 : LDX.w #HUDItemTiles_heat_shield
                 BIT.w DashItemsCollected : BEQ +
@@ -399,7 +399,7 @@ NewHUDItems:
                 BIT.w DashItemsEquipped : BEQ +
                         INX #2 ; Go to full icon
                 +
-                LDA.w $0000,X : STA.l RightHUDThree+$04
+                LDA.w $0000,X : STA.l RightHUDThree+$02
                 
                 RTS
         .none
