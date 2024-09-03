@@ -283,27 +283,27 @@ endif
 %RoomEntry(Maridia, $0F,  !Area_EastMaridia,  $20,  NoPatch) ; Crab Room
 %RoomEntry(Maridia, $10,  !Area_EastMaridia,  $00,  NoPatch) ; Plasma Tunnel
 %RoomEntry(Maridia, $11,  !Area_EastMaridia,  $01,  !Plasma_Patch) ; Plasma Beam
-%RoomEntry(Maridia, $12,  !Area_EastMaridia,  $20,  NoPatch) ; Thread Needle
-%RoomEntry(Maridia, $13,  !Area_EastMaridia,  $20,  NoPatch) ; Maridia Elevator Bottom
-%RoomEntry(Maridia, $14,  !Area_EastMaridia,  $20,  NoPatch) ; Plasma Spark
-%RoomEntry(Maridia, $15,  !Area_EastMaridia,  $20,  NoPatch) ; Plasma Shaft
+%RoomEntry(Maridia, $12,  !Area_EastMaridia,  $00,  NoPatch) ; Thread Needle
+%RoomEntry(Maridia, $13,  !Area_EastMaridia,  $00,  NoPatch) ; Maridia Elevator Bottom
+%RoomEntry(Maridia, $14,  !Area_EastMaridia,  $00,  NoPatch) ; Plasma Spark
+%RoomEntry(Maridia, $15,  !Area_EastMaridia,  $00,  NoPatch) ; Plasma Shaft
 %RoomEntry(Maridia, $16,  !Area_WestMaridia,  $20,  NoPatch) ; Maridia Map
-%RoomEntry(Maridia, $17,  !Area_EastMaridia,  $20,  NoPatch) ; Maridia Elevator Save
-%RoomEntry(Maridia, $18,  !Area_EastMaridia,  $20,  NoPatch) ; Big Tube
-%RoomEntry(Maridia, $19,  !Area_EastMaridia,  $20,  NoPatch) ; Bug Sand Hole
-%RoomEntry(Maridia, $1A,  !Area_EastMaridia,  $20,  NoPatch) ; Sand Hall West
-%RoomEntry(Maridia, $1B,  !Area_EastMaridia,  $20,  NoPatch) ; Big Tube Bottom
-%RoomEntry(Maridia, $1C,  !Area_EastMaridia,  $20,  NoPatch) ; Sand Hall East
+%RoomEntry(Maridia, $17,  !Area_EastMaridia,  $00,  NoPatch) ; Maridia Elevator Save
+%RoomEntry(Maridia, $18,  !Area_EastMaridia,  $00,  NoPatch) ; Big Tube
+%RoomEntry(Maridia, $19,  !Area_EastMaridia,  $00,  NoPatch) ; Bug Sand Hole
+%RoomEntry(Maridia, $1A,  !Area_EastMaridia,  $00,  NoPatch) ; Sand Hall West
+%RoomEntry(Maridia, $1B,  !Area_EastMaridia,  $00,  NoPatch) ; Big Tube Bottom
+%RoomEntry(Maridia, $1C,  !Area_EastMaridia,  $00,  NoPatch) ; Sand Hall East
 %RoomEntry(Maridia, $1D,  !Area_EastMaridia,  $00,  NoPatch) ; Left Sand Pit
 %RoomEntry(Maridia, $1E,  !Area_EastMaridia,  $00,  NoPatch) ; Right Sand Pit
 %RoomEntry(Maridia, $1F,  !Area_EastMaridia,  $00,  NoPatch) ; Aqueduct Quicksand Left
 %RoomEntry(Maridia, $20,  !Area_EastMaridia,  $00,  NoPatch) ; Aqueduct Quicksand Right
 %RoomEntry(Maridia, $21,  !Area_EastMaridia,  $00,  !Aqueduct_Patch) ; Aqueduct
-%RoomEntry(Maridia, $22,  !Area_EastMaridia,  $20,  NoPatch) ; Butterfly
+%RoomEntry(Maridia, $22,  !Area_EastMaridia,  $00,  NoPatch) ; Butterfly
 %RoomEntry(Maridia, $23,  !Area_EastMaridia,  $00,  !BotwoonHallway_Patch) ; Pre Botwoon
-%RoomEntry(Maridia, $24,  !Area_EastMaridia,  $20,  !Pants_Room_Patch) ; Pants Room 1
-%RoomEntry(Maridia, $25,  !Area_EastMaridia,  $20,  !Pants_Room_Patch) ; Pants Room 2
-%RoomEntry(Maridia, $26,  !Area_EastMaridia,  $20,  NoPatch) ; Spring Ball
+%RoomEntry(Maridia, $24,  !Area_EastMaridia,  $00,  !Pants_Room_Patch) ; Pants Room 1
+%RoomEntry(Maridia, $25,  !Area_EastMaridia,  $00,  !Pants_Room_Patch) ; Pants Room 2
+%RoomEntry(Maridia, $26,  !Area_EastMaridia,  $00,  NoPatch) ; Spring Ball
 %RoomEntry(Maridia, $27,  !Area_EastMaridia,  $00,  !BelowBotwoonEnergyTank_Patch) ; Aqueduct East Landing
 %RoomEntry(Maridia, $28,  !Area_EastMaridia,  $00,  NoPatch) ; Coliseum
 %RoomEntry(Maridia, $29,  !Area_EastMaridia,  $00,  NoPatch) ; Aqueduct Save
@@ -311,9 +311,9 @@ endif
 %RoomEntry(Maridia, $2B,  !Area_EastMaridia,  $00,  NoPatch) ; Botwoon E-Tank
 %RoomEntry(Maridia, $2C,  !Area_EastMaridia,  $00,  NoPatch) ; Coliseum Save
 %RoomEntry(Maridia, $2D,  !Area_EastMaridia,  $00,  NoPatch) ; Halfie Shaft Missile Refill
-%RoomEntry(Maridia, $2E,  !Area_EastMaridia,  $20,  NoPatch) ; Bug Quicksand
+%RoomEntry(Maridia, $2E,  !Area_EastMaridia,  $00,  NoPatch) ; Bug Quicksand
 %RoomEntry(Maridia, $2F,  !Area_EastMaridia,  $00,  NoPatch) ; Botwoon E-Tank Quicksand
-%RoomEntry(Maridia, $30,  !Area_EastMaridia,  $20,  !Shaktool_Patch) ; Shaktool
+%RoomEntry(Maridia, $30,  !Area_EastMaridia,  $00,  !Shaktool_Patch) ; Shaktool
 %RoomEntry(Maridia, $31,  !Area_EastMaridia,  $00,  NoPatch) ; Halfie Shaft
 %RoomEntry(Maridia, $32,  !Area_EastMaridia,  $00,  NoPatch) ; Botwoon
 %RoomEntry(Maridia, $33,  !Area_EastMaridia,  $00,  NoPatch) ; Space Jump
