@@ -17,8 +17,9 @@ InitializeForTesting: {
         %setup_controller()
 
         ; Add equipment and beams
-        %add_items(!MorphingBall,!Bombs,!SpaceJump)
-        %add_beams(!PlasmaBeam,!WaveBeam,!IceBeam,!SpazerBeam)
+        %add_items(!MorphingBall,!Bombs,!HiJumpBoots,!SpeedBooster)
+        %add_beams(!ChargeBeam,!PlasmaBeam,!WaveBeam,!IceBeam,!SpazerBeam)
+        %add_dash_items(!DoubleJump,!PressureValve)
         %unequip_beams(!SpazerBeam)
 
         ; Add some ammo
@@ -31,19 +32,17 @@ InitializeForTesting: {
         ; Make sure Zebes is awake
         LDA.l EventFlags : ORA.w #$0001 : STA.l EventFlags
 
-        ; Place Dash items for collecting
+        ; Place Heat Reduction items
         pushpc
-        org $8F860E : dw $EFEC  ; Beam Upgrade at Charge Missiles
-        org $8F8608 : dw $EFEC  ; Beam Upgrade at Big Pink Missiles
-        org $8F8614 : dw $F040  ; Beam Upgrade at Charge Beam
+        org $8F860E : dw $EF0B  ; Gravity at Charge Missiles
+        org $8F8608 : dw $EFE4  ; Heat Shield at Big Pink Missiles
+        org $8F8614 : dw $EF07+$54  ; Varia at Charge Beam
 
-        ; Test different charge modes
-        ; [ 0 = vanilla, 1 = starter, 2 = balance, 3 = starter+ ]
-        org ChargeMode : db $01
-
+        org NoFanfare : dw $0001 ; Disable fanfares
         pullpc
 
         RTL
 }
 
 pullpc
+

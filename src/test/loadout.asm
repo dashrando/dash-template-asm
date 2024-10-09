@@ -16,6 +16,10 @@
 !PlasmaBeam = $0008
 !ChargeBeam = $1000
 
+!HeatShield = $0001
+!PressureValve = $0020
+!DoubleJump = $0200
+
 macro add_items(...)
    !items #= 0
    !i #= 0
@@ -31,6 +35,23 @@ macro add_items(...)
    LDA.w VanillaItemsEquipped
    ORA.w #!items
    STA.w VanillaItemsEquipped
+endmacro
+
+macro add_dash_items(...)
+   !items #= 0
+   !i #= 0
+   while !i < sizeof(...)
+      !items := !items|<!i>
+      !i #= !i+1
+   endif
+
+   LDA.w DashItemsCollected
+   ORA.w #!items
+   STA.w DashItemsCollected
+
+   LDA.w DashItemsEquipped
+   ORA.w #!items
+   STA.w DashItemsEquipped
 endmacro
 
 macro unequip_items(...)
