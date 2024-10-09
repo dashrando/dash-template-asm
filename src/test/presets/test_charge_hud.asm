@@ -40,6 +40,7 @@ InitializeForTesting: {
         ; Test different charge modes
         ; [ 0 = vanilla, 1 = starter, 2 = balance, 3 = starter+ ]
         org ChargeMode : db $01
+
         pullpc
 
         RTL
