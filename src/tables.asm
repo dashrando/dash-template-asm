@@ -70,6 +70,13 @@ dw $0100 ; 0x2F804D  West Maridia
 dw $0201 ; 0x2F804F  Lower Norfair
 dw $0101 ; 0x2F8051  Crocomire
 
+org $DF8AF0  ; 0x2FBAF0
+SeedKey:     ; Reserve 128-bits (16 bytes) for the seed key which
+dd $00000000 ; is a randomly generated unique identifier for
+dd $00000000 ; accessing the shareable link for this seed
+dd $00000000
+dd $00000000
+
 org $DF8B00  ; 0x2F8B00
 SeedFlags:   ; Reserve 96-bits (12 bytes) for the website 
 dd $00000000
