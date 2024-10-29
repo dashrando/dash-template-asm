@@ -282,7 +282,7 @@ endif
 %RoomEntry(Maridia, $0E,  !Area_WestMaridia,  $20,  NoPatch) ; Broken Tube
 %RoomEntry(Maridia, $0F,  !Area_WestMaridia,  $20,  NoPatch) ; Crab Room
 %RoomEntry(Maridia, $10,  !Area_EastMaridia,  $00,  NoPatch) ; Plasma Tunnel
-%RoomEntry(Maridia, $11,  !Area_EastMaridia,  $01,  !Plasma_Patch) ; Plasma Beam
+%RoomEntry(Maridia, $11,  !Area_EastMaridia,  $00,  !Plasma_Patch) ; Plasma Beam
 %RoomEntry(Maridia, $12,  !Area_EastMaridia,  $00,  NoPatch) ; Thread Needle
 %RoomEntry(Maridia, $13,  !Area_EastMaridia,  $00,  NoPatch) ; Maridia Elevator Bottom
 %RoomEntry(Maridia, $14,  !Area_EastMaridia,  $00,  NoPatch) ; Plasma Spark
