@@ -78,7 +78,5 @@ rm -f build/interface.js build/interface.ts
 
 build dash_standard
 build dash_standard_area "-DAREA=1"
-build dash_recall "-DRECALL=1"
-build dash_recall_area "-DRECALL=1 -DAREA=1"
 
 cp build/interface.js build/interface.ts

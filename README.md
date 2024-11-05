@@ -6,9 +6,9 @@ All SNES code for the randomizer goes here and the randomizer makes data writes.
 
 # Building
 
-Building requires putting your dump of the Super Metroid ROM in the `build/` directory. The vanilla
-ROM should be named `supermetroid.sfc`. The build scripts will produce a Recall and a Standard base
-rom (.sfc) and patch (.bps).
+Building requires putting a dump of the Super Metroid ROM in the `build/` directory. The vanilla ROM
+should be named `supermetroid.sfc`. The build scripts will produce a set of base ROMs (`.sfc`) and
+patches (`.bps`).
 
 **Linux** and **Mac**:
 ```sh
