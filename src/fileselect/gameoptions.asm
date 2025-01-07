@@ -1,7 +1,7 @@
 ;------------------------------------------------------------------------------
 ; Game File Options Screen
 ;------------------------------------------------------------------------------
-
+; TODO: Rename this for general file select & game options 
 ;------------------------------------------------------------------------------
 ; Draw Game Hash Code
 ;------------------------------------------------------------------------------
@@ -104,3 +104,30 @@ OnStartGame: ; Pressing "START GAME"
                 STA.l MenuFrames : STA.l MenuFrames+$02
         .skip
 RTS
+
+DrawBossesKnown:
+    LDA.l BossTable : ASL : TAX
+    LDA.l BossKnownTiles,X
+    STA.l $7E3B30
+
+    LDA.l BossTable+$02 : ASL : TAX
+    LDA.l BossKnownTiles,X
+    STA.l $7E3B32
+
+    LDA.l BossTable+$04 : ASL : TAX
+    LDA.l BossKnownTiles,X
+    STA.l $7E3B70
+
+    LDA.l BossTable+$06 : ASL : TAX
+    LDA.l BossKnownTiles,X
+    STA.l $7E3B72
+
+    LDA.w #$0001 : STA.w $198D
+RTL
+
+BossKnownTiles:
+
+dw #$0074
+dw #$0079
+dw #$006D
+dw #$007B
