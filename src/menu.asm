@@ -33,7 +33,6 @@ LoadMenuTileMapPointer:
         .dash_item
         LDA.w DASHTilemapPointerList,X
         .done
-        STZ.b $3A
 RTS
 
 DASHTilemapPointerList:
@@ -87,17 +86,16 @@ SetHUDFlagMenu:
                 INC.w HUDDrawFlag
         +
         JSR.w MenuCheckButton ; What we wrote over
+        STZ.b $3A ; Clear temp variable we use
 RTS
 
 ;------------------------------------------------------------------------------
 
 CheckDashSuitsMenu:
         LDX.w DashSuitTilemaps,Y
-        STA.b $3E
         BRA CheckDashItemsMenu
 CheckDashBootsMenu:
         LDX.w DashBootTilemaps,Y
-        STA.b $3E
 CheckDashItemsMenu:
         BIT.w #!DASH_ITEMS_BITMASK : BNE .dash_item
                 .empty
@@ -107,9 +105,10 @@ CheckDashItemsMenu:
                 RTS
         .dash_item
         BIT.w DashItemsCollected : BEQ .empty
+        PHA
         LDA.w #$0012  : STA.b $16
         JSR.w CopyFromDPToTilemap
-        LDA.b $3E : BIT.w DashItemsEquipped : BNE .not_equipped
+        PLA : BIT.w DashItemsEquipped : BNE .not_equipped
                 LDA.w #$0C00 : STA.b $12
                 LDA.w #$0012 : STA.b $16
                 JSR.w SetMenuTilePalettes
@@ -121,6 +120,3 @@ DashSuitTilemaps:
 dw HeatShieldTilemap, PressureValveTilemap
 DashBootTilemaps:
 dw $0000, DoubleJumpTilemap
-
-EquipmentBitfieldPointers:
-dw $0000, BeamsEquipped, VanillaItemsEquipped, VanillaItemsEquipped, DashItemsEquipped
