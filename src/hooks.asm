@@ -32,8 +32,8 @@ org $82EED9 : LDA.w #$001F ; Skip intro
 ;------------------------------------------------------------------------------
 ; Draw game code
 org $82ECBB : JSR.w DrawFileSelectHash
-
 org $82EDB1 : JSR.w OnStartGame : BRA + : NOP #7 : +
+org $819ECC : JSL.l DrawBossesKnown : BRA + : NOP : +
 
 ;------------------------------------------------------------------------------
 ; Decompression
@@ -132,13 +132,11 @@ org $8488C9 : JSR.w MaybeEquipSpazer
 ;------------------------------------------------------------------------------
 ; Menu
 ;------------------------------------------------------------------------------
-org $82A1EF : JSR.w IsMenuItemCollected
-org $82A240 : JSR.w IsMenuItemCollected
-org $82A20F : JSR.w IsMenuItemEquipped
-org $82A260 : JSR.w IsMenuItemEquipped
-org $82A288 : JSR.w SelectMenuTiles
+org $82A1F4 : JSR.w CheckDashSuitsMenu : BRA LoadEquipmentScreenTilemaps_suits_merge
+org $82A245 : JSR.w CheckDashBootsMenu : BRA LoadEquipmentScreenTilemaps_boots_merge
 org $828F6B : JSR.w LoadMenuTiles
 org $82B5A6 : JMP.w HandleMenuItemToggle
+org $82B5BA : JSR.w LoadMenuTileMapPointer
 
 ; Menu cursor movement
 org $82B4BA : LDA.w #$C056 : JSR.w CheckEquipmentBitmask

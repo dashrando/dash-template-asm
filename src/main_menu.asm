@@ -1,7 +1,10 @@
 ;------------------------------------------------------------------------------
-; Game File Options Screen
+; Main Menu Screens
+;------------------------------------------------------------------------------
+; File select and Game Options screens
 ;------------------------------------------------------------------------------
 
+!BOSSES_KNOWN_TILEMAP_BASE = $7E3B30
 ;------------------------------------------------------------------------------
 ; Draw Game Hash Code
 ;------------------------------------------------------------------------------
@@ -104,3 +107,30 @@ OnStartGame: ; Pressing "START GAME"
                 STA.l MenuFrames : STA.l MenuFrames+$02
         .skip
 RTS
+
+DrawBossesKnown:
+    LDA.l BossTable : ASL : TAX
+    LDA.l BossKnownTiles,X
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE
+
+    LDA.l BossTable+$02 : ASL : TAX
+    LDA.l BossKnownTiles,X
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$02
+
+    LDA.l BossTable+$04 : ASL : TAX
+    LDA.l BossKnownTiles,X
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$40
+
+    LDA.l BossTable+$06 : ASL : TAX
+    LDA.l BossKnownTiles,X
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$42
+
+    LDA.w #$0001 : STA.w $198D ; What we wrote over.
+RTL
+
+BossKnownTiles:
+
+dw #$0074
+dw #$0079
+dw #$006D
+dw #$007B

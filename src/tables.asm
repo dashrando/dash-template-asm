@@ -96,11 +96,19 @@ HeatDamageTable: ; $4000 - full heat damage
 .varia: dw $0000
 
 org $DF8B18 ; 0x2F8B18
-BossTable: ; Values and indexes are both according to vanilla boss order KPDR.
-dw $0000   ;
-dw $0001   ;
-dw $0002   ;
-dw $0003   ;
+; Values and indexes are both according to vanilla boss order KPDR.
+BossTable:
+
+.bosses
+dw $0000
+dw $0001
+dw $0002
+dw $0003
+.areas
+dw $0000
+dw $0001
+dw $0002
+dw $0003
 
 org $DF8B20 ; 0x2F8B20
 LNChozoTrigger:
