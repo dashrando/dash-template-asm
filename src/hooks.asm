@@ -33,7 +33,7 @@ org $82EED9 : LDA.w #$001F ; Skip intro
 ; Draw game code
 org $82ECBB : JSR.w DrawFileSelectHash
 org $82EDB1 : JSR.w OnStartGame : BRA + : NOP #7 : +
-org $819ECC : JSL.l DrawBossesKnown : BRA + : NOP : +
+org $819ECC : JSL.l DrawBossesKnown : NOP #2
 
 ;------------------------------------------------------------------------------
 ; Decompression
