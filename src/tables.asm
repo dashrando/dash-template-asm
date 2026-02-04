@@ -113,3 +113,7 @@ dw $0003
 org $DF8B28 ; 0x2F8B28
 LNChozoTrigger:
 dw $0001  ; $00 - require space jump | $01 - require nothing
+
+org $DF8B2A ; 0x2F8B2A
+ShowBosses:
+dw $0000  ; $00 - don't show | $01 - show

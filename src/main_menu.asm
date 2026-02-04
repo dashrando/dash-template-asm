@@ -109,6 +109,7 @@ OnStartGame: ; Pressing "START GAME"
 RTS
 
 DrawBossesKnown:
+    LDA.l ShowBosses : BEQ .done
     LDA.l BossTable : ASL : TAX
     LDA.l BossKnownTiles,X
     STA.l !BOSSES_KNOWN_TILEMAP_BASE
@@ -125,6 +126,7 @@ DrawBossesKnown:
     LDA.l BossKnownTiles,X
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$42
 
+.done:
     LDA.w #$0001 : STA.w $198D ; What we wrote over.
 RTL
 

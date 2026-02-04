@@ -162,6 +162,8 @@ print "  // Gravity Heat Damage:"
 print "  // LN Chozo Trigger: 0x0000 = Require Space Jump"
 print "  //                   0x0001 = Nothing Required"
 %PrintLabelAddress(LNChozoTrigger)
+print "  // Show Bosses: 0x0000 = Don't show  0x0001 = Show"
+%PrintLabelAddress(ShowBosses)
 print "};"
 print ""
 print "export const PATCHES = {"
