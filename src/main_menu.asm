@@ -118,7 +118,7 @@ DrawBossesKnown:
     ;Row Labels
     ;-------------
 
-    ;Draw a STATIC "LOC:" at the beginning of the top row for the Location label
+    ;Draw a STATIC "LOC:" at the beginning of the TOP row for the Location label
     LDA.l BossKnownTiles+$10 ; L
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$F0
     LDA.l BossKnownTiles+$16 ; O
@@ -128,7 +128,7 @@ DrawBossesKnown:
     LDA.l BossKnownTiles+$14 ; :
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$F6
 
-    ;Draw a STATIC "BOSS:" at the beginning of the bottom row for the Boss label
+    ;Draw a STATIC "BOSS:" at the beginning of the MIDDLE row for the Boss label
     LDA.l BossKnownTiles+$1A ; B
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$12E
     LDA.l BossKnownTiles+$16 ; O
@@ -140,8 +140,29 @@ DrawBossesKnown:
     LDA.l BossKnownTiles+$14 ; :
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$136
 
+    ;***************************************************************
+    ;*** UNCOMMENT THIS WHEN WE IMPLEMENT RANDOMIZED AREA UNLOCKS***
+    ;***************************************************************
+    ;Draw a STATIC "UNLOCKS:" at the beginning of the BOTTOM row for the Location label
+    ;LDA.l BossKnownTiles+$1C ; U
+    ;STA.l !BOSSES_KNOWN_TILEMAP_BASE+$168
+    ;LDA.l BossKnownTiles+$12 ; N
+    ;STA.l !BOSSES_KNOWN_TILEMAP_BASE+$16A
+    ;LDA.l BossKnownTiles+$10 ; L
+    ;STA.l !BOSSES_KNOWN_TILEMAP_BASE+$16C
+    ;LDA.l BossKnownTiles+$16 ; O
+    ;STA.l !BOSSES_KNOWN_TILEMAP_BASE+$16E
+    ;LDA.l BossKnownTiles+$18 ; C
+    ;STA.l !BOSSES_KNOWN_TILEMAP_BASE+$170
+    ;LDA.l BossKnownTiles+$00 ; K
+    ;STA.l !BOSSES_KNOWN_TILEMAP_BASE+$172
+    ;LDA.l BossKnownTiles+$0E ; S
+    ;STA.l !BOSSES_KNOWN_TILEMAP_BASE+$174
+    ;LDA.l BossKnownTiles+$14 ; :
+    ;STA.l !BOSSES_KNOWN_TILEMAP_BASE+$176
+
     ;-------------
-    ;Kraid's Lair
+    ;Kraid's Lair (KR)
     ;-------------
 
     ;Draw a STATIC KR in the top row
@@ -156,7 +177,7 @@ DrawBossesKnown:
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$138
 
     ;-------------
-    ;Wrecked Ship
+    ;Wrecked Ship (WS)
     ;-------------
 
     ;Draw a STATIC WS in the top row
@@ -171,7 +192,7 @@ DrawBossesKnown:
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$13E
 
     ;-------------
-    ;East Maridia
+    ;East Maridia (EM)
     ;-------------
 
     ;Draw a STATIC EM in the top row
@@ -186,7 +207,7 @@ DrawBossesKnown:
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$144
 
     ;-------------
-    ;Lower Norfair
+    ;Lower Norfair (LN)
     ;-------------
 
     ;Draw a STATIC LN in the top row
@@ -223,3 +244,4 @@ dw #$008C ; : | $14
 dw #$0078 ; O | $16
 dw #$006C ; C | $18
 dw #$006B ; B | $1A
+;dw #$007E ; U | $1C ; Uncomment this when we have customizable area unlocks
