@@ -109,30 +109,117 @@ OnStartGame: ; Pressing "START GAME"
 RTS
 
 DrawBossesKnown:
-    LDA.l ShowBosses : BEQ .done
+    LDA.l ShowBosses : BNE .draw
+    LDA.w #$0001 : STA.w $198D ; What we wrote over.
+    RTL
+
+.draw:
+    ;-------------
+    ;Row Labels
+    ;-------------
+
+    ;Draw a STATIC "LOC:" at the beginning of the top row for the Location label
+    LDA.l BossKnownTiles+$10 ; L
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$F0
+    LDA.l BossKnownTiles+$16 ; O
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$F2
+    LDA.l BossKnownTiles+$18 ; C
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$F4
+    LDA.l BossKnownTiles+$14 ; :
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$F6
+
+    ;Draw a STATIC "BOSS:" at the beginning of the bottom row for the Boss label
+    LDA.l BossKnownTiles+$1A ; B
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$12E
+    LDA.l BossKnownTiles+$16 ; O
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$130
+    LDA.l BossKnownTiles+$0E ; S
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$132
+    LDA.l BossKnownTiles+$0E ; S
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$134
+    LDA.l BossKnownTiles+$14 ; :
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$136
+
+    ;-------------
+    ;Kraid's Lair
+    ;-------------
+
+    ;Draw a STATIC KR in the top row
+    LDA.l BossKnownTiles+$00 ; K
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$F8
+    LDA.l BossKnownTiles+$06 ; R
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$FA
+
+    ;Draw the randomized boss letter for the KR Location in the bottom row
     LDA.l BossTable : ASL : TAX
     LDA.l BossKnownTiles,X
-    STA.l !BOSSES_KNOWN_TILEMAP_BASE
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$138
 
+    ;-------------
+    ;Wrecked Ship
+    ;-------------
+
+    ;Draw a STATIC WS in the top row
+    LDA.l BossKnownTiles+$0C ; W
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$FE
+    LDA.l BossKnownTiles+$0E ; S
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$100
+
+    ;Draw the randomized boss letter for the WS Location in the bottom row
     LDA.l BossTable+$02 : ASL : TAX
     LDA.l BossKnownTiles,X
-    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$02
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$13E
 
+    ;-------------
+    ;East Maridia
+    ;-------------
+
+    ;Draw a STATIC EM in the top row
+    LDA.l BossKnownTiles+$08 ; E
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$104
+    LDA.l BossKnownTiles+$0A ; M
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$106
+
+    ;Draw the randomized boss letter for the EM Location in the bottom row
     LDA.l BossTable+$04 : ASL : TAX
     LDA.l BossKnownTiles,X
-    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$40
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$144
 
+    ;-------------
+    ;Lower Norfair
+    ;-------------
+
+    ;Draw a STATIC LN in the top row
+    LDA.l BossKnownTiles+$10 ; L
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$10A
+    LDA.l BossKnownTiles+$12 ; N
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$10C
+
+    ;Draw the randomized boss letter for the LN Location in the bottom row
     LDA.l BossTable+$06 : ASL : TAX
     LDA.l BossKnownTiles,X
-    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$42
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$14A
 
-.done:
-    LDA.w #$0001 : STA.w $198D ; What we wrote over.
 RTL
+
 
 BossKnownTiles:
 
-dw #$0074
-dw #$0079
-dw #$006D
-dw #$007B
+dw #$0074 ; K | $00
+dw #$0079 ; P | $02
+dw #$006D ; D | $04
+dw #$007B ; R | $06
+
+dw #$006E ; E | $08
+dw #$0076 ; M | $0A
+
+dw #$0080 ; W | $0C
+dw #$007C ; S | $0E
+
+dw #$0075 ; L | $10
+dw #$0077 ; N | $12
+
+dw #$008C ; : | $14
+dw #$0078 ; O | $16
+dw #$006C ; C | $18
+dw #$006B ; B | $1A
