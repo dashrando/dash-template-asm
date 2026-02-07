@@ -114,67 +114,29 @@ DrawBossesKnown:
     RTL
 
 .draw:
-    ;-------------
-    ;Row Labels
-    ;-------------
-
+    ;*********************************************************************
+    ;ROW - LOCATION (STATIC INFO)
+    ;*********************************************************************
+    
     ;Draw a STATIC "LOC:" at the beginning of the TOP row for the Location label
-    LDA.l BossKnownTiles+$10 ; L
+    LDA.l BossKnownTiles+$14 ; L
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$F0
-    LDA.l BossKnownTiles+$16 ; O
+    LDA.l BossKnownTiles+$1A ; O
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$F2
-    LDA.l BossKnownTiles+$18 ; C
+    LDA.l BossKnownTiles+$1E ; C
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$F4
-    LDA.l BossKnownTiles+$14 ; :
+    LDA.l BossKnownTiles+$18 ; :
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$F6
-
-    ;Draw a STATIC "BOSS:" at the beginning of the MIDDLE row for the Boss label
-    LDA.l BossKnownTiles+$1A ; B
-    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$12E
-    LDA.l BossKnownTiles+$16 ; O
-    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$130
-    LDA.l BossKnownTiles+$0E ; S
-    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$132
-    LDA.l BossKnownTiles+$0E ; S
-    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$134
-    LDA.l BossKnownTiles+$14 ; :
-    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$136
-
-    ;***************************************************************
-    ;*** UNCOMMENT THIS WHEN WE IMPLEMENT RANDOMIZED AREA UNLOCKS***
-    ;***************************************************************
-    ;Draw a STATIC "UNLOCKS:" at the beginning of the BOTTOM row for the Location label
-    ;LDA.l BossKnownTiles+$1C ; U
-    ;STA.l !BOSSES_KNOWN_TILEMAP_BASE+$168
-    ;LDA.l BossKnownTiles+$12 ; N
-    ;STA.l !BOSSES_KNOWN_TILEMAP_BASE+$16A
-    ;LDA.l BossKnownTiles+$10 ; L
-    ;STA.l !BOSSES_KNOWN_TILEMAP_BASE+$16C
-    ;LDA.l BossKnownTiles+$16 ; O
-    ;STA.l !BOSSES_KNOWN_TILEMAP_BASE+$16E
-    ;LDA.l BossKnownTiles+$18 ; C
-    ;STA.l !BOSSES_KNOWN_TILEMAP_BASE+$170
-    ;LDA.l BossKnownTiles+$00 ; K
-    ;STA.l !BOSSES_KNOWN_TILEMAP_BASE+$172
-    ;LDA.l BossKnownTiles+$0E ; S
-    ;STA.l !BOSSES_KNOWN_TILEMAP_BASE+$174
-    ;LDA.l BossKnownTiles+$14 ; :
-    ;STA.l !BOSSES_KNOWN_TILEMAP_BASE+$176
 
     ;-------------
     ;Kraid's Lair (KR)
     ;-------------
 
     ;Draw a STATIC KR in the top row
-    LDA.l BossKnownTiles+$00 ; K
+    LDA.l BossKnownTiles+$08 ; K
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$F8
-    LDA.l BossKnownTiles+$06 ; R
+    LDA.l BossKnownTiles+$0A ; R
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$FA
-
-    ;Draw the randomized boss letter for the KR Location in the bottom row
-    LDA.l BossTable : ASL : TAX
-    LDA.l BossKnownTiles,X
-    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$138
 
     ;-------------
     ;Wrecked Ship (WS)
@@ -186,8 +148,57 @@ DrawBossesKnown:
     LDA.l BossKnownTiles+$0E ; S
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$100
 
+    ;-------------
+    ;East Maridia (EM)
+    ;-------------
+
+    ;Draw a STATIC EM in the top row
+    LDA.l BossKnownTiles+$10 ; E
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$104
+    LDA.l BossKnownTiles+$12 ; M
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$106
+
+    ;-------------
+    ;Lower Norfair (LN)
+    ;-------------
+
+    ;Draw a STATIC LN in the top row
+    LDA.l BossKnownTiles+$14 ; L
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$10A
+    LDA.l BossKnownTiles+$16 ; N
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$10C
+
+    ;*********************************************************************
+    ;ROW - BOSS (DYNAMIC INFO)
+    ;*********************************************************************
+
+    ;Draw a STATIC "BOSS:" at the beginning of the MIDDLE row for the Boss label
+    LDA.l BossKnownTiles+$1C ; B
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$12E
+    LDA.l BossKnownTiles+$1A ; O
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$130
+    LDA.l BossKnownTiles+$0E ; S
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$132
+    LDA.l BossKnownTiles+$0E ; S
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$134
+    LDA.l BossKnownTiles+$18 ; :
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$136
+
+    ;-------------
+    ;Kraid's Lair (KR)
+    ;-------------
+
+    ;Draw the randomized boss letter for the KR Location in the bottom row
+    LDA.l BossTable_bosses : ASL : TAX
+    LDA.l BossKnownTiles,X
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$138
+
+    ;-------------
+    ;Wrecked Ship (WS)
+    ;-------------
+
     ;Draw the randomized boss letter for the WS Location in the bottom row
-    LDA.l BossTable+$02 : ASL : TAX
+    LDA.l BossTable_bosses+$02 : ASL : TAX
     LDA.l BossKnownTiles,X
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$13E
 
@@ -195,53 +206,107 @@ DrawBossesKnown:
     ;East Maridia (EM)
     ;-------------
 
-    ;Draw a STATIC EM in the top row
-    LDA.l BossKnownTiles+$08 ; E
-    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$104
-    LDA.l BossKnownTiles+$0A ; M
-    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$106
-
     ;Draw the randomized boss letter for the EM Location in the bottom row
-    LDA.l BossTable+$04 : ASL : TAX
+    LDA.l BossTable_bosses+$04 : ASL : TAX
     LDA.l BossKnownTiles,X
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$144
+
 
     ;-------------
     ;Lower Norfair (LN)
     ;-------------
 
-    ;Draw a STATIC LN in the top row
-    LDA.l BossKnownTiles+$10 ; L
-    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$10A
-    LDA.l BossKnownTiles+$12 ; N
-    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$10C
-
     ;Draw the randomized boss letter for the LN Location in the bottom row
-    LDA.l BossTable+$06 : ASL : TAX
+    LDA.l BossTable_bosses+$06 : ASL : TAX
     LDA.l BossKnownTiles,X
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$14A
+
+    ;*********************************************************************
+    ;ROW - OPENS (DYNAMIC INFO)
+    ;*********************************************************************
+
+    ;Draw a STATIC "OPENS:" at the beginning of the BOTTOM row for the Location label
+    LDA.l BossKnownTiles+$1A ; O
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$16C
+    LDA.l BossKnownTiles+$02 ; P
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$16E
+    LDA.l BossKnownTiles+$10 ; E
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$170
+    LDA.l BossKnownTiles+$16 ; N
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$172
+    LDA.l BossKnownTiles+$0E ; S
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$174
+    LDA.l BossKnownTiles+$18 ; :
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$176
+
+    ;-------------
+    ;Kraid's Lair (KR)
+    ;-------------
+
+    LDA.l BossTable_areas+$00 : INC : ASL : INC : ASL : INC : INC : TAX
+    LDA.l BossKnownTiles,X
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$178
+    INX : INX
+    LDA.l BossKnownTiles,X
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$17A
+
+    ;-------------
+    ;Wrecked Ship (WS)
+    ;-------------
+
+    LDA.l BossTable_areas+$02 : INC : ASL : INC : ASL : INC : INC : TAX
+    LDA.l BossKnownTiles,X
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$17E
+    INX : INX
+    LDA.l BossKnownTiles,X
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$180
+
+    ;-------------
+    ;East Maridia (EM)
+    ;-------------
+
+    LDA.l BossTable_areas+$04 : INC : ASL : INC : ASL : INC : INC : TAX
+    LDA.l BossKnownTiles,X
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$184
+    INX : INX
+    LDA.l BossKnownTiles,X
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$186
+
+    ;-------------
+    ;Lower Norfair (LN)
+    ;-------------
+
+    LDA.l BossTable_areas+$06 : INC : ASL : INC : ASL : INC : INC : TAX
+    LDA.l BossKnownTiles,X
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$18A
+    INX : INX
+    LDA.l BossKnownTiles,X
+    STA.l !BOSSES_KNOWN_TILEMAP_BASE+$18C
 
 RTL
 
 
 BossKnownTiles:
-
+; The order of these needs to stay the same for the bosses known info to be correct.
 dw #$0074 ; K | $00
 dw #$0079 ; P | $02
 dw #$006D ; D | $04
 dw #$007B ; R | $06
 
-dw #$006E ; E | $08
-dw #$0076 ; M | $0A
+dw #$0074 ; K | $08
+dw #$007B ; R | $0A
 
 dw #$0080 ; W | $0C
 dw #$007C ; S | $0E
 
-dw #$0075 ; L | $10
-dw #$0077 ; N | $12
+dw #$006E ; E | $10
+dw #$0076 ; M | $12
 
-dw #$008C ; : | $14
-dw #$0078 ; O | $16
-dw #$006C ; C | $18
-dw #$006B ; B | $1A
-;dw #$007E ; U | $1C ; Uncomment this when we have customizable area unlocks
+dw #$0075 ; L | $14
+dw #$0077 ; N | $16
+
+;Extra characters for labels
+dw #$008C ; : | $18
+dw #$0078 ; O | $1A
+dw #$006B ; B | $1C
+dw #$006C ; C | $1E
