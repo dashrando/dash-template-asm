@@ -258,7 +258,7 @@ endmacro
 
 %RidleyVector(Brinstar,$01)
 %RidleyVector(WreckedShip,$01)
-%RidleyVector(Maridia,$00)
+%RidleyVector(Maridia,$01)
 
 ;--------------------------------------------------------------------
 ; Door Alignment Table
