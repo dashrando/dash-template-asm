@@ -3,7 +3,7 @@
 ;------------------------------------------------------------------------------
 ; Column-major room tables organized first by vanilla area index then room index.
 ; Each vanilla area has three fields: sub_areas (byte), room_flags (byte), and
-; room_patches (word.) 
+; room_patches (word) 
 ;------------------------------------------------------------------------------
 
 if !RECALL == 1
@@ -51,6 +51,9 @@ endif
 %AreaRoomTable(Tourian, $12)
 
 ;------------------------------------------------------------------------------
+; sub_areas: x x x x s s s s
+; s = Sub-area index (0-15)
+; x = Original area index (0-7); used for copied boss rooms
 ; room_flags: - - q - - - - -
 ; q = Enable Pressure Valve
 ;------------------------------------------------------------------------------

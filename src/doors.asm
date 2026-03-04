@@ -251,14 +251,14 @@ endmacro
 
 ;---
 
-macro RidleyVector(area,screen_y)
+macro RidleyVector(area)
 DoorVectorToRidleyIn<area>:
-dw RoomHeaderRidleyIn<area> : db $40,$05,$0E,$06,$00,<screen_y> : dw $8000,$0000
+dw RoomHeaderRidleyIn<area> : db $40,$05,$0E,$06,$00,$00 : dw $8000,$0000
 endmacro
 
-%RidleyVector(Brinstar,$01)
-%RidleyVector(WreckedShip,$01)
-%RidleyVector(Maridia,$00)
+%RidleyVector(Brinstar)
+%RidleyVector(WreckedShip)
+%RidleyVector(Maridia)
 
 ;--------------------------------------------------------------------
 ; Door Alignment Table
@@ -308,12 +308,12 @@ dw Door_Croc,DoorVectorToCrocEntry,$0008,$0C57,$02B8
 dw DoorToKraidBoss,DoorVectorToKraidInBrinstar,$0001,$0034,$0188
 dw DoorToKraidBoss,DoorVectorToPhantoonInBrinstar,$0001,$002E,$00B8
 dw DoorToKraidBoss,DoorVectorToDraygonInBrinstar,$0002,$01C8,$0088
-dw DoorToKraidBoss,DoorVectorToRidleyInBrinstar,$0009,$00BF,$0198
+dw DoorToKraidBoss,DoorVectorToRidleyInBrinstar,$0002,$00BF,$0198
 
 dw DoorToPhantoonBoss,DoorVectorToPhantoonInWreckedShip,$0001,$002E,$00B8
 dw DoorToPhantoonBoss,DoorVectorToKraidInWreckedShip,$0001,$0034,$0188
 dw DoorToPhantoonBoss,DoorVectorToDraygonInWreckedShip,$0002,$01C8,$0088
-dw DoorToPhantoonBoss,DoorVectorToRidleyInWreckedShip,$000A,$00BF,$0198
+dw DoorToPhantoonBoss,DoorVectorToRidleyInWreckedShip,$0002,$00BF,$0198
 
 dw DoorToDraygonBoss,DoorVectorToDraygonInMaridia,$0002,$01C8,$0088
 dw DoorToDraygonBoss,DoorVectorToKraidInMaridia,$0001,$0034,$0188

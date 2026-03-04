@@ -43,11 +43,10 @@ warnpc $80FFC0 ; SNES ROM Header
 
 org $81EF1A
 incsrc save.asm
-incsrc fileselect/fileselect.asm
 warnpc $828000
 
 org $82F900
-incsrc fileselect/gameoptions.asm
+incsrc main_menu.asm
 incsrc menu.asm
 incsrc subareas.asm
 incsrc roompatching.asm
@@ -122,7 +121,7 @@ incbin data/numbertiles_inverted.2bpp
 org $9AB542
 incbin data/superpbicons.2bpp
 org $9AB750
-incbin data/hudtiles_2.nes ; For the one tile after the "Energ" tile.
+incbin data/hudtiles_2.nes ; For the one tile after the "Energy" tile.
 org $9AB691
 incbin data/missileicon.2bpp
 

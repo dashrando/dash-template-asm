@@ -25,7 +25,7 @@ RTS
 ;------------------------------------------------------------
 ; Certain misaligned door transitions require that we update
 ; the screen coordinates. At the moment, transitioning to
-; vanilla Ridley is the only one so we handle it explicitly.
+; Ridley is the only issue so we handle it explicitly.
 ;
 ; Register states when called:
 ;   A = Screen Y position from ROM
@@ -36,11 +36,15 @@ FixScreenPosition:
 
         ; Check for misaligned doors
         LDA.w DoorMisaligned : BIT.w #$4000 : BEQ .done
-                ; Check to see if this is vanilla Ridley
-                CPX.w #DoorVectorToRidleyInNorfair : BNE +
-                        ; Fix the screen position
-                        LDA.w #$0100 : STA.w ScreenYPos
+                ; Check to see if this is a misaligned Ridley
+                CPX.w #DoorVectorToRidleyInNorfair : BEQ +
+                CPX.w #DoorVectorToRidleyInMaridia : BEQ +
+                CPX.w #DoorVectorToRidleyInWreckedShip : BEQ +
+                CPX.w #DoorVectorToRidleyInBrinstar : BEQ +
+                        RTS
                 +
+                ; Fix the screen position
+                LDA.w #$0100 : STA.w ScreenYPos
         .done
 RTS
 
@@ -51,6 +55,8 @@ HandleEnterDoor:
         PHA : PHX
         STZ.w DoorMisaligned
         LDX.w #0
+
+        ; Search for the door in the table
         .loop:
                 LDA.l DoorDirectionTable,X
                 BEQ .done
@@ -59,9 +65,13 @@ HandleEnterDoor:
                 TXA : CLC : ADC.w #10 : TAX
                 BRA .loop
         .search:
+
+        ; Store the vanilla direction that the door is facing in the stack
         LDA.l DoorDirectionTable+4,X
         STA $01,S
         LDX.w #0
+
+        ; Search for the door vector in the table
         .inner:
                 LDA.l DoorDirectionTable+2,X
                 BEQ .done
@@ -70,8 +80,14 @@ HandleEnterDoor:
                 TXA : CLC : ADC.w #10 : TAX
                 BRA .inner
         .compare:
+
+        ; If we got here, we found the door and the door vector, so we will need
+        ; to check if the door is misaligned, and we will want to run the custom
+        ; logic to give iframes. Set the high bit to note this.
         LDA.w #$8000
         STA.w DoorMisaligned
+
+        ; Check if the door is misaligned
         LDA.l DoorDirectionTable+4,X
         CMP $01,S : BEQ .done
                 TXA : ORA.w #$C000
