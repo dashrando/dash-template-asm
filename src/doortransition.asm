@@ -39,6 +39,8 @@ FixScreenPosition:
                 ; Check to see if this is a misaligned Ridley
                 CPX.w #DoorVectorToRidleyInNorfair : BEQ +
                 CPX.w #DoorVectorToRidleyInMaridia : BEQ +
+                CPX.w #DoorVectorToRidleyInWreckedShip : BEQ +
+                CPX.w #DoorVectorToRidleyInBrinstar : BEQ +
                         RTS
                 +
                 ; Fix the screen position
