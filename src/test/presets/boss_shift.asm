@@ -45,7 +45,7 @@ InitializeForTesting: {
         org NoFanfare : dw $0001 ; Disable fanfares
 
         ;---- Round Trip 0 ----
-        macro BossRoundTrip(boss)
+        macro BossRoundTripV0(boss)
         org DoorToKraidBoss : dw DoorVectorTo<boss>InBrinstar
         org DoorFrom<boss>InBrinstar : dw DoorVectorToPrePhantoon
         org DoorToPhantoonBoss : dw DoorVectorTo<boss>InWreckedShip
@@ -56,7 +56,41 @@ InitializeForTesting: {
         org DoorFrom<boss>InNorfair : dw DoorVectorToPreKraid
         endmacro
 
-        %BossRoundTrip(Ridley)
+        ;---- Round Trip 1 ----
+        macro BossRoundTripV1(boss)
+        org DoorToKraidBoss : dw DoorVectorTo<boss>InMaridia
+        org DoorFrom<boss>InMaridia : dw DoorVectorToPrePhantoon
+        org DoorToPhantoonBoss : dw DoorVectorTo<boss>InNorfair
+        org DoorFrom<boss>InNorfair : dw DoorVectorToPreDraygon
+        org DoorToDraygonBoss : dw DoorVectorTo<boss>InBrinstar
+        org DoorFrom<boss>InBrinstar : dw DoorVectorToPreRidley
+        org DoorToRidleyBoss : dw DoorVectorTo<boss>InWreckedShip
+        org DoorFrom<boss>InWreckedShip : dw DoorVectorToPreKraid
+        endmacro
+
+        %BossRoundTripV0(Ridley)
+
+        ;org DoorToKraidBoss : dw DoorVectorToRidleyInWreckedShip
+        ;org DoorFromRidleyInWreckedShip : dw DoorVectorToPreRidley
+        ;org DoorToRidleyBoss : dw DoorVectorToRidleyInBrinstar
+        ;org DoorFromRidleyInBrinstar : dw DoorVectorToPreRidley
+
+        ;org DoorToDraygonBoss : dw DoorVectorToRidleyInMaridia
+        ;org DoorFromRidleyInMaridia : dw DoorVectorToPreDraygon
+
+        ;org DoorToPhantoonBoss : dw DoorVectorToDraygonInBrinstar
+        ;org DoorFromPhantoonInNorfair : dw DoorVectorToPreRidley
+        ;org DoorToRidleyBoss : dw DoorVectorToKraidInWreckedShip
+        ;org DoorFromKraidInWreckedShip : dw DoorVectorToPreKraid
+
+        ;org DoorToKraidBoss : dw DoorVectorToRidleyInMaridia
+        ;org DoorFromRidleyInMaridia : dw DoorVectorToPrePhantoon
+        ;org DoorToPhantoonBoss : dw DoorVectorToDraygonInBrinstar
+        ;org DoorFromDraygonInBrinstar : dw DoorVectorToPreDraygon
+        ;org DoorToDraygonBoss : dw DoorVectorToPhantoonInNorfair
+        ;org DoorFromPhantoonInNorfair : dw DoorVectorToPreRidley
+        ;org DoorToRidleyBoss : dw DoorVectorToKraidInWreckedShip
+        ;org DoorFromKraidInWreckedShip : dw DoorVectorToPreKraid
 
         ; Testing Kraid in LN
         ;org DoorFromKraidInBrinstar : dw DoorVectorToPreRidley

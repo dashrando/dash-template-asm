@@ -1,3 +1,9 @@
+;------------------------------------------------------------------------------
+; Menu
+;------------------------------------------------------------------------------
+; Code and data related to the pause menu.
+;------------------------------------------------------------------------------
+
 ; More or less equivalent to the vanilla item toggle code
 ; but reworked to support toggling Dash items too
 HandleMenuItemToggle: {

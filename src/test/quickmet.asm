@@ -35,6 +35,8 @@
 
 macro quickmet(roomId,samusX,samusY,doorCapX,doorCapY,destX,destY)
 
+print "Using QuickMet! Do NOT use on production!"
+
 pushpc
 
 !roomId = <roomId>
@@ -118,8 +120,8 @@ LDA #!samusX_start : STA SamusXPos
 LDA #!samusY_start : STA SamusYPos
 
 ; Make sure Samus has some health
-LDA.w #402 : STA CurrentHealth
-LDA.w #599 : STA MaxHealth
+LDA.w #1499 : STA CurrentHealth
+LDA.w #1499 : STA MaxHealth
 
 ; Call our custom code to initialize the game state
 JSL.l InitGameState_main

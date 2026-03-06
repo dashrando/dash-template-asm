@@ -43,8 +43,20 @@ print "  // Boss Entry Door Vectors"
 %PrintLabelAddress(DoorVectorToRidleyInNorfair)
 print "  // Boss Exit Door Pointers"
 %PrintLabelAddress(DoorFromKraidInBrinstar)
+%PrintLabelAddress(DoorFromKraidInWreckedShip)
+%PrintLabelAddress(DoorFromKraidInMaridia)
+%PrintLabelAddress(DoorFromKraidInNorfair)
+%PrintLabelAddress(DoorFromPhantoonInBrinstar)
 %PrintLabelAddress(DoorFromPhantoonInWreckedShip)
+%PrintLabelAddress(DoorFromPhantoonInMaridia)
+%PrintLabelAddress(DoorFromPhantoonInNorfair)
+%PrintLabelAddress(DoorFromDraygonInBrinstar)
+%PrintLabelAddress(DoorFromDraygonInWreckedShip)
 %PrintLabelAddress(DoorFromDraygonInMaridia)
+%PrintLabelAddress(DoorFromDraygonInNorfair)
+%PrintLabelAddress(DoorFromRidleyInBrinstar)
+%PrintLabelAddress(DoorFromRidleyInWreckedShip)
+%PrintLabelAddress(DoorFromRidleyInMaridia)
 %PrintLabelAddress(DoorFromRidleyInNorfair)
 print "  // Boss Exit Door Vectors"
 %PrintLabelAddress(DoorVectorToPreKraid)
@@ -162,6 +174,8 @@ print "  // Gravity Heat Damage:"
 print "  // LN Chozo Trigger: 0x0000 = Require Space Jump"
 print "  //                   0x0001 = Nothing Required"
 %PrintLabelAddress(LNChozoTrigger)
+print "  // Show Bosses: 0x0000 = Don't show  0x0001 = Show"
+%PrintLabelAddress(ShowBosses)
 print "};"
 print ""
 print "export const PATCHES = {"
