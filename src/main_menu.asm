@@ -120,13 +120,13 @@ DrawBossesKnown:
     ;*********************************************************************
     
     ;Draw a STATIC "LOC:" at the beginning of the TOP row for the Location label
-    LDA.l BossKnownTiles+$14 ; L
+    LDA.w #$0075 ; L
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$F0
-    LDA.l BossKnownTiles+$1A ; O
+    LDA.w #$0078 ; O
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$F2
-    LDA.l BossKnownTiles+$1E ; C
+    LDA.w #$006C ; C
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$F4
-    LDA.l BossKnownTiles+$18 ; :
+    LDA.w #$008C ; :
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$F6
 
     ;-------------
@@ -134,9 +134,9 @@ DrawBossesKnown:
     ;-------------
 
     ;Draw a STATIC KR in the top row
-    LDA.l BossKnownTiles+$08 ; K
+    LDA.w #$0074 ; K
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$F8
-    LDA.l BossKnownTiles+$0A ; R
+    LDA.w #$007B ; R
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$FA
 
     ;-------------
@@ -144,9 +144,9 @@ DrawBossesKnown:
     ;-------------
 
     ;Draw a STATIC WS in the top row
-    LDA.l BossKnownTiles+$0C ; W
+    LDA.w #$0080 ; W
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$FE
-    LDA.l BossKnownTiles+$0E ; S
+    LDA.w #$007C ; S
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$100
 
     ;-------------
@@ -154,9 +154,9 @@ DrawBossesKnown:
     ;-------------
 
     ;Draw a STATIC EM in the top row
-    LDA.l BossKnownTiles+$10 ; E
+    LDA.w #$006E ; E
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$104
-    LDA.l BossKnownTiles+$12 ; M
+    LDA.w #$0076 ; M
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$106
 
     ;-------------
@@ -164,9 +164,9 @@ DrawBossesKnown:
     ;-------------
 
     ;Draw a STATIC LN in the top row
-    LDA.l BossKnownTiles+$14 ; L
+    LDA.w #$0075 ; L
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$10A
-    LDA.l BossKnownTiles+$16 ; N
+    LDA.w #$0077 ; N
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$10C
 
     ;*********************************************************************
@@ -174,15 +174,15 @@ DrawBossesKnown:
     ;*********************************************************************
 
     ;Draw a STATIC "BOSS:" at the beginning of the MIDDLE row for the Boss label
-    LDA.l BossKnownTiles+$1C ; B
+    LDA.w #$006B ; B
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$12E
-    LDA.l BossKnownTiles+$1A ; O
+    LDA.w #$0078 ; O
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$130
-    LDA.l BossKnownTiles+$0E ; S
+    LDA.w #$007C ; S
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$132
-    LDA.l BossKnownTiles+$0E ; S
+    LDA.w #$007C ; S
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$134
-    LDA.l BossKnownTiles+$18 ; :
+    LDA.w #$008C ; :
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$136
 
     ;-------------
@@ -227,61 +227,57 @@ DrawBossesKnown:
     ;*********************************************************************
 
     ;Draw a STATIC "OPENS:" at the beginning of the BOTTOM row for the Location label
-    LDA.l BossKnownTiles+$1A ; O
+    LDA.w #$0078 ; O
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$16C
-    LDA.l BossKnownTiles+$02 ; P
+    LDA.w #$0079 ; P
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$16E
-    LDA.l BossKnownTiles+$10 ; E
+    LDA.w #$006E ; E
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$170
-    LDA.l BossKnownTiles+$16 ; N
+    LDA.w #$0077 ; N
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$172
-    LDA.l BossKnownTiles+$0E ; S
+    LDA.w #$007C ; S
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$174
-    LDA.l BossKnownTiles+$18 ; :
+    LDA.w #$008C ; :
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$176
 
     ;-------------
     ;Kraid's Lair (KR)
     ;-------------
 
-    LDA.l BossTable_areas+$00 : INC : ASL : INC : ASL : INC : INC : TAX
-    LDA.l BossKnownTiles,X
+    LDA.l BossTable_areas+$00 : ASL #2 : TAX
+    LDA.l BossKnownTiles_areas,X
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$178
-    INX : INX
-    LDA.l BossKnownTiles,X
+    LDA.l BossKnownTiles_areas+$02,X
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$17A
 
     ;-------------
     ;Wrecked Ship (WS)
     ;-------------
 
-    LDA.l BossTable_areas+$02 : INC : ASL : INC : ASL : INC : INC : TAX
-    LDA.l BossKnownTiles,X
+    LDA.l BossTable_areas+$02 : ASL #2 : TAX
+    LDA.l BossKnownTiles_areas,X
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$17E
-    INX : INX
-    LDA.l BossKnownTiles,X
+    LDA.l BossKnownTiles_areas+$02,X
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$180
 
     ;-------------
     ;East Maridia (EM)
     ;-------------
 
-    LDA.l BossTable_areas+$04 : INC : ASL : INC : ASL : INC : INC : TAX
-    LDA.l BossKnownTiles,X
+    LDA.l BossTable_areas+$04 : ASL #2 : TAX
+    LDA.l BossKnownTiles_areas,X
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$184
-    INX : INX
-    LDA.l BossKnownTiles,X
+    LDA.l BossKnownTiles_areas+$02,X
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$186
 
     ;-------------
     ;Lower Norfair (LN)
     ;-------------
 
-    LDA.l BossTable_areas+$06 : INC : ASL : INC : ASL : INC : INC : TAX
-    LDA.l BossKnownTiles,X
+    LDA.l BossTable_areas+$06 : ASL #2 : TAX
+    LDA.l BossKnownTiles_areas,X
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$18A
-    INX : INX
-    LDA.l BossKnownTiles,X
+    LDA.l BossKnownTiles_areas+$02,X
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$18C
 
 RTL
@@ -294,6 +290,7 @@ dw #$0079 ; P | $02
 dw #$006D ; D | $04
 dw #$007B ; R | $06
 
+.areas:
 dw #$0074 ; K | $08
 dw #$007B ; R | $0A
 
@@ -305,9 +302,3 @@ dw #$0076 ; M | $12
 
 dw #$0075 ; L | $14
 dw #$0077 ; N | $16
-
-;Extra characters for labels
-dw #$008C ; : | $18
-dw #$0078 ; O | $1A
-dw #$006B ; B | $1C
-dw #$006C ; C | $1E
