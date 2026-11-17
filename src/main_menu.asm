@@ -13,19 +13,19 @@ DrawFileSelectHash:
         LDA.w #$007F : STA.b $0A
 
         LDA.w #$C052 : STA.b $08
-        LDA.l FileSelectCode : AND.w #$001F
+        LDA.l FileSelectCode+$00
         JSR.w WriteHashTiles
 
         LDA.w #$C060 : STA.b $08
-        LDA.l FileSelectCode+$01 : AND.w #$001F
+        LDA.l FileSelectCode+$01
         JSR.w WriteHashTiles
 
         LDA.w #$C092 : STA.b $08
-        LDA.l FileSelectCode+$02 : AND.w #$001F
+        LDA.l FileSelectCode+$02
         JSR.w WriteHashTiles
 
         LDA.w #$C0A0 : STA.b $08
-        LDA.l FileSelectCode+$03 : AND.w #$001F
+        LDA.l FileSelectCode+$03
         JSR.w WriteHashTiles
 
         PLX
@@ -33,6 +33,7 @@ DrawFileSelectHash:
 RTS
 
 WriteHashTiles:
+        AND.w #$001F
         ASL #3 : ADC.w #$0007 : TAX
         LDY.w #$000E
         -
