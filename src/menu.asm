@@ -7,8 +7,6 @@
 ; More or less equivalent to the vanilla item toggle code
 ; but reworked to support toggling Dash items too
 HandleMenuItemToggle: {
-   PHY
-
    ; Not toggling suits/boots
    CPY.w #VanillaItemsEquipped
    BNE .toggle
@@ -31,7 +29,6 @@ HandleMenuItemToggle: {
    ORA.w $0000,x
    STA.w $0000,y
 
-   PLY
    JMP.w $B5B4
 
 .unequip:
@@ -42,7 +39,6 @@ HandleMenuItemToggle: {
    AND.b $12
    STA.w $0000,y
 
-   PLY
    JMP.w $B5DA
 }
 
@@ -99,43 +95,45 @@ CheckEquipmentBitmask: {
 ; each vanilla item (Varia, Gravity, Space Jump) and uses the
 ; Dash equivalent tilemaps when appropriate.
 SelectMenuTiles: {
+   LDY.w #$0000 ; what we overwrote
+   LDA.w VanillaItemsCollected
+
    ; Move to the next check if not selecting Varia Suit
    CPX #$BF64
    BNE +
 
    ; Simply return if Varia Suit is collected
-   LDA #$0001 : BIT.w VanillaItemsCollected
+   BIT.w #$0001
    BNE .ret
 
    ; Use the Heat Shield tilemap instead
    LDX.w #HeatShieldTileMap
-   BRA .ret
+   RTS
 
    ; Move to the next check if not selecting Gravity Suit
 +  CPX #$BF76
    BNE +
 
    ; Simply return if Gravity Suit is collected
-   LDA #$0020 : BIT.w VanillaItemsCollected
+   BIT.w #$0020
    BNE .ret
 
    ; Use the Pressure Valve tilemap instead
    LDX.w #PressureValveTileMap
-   BRA .ret
+   RTS
 
    ; Move to the next check if not selecting Space Jump
 +  CPX #$BFE4
    BNE .ret
 
    ; Simply return if Space Jump is not collected
-   LDA #$0200 : BIT.w VanillaItemsCollected
+   BIT.w #$0200
    BNE .ret
 
-   ; Use the Double Jump timemap instead
+   ; Use the Double Jump tilemap instead
    LDX.w #DoubleJumpTileMap
 
 .ret:
-   LDY.w #$0000
    RTS
 }
 
