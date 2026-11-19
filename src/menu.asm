@@ -96,14 +96,13 @@ CheckEquipmentBitmask: {
 ; Dash equivalent tilemaps when appropriate.
 SelectMenuTiles: {
    LDY.w #$0000 ; what we overwrote
-   LDA.w VanillaItemsCollected
 
    ; Move to the next check if not selecting Varia Suit
    CPX #$BF64
    BNE +
 
    ; Simply return if Varia Suit is collected
-   BIT.w #$0001
+   LDA #$0001 : BIT.w VanillaItemsCollected
    BNE .ret
 
    ; Use the Heat Shield tilemap instead
@@ -115,7 +114,7 @@ SelectMenuTiles: {
    BNE +
 
    ; Simply return if Gravity Suit is collected
-   BIT.w #$0020
+   LDA #$0020 : BIT.w VanillaItemsCollected
    BNE .ret
 
    ; Use the Pressure Valve tilemap instead
@@ -127,7 +126,7 @@ SelectMenuTiles: {
    BNE .ret
 
    ; Simply return if Space Jump is not collected
-   BIT.w #$0200
+   LDA #$0200 : BIT.w VanillaItemsCollected
    BNE .ret
 
    ; Use the Double Jump tilemap instead
