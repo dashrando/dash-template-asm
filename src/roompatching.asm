@@ -6,7 +6,7 @@
 
 PostRoomDecompression: 
         LDA.l AreaIndex : ASL : TAX
-        LDA.l RoomIndex : ASL : ADC.l AreaOffset,X : TAX
+        LDA.l RoomIndex : ASL : ADC.l PatchOffsets,X : TAX
         LDA.l $DF0000,X
         CMP.w #NoPatch : BEQ .skip
                 JSR.w PatchRoom
@@ -14,7 +14,7 @@ PostRoomDecompression:
         LDA.w $0000
 RTS
 
-AreaOffset:
+PatchOffsets:
 dw CrateriaRooms_room_patches
 dw BrinstarRooms_room_patches
 dw NorfairRooms_room_patches
