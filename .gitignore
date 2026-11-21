@@ -9,3 +9,5 @@
 **/*.sym
 **/*.bp
 /run_*.bat
+fast_mode.ips
+qol.ips

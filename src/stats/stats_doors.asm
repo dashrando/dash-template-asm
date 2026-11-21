@@ -2,7 +2,7 @@ DoorAdjustStart:
         LDA.l GoalComplete : BNE .skip
                 LDA.w #$0001 : STA.w DoorAdjustFlag
         .skip
-        LDA.w #$E310 : STA.w DoorTransitionPtr
+        LDA.w #$0008
 RTS
 
 DoorAdjustStop:
@@ -18,6 +18,10 @@ DoorAdjustStop:
         .skip
         LDA.w #$E353 : STA.w DoorTransitionPtr
 RTS
+
+warnpc $82FD7F
+; ***** Leave space for fast patches *****
+org $82FDBB
 
 IncrementDoorTransitions:
         LDA.l GoalComplete : BNE .skip
