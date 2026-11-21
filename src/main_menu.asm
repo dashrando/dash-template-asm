@@ -39,11 +39,9 @@ WriteHashTiles:
         -
                 LDA.l WordTable,X : AND.w #$00FF
                 ASL
-                PHY : TAY
-                        PHX : TYX
-                        LDA.l CharTable,X
-                        PLX
-                PLY
+                PHX : TAX
+                LDA.l CharTable,X
+                PLX
                 STA.b [$08],Y
                 DEX : DEY #2
         BPL -
