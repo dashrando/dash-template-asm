@@ -128,49 +128,37 @@ DrawBossesKnownPauseMenu:
 ; button UI) when ShowBosses is true. Otherwise we just run the original code.
 ; ---------------------------------------------------------------------
 CheckPauseMapButtonRecoloring:
-    PHP
-    SEP #$20                    ; 8-bit A to check 1-byte ShowBosses flag
+    REP #$30 : PHP              ; What we jumped over
     LDA.l ShowBosses
     BEQ .run_original
 
     PLP
     RTS                         ; Just return, skipping the button recoloring
 
-.run_original:                  ; What we jumped over
-    PLP
-    REP #$30                    ; Restore 16-bit A, X, Y
-    PHP
-    JMP.w $A62B
+.run_original:
+    JMP.w $A62B                 ; Jump back to the original code
 
 CheckPauseSamusButtonRecoloring:
-    PHP
-    SEP #$20                    ; 8-bit A to check 1-byte ShowBosses flag
+    REP #$30 : PHP              ; What we jumped over
     LDA.l ShowBosses
     BEQ .run_original
 
     PLP
     RTS                         ; Just return, skipping the button recoloring
 
-.run_original:                  ; What we jumped over
-    PLP
-    REP #$30                    ; Restore 16-bit A, X, Y
-    PHP
-    JMP.w $A6E2
+.run_original:
+    JMP.w $A6E2                 ; Jump back to the original code
 
 CheckMapScreenLabels:
-    PHP
-    SEP #$20                    ; 8-bit A to check 1-byte ShowBosses flag
+    REP #$30 : PHP              ; What we jumped over
     LDA.l ShowBosses
     BEQ .run_original
 
     PLP
     RTS                         ; Skip button recoloring when ShowBosses is active
 
-.run_original:                  ; What we jumped over
-    PLP
-    REP #$30                    ; Restore 16-bit A, X, Y
-    PHP
-    JMP.w $A799
+.run_original:
+    JMP.w $A799                 ; Jump back to the original code
 
 ; ---------------------------------------------------------------------
 ; Skips over the routine that displays the Red "EXIT" Sprite when the
@@ -178,15 +166,11 @@ CheckMapScreenLabels:
 ; Otherwise we just run the original code.
 ; ---------------------------------------------------------------------
 CheckUnpauseHighlight:
-    PHP
-    SEP #$20                    ; 8-bit A to check 1-byte ShowBosses flag
+    ; No need to run what we overwrote because we replaced STA with STZ
     LDA.l ShowBosses
     BEQ .run_original           ; If ShowBosses == 0, draw normal red EXIT highlight
 
-    PLP
     JMP.w $A612                 ; Skip JSL $81891F and jump straight to PLB : PLP : RTL
 
 .run_original:
-    PLP                         ; Restore 16-bit A, X, Y
-    LDA #$0000                  ; Original 3-byte instruction at $82:A600
-    JMP.w $A603                 ; Resume at STA $03 ($82:A603)
+    JMP.w $A603                 ; Resume at STZ $03 ($82:A603)

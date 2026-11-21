@@ -39,6 +39,7 @@ org $82A628 : JMP.w CheckPauseMapButtonRecoloring
 org $82A6DF : JMP.w CheckPauseSamusButtonRecoloring
 org $82A796 : JMP.w CheckMapScreenLabels
 org $82A600 : JMP.w CheckUnpauseHighlight
+org $82A603 : STZ $03 ; Allows us to replace the previous statement completely
 
 ;------------------------------------------------------------------------------
 ; Decompression
