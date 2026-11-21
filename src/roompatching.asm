@@ -6,7 +6,8 @@
 
 PostRoomDecompression: 
         LDA.l AreaIndex : ASL : TAX
-        JSR.w (PatchOffsets,X)
+        LDA.l RoomIndex : ASL : ADC.l PatchOffsets,X : TAX
+        LDA.l $DF0000,X
         CMP.w #NoPatch : BEQ .skip
                 JSR.w PatchRoom
         .skip
@@ -14,37 +15,12 @@ PostRoomDecompression:
 RTS
 
 PatchOffsets:
-dw .crateria
-dw .brinstar
-dw .norfair
-dw .wreckedship
-dw .maridia
-dw .tourian
-
-.crateria
-        LDA.l RoomIndex : ASL : TAX
-        LDA.l CrateriaRooms_room_patches,X
-        RTS
-.brinstar
-        LDA.l RoomIndex : ASL : TAX
-        LDA.l BrinstarRooms_room_patches,X
-        RTS
-.norfair
-        LDA.l RoomIndex : ASL : TAX
-        LDA.l NorfairRooms_room_patches,X
-        RTS
-.wreckedship
-        LDA.l RoomIndex : ASL : TAX
-        LDA.l WreckedShipRooms_room_patches,X
-        RTS
-.maridia
-        LDA.l RoomIndex : ASL : TAX
-        LDA.l MaridiaRooms_room_patches,X
-        RTS
-.tourian
-        LDA.l RoomIndex : ASL : TAX
-        LDA.l TourianRooms_room_patches,X
-        RTS
+dw CrateriaRooms_room_patches
+dw BrinstarRooms_room_patches
+dw NorfairRooms_room_patches
+dw WreckedShipRooms_room_patches
+dw MaridiaRooms_room_patches
+dw TourianRooms_room_patches
 
 PatchRoom:
 ; In: A - 16-bit pointer to this room's patches
