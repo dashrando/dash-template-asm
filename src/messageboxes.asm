@@ -113,6 +113,10 @@ MessageBoxInitHDMA:
                 LDA.b #$7F : STA.w $2122
 RTS
 
+warnpc $859880
+; ***** Leave space for fast patches *****
+org $859980
+
 MessageBoxCloseHDMA:
                 LDA.b #$03 : STA.w $4300
                 LDA.b #$21 : STA.w $4301

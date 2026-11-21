@@ -136,6 +136,16 @@ SelectMenuTiles: {
    RTS
 }
 
+warnpc $82FE78
+
+;org $82FE78
+;dw $FFFF    ; save state buttons
+;dw $FFFF    ; load state buttons
+;dw $FFFF    ; spin lock buttons
+;dw $3030    ; quick reload buttons; L + R + Select + Start
+
+org $82FE80
+
 ; Loads the custom Dash tiles at $2D00 in VRAM
 LoadMenuTiles:
         SEP #$20

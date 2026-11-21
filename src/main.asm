@@ -35,7 +35,13 @@ org $DF8000 : fillbyte $FF : fill $7FFF
 org $80CD90
 incsrc init.asm
 incsrc framehook.asm
+warnpc $80D02F
+; ***** Leave space for fast patches *****
+org $80D140
 incsrc stats/stats.asm
+warnpc $80D310
+; ***** Leave space for fast patches *****
+org $80D331
 incsrc hud/newhud.asm
 incsrc hud/palettehdma.asm
 incsrc generalbugfixes.asm
@@ -47,11 +53,11 @@ warnpc $828000
 
 org $82F900
 incsrc main_menu.asm
-incsrc menu.asm
 incsrc subareas.asm
-incsrc roompatching.asm
-incsrc stats/stats_doors.asm
 incsrc doortransition.asm
+incsrc stats/stats_doors.asm
+incsrc menu.asm
+incsrc roompatching.asm
 warnpc $838000
 
 org $84EFE0
