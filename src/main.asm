@@ -47,6 +47,7 @@ warnpc $828000
 
 org $82F900
 incsrc main_menu.asm
+incsrc pausemenu.asm
 incsrc menu.asm
 incsrc subareas.asm
 incsrc roompatching.asm
@@ -111,7 +112,6 @@ DashLogoSprite:
 incbin data/logosprite.bin
 warnpc $9A8000
 
-; 
 org $9AB200
 incbin data/numbertiles.2bpp
 org $9AB300
@@ -143,9 +143,12 @@ warnpc $CEFFFE
 
 org $DF8000
 incsrc tables.asm ; Keep this first
+incsrc bossesknowndata.asm
 incsrc roomtables.asm
 incsrc credits/credits_data.asm
 warnpc $E08000
+
+
 
 if !INTERFACE == 1
     incsrc interface.asm
