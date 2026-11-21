@@ -143,12 +143,13 @@ warnpc $CEFFFE
 
 org $DF8000
 incsrc tables.asm ; Keep this first
+incsrc fileselecthashdata.asm
 incsrc bossesknowndata.asm
 incsrc roomtables.asm
+
+org $DFA000 ; The space in $DF before this is reserved for tables and data.
 incsrc credits/credits_data.asm
 warnpc $E08000
-
-
 
 if !INTERFACE == 1
     incsrc interface.asm
