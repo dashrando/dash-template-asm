@@ -10,9 +10,8 @@
 DrawBossesKnownPauseMenu:
     JSR $B20C                   ; What we wrote over.
 
-    REP #$30
+    PHP
     PHX : PHY                   ;We're using both X and Y for looping the middle and bottom rows.
-    SEP #$20                    ; 8-bit A to check 1-byte flag
     LDA.l ShowBosses            
     BNE .drawBossesKnown
     JMP.w .skip                 ; Skip drawing all the UI if Bosses Known is off.
@@ -26,10 +25,13 @@ DrawBossesKnownPauseMenu:
 ; draw differently here because the boarder tiles are already written to VRAM and 
 ; won't be drawn over with the passing in of the WRAM buffer (like the other rows are).
 ;------------------------------------------------------------------------------
+    SEP #$20                    ; 8-bit swap in order to write to directVRAM address $2115.
+                                ; $2115 is an 8-bit register, so we need to swap to 8-bit for
+                                ; the next two instructions.
     LDA #$80                    ; Increment VRAM word address by +1 after high byte write
     STA.l $002115
 
-    REP #$30                    ; 16-bit A, X, Y
+    REP #$30                    ; Swap back to 16-bit.
     LDA #$3B05                  ; BG2 Row 24, Col 5 ($3B00 + 5) — adjust column offset as needed
     STA.l $002116
 
@@ -119,6 +121,7 @@ DrawBossesKnownPauseMenu:
 
 .skip:
     PLY : PLX
+    PLP
     RTS
     
 ; ---------------------------------------------------------------------
