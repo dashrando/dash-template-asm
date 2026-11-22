@@ -53,6 +53,7 @@ warnpc $828000
 
 org $82F900
 incsrc main_menu.asm
+incsrc pausemenu.asm
 incsrc subareas.asm
 incsrc doortransition.asm
 incsrc stats/stats_doors.asm
@@ -117,7 +118,6 @@ DashLogoSprite:
 incbin data/logosprite.bin
 warnpc $9A8000
 
-; 
 org $9AB200
 incbin data/numbertiles.2bpp
 org $9AB300
@@ -149,6 +149,11 @@ warnpc $CEFFFE
 
 org $DF8000
 incsrc tables.asm ; Keep this first
+warnpc $DF9000
+
+org $DF9000 ; The space in $DF before this is reserved for tables and data.
+incsrc fileselecthashdata.asm
+incsrc bossesknowndata.asm
 incsrc roomtables.asm
 incsrc credits/credits_data.asm
 warnpc $E08000
