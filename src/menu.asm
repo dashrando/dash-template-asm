@@ -136,16 +136,6 @@ SelectMenuTiles: {
    RTS
 }
 
-warnpc $82FE78
-
-;org $82FE78
-;dw $FFFF    ; save state buttons
-;dw $FFFF    ; load state buttons
-;dw $FFFF    ; spin lock buttons
-;dw $3030    ; quick reload buttons; L + R + Select + Start
-
-org $82FE80
-
 ; Loads the custom Dash tiles at $2D00 in VRAM
 LoadMenuTiles:
         SEP #$20
@@ -161,6 +151,17 @@ LoadMenuTiles:
         JSR.w LoadReserveHealthTilemap ; What we wrote over
 RTS
 
+;
+SetHUDFlagMenu:
+        LDA.b $8F : BIT.w #$0080 : BEQ + ; Check for button press
+                INC.w HUDDrawFlag
+        +
+        JSR.w MenuCheckButton ; What we wrote over
+RTS
+
+warnpc $82FD7F
+; ***** Leave space for fast patches *****
+org $82FDBB
 
 ; oHEAT SHIELD
 HeatShieldTileMap:
@@ -173,13 +174,6 @@ dw $08FF, $0AD6, $0AD7, $0AD8, $0AD9, $0ADA, $0ADB, $0ADC, $0ADD
 ; oDOUBLE JUMP
 DoubleJumpTileMap:
 dw $08FF, $0ADE, $0ADF, $0AE0, $0AE1, $0AE2, $0AE3, $0AE4, $08D4
-
-SetHUDFlagMenu:
-        LDA.b $8F : BIT.w #$0080 : BEQ + ; Check for button press
-                INC.w HUDDrawFlag
-        +
-        JSR.w MenuCheckButton ; What we wrote over
-RTS
 
 pushpc
 org $B6F200

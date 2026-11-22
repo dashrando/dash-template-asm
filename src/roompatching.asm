@@ -22,6 +22,16 @@ dw WreckedShipRooms_room_patches
 dw MaridiaRooms_room_patches
 dw TourianRooms_room_patches
 
+warnpc $82FE78
+
+;org $82FE78
+;dw $FFFF    ; save state buttons
+;dw $FFFF    ; load state buttons
+;dw $FFFF    ; spin lock buttons
+;dw $3030    ; quick reload buttons; L + R + Select + Start
+
+org $82FE80
+
 PatchRoom:
 ; In: A - 16-bit pointer to this room's patches
 ; See documentation of binary patch format in roomedits.asm

@@ -19,10 +19,6 @@ DoorAdjustStop:
         LDA.w #$E353 : STA.w DoorTransitionPtr
 RTS
 
-warnpc $82FD7F
-; ***** Leave space for fast patches *****
-org $82FDBB
-
 IncrementDoorTransitions:
         LDA.l GoalComplete : BNE .skip
                 LDA.l DoorTransitions : INC : STA.l DoorTransitions
