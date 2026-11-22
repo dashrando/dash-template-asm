@@ -34,6 +34,12 @@ org $82EED9 : LDA.w #$001F ; Skip intro
 org $82ECBB : JSR.w DrawFileSelectHash
 org $82EDB1 : JSR.w OnStartGame : BRA + : NOP #7 : +
 org $819ECC : JSL.l DrawBossesKnown : NOP #2
+org $828F68 : JSR.w DrawBossesKnownPauseMenu
+org $82A628 : JMP.w CheckPauseMapButtonRecoloring
+org $82A6DF : JMP.w CheckPauseSamusButtonRecoloring
+org $82A796 : JMP.w CheckMapScreenLabels
+org $82A600 : JMP.w CheckUnpauseHighlight
+org $82A603 : STZ $03 ; Allows us to replace the previous statement completely
 
 ;------------------------------------------------------------------------------
 ; Decompression

@@ -37,65 +37,15 @@ WriteHashTiles:
         ASL #3 : ADC.w #$0007 : TAX
         LDY.w #$000E
         -
-                LDA.w WordTable,X : AND.w #$00FF
+                LDA.l WordTable,X : AND.w #$00FF
                 ASL
-                PHY : TAY
-                LDA.w CharTable,Y
-                PLY
+                PHX : TAX
+                LDA.l CharTable,X
+                PLX
                 STA.b [$08],Y
                 DEX : DEY #2
         BPL -
 RTS
-
-CharTable:
-; 0x00																				  	     0x0F
-dw $000F,$000F,$000F,$000F,$000F,$000F,$000F,$000F,$000F,$000F,$000F,$000F,$000F,$000F,$000F,$000F
-; 0x10																				  	     0x0F
-dw $000F,$000F,$000F,$000F,$000F,$000F,$000F,$000F,$000F,$000F,$000F,$000F,$000F,$000F,$000F,$000F
-; 0x20																				  	     0x0F
-dw $000F,$0084,$002D,$000F,$000F,$000F,$000F,$0022,$008A,$008B,$000F,$0086,$0089,$0087,$0088,$000F
-
-NumTable:
-; 0x30																				  	     0x0F
-dw $0060,$0061,$0062,$0063,$0064,$0065,$0066,$0067,$0068,$0069,$000F,$000F,$000F,$000F,$000F,$0085
-; 0x40																				  	     0x0F
-dw $000F,$006A,$006B,$006C,$006D,$006E,$006F,$0070,$0071,$0072,$0073,$0074,$0075,$0076,$0077,$0078
-; 0x50																				  	     0x0F
-dw $0079,$007A,$007B,$007C,$007D,$007E,$007F,$0080,$0081,$0082,$0083,$000F,$000F,$000F,$000F,$000F
-
-WordTable:
-    db "GEEMER  "
-    db "RIPPER  "
-    db "ATOMIC  "
-    db "POWAMP  "
-    db "SCISER  "
-    db "NAMIHE  "
-    db "PUROMI  "
-    db "ALCOON  "
-    db "BEETOM  "
-    db "OWTCH   "
-    db "ZEBBO   "
-    db "ZEELA   "
-    db "HOLTZ   "
-    db "VIOLA   "
-    db "WAVER   "
-    db "RINKA   "
-    db "BOYON   "
-    db "CHOOT   "
-    db "KAGO    "
-    db "SKREE   "
-    db "COVERN  "
-    db "EVIR    "
-    db "TATORI  "
-    db "OUM     "
-    db "PUYO    "
-    db "YARD    "
-    db "ZOA     "
-    db "FUNE    "
-    db "GAMET   "
-    db "GERUTA  "
-    db "SOVA    "
-    db "BULL    "
 
 InfoStr:
     db "TOURNAMENT SEED!"
@@ -189,7 +139,7 @@ DrawBossesKnown:
     ;Kraid's Lair (KR)
     ;-------------
 
-    ;Draw the randomized boss letter for the KR Location in the bottom row
+    ;Draw the randomized boss letter for the random K Boss in the middle row
     LDA.l BossTable_bosses : ASL : TAX
     LDA.l BossKnownTiles,X
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$138
@@ -198,7 +148,7 @@ DrawBossesKnown:
     ;Wrecked Ship (WS)
     ;-------------
 
-    ;Draw the randomized boss letter for the WS Location in the bottom row
+    ;Draw the randomized boss letter for the random P Boss in the middle row
     LDA.l BossTable_bosses+$02 : ASL : TAX
     LDA.l BossKnownTiles,X
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$13E
@@ -207,7 +157,7 @@ DrawBossesKnown:
     ;East Maridia (EM)
     ;-------------
 
-    ;Draw the randomized boss letter for the EM Location in the bottom row
+    ;Draw the randomized boss letter for the random D Boss in the middle row
     LDA.l BossTable_bosses+$04 : ASL : TAX
     LDA.l BossKnownTiles,X
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$144
@@ -217,7 +167,7 @@ DrawBossesKnown:
     ;Lower Norfair (LN)
     ;-------------
 
-    ;Draw the randomized boss letter for the LN Location in the bottom row
+    ;Draw the randomized boss letter for the random R Boss in the middle row
     LDA.l BossTable_bosses+$06 : ASL : TAX
     LDA.l BossKnownTiles,X
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$14A
@@ -281,24 +231,3 @@ DrawBossesKnown:
     STA.l !BOSSES_KNOWN_TILEMAP_BASE+$18C
 
 RTL
-
-
-BossKnownTiles:
-; The order of these needs to stay the same for the bosses known info to be correct.
-dw #$0074 ; K | $00
-dw #$0079 ; P | $02
-dw #$006D ; D | $04
-dw #$007B ; R | $06
-
-.areas:
-dw #$0074 ; K | $08
-dw #$007B ; R | $0A
-
-dw #$0080 ; W | $0C
-dw #$007C ; S | $0E
-
-dw #$006E ; E | $10
-dw #$0076 ; M | $12
-
-dw #$0075 ; L | $14
-dw #$0077 ; N | $16
