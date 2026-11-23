@@ -15,11 +15,10 @@ org $808490 : JMP.w InitRAM ; Jump because we're overwriting the stack
 ; Frame Hooks
 ;--------------------------------------------------------------------------------
 org $82894B : JSL.l FrameHook
-org $82897A : JSL.l PostFrameHook
 org $809596 : JSR.w NMIHook
 org $8095F7 : JSL.l PostNMIHook : NOP
-; NOP out spare CPU debug feature. We reclaim a flag used by this routine at $0DF4
-org $828976 : BRA + : NOP #2 : +
+; Replace spare CPU debug feature with post frame hook. We reclaim a flag used by this routine at $0DF4
+org $828976 : JSL.l PostFrameHook
 
 ;------------------------------------------------------------------------------
 ; Game State Initialization (doors, etc)
@@ -190,7 +189,7 @@ org $82DE86 : JSR.w OnRoomLoad
 ;------------------------------------------------------------------------------
 org $809602 : JSR.w IncrementLagTimer
 
-org $82E309 : JMP.w DoorAdjustStart
+org $82E304 : JSR.w DoorAdjustStart
 org $82E34C : JMP.w DoorAdjustStop
 org $82E176 : JMP.w IncrementDoorTransitions
 org $90B9A1 : JSR.w IncrementChargedShots

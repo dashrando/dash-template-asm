@@ -7,7 +7,6 @@ RTL
 
 PostFrameHook:
 ; End of game loop before waiting for NMI
-        JSL.l WaitForNMI
 RTL
 
 NMIHook:
